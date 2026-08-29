@@ -1558,6 +1558,10 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
+                      "path":  "mods/nbidal18-integrity-1.0.0+26.2-fabric.jar",
+                      "sha256":  "d82b16ed5100378c97c967d46768ba7c93bf814b0f51be6ccf43a96a09e1f535"
+                  },
+                  {
                       "path":  "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar",
                       "sha256":  "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
                   },
