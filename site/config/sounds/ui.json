@@ -2,7 +2,7 @@
 	"hotbarScrollSoundEffect": {
 		"id": "hotbarScroll",
 		"soundEvent": "sounds:ui.inventory.scroll",
-		"shouldPlay": true,
+		"shouldPlay": false,
 		"pitch": 1.8,
 		"volume": 0.2,
 		"enabledDynamic": true
@@ -34,7 +34,7 @@
 	"inventoryScrollSoundEffect": {
 		"id": "inventoryScroll",
 		"soundEvent": "sounds:ui.inventory.scroll",
-		"shouldPlay": true,
+		"shouldPlay": false,
 		"pitch": 1.8,
 		"volume": 0.2
 	},
@@ -87,7 +87,7 @@
 		"enabledDynamic": true
 	},
 	"ignoreEmptyHotbarSlots": false,
-	"itemSoundCooldown": 0.2,
+	"itemSoundCooldown": 0.05,
 	"enableItemSoundCooldown": true,
 	"enableDynamicItemSounds": true
 }

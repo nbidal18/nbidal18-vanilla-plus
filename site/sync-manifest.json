@@ -20,6 +20,7 @@
                                 "config/sodium-fingerprint.json",
                                 "config/sodium-options.json",
                                 "config/sounds/chat.json",
+                                "config/xaero/minimap/profiles/default.cfg",
                                 "config/xaero/world-map/profiles/default.cfg",
                                 "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",
                                 "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt",
@@ -132,6 +133,7 @@
                          "config/sodium-fingerprint.json",
                          "config/sodium-options.json",
                          "config/sounds/chat.json",
+                         "config/xaero/minimap/profiles/default.cfg",
                          "config/xaero/world-map/profiles/default.cfg",
                          "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",
                          "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt",
@@ -280,6 +282,36 @@
                               "path":  "config/xaero/world-map/profiles/default.cfg",
                               "key":  "load_new_chunks",
                               "value":  "false"
+                          },
+                          {
+                              "path":  "config/xaero/world-map/profiles/default.cfg",
+                              "key":  "footsteps",
+                              "value":  "false"
+                          },
+                          {
+                              "path":  "config/xaero/minimap/profiles/default.cfg",
+                              "key":  "display_minimap",
+                              "value":  "false"
+                          },
+                          {
+                              "path":  "config/xaero/minimap/profiles/default.cfg",
+                              "key":  "display_radar",
+                              "value":  "false"
+                          },
+                          {
+                              "path":  "config/xaero/minimap/profiles/default.cfg",
+                              "key":  "minimap_cave_mode_allowed",
+                              "value":  "false"
+                          },
+                          {
+                              "path":  "config/xaero/minimap/profiles/default.cfg",
+                              "key":  "minimap_slime_chunks",
+                              "value":  "false"
+                          },
+                          {
+                              "path":  "config/xaero/minimap/profiles/default.cfg",
+                              "key":  "minimap_undiscovered_opacity",
+                              "value":  "0"
                           }
                       ],
     "normalizedTextFiles":  [
@@ -669,7 +701,7 @@
                                 },
                                 {
                                     "path":  "config/sounds/ui.json",
-                                    "sha256":  "013c061a2399a1610dd40671b749b6355a25e2608901618338f907cdba516c5c"
+                                    "sha256":  "349b7acc14aa8f1130af2bf33259de6e3e5a861e571252ce8cda949c44103485"
                                 },
                                 {
                                     "path":  "config/sounds/world.json",
@@ -740,8 +772,12 @@
                                     "sha256":  "86061aeaa531953c4bbdd96610bca2c54d41c5cba9c8b91e67ce77b340071c1e"
                                 },
                                 {
+                                    "path":  "config/xaero/minimap/profiles/default.cfg",
+                                    "sha256":  "c436ae13c25883562fb082fb4097e1cb51b997ef78a1b68c7893abf893570584"
+                                },
+                                {
                                     "path":  "config/xaero/world-map/profiles/default.cfg",
-                                    "sha256":  "577da88e04289dc7956f02a44fd8ba9527616fb5b64fd69bafc2d2f2593ff16c"
+                                    "sha256":  "d3166fa0cf1fdfe9d270d55cd9648e47e3f00c7dc7b633c12113ed0836c041df"
                                 },
                                 {
                                     "path":  "config/yacl.json5",
@@ -1139,7 +1175,7 @@
                   },
                   {
                       "path":  "config/sounds/ui.json",
-                      "sha256":  "013c061a2399a1610dd40671b749b6355a25e2608901618338f907cdba516c5c"
+                      "sha256":  "349b7acc14aa8f1130af2bf33259de6e3e5a861e571252ce8cda949c44103485"
                   },
                   {
                       "path":  "config/sounds/world.json",
@@ -1210,8 +1246,12 @@
                       "sha256":  "00c6e34f0adbb41db954d296fd7c55dc3412463a38038dc836626433dd7f6d92"
                   },
                   {
+                      "path":  "config/xaero/minimap/profiles/default.cfg",
+                      "sha256":  "c436ae13c25883562fb082fb4097e1cb51b997ef78a1b68c7893abf893570584"
+                  },
+                  {
                       "path":  "config/xaero/world-map/profiles/default.cfg",
-                      "sha256":  "577da88e04289dc7956f02a44fd8ba9527616fb5b64fd69bafc2d2f2593ff16c"
+                      "sha256":  "d3166fa0cf1fdfe9d270d55cd9648e47e3f00c7dc7b633c12113ed0836c041df"
                   },
                   {
                       "path":  "config/yacl.json5",

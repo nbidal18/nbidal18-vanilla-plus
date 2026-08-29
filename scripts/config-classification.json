@@ -626,6 +626,11 @@
       "reason": "Ambient audio."
     },
     {
+      "match": "config/xaero/minimap/profiles/default.cfg",
+      "class": "player",
+      "reason": "Minimap preferences. The minimap is installed only because waypoints live in it - the map itself, its entity radar and its cave mode are pinned off by property rules."
+    },
+    {
       "match": "config/xaero/world-map/profiles/default.cfg",
       "class": "player",
       "reason": "Map preferences - zoom, colours, waypoint scale. The eight settings that would turn the map into an information cheat are pinned individually by property rules instead, so the player keeps every honest preference."
@@ -809,6 +814,36 @@
       "path": "config/xaero/world-map/profiles/default.cfg",
       "key": "load_new_chunks",
       "value": "false"
+    },
+    {
+      "path": "config/xaero/world-map/profiles/default.cfg",
+      "key": "footsteps",
+      "value": "false"
+    },
+    {
+      "path": "config/xaero/minimap/profiles/default.cfg",
+      "key": "display_minimap",
+      "value": "false"
+    },
+    {
+      "path": "config/xaero/minimap/profiles/default.cfg",
+      "key": "display_radar",
+      "value": "false"
+    },
+    {
+      "path": "config/xaero/minimap/profiles/default.cfg",
+      "key": "minimap_cave_mode_allowed",
+      "value": "false"
+    },
+    {
+      "path": "config/xaero/minimap/profiles/default.cfg",
+      "key": "minimap_slime_chunks",
+      "value": "false"
+    },
+    {
+      "path": "config/xaero/minimap/profiles/default.cfg",
+      "key": "minimap_undiscovered_opacity",
+      "value": "0"
     }
   ],
   "outsideConfig": [

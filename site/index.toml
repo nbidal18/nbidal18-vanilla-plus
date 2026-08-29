@@ -386,7 +386,7 @@ hash = "d2517d46af150921582220fa0cd2c23ceb30963a7044fe21cc7b8552c5ad83da"
 
 [[files]]
 file = "config/sounds/ui.json"
-hash = "013c061a2399a1610dd40671b749b6355a25e2608901618338f907cdba516c5c"
+hash = "349b7acc14aa8f1130af2bf33259de6e3e5a861e571252ce8cda949c44103485"
 
 [[files]]
 file = "config/sounds/world.json"
@@ -457,8 +457,12 @@ file = "config/whitenoise-client.toml"
 hash = "00c6e34f0adbb41db954d296fd7c55dc3412463a38038dc836626433dd7f6d92"
 
 [[files]]
+file = "config/xaero/minimap/profiles/default.cfg"
+hash = "c436ae13c25883562fb082fb4097e1cb51b997ef78a1b68c7893abf893570584"
+
+[[files]]
 file = "config/xaero/world-map/profiles/default.cfg"
-hash = "577da88e04289dc7956f02a44fd8ba9527616fb5b64fd69bafc2d2f2593ff16c"
+hash = "d3166fa0cf1fdfe9d270d55cd9648e47e3f00c7dc7b633c12113ed0836c041df"
 
 [[files]]
 file = "config/yacl.json5"
