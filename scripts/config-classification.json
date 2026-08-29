@@ -201,16 +201,6 @@
       "reason": "Memory optimisation."
     },
     {
-      "match": "config/fieldguide-client.json",
-      "class": "support",
-      "reason": "Field Guide UI: button placement, colours and toasts."
-    },
-    {
-      "match": "config/fieldguide-server.json",
-      "class": "gameplay",
-      "reason": "What unlocks a Field Guide entry: spyglass only, nothing given away, no book item."
-    },
-    {
       "match": "config/fzzy_config/keybinds.toml",
       "class": "player",
       "reason": "Keybinds."
@@ -409,11 +399,6 @@
       "match": "config/mousewheelie.hjson",
       "class": "support",
       "reason": "Inventory scrolling."
-    },
-    {
-      "match": "config/noisium.json",
-      "class": "support",
-      "reason": "Worldgen performance only; it changes no terrain."
     },
     {
       "match": "config/notenoughanimations.json",
@@ -676,8 +661,6 @@
     "config/etf_warnings.json",
     "config/fallingleaves2.json",
     "config/ferritecore.mixin.properties",
-    "config/fieldguide-client.json",
-    "config/fieldguide-server.json",
     "config/fzzy_config/keybinds.toml",
     "config/fzzy_config/search.toml",
     "config/gnetum.json",
@@ -717,7 +700,6 @@
     "config/midnightlib.json",
     "config/modmenu.json",
     "config/mousewheelie.hjson",
-    "config/noisium.json",
     "config/notenoughanimations.json",
     "config/presencefootsteps/updater.json",
     "config/presencefootsteps/userconfig.json5",
