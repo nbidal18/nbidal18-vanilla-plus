@@ -1678,7 +1678,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "cb0bb3388319637e03c9fddad61d24670ec760a0a8f79cac209217de655e53c8"
+                      "sha256":  "ac74ee05fc521416512de7802bce02ebf59c80c68c594639b2874eecc0f94ce4"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",
@@ -1741,10 +1741,6 @@
                       "sha256":  "5d1f2ea9b8af9cd931796c09f2159e119b25db909b0a84269b42fb3c9f55893d"
                   },
                   {
-                      "path":  "resourcepacks/nbidal18-Actually-3D-r1.8.zip",
-                      "sha256":  "c8966ca5330c93a186619aaca2ad5184919660827229444c034c005d19f77259"
-                  },
-                  {
                       "path":  "resourcepacks/nbidal18-Weskersons-Torches-1.02.zip",
                       "sha256":  "5afa8c8ab70a32943ffea105ec123b6c386b2ef0df5c420349dce3b257161afa"
                   },
@@ -1759,6 +1755,10 @@
                   {
                       "path":  "resourcepacks/§5§lNo Enchant Glint §f§l26.2.zip",
                       "sha256":  "46f2630fe76ec7dbc95c8ca54b09ad1a88812bf6e38fcbf5034b8c67320ffe23"
+                  },
+                  {
+                      "path":  "resourcepacks/§f§lActually §6§l3D §fBlocks \u0026 Items!§7.zip",
+                      "sha256":  "0df22f984e62f4c9d25132e52103e201971a5ba5c2aeed091a4db0d8b0c30d88"
                   },
                   {
                       "path":  "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip",

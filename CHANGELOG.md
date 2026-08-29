@@ -9,7 +9,7 @@ build that was not published.
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
 | --- | --- | --- | --- | --- | --- |
-| 2026-08-29 | see below | `7f9119731d0bc823` | `f4d5905c3e4b870e` | 251 | 107 |
+| 2026-08-29 | see below | `6ea9ab20d5a99d64` | `f4d5905c3e4b870e` | 251 | 107 |
 
 **Typing in JEI's search box no longer walks you around.** New first-party mod, `nbidal18-invmov`.
 
@@ -25,6 +25,12 @@ change upstream is a compile error rather than a mixin that quietly stops applyi
 a toggle in InvMove's own config screen for anyone who would rather keep walking.
 
 JEI's recipe screen needed nothing: it is a real screen, so InvMove already recognises it.
+
+**Actually 3D is the clean upstream pack again, above 3D Default.** v1.0.8 shipped it with 45 models
+stripped - the ones referencing a `#missing` texture variable. That list included crops: beetroot
+and potato stages, sweet berry bushes, torchflower, and several plants. **Removing them took 3D
+crops away**, which was not worth whatever those models were doing wrong. The upstream zip is back
+unmodified and sits above 3D Default, so its models win.
 
 ---
 

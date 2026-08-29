@@ -906,7 +906,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "cb0bb3388319637e03c9fddad61d24670ec760a0a8f79cac209217de655e53c8"
+hash = "ac74ee05fc521416512de7802bce02ebf59c80c68c594639b2874eecc0f94ce4"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -969,10 +969,6 @@ file = "resourcepacks/Theone's Eating Animation Pack v1.0.zip"
 hash = "5d1f2ea9b8af9cd931796c09f2159e119b25db909b0a84269b42fb3c9f55893d"
 
 [[files]]
-file = "resourcepacks/nbidal18-Actually-3D-r1.8.zip"
-hash = "c8966ca5330c93a186619aaca2ad5184919660827229444c034c005d19f77259"
-
-[[files]]
 file = "resourcepacks/nbidal18-Weskersons-Torches-1.02.zip"
 hash = "5afa8c8ab70a32943ffea105ec123b6c386b2ef0df5c420349dce3b257161afa"
 
@@ -987,6 +983,10 @@ hash = "2c566bc61e40c8aee17106487322f9e91360a4fa29fcc405833bcbeb0150fafd"
 [[files]]
 file = "resourcepacks/§5§lNo Enchant Glint §f§l26.2.zip"
 hash = "46f2630fe76ec7dbc95c8ca54b09ad1a88812bf6e38fcbf5034b8c67320ffe23"
+
+[[files]]
+file = "resourcepacks/§f§lActually §6§l3D §fBlocks & Items!§7.zip"
+hash = "0df22f984e62f4c9d25132e52103e201971a5ba5c2aeed091a4db0d8b0c30d88"
 
 [[files]]
 file = "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip"
