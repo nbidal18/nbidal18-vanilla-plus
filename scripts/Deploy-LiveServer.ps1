@@ -59,8 +59,11 @@ if ($digest -ne $localManifest) {
     throw "The policy expects $($digest.Substring(0,16))... but site\sync-manifest.json hashes to $($localManifest.Substring(0,16))... - rebuild before deploying"
 }
 
-$helperSource = Get-ChildItem -LiteralPath (Join-Path $release '3. modpack\client\mods') -Filter 'nbidal18-integrity-*.jar'
-if ($helperSource.Count -ne 1) { throw "Expected exactly one integrity helper in the release, found $($helperSource.Count)" }
+# @() because a single match comes back as a FileInfo, not an array, and .Count then throws
+# under StrictMode - which is how this line was first written and how the dry run caught it.
+$helpers = @(Get-ChildItem -LiteralPath (Join-Path $release '3. modpack\client\mods') -Filter 'nbidal18-integrity-*.jar')
+if ($helpers.Count -ne 1) { throw "Expected exactly one integrity helper in the release, found $($helpers.Count)" }
+$helperSource = $helpers[0]
 if ($helperSource.Name -notlike "*-$version+*") { throw "The helper is $($helperSource.Name) but this release is $version" }
 Write-Host ("digest    {0}" -f $digest.Substring(0, 16))
 Write-Host ("helper    {0}" -f $helperSource.Name)
