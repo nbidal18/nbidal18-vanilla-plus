@@ -115,7 +115,7 @@ e698f9f2184dad829d45013b85d821abce38a024d47822cbac5846778ca398a2  config/sounds/
 577da88e04289dc7956f02a44fd8ba9527616fb5b64fd69bafc2d2f2593ff16c  config/xaero/world-map/profiles/default.cfg
 121b93764159be6fb7dab523b29a844e2bb78400ce8c48f52135a097e9b0006e  config/yacl.json5
 869457ea7a5f78803c7003b694cba54a95c9176b3632f327f7a74a99a62ea454  config/zfastnoise.mixin.toml
-83eeff320fc04d6fca129a5bd5714d2452e1303ebaca28d352e871f0c375513d  index.toml
+05c045ad60db893f06b1570a203133efb67f1700acf7bb6ab561654ffe36291d  index.toml
 32ee09cf26d435946370579a1fcc0db758e4eee62346c1d77f0f741daf0d800a  mods/almanac-fabric-26.2-1.26.7.3.jar
 f59a8c076896d5f7666adf6b7b3370a6729ee5fa986ddae5f4da17c57f5141e4  mods/AmbientSounds_FABRIC_v6.3.6_mc26.2.jar
 717d51cf9b850423264de8a21cc469dfec89469e4e09a4cf1549513a9022860a  mods/amecs-bundle-1.6.5+mc26.2-pre-2.jar
@@ -213,10 +213,11 @@ fd62d1d9b5b303fa45032fbba155d3851c477f3197954e3ab28b16f8a9957b42  mods/vanilla-r
 cff8ce164b80c52cb123b7467f571f5857dcf3b6ce5f1e350599f351c8340d04  mods/variantsandventures-fabric-1.0.26+mc26.2.jar
 b6ef773fb90af6394d332e6a40b91854dedddbcf0bf3e15d6f357bdac690b1ab  mods/Voxy World Gen V2-fabric-26.2-2.4.3.jar
 dd9e10d2110879f07c1ce9bdf1945f3470b32e83977f094005ee8c642e8128d5  mods/voxy-0.2.18-beta.jar
+69284892d2eb853c9aefa85a4c9b74232c322da00207994c67ab8aeed8a64048  mods/xaerominimap-fabric-26.2-26.4.2.jar
 92f9719121e0e7dd0c286720f987af2ef82ece8786c55ca70f40a6cf02076267  mods/xaeroworldmap-fabric-26.2-1.45.0.jar
 829396c3b3e7d1801ae0e9e2921d0454c5a3078afdb6c6dda6b3d1819dfa0e3f  mods/yet_another_config_lib_v3-3.9.6+26.2-fabric.jar
 cdbed999df58da95c39a1e0c10811f7bc8c9aadc5696a1efda1624bd30104046  mods/zfastnoise-1.0.40+26.2.jar
-e5c275a6786dc304522bdcb6274d5571e2805431650b9befe14c93b531a2d2e8  pack.toml
+9719e1ed36b1956c790b92f706838e185d1a4e88252d34f32196f2bc134a1167  pack.toml
 41d0f1c7ff7008527488b6a00f25db7770122a14aa943f58f33672eeb6b39111  resourcepacks/§3Fresh §bFlower Pots Rotated.zip
 2c566bc61e40c8aee17106487322f9e91360a4fa29fcc405833bcbeb0150fafd  resourcepacks/§3Fresh §bFlower Pots.zip
 46f2630fe76ec7dbc95c8ca54b09ad1a88812bf6e38fcbf5034b8c67320ffe23  resourcepacks/§5§lNo Enchant Glint §f§l26.2.zip
