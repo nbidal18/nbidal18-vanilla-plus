@@ -62,16 +62,6 @@ public final class Nbidal18PackwizSync {
                     + "\\\"key\\\"\\s*:\\s*\\\"((?:\\\\.|[^\\\"])*)\\\"\\s*,\\s*"
                     + "\\\"value\\\"\\s*:\\s*\\\"((?:\\\\.|[^\\\"])*)\\\"\\s*}");
     private static final Pattern JSON_STRING = Pattern.compile("\\\"((?:\\\\.|[^\\\"])*)\\\"");
-    private static final String NATURE_X_PACK = "file/Nature X - 12.2 [1.21.1].zip";
-    private static final String ENHANCED_GRASS_PACK = "file/Enhanced Grass V1_4.zip";
-    private static final String OLD_DARK_CONTAINERS_PACK =
-            "file/\u00a78\u00a7lDarkmode \u00a7f\u00a7lColourful Containers\u00a78.zip";
-    private static final String OLD_MODDED_CONTAINERS_PACK =
-            "file/\u00a75\u00a7lModded \u00a7f\u00a7lContainers \u00a78\u00a7lDark\u00a78.zip";
-    private static final String OLED_CONTAINERS_PACK =
-            "file/\u00a70\u00a7lOLED \u00a7f\u00a7lColourful Containers\u00a78.zip";
-    private static final String INMIS_OLED_ADDON_PACK =
-            "file/\u00a70\u00a7lOLED \u00a7f\u00a7lInmis Backpacks Addon\u00a78.zip";
 
     /**
      * config/autohud.json5 is a first-install default that becomes player-owned, so a changed
@@ -139,10 +129,27 @@ public final class Nbidal18PackwizSync {
     }
 
         /**
-     * Empty on purpose. A v1.0.0 has no earlier install to migrate, so there is nothing to
-     * seed. Add rows here when a release needs to set one value inside a player-owned file.
+     * The pack's declared player-file rows.
+     *
+     * <p>v1.0.2 added 3D Default and Actually 3D Blocks & Items, removed Fancy Crops, and reordered
+     * the lot. options.txt is never published - it holds every keybind and video setting a player
+     * has - so the new packs would otherwise arrive on disk switched off, and the order would reach
+     * fresh installs only. Two rows are seeded instead, and the player owns their pack order again
+     * the moment the marker is written.
+     *
+     * <p>The list is safe to set wholesale because resourcepacks is an exact-match root: a player
+     * cannot have added a pack of their own for this to discard.
+     *
+     * <p>incompatibleResourcePacks goes with it. 26.2 is resource format 88 and Actually 3D
+     * declares support only to 84, so without its entry there Minecraft treats it as unacknowledged
+     * and drops it from the selection on the first launch that reads the row.
      */
-    private static final List<PlayerFileSeed> PLAYER_FILE_SEEDS = List.of();
+    private static final List<PlayerFileSeed> PLAYER_FILE_SEEDS = List.of(
+            new PlayerFileSeed("options.txt", ':', "resourcepacks-3d-v102", List.of(
+                    SeedRow.of("resourcePacks",
+                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/Os\\u0027 Colorful Grasses (Mix).zip\",\"file/3D Default 1.21.2+ v1.15.0.zip\",\"file/§f§lActually §6§l3D §fBlocks \\u0026 Items!§7.zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/Theone\\u0027s Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/Recolourful Containers DARK 3.1.3 (1.19.4+).zip\",\"file/Compact Font.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\"]"),
+                    SeedRow.of("incompatibleResourcePacks",
+                            "[\"file/No Potion Particles.zip\",\"file/Os\\u0027 Colorful Grasses (Mix).zip\",\"file/Overlay’s.zip\",\"file/Compact Font.zip\",\"file/§f§lActually §6§l3D §fBlocks \\u0026 Items!§7.zip\"]"))));
 
         /**
      * Empty on purpose, and it must stay that way until a mod is actually retired from THIS
@@ -248,7 +255,7 @@ public final class Nbidal18PackwizSync {
                             + String.join(", ", remaining));
                 }
 
-                tryMigratePlayerOptions();
+                applyPlayerFileChanges();
                 Files.move(downloadedManifest, lastManifestPath,
                         StandardCopyOption.REPLACE_EXISTING);
                 downloadedManifest = null;
@@ -270,7 +277,7 @@ public final class Nbidal18PackwizSync {
                                 + String.join(", ", offlineProblems));
             }
 
-            tryMigratePlayerOptions();
+            applyPlayerFileChanges();
             warning("The online update could not complete. Starting the last complete installed release; "
                     + "the server will apply its current compatibility policy.");
             return 0;
@@ -631,15 +638,15 @@ public final class Nbidal18PackwizSync {
         }
     }
 
-    private void tryMigratePlayerOptions() {
-        try {
-            if (migratePlayerOptions()) {
-                status("Updated the enabled resource-pack list while preserving personal options.");
-            }
-        } catch (Exception error) {
-            warning("Could not migrate the enabled resource-pack list; personal options were left unchanged: "
-                    + messageOf(error));
-        }
+    /**
+     * Applies this release's declared changes to player-owned files.
+     *
+     * <p>There is no resource-pack migration here, and there should not be one. The 1.21.1 updater
+     * carries one because that pack replaced several packs in place; this line's first release was
+     * v1.0.0, so nothing predates it. Carried over unchanged it added a pack this pack has never
+     * shipped to every player's options.txt on every launch.
+     */
+    private void applyPlayerFileChanges() {
         applyPlayerFileSeeds();
         removeRetiredLocalFiles();
     }
@@ -1026,170 +1033,6 @@ public final class Nbidal18PackwizSync {
             }
         }
         return -1;
-    }
-
-    private boolean migratePlayerOptions() throws IOException {
-        Path options = minecraftRoot.resolve("options.txt").normalize();
-        if (!options.getParent().equals(minecraftRoot)
-                || !Files.isRegularFile(options, LinkOption.NOFOLLOW_LINKS)
-                || Files.isSymbolicLink(options)) {
-            return false;
-        }
-        if (Files.size(options) > 16L * 1024L * 1024L) {
-            throw new IOException("options.txt is unexpectedly large");
-        }
-
-        String original = Files.readString(options, StandardCharsets.UTF_8);
-        String migrated = migrateOptionArrayLine(original, "resourcePacks", true);
-        migrated = migrateOptionArrayLine(migrated, "incompatibleResourcePacks", false);
-        if (migrated.equals(original)) {
-            return false;
-        }
-
-        Path temporary = options.resolveSibling(
-                "options.txt.nbidal18-" + UUID.randomUUID() + ".tmp");
-        try {
-            Files.writeString(temporary, migrated, StandardCharsets.UTF_8);
-            try {
-                Files.move(temporary, options, StandardCopyOption.ATOMIC_MOVE,
-                        StandardCopyOption.REPLACE_EXISTING);
-            } catch (AtomicMoveNotSupportedException ignored) {
-                Files.move(temporary, options, StandardCopyOption.REPLACE_EXISTING);
-            }
-        } finally {
-            Files.deleteIfExists(temporary);
-        }
-        return true;
-    }
-
-    private static String migrateOptionArrayLine(
-            String options, String key, boolean enabledPacks) throws IOException {
-        Pattern linePattern = Pattern.compile("(?m)^(" + Pattern.quote(key) + ":)([^\\r\\n]*)");
-        Matcher lineMatcher = linePattern.matcher(options);
-        if (!lineMatcher.find()) {
-            return options;
-        }
-
-        List<String> values = parseJsonStringArray(lineMatcher.group(2));
-        List<String> migrated = enabledPacks
-                ? migrateEnabledResourcePacks(values)
-                : migrateIncompatibleResourcePacks(values);
-        String replacement = lineMatcher.group(1) + encodeJsonStringArray(migrated);
-        return options.substring(0, lineMatcher.start()) + replacement
-                + options.substring(lineMatcher.end());
-    }
-
-    private static List<String> migrateEnabledResourcePacks(List<String> original) {
-        List<String> result = new ArrayList<>();
-        for (String value : original) {
-            if (value.equals(OLD_DARK_CONTAINERS_PACK)
-                    || value.equals(OLD_MODDED_CONTAINERS_PACK)
-                    || value.equals(OLED_CONTAINERS_PACK)
-                    || value.equals(INMIS_OLED_ADDON_PACK)) {
-                continue;
-            }
-            String migrated = value.equals(NATURE_X_PACK) ? ENHANCED_GRASS_PACK : value;
-            if (!result.contains(migrated)) {
-                result.add(migrated);
-            }
-        }
-
-        if (!result.contains(ENHANCED_GRASS_PACK)) {
-            int grassIndex = result.indexOf("file/Fancy Crops v1.3.zip");
-            result.add(grassIndex >= 0 ? grassIndex : result.size(), ENHANCED_GRASS_PACK);
-        }
-        return result;
-    }
-
-    private static List<String> migrateIncompatibleResourcePacks(List<String> original) {
-        List<String> result = new ArrayList<>();
-        for (String value : original) {
-            if (value.equals(NATURE_X_PACK)
-                    || value.equals(OLD_DARK_CONTAINERS_PACK)
-                    || value.equals(OLD_MODDED_CONTAINERS_PACK)
-                    || value.equals(OLED_CONTAINERS_PACK)
-                    || value.equals(INMIS_OLED_ADDON_PACK)) {
-                continue;
-            }
-            if (!result.contains(value)) {
-                result.add(value);
-            }
-        }
-        return result;
-    }
-
-    private static List<String> parseJsonStringArray(String text) throws IOException {
-        String value = text.strip();
-        if (value.length() < 2 || value.charAt(0) != '['
-                || value.charAt(value.length() - 1) != ']') {
-            throw new IOException("invalid " + "resource-pack option array");
-        }
-        List<String> result = new ArrayList<>();
-        int index = 1;
-        while (true) {
-            while (index < value.length() - 1 && Character.isWhitespace(value.charAt(index))) {
-                index++;
-            }
-            if (index == value.length() - 1) {
-                return result;
-            }
-            if (value.charAt(index) != '"') {
-                throw new IOException("invalid resource-pack option entry");
-            }
-            int start = ++index;
-            boolean escaped = false;
-            while (index < value.length() - 1) {
-                char current = value.charAt(index);
-                if (!escaped && current == '"') {
-                    break;
-                }
-                escaped = !escaped && current == '\\';
-                if (current != '\\') {
-                    escaped = false;
-                }
-                index++;
-            }
-            if (index >= value.length() - 1) {
-                throw new IOException("unterminated resource-pack option entry");
-            }
-            result.add(jsonUnescape(value.substring(start, index)));
-            index++;
-            while (index < value.length() - 1 && Character.isWhitespace(value.charAt(index))) {
-                index++;
-            }
-            if (index < value.length() - 1 && value.charAt(index) == ',') {
-                index++;
-                continue;
-            }
-            if (index != value.length() - 1) {
-                throw new IOException("invalid resource-pack option separator");
-            }
-        }
-    }
-
-    private static String encodeJsonStringArray(List<String> values) {
-        StringBuilder result = new StringBuilder("[");
-        for (int index = 0; index < values.size(); index++) {
-            if (index > 0) {
-                result.append(',');
-            }
-            result.append('"');
-            for (int character = 0; character < values.get(index).length(); character++) {
-                char current = values.get(index).charAt(character);
-                switch (current) {
-                    case '"' -> result.append("\\\"");
-                    case '\\' -> result.append("\\\\");
-                    case '\b' -> result.append("\\b");
-                    case '\f' -> result.append("\\f");
-                    case '\n' -> result.append("\\n");
-                    case '\r' -> result.append("\\r");
-                    case '\t' -> result.append("\\t");
-                    default -> result.append(current);
-                }
-            }
-            result.append('"');
-        }
-        return result.append(']').toString();
     }
 
     private void moveOutOfLoadPath(Path path, String reason) throws IOException {

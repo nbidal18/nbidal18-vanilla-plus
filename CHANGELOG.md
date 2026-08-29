@@ -5,6 +5,42 @@ build that was not published.
 
 ---
 
+## v1.0.2
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-29 | see below | `2a03fec926e56324` | `6fe2b134898ec273` | 246 | 106 |
+
+**Blocks and items are 3D now.** *3D Default* and *Actually 3D Blocks & Items* join the pack, *Fancy
+Crops* leaves it, and all sixteen resource packs are reordered.
+
+**The order reaches you, which it normally could not.** `options.txt` is never published — it holds
+every keybind and video setting a player owns — so a new pack would arrive on disk switched off and
+the order would only ever be right on a fresh install. The two rows are seeded instead: written once
+by the updater, then yours again from that moment. **One click of Play does all of it**; the
+supervisor promotes the new update engine and re-runs it before Minecraft starts.
+
+**Connected glass wins over 3D glass panes.** Continuity's culling fix and 3D Default both replace
+the same two vanilla glass-pane models, so one of them had to sit above the other. Continuity does,
+which keeps connected glass culling correctly at the cost of flat panes.
+
+*Actually 3D Blocks & Items* declares support only to resource format 84 and 26.2 is 88, so it ships
+in the acknowledged-incompatible list. Without that entry Minecraft drops it on first launch.
+
+**The updater no longer edits your resource pack list behind your back.** It carried the 1.21.1
+pack's migration wholesale, which ran on **every launch** and added `file/Enhanced Grass V1_4.zip` —
+a pack this line has never shipped — to `options.txt`, anchored to the position of Fancy Crops.
+Minecraft drops a selected pack it cannot find, so nothing broke visibly, but it had been writing
+that row since v1.0.0. **v1.0.0 was this line's first release; there was never anything to migrate.**
+Removed entirely, along with the four container packs and the Nature X remap it also carried.
+
+**Server-side, not shipped through the channel.** The multiplayer list showed a screenshot of the old
+world instead of the pack icon. `MinecraftServer.loadStatusIcon()` reads `server-icon.png` from the
+server root and falls back to the world's own `icon.png` when it is absent — and there was no
+`server-icon.png`. There is now.
+
+---
+
 ## v1.0.1
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
