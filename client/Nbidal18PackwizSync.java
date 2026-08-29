@@ -145,11 +145,18 @@ public final class Nbidal18PackwizSync {
      * and drops it from the selection on the first launch that reads the row.
      */
     private static final List<PlayerFileSeed> PLAYER_FILE_SEEDS = List.of(
-            new PlayerFileSeed("options.txt", ':', "resourcepacks-v107", List.of(
+            new PlayerFileSeed("options.txt", ':', "resourcepacks-v108", List.of(
                     SeedRow.of("resourcePacks",
-                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/3D Default 1.21.2+ v1.15.0.zip\",\"file/Os\\u0027 Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/Theone\\u0027s Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/Recolourful Containers DARK 3.1.3 (1.19.4+).zip\",\"file/Compact Font.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"),
+                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/3D Default 1.21.2+ v1.15.0.zip\",\"file/Os\\u0027 Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/Theone\\u0027s Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/Recolourful Containers 3.1.3 (1.19.4+).zip\",\"file/Compact Font.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"),
                     SeedRow.of("incompatibleResourcePacks",
-                            "[\"file/No Potion Particles.zip\",\"file/Os\\u0027 Colorful Grasses (Mix).zip\",\"file/Overlay’s.zip\",\"file/Compact Font.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\"]"))));
+                            "[\"file/No Potion Particles.zip\",\"file/Os\\u0027 Colorful Grasses (Mix).zip\",\"file/Overlay’s.zip\",\"file/Compact Font.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\"]"))),
+            // load_new_chunks was pinned to false from v1.0.0 to v1.0.7 in the belief that it
+            // revealed terrain the player had not visited. It does not: it is read inside
+            // MapWriter and is the switch that records chunks onto the map at all, so the world
+            // map stayed black for ever. The property rule is gone; this puts it back once on the
+            // instances that had it forced off, and the player owns it from then on.
+            new PlayerFileSeed("config/xaero/world-map/profiles/default.cfg", '=', "xaero-load-chunks-v108", List.of(
+                    SeedRow.of("load_new_chunks", "true"))));
 
         /**
      * Empty on purpose, and it must stay that way until a mod is actually retired from THIS

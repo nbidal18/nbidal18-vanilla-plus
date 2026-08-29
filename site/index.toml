@@ -22,7 +22,7 @@ hash = "436581c972cb3a3b2ec36526b99b76572b4bd41d98fe2980b40d61d527bb3164"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "66231944d0f174482da75abafd1c82e645a20704316d080cbfce12a6edef6209"
+hash = "17d1e90b093070d177256499794b1fd6baf8c7c5c0934b0bc2c8719ad196e28a"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -462,7 +462,7 @@ hash = "c436ae13c25883562fb082fb4097e1cb51b997ef78a1b68c7893abf893570584"
 
 [[files]]
 file = "config/xaero/world-map/profiles/default.cfg"
-hash = "d3166fa0cf1fdfe9d270d55cd9648e47e3f00c7dc7b633c12113ed0836c041df"
+hash = "aaa7e59dcb1d159a9cb921079d0f5409d2465c58ddb3c8a78d349897f944b943"
 
 [[files]]
 file = "config/yacl.json5"
@@ -773,8 +773,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.7+26.2-fabric.jar"
-hash = "2b2839528b2d7529697185e05f414f62e2190f959cb0abce5b9e4af7eaebe443"
+file = "mods/nbidal18-integrity-1.0.8+26.2-fabric.jar"
+hash = "64a6d950771fc56fa69691b391378a9688238cdd95de03b80063db3a567e34a6"
 
 [[files]]
 file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
@@ -902,7 +902,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "1a287ec77ee6f10ed8509d3d7c3d7df48da358ad63448bb2ee190c1e6f1288a1"
+hash = "6a011f0c72104f0c565d5e770619123ce28e60a278927ab8e00a20342094ac7e"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -957,8 +957,8 @@ file = "resourcepacks/Overlay’s.zip"
 hash = "ac40030dd211be141e42b445f0aee77591dbf46ad1e1f5066f6ddace2925806a"
 
 [[files]]
-file = "resourcepacks/Recolourful Containers DARK 3.1.3 (1.19.4+).zip"
-hash = "cd4878ce5fa00e61e02f326ce2751026be30fc8e79d65041986d8b66cdade89d"
+file = "resourcepacks/Recolourful Containers 3.1.3 (1.19.4+).zip"
+hash = "fe14f85cf5c551fb1d0f122d7fa07a4b371186f15e23b467a409999658974948"
 
 [[files]]
 file = "resourcepacks/Theone's Eating Animation Pack v1.0.zip"

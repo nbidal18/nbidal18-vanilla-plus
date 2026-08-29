@@ -5,6 +5,35 @@ build that was not published.
 
 ---
 
+## v1.0.8
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-29 | see below | `05b0e1392b7839fb` | `19df306ff3d3236d` | 249 | 106 |
+
+**The world map works.** It has been black since v1.0.0, and the pack was the reason.
+
+`load_new_chunks` was pinned to `false` from the start, on the belief that it revealed terrain the
+player had not visited. It does not. It is read inside **`MapWriter`**, and it is the switch that
+records chunks onto the map at all - so the map never wrote anything, in any world, for anybody.
+Xaero's never showed unexplored terrain in the first place: it maps only the chunks a client
+actually loads, which is exactly what the player can already see. There was nothing to prevent.
+
+The pin is gone, the shipped default is `true`, and a one-time seed puts it back on the instances
+that had it forced off. **The eight pins that do prevent something are untouched** - cave mode,
+coordinates, biome names, tracked players, distances, teleport, the minimap radar and footsteps.
+
+**Containers are light instead of dark.** Recolourful Containers 3.1.3, the same version, the
+standard theme rather than the DARK variant. Only `rendertype_text.fsh` differs between the two
+builds, which is the text colour and exactly what should differ.
+
+**Both packs were checked against the two rules the last three releases wrote.** The GUI pack
+declares `max_format: 99` with overlays covering 88, and it does ship `assets/minecraft/shaders/` -
+26 files - but they are byte-identical to the DARK pack that has been running all day apart from
+that one text shader. Metadata read, shader folder opened, then shipped.
+
+---
+
 ## v1.0.7
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

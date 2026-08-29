@@ -801,11 +801,6 @@
     },
     {
       "path": "config/xaero/world-map/profiles/default.cfg",
-      "key": "load_new_chunks",
-      "value": "false"
-    },
-    {
-      "path": "config/xaero/world-map/profiles/default.cfg",
       "key": "footsteps",
       "value": "false"
     },
