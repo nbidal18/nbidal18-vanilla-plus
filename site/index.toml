@@ -22,7 +22,7 @@ hash = "436581c972cb3a3b2ec36526b99b76572b4bd41d98fe2980b40d61d527bb3164"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "695647eaa806e75f34dc01f92879114ff942672411fdd790876a319cefbc497d"
+hash = "52eecb7c5c3e2b08d0c836d78f4f7feff62c9e82a2fe1fa1d4d16f9d71ed9079"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -458,7 +458,7 @@ hash = "00c6e34f0adbb41db954d296fd7c55dc3412463a38038dc836626433dd7f6d92"
 
 [[files]]
 file = "config/xaero/minimap/profiles/default.cfg"
-hash = "c436ae13c25883562fb082fb4097e1cb51b997ef78a1b68c7893abf893570584"
+hash = "be45d8632db1cd7cd707f321ad802876bc06f4df42812cf3e18db851bd8ab68a"
 
 [[files]]
 file = "config/xaero/world-map/profiles/default.cfg"
@@ -766,19 +766,19 @@ hash = "101a59b5a662c920a8ea05c2396e82f546be87f2cc7d698822eccd4821ad8a85"
 
 [[files]]
 file = "mods/nbidal18-hardcorerevive-1.12.0+26.2-fabric.jar"
-hash = "92d769eb75e156d6af9037b89952adfb6d87958cae91d36de644fd57cbab6774"
+hash = "63abde8a556eafa79bed3f7cc7be49c8b0b9f76514670c545dda7722b9ca1f3f"
 
 [[files]]
 file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.9+26.2-fabric.jar"
-hash = "0df53aab7e1cade814a449d2b51297c9583aa22c2f36c0fbb098438b32757bd2"
+file = "mods/nbidal18-integrity-1.0.10+26.2-fabric.jar"
+hash = "214c852cc64b70d395af09859a701145bbbf602c23790155228639a15d0976db"
 
 [[files]]
-file = "mods/nbidal18-invmov-1.0.0+26.2-fabric.jar"
-hash = "45dde720e9b0d4fd92c6aebdd303c06f373317f599ff589389656259a03aa119"
+file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
+hash = "f3fef0c67abb35173c0d8408f96e632308fe65b969e116c7e52e7f429477f727"
 
 [[files]]
 file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
@@ -906,7 +906,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "ac74ee05fc521416512de7802bce02ebf59c80c68c594639b2874eecc0f94ce4"
+hash = "7fe3ae75fb0c9e4dc92654e4e112516fa05c9be5721807b23a43906e3dc9458a"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"

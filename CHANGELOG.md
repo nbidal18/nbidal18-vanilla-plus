@@ -5,6 +5,34 @@ build that was not published.
 
 ---
 
+## v1.0.10
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-29 | see below | `6f970dd0e8673e2c` | `6ea9ab20d5a99d64` | 251 | 107 |
+
+**The JEI search fix actually works this time.** v1.0.9 shipped `nbidal18-invmov` doing nothing at
+all. The mod loaded, registered its module with InvMove and logged success - and JEI never handed
+over its runtime, so every question about the search box answered "no".
+
+**On Fabric, JEI finds plugins through the `jei_mod_plugin` entrypoint**, not the `@JeiPlugin`
+annotation, which is the Forge mechanism. `fabric.mod.json` declared only `client`. The entrypoint
+is declared now, the mod logs an error at startup if it ever goes missing again, and the build
+refuses to package a jar whose declared entrypoints are not all present.
+
+**Life Jam is uncraftable, not merely disabled.** `mnc_lifeJam 0` turned the effect off from v1.0.0,
+which is what was promised - but the recipe stayed in the datapack, so JEI listed it and it could
+still be crafted: a honey bottle costing a **totem of undying** that then does nothing. Worse than
+leaving the feature on. The recipe is gone, along with the two advancements whose only criterion was
+unlocking it - left behind they would name a recipe that no longer exists and fail to load.
+
+**Waypoints stay on the map.** They were also drawing in the world as floating markers.
+`waypoints_in_world` is what `WaypointWorldRenderer` reads, so it turns off the in-world markers and
+leaves the map untouched. Seeded once, then yours - and Xaero already binds a *Toggle In-World
+Waypoints* key if you want them back.
+
+---
+
 ## v1.0.9
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
