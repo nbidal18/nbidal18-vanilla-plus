@@ -1,0 +1,777 @@
+{
+  "$schema": "nbidal18/config-classification/1",
+  "$doc": [
+    "Every managed file under config/ must be classified here. The build fails while any published",
+    "config file is unclassified, so adding a mod forces a deliberate decision instead of silently",
+    "inheriting hash enforcement.",
+    "",
+    "Classes:",
+    "  gameplay - in-game content. Hash-enforced at runtime; editing it refuses the login.",
+    "  support  - library, performance, rendering, UI, input or diagnostic config. Not in-game",
+    "             content, so the runtime monitor ignores it. The pre-launch updater still",
+    "             restores the published copy, so content stays deterministic without ever",
+    "             producing a lockout.",
+    "  player   - genuinely player-owned or machine-specific. Published once, preserved forever,",
+    "             never checked. Adding one here means we can no longer update that file.",
+    "",
+    "Longest matching prefix wins. A rule ending in / matches a directory subtree.",
+    "Files outside config/ are enforced unless listed explicitly.",
+    "",
+    "--- What this pack measured, rather than assumed ---",
+    "",
+    "113 of the 118 published config files are rewritten by their own mod during startup. Measured",
+    "against a played instance, all 113 rewrites were byte-identical: only the file timestamp",
+    "moved. Enforcement therefore costs nothing, and the check must compare content and never",
+    "mtime. rewrittenAtRuntime below is that measured list - a watch list, not an exemption.",
+    "",
+    "Three files are machine- or player-specific and are demoted to player. Byte-identity on one",
+    "PC cannot reveal these, which is why they are recorded explicitly:",
+    "  sodium-fingerprint.json      hashed GPU/driver/platform, plus a unix timestamp",
+    "  resourceful-config-web.json  a generated password UUID, per install",
+    "  sounds/chat.json             the player's own @mention keywords",
+    "",
+    "The first of those locked players out of the 1.21.1 pack on 2026-08-18. The lesson is that a",
+    "config being stable on the maintainer's machine says nothing about it being stable across",
+    "machines; only reading what is inside it does."
+  ],
+  "extraTolerantRoots": [
+    {
+      "prefix": "config",
+      "reason": [
+        "Unmanaged extra files under config/ are tolerated instead of refusing the login.",
+        "config/ is not a loadable-content root: mods, datapacks, resourcepacks and shaderpacks",
+        "stay exact-match, and those are the only roots Minecraft loads code or content from.",
+        "Every managed config file is still hash-checked according to its class above, so",
+        "tampering with gameplay config is still caught - only genuinely new files are ignored.",
+        "",
+        "This exists because config libraries write their own files during mod init. In the 1.21.1",
+        "pack, Cristel Lib created config/cristellib/<mod>/ for every structure mod and adding",
+        "Nullscape locked every player out: the updater deleted the new files, the game recreated",
+        "them at startup, and login was refused again with no way for a player to clear it.",
+        "",
+        "Before adding a mod that loads content from a config subdirectory (Paxi, OpenLoader,",
+        "YOSBR and similar), narrow this to explicit prefixes - none are installed today."
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "match": "config/MouseTweaks.cfg",
+      "class": "support",
+      "reason": "Inventory mouse handling."
+    },
+    {
+      "match": "config/almanac-nbtFix.json5",
+      "class": "support",
+      "reason": "Library compatibility shim."
+    },
+    {
+      "match": "config/asyncparticles/asyncparticles-mixin.properties",
+      "class": "support",
+      "reason": "Particle threading; rendering."
+    },
+    {
+      "match": "config/asyncparticles/asyncparticles.json",
+      "class": "support",
+      "reason": "Particle threading; rendering."
+    },
+    {
+      "match": "config/autohud.json5",
+      "class": "player",
+      "reason": "HUD preference; shipped as a one-time default."
+    },
+    {
+      "match": "config/better_fishing.properties",
+      "class": "support",
+      "reason": "Client-side fishing visuals."
+    },
+    {
+      "match": "config/betteradvancements.json",
+      "class": "support",
+      "reason": "Advancement screen."
+    },
+    {
+      "match": "config/betterdays-client.toml",
+      "class": "support",
+      "reason": "Client half."
+    },
+    {
+      "match": "config/betterdays-common.toml",
+      "class": "gameplay",
+      "reason": "Day length."
+    },
+    {
+      "match": "config/betterf3.json",
+      "class": "support",
+      "reason": "Debug overlay layout."
+    },
+    {
+      "match": "config/betterthirdperson.json5",
+      "class": "support",
+      "reason": "Camera control."
+    },
+    {
+      "match": "config/boids.json5",
+      "class": "gameplay",
+      "reason": "Flocking behaviour of vanilla mobs."
+    },
+    {
+      "match": "config/c2me.toml",
+      "class": "support",
+      "reason": "Chunk pipeline threading; performance."
+    },
+    {
+      "match": "config/cameraoverhaul.toml",
+      "class": "support",
+      "reason": "Camera motion."
+    },
+    {
+      "match": "config/chatanimation.json",
+      "class": "support",
+      "reason": "Chat animation."
+    },
+    {
+      "match": "config/cherishedworlds-client.toml",
+      "class": "support",
+      "reason": "World-list UI."
+    },
+    {
+      "match": "config/collective.json5",
+      "class": "support",
+      "reason": "Collective library."
+    },
+    {
+      "match": "config/continuity.json",
+      "class": "support",
+      "reason": "Connected textures."
+    },
+    {
+      "match": "config/creativecore-client.json",
+      "class": "support",
+      "reason": "CreativeCore client library."
+    },
+    {
+      "match": "config/creativecore.json",
+      "class": "support",
+      "reason": "CreativeCore library."
+    },
+    {
+      "match": "config/cursors_extended.json",
+      "class": "support",
+      "reason": "Cursor rendering."
+    },
+    {
+      "match": "config/emf_compat.json",
+      "class": "support",
+      "reason": "Entity model compatibility shim."
+    },
+    {
+      "match": "config/enchdesc.json",
+      "class": "support",
+      "reason": "Enchantment tooltip text."
+    },
+    {
+      "match": "config/entity_model_features.json",
+      "class": "support",
+      "reason": "Model rendering."
+    },
+    {
+      "match": "config/entity_texture_features.json",
+      "class": "support",
+      "reason": "Texture rendering."
+    },
+    {
+      "match": "config/entityculling.json",
+      "class": "support",
+      "reason": "Render culling; performance."
+    },
+    {
+      "match": "config/etf_warnings.json",
+      "class": "support",
+      "reason": "Dismissed rendering warnings."
+    },
+    {
+      "match": "config/fallingleaves2.json",
+      "class": "support",
+      "reason": "Decorative leaf particles."
+    },
+    {
+      "match": "config/ferritecore.mixin.properties",
+      "class": "support",
+      "reason": "Memory optimisation."
+    },
+    {
+      "match": "config/fieldguide-client.json",
+      "class": "support",
+      "reason": "Field Guide UI: button placement, colours and toasts."
+    },
+    {
+      "match": "config/fieldguide-server.json",
+      "class": "gameplay",
+      "reason": "What unlocks a Field Guide entry: spyglass only, nothing given away, no book item."
+    },
+    {
+      "match": "config/fzzy_config/keybinds.toml",
+      "class": "player",
+      "reason": "Keybinds."
+    },
+    {
+      "match": "config/fzzy_config/search.toml",
+      "class": "support",
+      "reason": "Config-screen search UI."
+    },
+    {
+      "match": "config/gnetum.json",
+      "class": "support",
+      "reason": "Client-side foliage rendering."
+    },
+    {
+      "match": "config/immediatelyfast.json",
+      "class": "support",
+      "reason": "Render batching; performance."
+    },
+    {
+      "match": "config/invmove.json",
+      "class": "support",
+      "reason": "Move while a screen is open."
+    },
+    {
+      "match": "config/invmove/unrecognized.json",
+      "class": "support",
+      "reason": "Per-screen compatibility; grows as screens are seen."
+    },
+    {
+      "match": "config/invmove/vanilla.json",
+      "class": "support",
+      "reason": "Per-screen compatibility; grows as screens are seen."
+    },
+    {
+      "match": "config/iris-excluded.json",
+      "class": "support",
+      "reason": "Shader exclusions."
+    },
+    {
+      "match": "config/iris.properties",
+      "class": "player",
+      "reason": "Selected shader pack and shader toggles."
+    },
+    {
+      "match": "config/ixeris.toml",
+      "class": "support",
+      "reason": "Window event threading; input."
+    },
+    {
+      "match": "config/jade/hide-blocks.json",
+      "class": "support",
+      "reason": "Tooltip HUD. Entity health is separately enforced by the server's jade/server-plugin-overrides.json."
+    },
+    {
+      "match": "config/jade/hide-entities.json",
+      "class": "support",
+      "reason": "Tooltip HUD. Entity health is separately enforced by the server's jade/server-plugin-overrides.json."
+    },
+    {
+      "match": "config/jade/hide-mob-effects.json",
+      "class": "support",
+      "reason": "Tooltip HUD. Entity health is separately enforced by the server's jade/server-plugin-overrides.json."
+    },
+    {
+      "match": "config/jade/jade.json",
+      "class": "support",
+      "reason": "Tooltip HUD. Entity health is separately enforced by the server's jade/server-plugin-overrides.json."
+    },
+    {
+      "match": "config/jade/profiles/1/jade.json",
+      "class": "support",
+      "reason": "Tooltip HUD. Entity health is separately enforced by the server's jade/server-plugin-overrides.json."
+    },
+    {
+      "match": "config/jade/profiles/2/jade.json",
+      "class": "support",
+      "reason": "Tooltip HUD. Entity health is separately enforced by the server's jade/server-plugin-overrides.json."
+    },
+    {
+      "match": "config/jade/profiles/3/jade.json",
+      "class": "support",
+      "reason": "Tooltip HUD. Entity health is separately enforced by the server's jade/server-plugin-overrides.json."
+    },
+    {
+      "match": "config/jade/server-plugin-overrides.json",
+      "class": "support",
+      "reason": "Tooltip HUD. Entity health is separately enforced by the server's jade/server-plugin-overrides.json."
+    },
+    {
+      "match": "config/jade/sort-order.json",
+      "class": "support",
+      "reason": "Tooltip HUD. Entity health is separately enforced by the server's jade/server-plugin-overrides.json."
+    },
+    {
+      "match": "config/jei-server.properties",
+      "class": "support",
+      "reason": "Recipe viewer permissions."
+    },
+    {
+      "match": "config/jei/blacklist.json",
+      "class": "support",
+      "reason": "Recipe viewer; writes sort orders and per-world state."
+    },
+    {
+      "match": "config/jei/ingredient-list-mod-sort-order.ini",
+      "class": "support",
+      "reason": "Recipe viewer; writes sort orders and per-world state."
+    },
+    {
+      "match": "config/jei/ingredient-list-type-sort-order.ini",
+      "class": "support",
+      "reason": "Recipe viewer; writes sort orders and per-world state."
+    },
+    {
+      "match": "config/jei/jei-client.ini",
+      "class": "support",
+      "reason": "Recipe viewer; writes sort orders and per-world state."
+    },
+    {
+      "match": "config/jei/jei-colors.ini",
+      "class": "support",
+      "reason": "Recipe viewer; writes sort orders and per-world state."
+    },
+    {
+      "match": "config/jei/jei-debug.ini",
+      "class": "support",
+      "reason": "Recipe viewer; writes sort orders and per-world state."
+    },
+    {
+      "match": "config/jei/jei-mod-id-format.ini",
+      "class": "support",
+      "reason": "Recipe viewer; writes sort orders and per-world state."
+    },
+    {
+      "match": "config/jei/recipe-category-sort-order.ini",
+      "class": "support",
+      "reason": "Recipe viewer; writes sort orders and per-world state."
+    },
+    {
+      "match": "config/jei/world/local/New World/bookmarks.json",
+      "class": "support",
+      "reason": "Recipe viewer; writes sort orders and per-world state."
+    },
+    {
+      "match": "config/jei/world/local/New World/lookupHistory.json",
+      "class": "support",
+      "reason": "Recipe viewer; writes sort orders and per-world state."
+    },
+    {
+      "match": "config/lambdynlights.toml",
+      "class": "support",
+      "reason": "Dynamic lighting."
+    },
+    {
+      "match": "config/leahs-immersive-thunder.toml",
+      "class": "support",
+      "reason": "Thunder sound and flash."
+    },
+    {
+      "match": "config/letmedespawn.json",
+      "class": "gameplay",
+      "reason": "Which mobs despawn, and when."
+    },
+    {
+      "match": "config/lithium.properties",
+      "class": "support",
+      "reason": "Server optimisation toggles."
+    },
+    {
+      "match": "config/lithostitched.json",
+      "class": "gameplay",
+      "reason": "breaks_seed_parity changes world generation."
+    },
+    {
+      "match": "config/lootr-client.jsonc",
+      "class": "support",
+      "reason": "Client half of Lootr: textures and UI only."
+    },
+    {
+      "match": "config/lootr-common.jsonc",
+      "class": "gameplay",
+      "reason": "Per-player loot container behaviour."
+    },
+    {
+      "match": "config/midnightlib.json",
+      "class": "support",
+      "reason": "Config screen library."
+    },
+    {
+      "match": "config/modmenu.json",
+      "class": "support",
+      "reason": "Mod list screen."
+    },
+    {
+      "match": "config/mousewheelie.hjson",
+      "class": "support",
+      "reason": "Inventory scrolling."
+    },
+    {
+      "match": "config/noisium.json",
+      "class": "support",
+      "reason": "Worldgen performance only; it changes no terrain."
+    },
+    {
+      "match": "config/notenoughanimations.json",
+      "class": "support",
+      "reason": "Player animation."
+    },
+    {
+      "match": "config/presencefootsteps/updater.json",
+      "class": "support",
+      "reason": "Footstep sounds; writes its own updater state."
+    },
+    {
+      "match": "config/presencefootsteps/userconfig.json5",
+      "class": "support",
+      "reason": "Footstep sounds; writes its own updater state."
+    },
+    {
+      "match": "config/punchy/merged_animation_selection.json",
+      "class": "support",
+      "reason": "Client attack animation choice."
+    },
+    {
+      "match": "config/punchy/punchy_config.json",
+      "class": "support",
+      "reason": "Client attack animation tuning."
+    },
+    {
+      "match": "config/punchy/triggerable-keybindings.json",
+      "class": "support",
+      "reason": "Client keybind wiring."
+    },
+    {
+      "match": "config/resourceful-config-web.json",
+      "class": "player",
+      "reason": "Contains a generated password UUID for the local config web server. Per install, and a secret; it must never be published from one machine and enforced on another."
+    },
+    {
+      "match": "config/servercore/config.yml",
+      "class": "support",
+      "reason": "Tick and chunk performance tuning."
+    },
+    {
+      "match": "config/servercore/optimizations.yml",
+      "class": "support",
+      "reason": "Tick and chunk performance tuning."
+    },
+    {
+      "match": "config/skinlayers.json",
+      "class": "support",
+      "reason": "3D skin layers."
+    },
+    {
+      "match": "config/smooth_steps.json",
+      "class": "support",
+      "reason": "Camera step smoothing."
+    },
+    {
+      "match": "config/smoothgui.json",
+      "class": "support",
+      "reason": "Screen animation."
+    },
+    {
+      "match": "config/smoothscroll.json",
+      "class": "support",
+      "reason": "Scroll smoothing."
+    },
+    {
+      "match": "config/smoothswapping.json",
+      "class": "support",
+      "reason": "Item swap animation."
+    },
+    {
+      "match": "config/sodium-extra-options.json",
+      "class": "support",
+      "reason": "Rendering extras."
+    },
+    {
+      "match": "config/sodium-extra.properties",
+      "class": "support",
+      "reason": "Rendering extras."
+    },
+    {
+      "match": "config/sodium-fingerprint.json",
+      "class": "player",
+      "reason": "Sodium's generated hardware fingerprint: hashed GPU, driver and platform, plus a unix timestamp. Different on every machine and it moves over time. Flagging this as tampering is the v4.5.2 incident of 2026-08-18."
+    },
+    {
+      "match": "config/sodium-mixins.properties",
+      "class": "support",
+      "reason": "Renderer mixin toggles."
+    },
+    {
+      "match": "config/sodium-options.json",
+      "class": "player",
+      "reason": "Video settings, tuned per machine."
+    },
+    {
+      "match": "config/sound_physics_remastered/occlusion.properties",
+      "class": "support",
+      "reason": "Sound occlusion and reverb."
+    },
+    {
+      "match": "config/sound_physics_remastered/reflectivity.properties",
+      "class": "support",
+      "reason": "Sound occlusion and reverb."
+    },
+    {
+      "match": "config/sound_physics_remastered/sound_rates.properties",
+      "class": "support",
+      "reason": "Sound occlusion and reverb."
+    },
+    {
+      "match": "config/sound_physics_remastered/soundphysics.properties",
+      "class": "support",
+      "reason": "Sound occlusion and reverb."
+    },
+    {
+      "match": "config/sounds/chat.json",
+      "class": "player",
+      "reason": "Carries the player's own mention keywords - the installed copy contains a personal @handle. Enforcing it would demand every player answer to the same name."
+    },
+    {
+      "match": "config/sounds/event.json",
+      "class": "support",
+      "reason": "Sound overhaul definitions."
+    },
+    {
+      "match": "config/sounds/mod_utils.json",
+      "class": "support",
+      "reason": "Sound overhaul definitions."
+    },
+    {
+      "match": "config/sounds/ui.json",
+      "class": "support",
+      "reason": "Sound overhaul definitions."
+    },
+    {
+      "match": "config/sounds/world.json",
+      "class": "support",
+      "reason": "Sound overhaul definitions."
+    },
+    {
+      "match": "config/status-effect-bars.json",
+      "class": "support",
+      "reason": "HUD effect bars."
+    },
+    {
+      "match": "config/structure_layout_optimizer.jsonc",
+      "class": "support",
+      "reason": "Structure placement performance only."
+    },
+    {
+      "match": "config/subtle_effects/blocks.toml",
+      "class": "support",
+      "reason": "Ambient particle effects."
+    },
+    {
+      "match": "config/subtle_effects/entities.toml",
+      "class": "support",
+      "reason": "Ambient particle effects."
+    },
+    {
+      "match": "config/subtle_effects/environment.toml",
+      "class": "support",
+      "reason": "Ambient particle effects."
+    },
+    {
+      "match": "config/subtle_effects/general.toml",
+      "class": "support",
+      "reason": "Ambient particle effects."
+    },
+    {
+      "match": "config/subtle_effects/items.toml",
+      "class": "support",
+      "reason": "Ambient particle effects."
+    },
+    {
+      "match": "config/tectonic.json",
+      "class": "gameplay",
+      "reason": "Terrain generation."
+    },
+    {
+      "match": "config/terrain_slabs.json",
+      "class": "gameplay",
+      "reason": "Terrain slab blocks and recipes."
+    },
+    {
+      "match": "config/terralith.json",
+      "class": "gameplay",
+      "reason": "Terrain generation."
+    },
+    {
+      "match": "config/transition.json",
+      "class": "support",
+      "reason": "Crash report consent."
+    },
+    {
+      "match": "config/trender.json",
+      "class": "support",
+      "reason": "Tooltip render style."
+    },
+    {
+      "match": "config/variantsandventures.json",
+      "class": "gameplay",
+      "reason": "Mob variant spawning."
+    },
+    {
+      "match": "config/voxy-config.json",
+      "class": "support",
+      "reason": "LOD renderer; client-side and machine-dependent."
+    },
+    {
+      "match": "config/voxyworldgenv2.json",
+      "class": "support",
+      "reason": "LOD generation threading; machine-dependent."
+    },
+    {
+      "match": "config/whitenoise-client.toml",
+      "class": "support",
+      "reason": "Ambient audio."
+    },
+    {
+      "match": "config/yacl.json5",
+      "class": "support",
+      "reason": "Config GUI library."
+    },
+    {
+      "match": "config/zfastnoise.mixin.toml",
+      "class": "support",
+      "reason": "Noise implementation; performance."
+    }
+  ],
+  "rewrittenAtRuntime": [
+    "config/MouseTweaks.cfg",
+    "config/almanac-nbtFix.json5",
+    "config/asyncparticles/asyncparticles-mixin.properties",
+    "config/asyncparticles/asyncparticles.json",
+    "config/autohud.json5",
+    "config/better_fishing.properties",
+    "config/betteradvancements.json",
+    "config/betterdays-client.toml",
+    "config/betterdays-common.toml",
+    "config/betterf3.json",
+    "config/betterthirdperson.json5",
+    "config/boids.json5",
+    "config/c2me.toml",
+    "config/cameraoverhaul.toml",
+    "config/chatanimation.json",
+    "config/cherishedworlds-client.toml",
+    "config/collective.json5",
+    "config/continuity.json",
+    "config/creativecore-client.json",
+    "config/creativecore.json",
+    "config/cursors_extended.json",
+    "config/emf_compat.json",
+    "config/enchdesc.json",
+    "config/entity_model_features.json",
+    "config/entity_texture_features.json",
+    "config/entityculling.json",
+    "config/etf_warnings.json",
+    "config/fallingleaves2.json",
+    "config/ferritecore.mixin.properties",
+    "config/fieldguide-client.json",
+    "config/fieldguide-server.json",
+    "config/fzzy_config/keybinds.toml",
+    "config/fzzy_config/search.toml",
+    "config/gnetum.json",
+    "config/immediatelyfast.json",
+    "config/invmove.json",
+    "config/invmove/unrecognized.json",
+    "config/invmove/vanilla.json",
+    "config/iris-excluded.json",
+    "config/iris.properties",
+    "config/ixeris.toml",
+    "config/jade/hide-blocks.json",
+    "config/jade/hide-entities.json",
+    "config/jade/hide-mob-effects.json",
+    "config/jade/jade.json",
+    "config/jade/profiles/1/jade.json",
+    "config/jade/profiles/2/jade.json",
+    "config/jade/profiles/3/jade.json",
+    "config/jade/server-plugin-overrides.json",
+    "config/jade/sort-order.json",
+    "config/jei-server.properties",
+    "config/jei/blacklist.json",
+    "config/jei/ingredient-list-mod-sort-order.ini",
+    "config/jei/ingredient-list-type-sort-order.ini",
+    "config/jei/jei-client.ini",
+    "config/jei/jei-colors.ini",
+    "config/jei/jei-debug.ini",
+    "config/jei/jei-mod-id-format.ini",
+    "config/jei/recipe-category-sort-order.ini",
+    "config/jei/world/local/New World/bookmarks.json",
+    "config/jei/world/local/New World/lookupHistory.json",
+    "config/lambdynlights.toml",
+    "config/leahs-immersive-thunder.toml",
+    "config/letmedespawn.json",
+    "config/lithostitched.json",
+    "config/lootr-client.jsonc",
+    "config/lootr-common.jsonc",
+    "config/midnightlib.json",
+    "config/modmenu.json",
+    "config/mousewheelie.hjson",
+    "config/noisium.json",
+    "config/notenoughanimations.json",
+    "config/presencefootsteps/updater.json",
+    "config/presencefootsteps/userconfig.json5",
+    "config/punchy/merged_animation_selection.json",
+    "config/punchy/punchy_config.json",
+    "config/punchy/triggerable-keybindings.json",
+    "config/resourceful-config-web.json",
+    "config/servercore/config.yml",
+    "config/skinlayers.json",
+    "config/smooth_steps.json",
+    "config/smoothgui.json",
+    "config/smoothscroll.json",
+    "config/smoothswapping.json",
+    "config/sodium-extra-options.json",
+    "config/sodium-fingerprint.json",
+    "config/sodium-options.json",
+    "config/sound_physics_remastered/occlusion.properties",
+    "config/sound_physics_remastered/reflectivity.properties",
+    "config/sound_physics_remastered/sound_rates.properties",
+    "config/sound_physics_remastered/soundphysics.properties",
+    "config/sounds/chat.json",
+    "config/sounds/event.json",
+    "config/sounds/mod_utils.json",
+    "config/sounds/ui.json",
+    "config/sounds/world.json",
+    "config/status-effect-bars.json",
+    "config/structure_layout_optimizer.jsonc",
+    "config/subtle_effects/blocks.toml",
+    "config/subtle_effects/entities.toml",
+    "config/subtle_effects/general.toml",
+    "config/subtle_effects/items.toml",
+    "config/tectonic.json",
+    "config/terrain_slabs.json",
+    "config/terralith.json",
+    "config/transition.json",
+    "config/trender.json",
+    "config/variantsandventures.json",
+    "config/voxy-config.json",
+    "config/voxyworldgenv2.json",
+    "config/whitenoise-client.toml",
+    "config/yacl.json5",
+    "config/zfastnoise.mixin.toml"
+  ],
+  "$rewrittenDoc": [
+    "Measured on a played instance: every file here was rewritten by its own mod during",
+    "startup and every rewrite was byte-identical. This is a watch list. If one of these",
+    "ever stops round-tripping, its rule moves to support or the value that varies gets a",
+    "propertyRules entry - it does not get quietly exempted."
+  ],
+  "outsideConfig": [
+    {
+      "match": "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",
+      "class": "player",
+      "reason": "Shader settings; the ore-glow switch is separately pinned by a property rule."
+    }
+  ]
+}
