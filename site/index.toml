@@ -22,7 +22,7 @@ hash = "436581c972cb3a3b2ec36526b99b76572b4bd41d98fe2980b40d61d527bb3164"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "17d1e90b093070d177256499794b1fd6baf8c7c5c0934b0bc2c8719ad196e28a"
+hash = "695647eaa806e75f34dc01f92879114ff942672411fdd790876a319cefbc497d"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -773,8 +773,12 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.8+26.2-fabric.jar"
-hash = "64a6d950771fc56fa69691b391378a9688238cdd95de03b80063db3a567e34a6"
+file = "mods/nbidal18-integrity-1.0.9+26.2-fabric.jar"
+hash = "0df53aab7e1cade814a449d2b51297c9583aa22c2f36c0fbb098438b32757bd2"
+
+[[files]]
+file = "mods/nbidal18-invmov-1.0.0+26.2-fabric.jar"
+hash = "45dde720e9b0d4fd92c6aebdd303c06f373317f599ff589389656259a03aa119"
 
 [[files]]
 file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"

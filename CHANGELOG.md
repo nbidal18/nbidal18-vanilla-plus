@@ -5,6 +5,29 @@ build that was not published.
 
 ---
 
+## v1.0.9
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-29 | see below | `7f9119731d0bc823` | `f4d5905c3e4b870e` | 251 | 107 |
+
+**Typing in JEI's search box no longer walks you around.** New first-party mod, `nbidal18-invmov`.
+
+InvMove has a setting for exactly this - *text field disables movement* - and it could not work with
+JEI. InvMove's check walks **the screen's own widget children** for a text box that is visible,
+active and accepting input. JEI draws its ingredient overlay outside that list and routes input
+itself, so there was nothing for InvMove to find, and the inventory screen is deliberately set to
+allow movement. Typing `www` into the filter walked you forward.
+
+**It is a bridge, not a patch.** InvMove publishes `registerModule(Module)` for this, and JEI
+publishes `IIngredientListOverlay.hasKeyboardFocus()`. Both halves are public API, so a breaking
+change upstream is a compile error rather than a mixin that quietly stops applying. The behaviour is
+a toggle in InvMove's own config screen for anyone who would rather keep walking.
+
+JEI's recipe screen needed nothing: it is a real screen, so InvMove already recognises it.
+
+---
+
 ## v1.0.8
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

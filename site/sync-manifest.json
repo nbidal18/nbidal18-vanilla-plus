@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.8",
+    "packVersion":  "1.0.9",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -320,7 +320,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "17d1e90b093070d177256499794b1fd6baf8c7c5c0934b0bc2c8719ad196e28a"
+                                    "sha256":  "695647eaa806e75f34dc01f92879114ff942672411fdd790876a319cefbc497d"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -794,7 +794,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "17d1e90b093070d177256499794b1fd6baf8c7c5c0934b0bc2c8719ad196e28a"
+                      "sha256":  "695647eaa806e75f34dc01f92879114ff942672411fdd790876a319cefbc497d"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1545,8 +1545,12 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.8+26.2-fabric.jar",
-                      "sha256":  "64a6d950771fc56fa69691b391378a9688238cdd95de03b80063db3a567e34a6"
+                      "path":  "mods/nbidal18-integrity-1.0.9+26.2-fabric.jar",
+                      "sha256":  "0df53aab7e1cade814a449d2b51297c9583aa22c2f36c0fbb098438b32757bd2"
+                  },
+                  {
+                      "path":  "mods/nbidal18-invmov-1.0.0+26.2-fabric.jar",
+                      "sha256":  "45dde720e9b0d4fd92c6aebdd303c06f373317f599ff589389656259a03aa119"
                   },
                   {
                       "path":  "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar",
