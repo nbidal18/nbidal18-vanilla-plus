@@ -1,0 +1,4 @@
+/.site-staging-*/
+/tools/
+/client/java-build/
+*.tmp
