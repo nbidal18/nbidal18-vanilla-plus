@@ -50,10 +50,32 @@ function Get-Url([string] $rel) {
     return $BaseUrl + $encoded
 }
 
-function Get-Served([string] $rel) {
-    $response = $client.GetAsync((Get-Url $rel)).GetAwaiter().GetResult()
-    if (-not $response.IsSuccessStatusCode) { return $null }
-    return $response.Content.ReadAsByteArrayAsync().GetAwaiter().GetResult()
+# Retried, because one blip out of 250 requests should not read as a broken release.
+#
+# The first run of this script failed a publish on config/presencefootsteps/updater.json, which was
+# being served perfectly - three manual fetches returned 200 and the right hash seconds later. A
+# check that cries wolf gets ignored, and an ignored check is worse than none.
+#
+# 404 and 410 are answers, not failures, so they are not retried: a retired file must fail fast.
+function Get-Served([string] $rel, [int] $Attempts = 3) {
+    $url = Get-Url $rel
+    for ($attempt = 1; $attempt -le $Attempts; $attempt++) {
+        try {
+            $response = $client.GetAsync($url).GetAwaiter().GetResult()
+            if ($response.IsSuccessStatusCode) {
+                return $response.Content.ReadAsByteArrayAsync().GetAwaiter().GetResult()
+            }
+            $code = [int] $response.StatusCode
+            if ($code -eq 404 -or $code -eq 410) { return $null }
+            $reason = "HTTP $code"
+        }
+        catch { $reason = $_.Exception.GetBaseException().Message }
+        if ($attempt -lt $Attempts) {
+            Write-Host ("retry     {0} ({1}, attempt {2}/{3})" -f $rel, $reason, $attempt, $Attempts)
+            Start-Sleep -Seconds (2 * $attempt)
+        }
+    }
+    return $null
 }
 
 function Get-Sha([byte[]] $bytes) {
