@@ -81,6 +81,11 @@
       "reason": "HUD preference; shipped as a one-time default."
     },
     {
+      "match": "config/bcc-common.toml",
+      "class": "gameplay",
+      "reason": "Declares this pack's name and version to Better Compatibility Checker. If a player can edit it, they can claim to be on any version, and the mismatch marker means nothing."
+    },
+    {
       "match": "config/better_fishing.properties",
       "class": "support",
       "reason": "Client-side fishing visuals."
@@ -765,16 +770,6 @@
     "propertyRules entry - it does not get quietly exempted."
   ],
   "propertyRules": [
-    {
-      "path": "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",
-      "key": "EMISSIVE_ORES",
-      "value": "0"
-    },
-    {
-      "path": "shaderpacks/nbidal18-\u00a7lE-LITE shaders 5.1.1.zip.txt",
-      "key": "EMISSIVE_ORE",
-      "value": "false"
-    },
     {
       "path": "config/xaero/world-map/profiles/default.cfg",
       "key": "cave_mode_allowed",

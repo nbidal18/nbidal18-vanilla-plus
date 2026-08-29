@@ -234,16 +234,6 @@
                      ],
     "propertyRules":  [
                           {
-                              "path":  "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",
-                              "key":  "EMISSIVE_ORES",
-                              "value":  "0"
-                          },
-                          {
-                              "path":  "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt",
-                              "key":  "EMISSIVE_ORE",
-                              "value":  "false"
-                          },
-                          {
                               "path":  "config/xaero/world-map/profiles/default.cfg",
                               "key":  "cave_mode_allowed",
                               "value":  "false"
@@ -334,6 +324,10 @@
                                 {
                                     "path":  "config/autohud.json5",
                                     "sha256":  "436581c972cb3a3b2ec36526b99b76572b4bd41d98fe2980b40d61d527bb3164"
+                                },
+                                {
+                                    "path":  "config/bcc-common.toml",
+                                    "sha256":  "0b666a29c9af09be3878086adbcd7da666681ed56ac83ef019917e5726b1279c"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -808,6 +802,10 @@
                   {
                       "path":  "config/autohud.json5",
                       "sha256":  "436581c972cb3a3b2ec36526b99b76572b4bd41d98fe2980b40d61d527bb3164"
+                  },
+                  {
+                      "path":  "config/bcc-common.toml",
+                      "sha256":  "0b666a29c9af09be3878086adbcd7da666681ed56ac83ef019917e5726b1279c"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1382,6 +1380,10 @@
                       "sha256":  "5187752710768c0323e615ef112083e89aef8f6a24cdf15d155d70eae6fb47d9"
                   },
                   {
+                      "path":  "mods/better-compatability-checker-fabric-26.2.0.1.jar",
+                      "sha256":  "9f051ab8e70d4a16f3e01e53600043ff6f297a20765296d4aa0bf7a73f48647c"
+                  },
+                  {
                       "path":  "mods/better_fishing-1.0.0-hotfix-fabric-26.2.jar",
                       "sha256":  "4e59170eeadfe1c648fe5a6acb3d9460c874bbdc9e9e9306ad1b43d3a03d994e"
                   },
@@ -1743,19 +1745,19 @@
                   },
                   {
                       "path":  "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip",
-                      "sha256":  "937595aed0c9e4c427c20a6ce510880186faa79b95e274f770fc9b787330df17"
+                      "sha256":  "180ba7d2ed4f3d1935be1c2ac3f69bdcc42e7ac0b6f919b4b53d48ac1752c18d"
                   },
                   {
                       "path":  "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",
-                      "sha256":  "2a908323fa5ce9f874248f74850b60528cf3b314970c30c7b20f9fe45b0b5a67"
+                      "sha256":  "ce45f3807046d82a6abefc3a55023eca0825f6e5e48d566ca20c375bbd030133"
                   },
                   {
                       "path":  "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip",
-                      "sha256":  "300514cd043f3dc61f7c1b557501fb01549b0110e54cd1eb4fc8fc77556f4b74"
+                      "sha256":  "eb756f80d1a460c5cad6eceae89a4dff6d5b0b1a4b0493f4dcb1433cfd5d5dc3"
                   },
                   {
                       "path":  "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt",
-                      "sha256":  "6d4da6fc8e31ed4ad4b2e1bf021bf950298a038c110bed218d49aa7f9a17e44c"
+                      "sha256":  "21694795b410bef9b5b34c10af835d33d19cdbef05cb264996057e9aa665f6fb"
                   }
               ]
 }
