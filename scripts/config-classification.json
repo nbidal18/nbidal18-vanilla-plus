@@ -626,6 +626,11 @@
       "reason": "Ambient audio."
     },
     {
+      "match": "config/xaero/world-map/profiles/default.cfg",
+      "class": "player",
+      "reason": "Map preferences - zoom, colours, waypoint scale. The eight settings that would turn the map into an information cheat are pinned individually by property rules instead, so the player keeps every honest preference."
+    },
+    {
       "match": "config/yacl.json5",
       "class": "support",
       "reason": "Config GUI library."
@@ -761,8 +766,48 @@
       "value": "0"
     },
     {
-      "path": "shaderpacks/\u00a7lE-LITE shaders 5.1.1.zip.txt",
+      "path": "shaderpacks/nbidal18-\u00a7lE-LITE shaders 5.1.1.zip.txt",
       "key": "EMISSIVE_ORE",
+      "value": "false"
+    },
+    {
+      "path": "config/xaero/world-map/profiles/default.cfg",
+      "key": "cave_mode_allowed",
+      "value": "false"
+    },
+    {
+      "path": "config/xaero/world-map/profiles/default.cfg",
+      "key": "display_tracked_players",
+      "value": "false"
+    },
+    {
+      "path": "config/xaero/world-map/profiles/default.cfg",
+      "key": "display_minimap_radar",
+      "value": "false"
+    },
+    {
+      "path": "config/xaero/world-map/profiles/default.cfg",
+      "key": "display_map_distances",
+      "value": "false"
+    },
+    {
+      "path": "config/xaero/world-map/profiles/default.cfg",
+      "key": "display_hovered_biome",
+      "value": "false"
+    },
+    {
+      "path": "config/xaero/world-map/profiles/default.cfg",
+      "key": "display_coordinates",
+      "value": "false"
+    },
+    {
+      "path": "config/xaero/world-map/profiles/default.cfg",
+      "key": "map_teleport_allowed",
+      "value": "false"
+    },
+    {
+      "path": "config/xaero/world-map/profiles/default.cfg",
+      "key": "load_new_chunks",
       "value": "false"
     }
   ],
@@ -773,7 +818,7 @@
       "reason": "Shader settings; the ore-glow switch is separately pinned by a property rule."
     },
     {
-      "match": "shaderpacks/\u00a7lE-LITE shaders 5.1.1.zip.txt",
+      "match": "shaderpacks/nbidal18-\u00a7lE-LITE shaders 5.1.1.zip.txt",
       "class": "player",
       "reason": "Shader settings; the ore-glow switch is separately pinned by a property rule."
     }
