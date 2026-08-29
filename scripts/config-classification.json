@@ -834,12 +834,12 @@
     {
       "match": "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",
       "class": "player",
-      "reason": "Shader settings; the ore-glow switch is separately pinned by a property rule."
+      "reason": "Shader settings. Published once so the pack ships its tuning, then owned by the player - a property rule cannot pin a key here, because these are not properties files."
     },
     {
       "match": "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt",
       "class": "player",
-      "reason": "Shader settings; the ore-glow switch is separately pinned by a property rule."
+      "reason": "Shader settings. Published once so the pack ships its tuning, then owned by the player - a property rule cannot pin a key here, because these are not properties files."
     }
   ]
 }

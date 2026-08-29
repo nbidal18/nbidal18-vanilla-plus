@@ -53,7 +53,7 @@
     "limit_beacon_beam_height": false,
     "enchanting_table_book": true,
     "item_frame_name_tag": true,
-    "player_name_tag": true
+    "player_name_tag": false
   },
   "extra_settings": {
     "overlay_corner": "TOP_LEFT",

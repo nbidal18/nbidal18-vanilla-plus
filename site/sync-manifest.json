@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.10",
+    "packVersion":  "1.0.11",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -23,7 +23,7 @@
                                 "config/xaero/minimap/profiles/default.cfg",
                                 "config/xaero/world-map/profiles/default.cfg",
                                 "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",
-                                "shaderpacks/nbidal18-Â§lE-LITE shaders 5.1.1.zip.txt",
+                                "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt",
                                 "config/MouseTweaks.cfg",
                                 "config/almanac-nbtFix.json5",
                                 "config/asyncparticles/asyncparticles-mixin.properties",
@@ -135,7 +135,7 @@
                          "config/xaero/minimap/profiles/default.cfg",
                          "config/xaero/world-map/profiles/default.cfg",
                          "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",
-                         "shaderpacks/nbidal18-Â§lE-LITE shaders 5.1.1.zip.txt",
+                         "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt",
                          "config/MouseTweaks.cfg",
                          "config/almanac-nbtFix.json5",
                          "config/asyncparticles/asyncparticles-mixin.properties",
@@ -320,7 +320,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "52eecb7c5c3e2b08d0c836d78f4f7feff62c9e82a2fe1fa1d4d16f9d71ed9079"
+                                    "sha256":  "82e58d2e77c2cc0dc46d2c332e7922f24d40db47086532b2c2540fe61c6be90e"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -636,7 +636,7 @@
                                 },
                                 {
                                     "path":  "config/sodium-extra-options.json",
-                                    "sha256":  "081225164bf3c4a2dd643595db590b136faee3d907cbd1614e36ed2f3b94c4b8"
+                                    "sha256":  "b01c35764dec53bdfdab6562628d99f830b97890f10f74e2e99171b66a4edac5"
                                 },
                                 {
                                     "path":  "config/sodium-extra.properties",
@@ -794,7 +794,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "52eecb7c5c3e2b08d0c836d78f4f7feff62c9e82a2fe1fa1d4d16f9d71ed9079"
+                      "sha256":  "82e58d2e77c2cc0dc46d2c332e7922f24d40db47086532b2c2540fe61c6be90e"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1110,7 +1110,7 @@
                   },
                   {
                       "path":  "config/sodium-extra-options.json",
-                      "sha256":  "c6d02a294a6615c01075925e5d33a15dd513e4ab128bb96dd77d2cf13a4e336b"
+                      "sha256":  "b01c35764dec53bdfdab6562628d99f830b97890f10f74e2e99171b66a4edac5"
                   },
                   {
                       "path":  "config/sodium-extra.properties",
@@ -1545,8 +1545,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.10+26.2-fabric.jar",
-                      "sha256":  "214c852cc64b70d395af09859a701145bbbf602c23790155228639a15d0976db"
+                      "path":  "mods/nbidal18-integrity-1.0.11+26.2-fabric.jar",
+                      "sha256":  "bcf8d292f60817f554d1f38c394507e474289493264af32d26a53e79ff556d95"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",

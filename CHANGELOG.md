@@ -5,6 +5,57 @@ build that was not published.
 
 ---
 
+## v1.0.11
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-30 | see below | `f909b2ad8cec33a2` | `6f970dd0e8673e2c` | 251 | 107 |
+
+**Player nametags are off**, and a latent lockout that shipped since v1.0.0 is fixed.
+
+### Nametags above players are hidden
+
+`config/sodium-extra-options.json` now ships `player_name_tag: false`. Sodium Extra's
+`MixinLivingEntityRenderer` injects into `LivingEntityRenderer.shouldShowName` and forces `false`
+when the entity is an `AbstractClientPlayer` and that option is off, so the name is not drawn at any
+distance or through any wall - it is not a fade, the tag is simply never submitted.
+
+The file is a `support` config, so the updater restores it on every sync: a player who switches
+names back on in Video Settings gets them hidden again at the next launch. Say so if it should
+instead be a default players can keep changing - that is a one-word reclassification to `player`.
+
+### The manifest fix
+
+`shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt` was listed in the preserved set with its
+section sign encoded twice - `0xC2 0xA7` where the published file has `0xA7`. The updater matches
+that list exactly, so the file was never recognised as player-owned and was hash-checked like any
+managed file.
+
+**The effect: selecting the E-LITE shader pack disconnected you from the server.** Iris writes that
+settings file the moment the pack is applied; the file was being hash-checked like any managed file,
+so `RuntimeIntegrityMonitor` saw a managed file change mid-session and pulled the player off the
+server:
+
+```
+[00:47:43] Using shaderpack: nbidal18-§lE-LITE shaders 5.1.1.zip
+[00:47:45] [nbidal18-integrity-scanner/WARN]: Runtime modpack integrity failure:
+           modified managed file: shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt
+[00:47:46] Client disconnected with reason: Modpack integrity change detected.
+```
+
+**Only E-LITE.** The other shader pack's settings file is pure ASCII, so its `localAllowed` entry
+always matched and switching to it was always fine. The one path in the pack with a non-ASCII
+character was the one that was broken, which is why this survived ten releases.
+
+The cause: `Build-PackwizSite` read `config-classification.json` with `Get-Content`, which in
+Windows PowerShell 5.1 decodes as the system ANSI codepage rather than UTF-8. Paths taken from the
+filesystem were right; paths taken from that file were not. It affected exactly one path - the only
+one in the pack with a non-ASCII character.
+
+Found by a test written the same day, on its first run.
+
+---
+
 ## v1.0.10
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

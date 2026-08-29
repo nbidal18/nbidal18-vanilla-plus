@@ -22,7 +22,7 @@ hash = "436581c972cb3a3b2ec36526b99b76572b4bd41d98fe2980b40d61d527bb3164"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "52eecb7c5c3e2b08d0c836d78f4f7feff62c9e82a2fe1fa1d4d16f9d71ed9079"
+hash = "82e58d2e77c2cc0dc46d2c332e7922f24d40db47086532b2c2540fe61c6be90e"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -338,7 +338,7 @@ hash = "d15110f71646c8b1e18a78483990691bbda1e9e687d39ac62cff0423375a4076"
 
 [[files]]
 file = "config/sodium-extra-options.json"
-hash = "c6d02a294a6615c01075925e5d33a15dd513e4ab128bb96dd77d2cf13a4e336b"
+hash = "b01c35764dec53bdfdab6562628d99f830b97890f10f74e2e99171b66a4edac5"
 
 [[files]]
 file = "config/sodium-extra.properties"
@@ -773,8 +773,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.10+26.2-fabric.jar"
-hash = "214c852cc64b70d395af09859a701145bbbf602c23790155228639a15d0976db"
+file = "mods/nbidal18-integrity-1.0.11+26.2-fabric.jar"
+hash = "bcf8d292f60817f554d1f38c394507e474289493264af32d26a53e79ff556d95"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"

@@ -34,7 +34,12 @@ Write-Host "release   $release"
 
 # ---------------------------------------------------------------- classification gate
 $classPath = Join-Path $PSScriptRoot 'config-classification.json'
-$class = Get-Content -LiteralPath $classPath -Raw | ConvertFrom-Json
+# Explicit UTF-8. Get-Content in Windows PowerShell 5.1 decodes as the system ANSI codepage, so a
+# path containing a section sign came back as two characters - the UTF-8 bytes read one at a time.
+# That put a mojibake path into localAllowed, which the updater matches exactly, so the E-LITE
+# shader settings file was never recognised as player-owned: it was enforced instead, and any player
+# who changed a shader option would have been refused at login. Found by Test-LocalSync.
+$class = [IO.File]::ReadAllText($classPath, [Text.Encoding]::UTF8) | ConvertFrom-Json
 $rules = @{}
 foreach ($r in $class.rules) { $rules[$r.match] = $r.class }
 
