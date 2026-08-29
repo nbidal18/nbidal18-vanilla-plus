@@ -5,6 +5,33 @@ build that was not published.
 
 ---
 
+## v1.0.5
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-29 | see below | `2731ae371d2e6b55` | `19d2fc241fc34dee` | 250 | 106 |
+
+**Voxy really does ship at 32 chunks now, and raising it finally sticks.** Two corrections to
+v1.0.4, both of which made that release's headline claim untrue.
+
+**The number was double what it said.** Voxy's option stores `sectionRenderDistance`, its slider
+reads that x16, and a *display formatter* then doubles it again - so the screen shows the stored
+value x32. v1.0.4 shipped `2.0` believing it was 32 chunks; it was 64. The correct value is `1.0`.
+The formatter was visible in the same bytecode as the getter and was not read.
+
+**And it could not be kept anyway.** `config/voxy-config.json` was classified `support`, which means
+the updater restores it on every sync - so a player who raised the distance lost it on the next
+launch, which is the exact opposite of shipping a low default so people can raise it. It is `player`
+now, alongside `iris.properties` and `sodium-options.json`, on the reasoning its own rule already
+gave: client-side and machine-dependent.
+
+**Your own setting is safe.** As a `player` file it is published once and never restored, so an
+existing install keeps whatever distance it is on. Only new installs start at 32.
+
+Nothing else changed: same 106 mods, same 17 resource packs, same order, same seed token.
+
+---
+
 ## v1.0.4
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
@@ -15,10 +42,15 @@ build that was not published.
 replace its models. Os' Colorful Grasses moves above the two 3D packs, and Simple Voice Chat's dark
 icon set is enabled at the very top.
 
-**It starts gentle.** Shaders now ship **off** and Voxy ships at **32 chunks**. Both shaders stay
-installed and one stays selected, so turning them on is a toggle — but a first launch no longer
-hands a low-end machine a shader pack and a quarter of a thousand chunks of LOD before the player
-has any say. Turn either up as far as your machine likes.
+**It starts gentle.** Shaders now ship **off** and Voxy ships lower. Both shaders stay installed
+and one stays selected, so turning them on is a toggle — but a first launch no longer hands a
+low-end machine a shader pack and hundreds of chunks of LOD before the player has any say. Turn
+either up as far as your machine likes.
+
+> **Corrected in v1.0.5.** This entry claimed 32 chunks. What shipped was `2.0`, which displays as
+> **64**: Voxy's screen shows the stored value ×32, not ×16, because a display formatter doubles
+> the slider on top of the getter's ×16. And `config/voxy-config.json` was `support`, so a raised
+> value was restored away on the next sync. v1.0.5 ships `1.0` and reclassifies it `player`.
 
 **Two files stopped shipping somebody else's settings.** `config/sounds/chat.json` shipped a personal
 `@handle` as the mention keyword, so every new player's chat pinged on a name that was not theirs;
@@ -33,9 +65,8 @@ not the first copy itself.**
 and never re-read, so changed rows need a new one and the previous declaration is replaced rather
 than left beside it. Weskerson's Torches declares `max_format` 84 against 26.2's 88, so it ships in
 the acknowledged-incompatible list like Actually 3D — its `26.1` overlay covers 84–128 and applies
-normally. Voxy's render distance is stored as chunks ÷ 16, while its own option is labelled "in
-chunks": the shipped `16.0` was 256 chunks and 32 chunks is `2.0`. The classification is down to
-118 rules — 10 gameplay, 99 support, 9 player — and 109 measured runtime rewrites.
+normally. The classification is down to 118 rules — 10 gameplay, 99 support, 9 player — and 109
+measured runtime rewrites.
 
 ---
 

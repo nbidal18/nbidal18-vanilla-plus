@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.4",
+    "packVersion":  "1.0.5",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -19,6 +19,7 @@
                                 "config/sodium-fingerprint.json",
                                 "config/sodium-options.json",
                                 "config/sounds/chat.json",
+                                "config/voxy-config.json",
                                 "config/xaero/minimap/profiles/default.cfg",
                                 "config/xaero/world-map/profiles/default.cfg",
                                 "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",
@@ -117,7 +118,6 @@
                                 "config/subtle_effects/items.toml",
                                 "config/transition.json",
                                 "config/trender.json",
-                                "config/voxy-config.json",
                                 "config/voxyworldgenv2.json",
                                 "config/whitenoise-client.toml",
                                 "config/yacl.json5",
@@ -131,6 +131,7 @@
                          "config/sodium-fingerprint.json",
                          "config/sodium-options.json",
                          "config/sounds/chat.json",
+                         "config/voxy-config.json",
                          "config/xaero/minimap/profiles/default.cfg",
                          "config/xaero/world-map/profiles/default.cfg",
                          "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",
@@ -224,7 +225,6 @@
                          "config/subtle_effects/items.toml",
                          "config/transition.json",
                          "config/trender.json",
-                         "config/voxy-config.json",
                          "config/voxyworldgenv2.json",
                          "config/whitenoise-client.toml",
                          "config/yacl.json5",
@@ -325,7 +325,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "b312ea158a399a7d6ff832a83145fe2729eb14e558e23761651b64a7bb8c0269"
+                                    "sha256":  "0fc3d7f02486e30c0f749143eca088b4f50d09cfa3d38f540f92548448fad29b"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -749,7 +749,7 @@
                                 },
                                 {
                                     "path":  "config/voxy-config.json",
-                                    "sha256":  "e20f5955e3f87a59c29abb892de600189f27aa718bf1360cdf7b5a5ceccb8fb7"
+                                    "sha256":  "dbbf0d111897264bc2f30afca6ae8b82c0b3dbb4cd21d472d57226c8f6515975"
                                 },
                                 {
                                     "path":  "config/voxyworldgenv2.json",
@@ -799,7 +799,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "b312ea158a399a7d6ff832a83145fe2729eb14e558e23761651b64a7bb8c0269"
+                      "sha256":  "0fc3d7f02486e30c0f749143eca088b4f50d09cfa3d38f540f92548448fad29b"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1223,7 +1223,7 @@
                   },
                   {
                       "path":  "config/voxy-config.json",
-                      "sha256":  "e20f5955e3f87a59c29abb892de600189f27aa718bf1360cdf7b5a5ceccb8fb7"
+                      "sha256":  "dbbf0d111897264bc2f30afca6ae8b82c0b3dbb4cd21d472d57226c8f6515975"
                   },
                   {
                       "path":  "config/voxyworldgenv2.json",
@@ -1550,8 +1550,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.4+26.2-fabric.jar",
-                      "sha256":  "6a58daff7c7b41b277c05c27e9b30e1a7f81d95540b8c99f1b032e7b044802c4"
+                      "path":  "mods/nbidal18-integrity-1.0.5+26.2-fabric.jar",
+                      "sha256":  "c88c8979b518269c1b1efe7ea91c94053719f06aac9e055dfc56933b350a8c48"
                   },
                   {
                       "path":  "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar",

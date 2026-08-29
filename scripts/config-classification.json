@@ -612,8 +612,8 @@
     },
     {
       "match": "config/voxy-config.json",
-      "class": "support",
-      "reason": "LOD renderer; client-side and machine-dependent."
+      "class": "player",
+      "reason": "Voxy's render distance and thread counts. Machine-dependent, and the whole point of shipping a low default is that a player raises it - as support it was restored to the shipped value on every sync, so a raised value never survived a launch."
     },
     {
       "match": "config/voxyworldgenv2.json",
