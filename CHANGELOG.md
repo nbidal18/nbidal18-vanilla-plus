@@ -5,6 +5,40 @@ build that was not published.
 
 ---
 
+## v1.0.7
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-29 | see below | `19df306ff3d3236d` | `21b811bf70a105ff` | 249 | 106 |
+
+**Actually 3D Blocks & Items is removed. It does not support 26.2.** Its Modrinth listing is tagged
+for it; its own metadata is not, and the metadata is what Minecraft obeys - `max_format: 84` against
+26.2's **88**, with a single overlay that stops at 75. Nothing in it applies, so the base models
+load against a format they were never written for.
+
+The visible symptom was a brown untextured shape rendered in the player's hand. The log named the
+cause on every load:
+
+```
+Missing texture references in model minecraft:item/sugar_gui
+Missing texture references in model minecraft:block/crafting_table
+Skipped language file: actually3d:lang/en_us.json (MalformedJsonException: Unterminated object)
+Non [a-z0-9_.-] character in namespace Actually3dBlocksAndItems
+```
+
+Every model with unresolved textures came from this pack, and it sat above 3D Default in priority,
+so its broken versions won. It also ships an invalid uppercase namespace folder and a lang file with
+missing commas - the sloppiness and the version claim are the same story.
+
+**3D Default stays and covers the same ground.** It declares overlays for formats 73-88 and 87-88,
+which is what real 26.2 support looks like.
+
+**Check the metadata, not the listing.** Two packs added in v1.0.4 claimed 26.2 on Modrinth; one
+shipped a core shader that blanked every inventory slot, the other shipped models for a format four
+versions old. Both said so in their own `pack.mcmeta`.
+
+---
+
 ## v1.0.6
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

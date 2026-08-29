@@ -22,7 +22,7 @@ hash = "436581c972cb3a3b2ec36526b99b76572b4bd41d98fe2980b40d61d527bb3164"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "2ac441f6a04464f7e35ea1d3ae3b85ca48ac93d01e6acf79ef6701cc138a2a96"
+hash = "66231944d0f174482da75abafd1c82e645a20704316d080cbfce12a6edef6209"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -773,8 +773,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.6+26.2-fabric.jar"
-hash = "b0725a4520810e55026dce06b42d493b71c2db184c66540a9702f1955524aa8b"
+file = "mods/nbidal18-integrity-1.0.7+26.2-fabric.jar"
+hash = "2b2839528b2d7529697185e05f414f62e2190f959cb0abce5b9e4af7eaebe443"
 
 [[files]]
 file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
@@ -902,7 +902,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "9b43e866df5b1e3cdbf35fe1614f40d5125492594f54507b6e78c8dae9d00e15"
+hash = "1a287ec77ee6f10ed8509d3d7c3d7df48da358ad63448bb2ee190c1e6f1288a1"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -979,10 +979,6 @@ hash = "2c566bc61e40c8aee17106487322f9e91360a4fa29fcc405833bcbeb0150fafd"
 [[files]]
 file = "resourcepacks/§5§lNo Enchant Glint §f§l26.2.zip"
 hash = "46f2630fe76ec7dbc95c8ca54b09ad1a88812bf6e38fcbf5034b8c67320ffe23"
-
-[[files]]
-file = "resourcepacks/§f§lActually §6§l3D §fBlocks & Items!§7.zip"
-hash = "0df22f984e62f4c9d25132e52103e201971a5ba5c2aeed091a4db0d8b0c30d88"
 
 [[files]]
 file = "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip"
