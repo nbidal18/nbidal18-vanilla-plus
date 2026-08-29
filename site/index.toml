@@ -277,6 +277,10 @@ file = "config/mousewheelie.hjson"
 hash = "e988b95200492369a1b8eef7e6a41fe1147ee5eb53d89c6c6f555a908df81f68"
 
 [[files]]
+file = "config/nbidal18-vanillarefresh.json"
+hash = "35852a814e69fcf8ed03ba841fa5bf4d1d3d0c2a6c8f369584c0d5daf308bbd8"
+
+[[files]]
 file = "config/notenoughanimations.json"
 hash = "45121987f8bbbb948bd5096ffb02b1361c762b3e34836b3f9097a9a4ef7222d4"
 
@@ -923,3 +927,11 @@ hash = "937595aed0c9e4c427c20a6ce510880186faa79b95e274f770fc9b787330df17"
 [[files]]
 file = "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt"
 hash = "2a908323fa5ce9f874248f74850b60528cf3b314970c30c7b20f9fe45b0b5a67"
+
+[[files]]
+file = "shaderpacks/§lE-LITE shaders 5.1.1.zip"
+hash = "d9904d435be1e5a2246213a82c6bd4b730dcd3d36141e6e09161f892b1050093"
+
+[[files]]
+file = "shaderpacks/§lE-LITE shaders 5.1.1.zip.txt"
+hash = "a2df9ce5f2d9aa2efe2a3c5488628c582c036bc40c97647d7032119629a0255e"
