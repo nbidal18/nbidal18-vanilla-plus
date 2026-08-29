@@ -5,11 +5,23 @@
       scripts\Deploy-LiveServer.ps1              check everything and report, change nothing
       scripts\Deploy-LiveServer.ps1 -Apply       do it
 
-    It exists because the server half is four separate writes done by hand, and only the ones that
-    break something announce themselves when forgotten. A stale policy locks every player out and a
-    stale helper refuses logins, so those are impossible to miss. A stale MOTD breaks nothing - it
-    just tells everyone the wrong version from the server list - and it was missed on both v1.0.1
+    It exists because the server half was a set of separate writes done by hand, and only the ones
+    that break something announce themselves when forgotten. A stale policy locks every player out
+    and a stale helper refuses logins, so those are impossible to miss. A stale MOTD breaks nothing -
+    it just tells everyone the wrong version from the server list - and it was missed on both v1.0.1
     and v1.0.2, caught by the owner and not by anything here.
+
+    **Shared mod jars are the quiet one.** Any jar the server and the client pack both carry has to
+    be deployed too, and nothing here used to do it. Twice that was missed and neither failed: the
+    Vanilla Refresh fork ran two commits behind and wrote its own defaults over 22 settings, and the
+    Hardcore Revive fork kept serving a recipe that had been removed a release earlier - found in
+    JEI by the owner, not by any check. Both were copied by hand afterwards, which is the same
+    exposure again. Now every shared jar is hashed and any that differs is deployed with the rest.
+
+    What it deliberately does not do is add a jar the server does not already have. Most of the
+    client pack is client-only and nothing here can tell which of it belongs on a server, so a
+    genuinely new server-side mod is still a decision, not a sync. The count of client-only jars is
+    printed so that stays visible rather than silent.
 
     Refusals, all of which have a real incident behind them:
 
@@ -17,8 +29,9 @@
       a manifest nobody can download yet, so every launching client is refused for the whole of the
       Pages propagation, on top of the outage.
 
-      the server must be down, proved by a Server List Ping and not by a TCP connect or a log
-      timestamp. The pack pauses when empty, so a running server writes nothing for hours; the host
+      the server must be down before anything is written, proved by a Server List Ping and not by a
+      TCP connect or a log timestamp. The ping runs immediately before the first write, never
+      earlier, so an "it's off" from a minute ago is never carried forward. The pack pauses when empty, so a running server writes nothing for hours; the host
       can hold the port open with the server stopped; and log timestamps are UTC while the clock
       here is not.
 
@@ -125,16 +138,35 @@ function Test-ServerUp {
     finally { $client.Close() }
 }
 
-if (Test-ServerUp) {
-    throw 'The server answered a status ping. Stop it from the provider panel; the helper jar and the MOTD are not hot-reloadable.'
-}
-Write-Host 'server    confirmed down (no status reply)'
-
 $configDir = Join-Path $DriveRoot 'config'
 $modsDir = Join-Path $DriveRoot 'mods'
 $propsPath = Join-Path $DriveRoot 'server.properties'
 $policyLive = Join-Path $configDir 'nbidal18-integrity.properties'
 $existingHelpers = @(Get-ChildItem -LiteralPath $modsDir -Filter 'nbidal18-integrity-*.jar')
+
+# Shared jars: present on the server AND in the client pack. The helper is excluded because it is
+# version-stamped and handled on its own above - matching it by name here would compare v1.0.10
+# against v1.0.11 and call every release stale.
+$releaseMods = Join-Path $release '3. modpack\client\mods'
+$shared = @()
+$serverOnly = 0
+foreach ($live in @(Get-ChildItem -LiteralPath $modsDir -Filter *.jar -File)) {
+    if ($live.Name -like 'nbidal18-integrity-*.jar') { continue }
+    $mirror = Join-Path $releaseMods $live.Name
+    if (-not (Test-Path -LiteralPath $mirror -PathType Leaf)) { $serverOnly++; continue }
+    $shared += [pscustomobject]@{
+        Name = $live.Name
+        Live = $live.FullName
+        Source = $mirror
+        # Read both through the same call the deploy uses, so a stale mount shows up here and not
+        # after the write.
+        Stale = (Get-FileHash -LiteralPath $live.FullName -Algorithm SHA256).Hash -ne
+                (Get-FileHash -LiteralPath $mirror -Algorithm SHA256).Hash
+    }
+}
+$staleShared = @($shared | Where-Object { $_.Stale })
+$clientOnly = @(Get-ChildItem -LiteralPath $releaseMods -Filter *.jar -File).Count - $shared.Count - 1
+
 $wantMotd = "motd=v$version - @nbidal18 on Discord"
 $propsText = [IO.File]::ReadAllText($propsPath)
 $motdNow = ([regex]::Match($propsText, '(?m)^motd=.*$')).Value
@@ -144,6 +176,13 @@ Write-Host 'would change:'
 Write-Host ("  policy   {0}" -f $policyLive)
 Write-Host ("  helper   {0}  ->  {1}" -f (($existingHelpers | ForEach-Object { $_.Name }) -join ', '), $helperSource.Name)
 Write-Host ("  motd     {0}  ->  {1}" -f $motdNow, $wantMotd)
+if ($staleShared.Count) {
+    foreach ($jar in $staleShared) { Write-Host ("  jar      {0}" -f $jar.Name) }
+}
+else {
+    Write-Host ("  jars     none - all {0} shared jars already match" -f $shared.Count)
+}
+Write-Host ("           {0} server-only jars untouched, {1} client-only jars not considered" -f $serverOnly, $clientOnly)
 
 if (-not $Apply) {
     Write-Host ''
@@ -151,11 +190,30 @@ if (-not $Apply) {
     return
 }
 
+# The ping sits here rather than earlier so that a dry run works whatever the server is doing -
+# reading the mount is safe, and being unable to preview a deploy while the server is up is just
+# an obstacle. For -Apply it is the last thing before the first write, which is where the rule
+# wants it: never carry forward an earlier "it's off".
+$live = [IO.Path]::GetFullPath($DriveRoot) -eq [IO.Path]::GetFullPath('Y:')
+if ($live) {
+    if (Test-ServerUp) {
+        throw 'The server answered a status ping. Stop it from the provider panel; the helper jar, the shared jars and the MOTD are not hot-reloadable.'
+    }
+    Write-Host 'server    confirmed down (no status reply)'
+}
+else {
+    # A -DriveRoot that is not the live mount is a rehearsal against a throwaway tree, so there is
+    # no server to be down. This exists so the write-and-verify half can be exercised without an
+    # outage - it had never run against a stale jar until it was tested this way.
+    Write-Host ("REHEARSAL not the live mount ({0}) - no ping, nothing here reaches the server" -f $DriveRoot)
+}
+
 # ---------------------------------------------------------------- back up, and prove the backup
 $stamp = (Get-Date -Format 'yyyy-MM-dd') + "-v$version"
 $backup = Join-Path (Join-Path $DriveRoot '.nbidal18-deploy-backups') $stamp
 New-Item -ItemType Directory -Force -Path $backup | Out-Null
-$toBackUp = @($policyLive, $propsPath) + ($existingHelpers | ForEach-Object { $_.FullName })
+$toBackUp = @($policyLive, $propsPath) + ($existingHelpers | ForEach-Object { $_.FullName }) +
+    ($staleShared | ForEach-Object { $_.Live })
 foreach ($p in $toBackUp) {
     $dest = Join-Path $backup (Split-Path $p -Leaf)
     [IO.File]::WriteAllBytes($dest, [IO.File]::ReadAllBytes($p))
@@ -172,12 +230,17 @@ foreach ($old in $existingHelpers) {
     if ($old.Name -ne $helperSource.Name) { [IO.File]::Delete($old.FullName) }
 }
 [IO.File]::WriteAllText($propsPath, [regex]::Replace($propsText, '(?m)^motd=.*$', { $wantMotd }))
+foreach ($jar in $staleShared) {
+    [IO.File]::WriteAllBytes($jar.Live, [IO.File]::ReadAllBytes($jar.Source))
+}
 
 # ---------------------------------------------------------------- verify
 $failures = New-Object Collections.Generic.List[string]
-foreach ($pair in @(
-        @{ s = $policySource; d = $policyLive },
-        @{ s = $helperSource.FullName; d = (Join-Path $modsDir $helperSource.Name) })) {
+$verify = @(
+    @{ s = $policySource; d = $policyLive },
+    @{ s = $helperSource.FullName; d = (Join-Path $modsDir $helperSource.Name) })
+foreach ($jar in $staleShared) { $verify += @{ s = $jar.Source; d = $jar.Live } }
+foreach ($pair in $verify) {
     $a = (Get-FileHash -LiteralPath $pair.s -Algorithm SHA256).Hash
     $b = (Get-FileHash -LiteralPath $pair.d -Algorithm SHA256).Hash
     $sa = (Get-Item -LiteralPath $pair.s).Length
@@ -197,6 +260,23 @@ $keysAfter = @($after | Where-Object { $_ -match '^[a-z][a-z0-9.\-]*=' } | ForEa
 if (Compare-Object $keysBefore $keysAfter) { $failures.Add('server.properties gained or lost a key') }
 Write-Host ("MATCH     server.properties {0} keys, motd -> v{1}" -f $keysAfter.Count, $version)
 
+# Re-read every shared jar from the mount rather than trusting the copies above. This is the check
+# that would have caught both forks, and it is cheap next to the outage it prevents.
+$stillStale = @()
+foreach ($jar in $shared) {
+    if ((Get-FileHash -LiteralPath $jar.Live -Algorithm SHA256).Hash -ne
+        (Get-FileHash -LiteralPath $jar.Source -Algorithm SHA256).Hash) {
+        $stillStale += $jar.Name
+    }
+}
+if ($stillStale.Count) { $failures.Add('shared jars still differ: ' + ($stillStale -join ', ')) }
+Write-Host ("MATCH     {0} shared jars byte-identical to the release" -f $shared.Count)
+
 if ($failures.Count) { throw ('Deployment did not verify: ' + ($failures -join '; ')) }
 Write-Host ''
-Write-Host 'OK        policy, helper and MOTD deployed. Start the server.'
+if ($live) {
+    Write-Host ("OK        policy, helper, MOTD and {0} jar(s) deployed. Start the server." -f $staleShared.Count)
+}
+else {
+    Write-Host ("OK        rehearsal complete: {0} jar(s) deployed and verified against {1}. The live server was not touched." -f $staleShared.Count, $DriveRoot)
+}
