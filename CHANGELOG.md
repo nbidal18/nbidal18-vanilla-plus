@@ -5,6 +5,45 @@ build that was not published.
 
 ---
 
+## v1.0.3
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-29 | see below | `2769fc637c42839b` | `2a03fec926e56324` | 250 | 106 |
+
+**The update engine can update itself again, which it has never actually been able to do.** Nothing
+in the pack changed; this release fixes how the pack is delivered.
+
+The four staged jars the updater replaces itself with — `nbidal18-packwiz-sync.next.jar`,
+`nbidal18-packwiz-updater.next.jar`, `packwiz-installer.next.jar` and
+`packwiz-installer-bootstrap.next.jar` — were written into `site\` **after** `packwiz refresh` had
+already built the index. They were served on the channel and listed nowhere, and nothing but the
+index fetches them: packwiz downloads what the index lists, and the supervisor promotes what packwiz
+delivered. **Every instance therefore kept whatever update engine its client ZIP shipped, from
+v1.0.0 to v1.0.2.**
+
+It surfaced because v1.0.2's resource pack order never arrived. The order was seeded correctly into
+the new updater; the new updater never reached anyone.
+
+**The release gate reported "ready to publish" on all three.** It required those four files to exist
+in `site\`, which they did. Existing and being reachable are not the same property. The gate now
+reads `index.toml`, and was tested against a deliberately broken index before being trusted.
+
+**So v1.0.2's resource pack order lands on the first launch after this one** — the old engine syncs,
+packwiz delivers the four jars, the supervisor promotes them and re-runs the new engine before
+Minecraft starts. Still one click of Play.
+
+**Maintainer-facing.** `Build-Updater` runs first now and writes only to `client\`;
+`Build-PackwizSite` stages the `.next` copies before refreshing. The live engine jars are no longer
+published at all — indexing `nbidal18-packwiz-updater.jar` would have packwiz overwrite the jar
+running the sync. The channel's root-level files and their manifest treatment are now identical to
+the 1.21.1 pack's, which has always done this correctly. The updater, the supervisor and the
+integrity helper were diffed against that pack afterwards: the helper is line-for-line identical bar
+the two 26.2 API changes, and the other two are method-for-method identical. Every divergence this
+line has had was in the build layer, not the Java.
+
+---
+
 ## v1.0.2
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

@@ -22,7 +22,7 @@ hash = "436581c972cb3a3b2ec36526b99b76572b4bd41d98fe2980b40d61d527bb3164"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "ce38f9779b12953581a4b2c6b1a8765e1c360de9d0d9908f2ddea83e9f08c85b"
+hash = "fe0ccf96df75f766aa65961a88fe61156818884ddfe5a275844fd5e1dad117ea"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -777,8 +777,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.2+26.2-fabric.jar"
-hash = "1efbd8c63e1b84a0973bf2bf5c0d56a61856a1bf0553117838e02d920199a7a6"
+file = "mods/nbidal18-integrity-1.0.3+26.2-fabric.jar"
+hash = "591f66f190fa1c6cebaeb49d466274a17214bf200dc292e8c38c636b75451eb3"
 
 [[files]]
 file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
@@ -899,6 +899,22 @@ hash = "829396c3b3e7d1801ae0e9e2921d0454c5a3078afdb6c6dda6b3d1819dfa0e3f"
 [[files]]
 file = "mods/zfastnoise-1.0.40+26.2.jar"
 hash = "cdbed999df58da95c39a1e0c10811f7bc8c9aadc5696a1efda1624bd30104046"
+
+[[files]]
+file = "nbidal18-packwiz-sync.next.jar"
+hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
+
+[[files]]
+file = "nbidal18-packwiz-updater.next.jar"
+hash = "86d3acbd0933bb251ba4ed6ca5dc808ef415b2616624e336d11b67d36dde5540"
+
+[[files]]
+file = "packwiz-installer-bootstrap.next.jar"
+hash = "a8fbb24dc604278e97f4688e82d3d91a318b98efc08d5dbfcbcbcab6443d116c"
+
+[[files]]
+file = "packwiz-installer.next.jar"
+hash = "c9f646908d340d84773948a9a7d98bc1dae250d35e1016dc6e2b8459760b5598"
 
 [[files]]
 file = "prism/mmc-pack.json"

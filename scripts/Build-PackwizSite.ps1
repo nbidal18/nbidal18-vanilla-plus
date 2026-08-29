@@ -77,6 +77,34 @@ foreach ($f in 'THIRD-PARTY-NOTICES.md', 'credits.txt') {
     if (Test-Path -LiteralPath $p) { Copy-Item -LiteralPath $p -Destination $site -Force }
 }
 
+# ---------------------------------------------------------------- staged tools
+#
+# The four .next.jar files are staged HERE, before packwiz refresh, because that is the only way
+# they reach a player: packwiz downloads what the index lists, and the supervisor then promotes
+# what packwiz put in the instance. Nothing else fetches them.
+#
+# They used to be written by Build-Updater, which runs after this script - so they were served on
+# the channel and listed in nothing. Every instance therefore kept whatever update engine its
+# client ZIP shipped, for ever, and the self-update path was inert from v1.0.0 to v1.0.2. It went
+# unnoticed because the release gate checked that they existed in site\, which they did.
+#
+# Only the .next copies are indexed. Indexing the live nbidal18-packwiz-updater.jar would have
+# packwiz overwrite the jar that is running the sync at that moment.
+$stagedTools = [ordered]@{
+    'nbidal18-packwiz-sync.next.jar'       = Join-Path $repo 'client\nbidal18-packwiz-sync.jar'
+    'nbidal18-packwiz-updater.next.jar'    = Join-Path $repo 'client\nbidal18-packwiz-updater.jar'
+    'packwiz-installer-bootstrap.next.jar' = Join-Path $release '5. modpack source\auto-updater tools\packwiz-installer-bootstrap.jar'
+    'packwiz-installer.next.jar'           = Join-Path $release '5. modpack source\auto-updater tools\packwiz-installer.jar'
+}
+foreach ($staged in $stagedTools.Keys) {
+    $source = $stagedTools[$staged]
+    if (-not (Test-Path -LiteralPath $source)) {
+        throw "Run Build-Updater.ps1 first - missing $source, so $staged cannot be staged and would never reach a player"
+    }
+    Copy-Item -LiteralPath $source -Destination (Join-Path $site $staged) -Force
+}
+Write-Host ("staged    {0} update-engine jars, before the index so packwiz delivers them" -f $stagedTools.Count)
+
 # prism\mmc-pack.json is published as pack content so the channel can change the Minecraft or
 # loader version of an instance that was imported once. The updater downloads it like any other
 # managed file; the supervisor promotes it on the next launch. Written from the same single source

@@ -10,10 +10,10 @@
     Neither imports Minecraft or Fabric: they run before the game starts. That is why this builds
     with plain javac and no game jar on the classpath.
 
-    Both are also written into site\ with a .next.jar suffix. That is the self-update path: the
-    updater downloads the .next copies, and on the following launch the supervisor promotes them
-    before running anything. It is the reason the updater can replace itself without Prism ever
-    starting Minecraft from a half-updated release.
+    Both are written to client\ and nowhere else. Build-PackwizSite stages the .next.jar copies
+    into site\ before it refreshes the index, which is the only way they reach a player: packwiz
+    downloads what the index lists, and the supervisor promotes what packwiz delivered. This script
+    therefore has to run BEFORE Build-PackwizSite, not after it.
 #>
 [CmdletBinding()]
 param()
@@ -23,7 +23,6 @@ Set-StrictMode -Version Latest
 
 $repo = Split-Path -Parent $PSScriptRoot
 $client = Join-Path $repo 'client'
-$site = Join-Path $repo 'site'
 $out = Join-Path $client 'java-build'
 
 $jdk = Join-Path $env:APPDATA 'PrismLauncher\java\java-runtime-epsilon\bin'
@@ -100,16 +99,17 @@ foreach ($b in $builds) {
     # ZIP unreproducible too. Rewrite with sorted entries and a pinned timestamp.
     Normalize-Archive $target
 
-    # ship it, and ship the staged copy the supervisor promotes on the next launch
-    Copy-Item -LiteralPath $target -Destination (Join-Path $site $b.jar) -Force
-    Copy-Item -LiteralPath $target -Destination (Join-Path $site ($b.jar -replace '\.jar$', '.next.jar')) -Force
     Write-Host ("built     {0,-34} {1,8:N0} B  ({2} classes)" -f $b.jar, (Get-Item -LiteralPath $target).Length, $classes.Count)
 }
 
-# packwiz's own jars are staged the same way, so a channel can replace them too
-$tools = Join-Path (Split-Path -Parent $repo) ("v." + (Get-Content -LiteralPath (Join-Path $repo 'PACK-VERSION.txt') -Raw).Trim() + '\5. modpack source\auto-updater tools')
-foreach ($j in 'packwiz-installer-bootstrap.jar', 'packwiz-installer.jar') {
-    Copy-Item -LiteralPath (Join-Path $tools $j) -Destination (Join-Path $site ($j -replace '\.jar$', '.next.jar')) -Force
-}
-Write-Host "staged    packwiz-installer(.bootstrap).next.jar"
-Write-Host "done"
+# Nothing is written to site\ here any more, and this script now runs FIRST.
+#
+# It used to copy each jar into site\ as both .jar and .next.jar, after Build-PackwizSite had
+# already refreshed the index. The .next copies were therefore served but listed nowhere, so
+# packwiz never downloaded them and no instance ever received a new update engine - the self-update
+# path was dead from v1.0.0 to v1.0.2. Build-PackwizSite stages them before the refresh instead,
+# which is what the 1.21.1 pack has always done.
+#
+# The live jars are not published at all: the client ZIP carries them for a first install, and
+# indexing one would make packwiz overwrite the jar currently running the sync.
+Write-Host "done      jars are in client\; Build-PackwizSite stages the .next copies"

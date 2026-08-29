@@ -2,13 +2,18 @@
     Builds the whole release, in the only order that works, and refuses to finish if the result is
     incomplete.
 
-    The order matters and is not obvious. Build-PackwizSite WIPES site\ before staging, so anything
-    the other two scripts put there is destroyed if they run first. That happened once and would
-    have published a channel with no client ZIP and no .next staging jars - the updater would have
-    installed the pack and then failed to find the files it promotes on the next launch.
+    The order matters and is not obvious, and it changed in v1.0.3.
+
+    Build-Updater now runs FIRST, because it only writes to client\ and Build-PackwizSite has to
+    stage its .next.jar copies into site\ BEFORE refreshing the index. Anything staged after the
+    refresh is served and listed nowhere, so packwiz never downloads it. That is exactly what
+    happened from v1.0.0 to v1.0.2: the four staged jars sat on the channel unindexed, every
+    instance kept the update engine its client ZIP shipped, and the self-update path was inert.
+
+    Build-PackwizSite still WIPES site\ before staging, so nothing that writes there may run first.
 
     Checksums are written here rather than inside Build-PackwizSite, because SHA256SUMS.txt has to
-    cover the jars and the ZIP that are added after staging.
+    cover the client ZIP, which is added after staging.
 #>
 [CmdletBinding()]
 param()
@@ -19,10 +24,10 @@ Set-StrictMode -Version Latest
 $repo = Split-Path -Parent $PSScriptRoot
 $site = Join-Path $repo 'site'
 
-Write-Host "== 1/4 pack content"
-& (Join-Path $PSScriptRoot 'Build-PackwizSite.ps1')
-Write-Host "`n== 2/4 updater jars"
+Write-Host "== 1/4 updater jars"
 & (Join-Path $PSScriptRoot 'Build-Updater.ps1')
+Write-Host "`n== 2/4 pack content"
+& (Join-Path $PSScriptRoot 'Build-PackwizSite.ps1')
 Write-Host "`n== 3/4 client shell"
 & (Join-Path $PSScriptRoot 'Build-ClientShell.ps1') | Select-Object -First 1
 
@@ -35,16 +40,39 @@ Get-ChildItem -LiteralPath $site -Recurse -File | Sort-Object FullName | ForEach
 }
 [IO.File]::WriteAllText((Join-Path $site 'SHA256SUMS.txt'), $sums.ToString(), (New-Object Text.UTF8Encoding($false)))
 
-# Everything a client needs from the channel, none of which is in the packwiz index.
+# Fetched directly by the updater rather than through the packwiz index.
 $required = @(
-    'pack.toml', 'index.toml', 'sync-manifest.json', 'SHA256SUMS.txt',
-    'nbidal18-client.zip',
-    'nbidal18-packwiz-sync.jar', 'nbidal18-packwiz-sync.next.jar',
-    'nbidal18-packwiz-updater.jar', 'nbidal18-packwiz-updater.next.jar',
-    'packwiz-installer.next.jar', 'packwiz-installer-bootstrap.next.jar'
+    'pack.toml', 'index.toml', 'sync-manifest.json', 'SHA256SUMS.txt', 'nbidal18-client.zip'
 )
 $missing = @($required | Where-Object { -not (Test-Path -LiteralPath (Join-Path $site $_)) })
 if ($missing.Count) { throw ("The release is incomplete; these are missing from site\: " + ($missing -join ', ')) }
+
+# The update engine reaches a player ONLY by being in the index - packwiz downloads what the index
+# lists, and the supervisor promotes what packwiz delivered. Presence in site\ proves nothing.
+#
+# The old gate checked exactly that: it required these files to exist, they did, and it reported
+# "ready to publish" for three releases while none of them was listed and no instance could ever
+# receive a new update engine. Check the index, not the directory.
+$mustBeIndexed = @(
+    'nbidal18-packwiz-sync.next.jar', 'nbidal18-packwiz-updater.next.jar',
+    'packwiz-installer.next.jar', 'packwiz-installer-bootstrap.next.jar'
+)
+$indexed = @(
+    Select-String -LiteralPath (Join-Path $site 'index.toml') -Pattern '^file = "(.+)"$' |
+        ForEach-Object { $_.Matches[0].Groups[1].Value }
+)
+$unlisted = @($mustBeIndexed | Where-Object { $indexed -notcontains $_ })
+if ($unlisted.Count) {
+    throw ("The update engine would never reach a player; these are served but absent from index.toml: " +
+        ($unlisted -join ', ') + ". Build-PackwizSite must stage them before packwiz refresh.")
+}
+Write-Host ("engine    {0} staged jars, all present in index.toml" -f $mustBeIndexed.Count)
+
+# The live jars are deliberately NOT published. packwiz would overwrite the updater jar that is
+# running the sync at that moment; the client ZIP is what supplies them for a first install.
+$mustNotBePublished = @('nbidal18-packwiz-sync.jar', 'nbidal18-packwiz-updater.jar')
+$leaked = @($mustNotBePublished | Where-Object { Test-Path -LiteralPath (Join-Path $site $_) })
+if ($leaked.Count) { throw ("These must not be published: " + ($leaked -join ', ')) }
 
 # The client ZIP must contain everything the supervisor needs before Minecraft ever starts.
 # prism/mmc-pack.json is the one that is easy to omit and fails hard: the pre-launch command exits
