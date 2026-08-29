@@ -1370,6 +1370,10 @@
                       "sha256":  "717d51cf9b850423264de8a21cc469dfec89469e4e09a4cf1549513a9022860a"
                   },
                   {
+                      "path":  "mods/anti-spectator-noclip-0.1.0_fabric26.2.jar",
+                      "sha256":  "b4dd81ce0362e8d1ec2154b1e5c1cb412c5a53e74b251420af265230f0cc65c9"
+                  },
+                  {
                       "path":  "mods/architectury-fabric-21.0.7.jar",
                       "sha256":  "0f57afbd3dcddd0b7304c22d712ccf5437e2c41270ec08bd2d8c4e1df0a6d627"
                   },
