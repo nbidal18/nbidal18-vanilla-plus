@@ -885,6 +885,10 @@ file = "mods/zfastnoise-1.0.40+26.2.jar"
 hash = "cdbed999df58da95c39a1e0c10811f7bc8c9aadc5696a1efda1624bd30104046"
 
 [[files]]
+file = "prism/mmc-pack.json"
+hash = "48f695f86304c1b76a23905b266c7eb50c5273c47c041b2c128e0001390ab441"
+
+[[files]]
 file = "resourcepacks/Better Lanterns v1.3.2 - 26.2.zip"
 hash = "09d06aa067f9fb00eb76f5d1be05fc7fe26199c05f6c3e25f126a5faca86ad76"
 

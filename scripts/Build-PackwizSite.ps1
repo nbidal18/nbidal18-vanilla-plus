@@ -77,6 +77,26 @@ foreach ($f in 'THIRD-PARTY-NOTICES.md', 'credits.txt') {
     if (Test-Path -LiteralPath $p) { Copy-Item -LiteralPath $p -Destination $site -Force }
 }
 
+# prism\mmc-pack.json is published as pack content so the channel can change the Minecraft or
+# loader version of an instance that was imported once. The updater downloads it like any other
+# managed file; the supervisor promotes it on the next launch. Written from the same single source
+# as the client shell - LOADER.txt and MINECRAFT.txt - so the two cannot disagree.
+$loaderVer = (Get-Content -LiteralPath (Join-Path $repo 'LOADER.txt') -Raw).Trim()
+$mcVer = (Get-Content -LiteralPath (Join-Path $repo 'MINECRAFT.txt') -Raw).Trim()
+New-Item -ItemType Directory -Path (Join-Path $site 'prism') -Force | Out-Null
+$mmcJson = @"
+{
+  "components": [
+    {"cachedName":"LWJGL 3","cachedVersion":"3.4.1","cachedVolatile":true,"dependencyOnly":true,"uid":"org.lwjgl3","version":"3.4.1"},
+    {"cachedName":"Minecraft","cachedRequires":[{"suggests":"3.4.1","uid":"org.lwjgl3"}],"cachedVersion":"$mcVer","important":true,"uid":"net.minecraft","version":"$mcVer"},
+    {"cachedName":"Intermediary Mappings","cachedRequires":[{"equals":"$mcVer","uid":"net.minecraft"}],"cachedVersion":"$mcVer","cachedVolatile":true,"dependencyOnly":true,"uid":"net.fabricmc.intermediary","version":"$mcVer"},
+    {"cachedName":"Fabric Loader","cachedRequires":[{"uid":"net.fabricmc.intermediary"}],"cachedVersion":"$loaderVer","uid":"net.fabricmc.fabric-loader","version":"$loaderVer"}
+  ],
+  "formatVersion": 1
+}
+"@
+[IO.File]::WriteAllText((Join-Path $site 'prism\mmc-pack.json'), ($mmcJson -replace "`r`n", "`n"), (New-Object Text.UTF8Encoding($false)))
+
 # ---------------------------------------------------------------- pack.toml
 $loader = (Get-Content -LiteralPath (Join-Path $repo 'LOADER.txt') -Raw).Trim()
 $mc = (Get-Content -LiteralPath (Join-Path $repo 'MINECRAFT.txt') -Raw).Trim()

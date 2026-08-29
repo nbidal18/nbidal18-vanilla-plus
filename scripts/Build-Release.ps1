@@ -46,6 +46,22 @@ $required = @(
 $missing = @($required | Where-Object { -not (Test-Path -LiteralPath (Join-Path $site $_)) })
 if ($missing.Count) { throw ("The release is incomplete; these are missing from site\: " + ($missing -join ', ')) }
 
+# The client ZIP must contain everything the supervisor needs before Minecraft ever starts.
+# prism/mmc-pack.json is the one that is easy to omit and fails hard: the pre-launch command exits
+# 1 and the game never opens. It shipped missing in v1.0.0.
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+$zipRequired = @('mmc-pack.json', 'instance.cfg', '.packignore',
+    'minecraft/prism/mmc-pack.json',
+    'minecraft/nbidal18-packwiz-sync.jar', 'minecraft/nbidal18-packwiz-updater.jar',
+    'minecraft/nbidal18-packwiz-sync.next.jar', 'minecraft/nbidal18-packwiz-updater.next.jar',
+    'minecraft/packwiz-installer.jar', 'minecraft/packwiz-installer-bootstrap.jar',
+    'minecraft/packwiz-installer.next.jar', 'minecraft/packwiz-installer-bootstrap.next.jar')
+$zipArchive = [IO.Compression.ZipFile]::OpenRead((Join-Path $site 'nbidal18-client.zip'))
+try { $inZip = @($zipArchive.Entries | ForEach-Object { $_.FullName }) } finally { $zipArchive.Dispose() }
+$zipMissing = @($zipRequired | Where-Object { $inZip -notcontains $_ })
+if ($zipMissing.Count) { throw ("nbidal18-client.zip is missing: " + ($zipMissing -join ', ')) }
+Write-Host ("clientzip {0} entries, all {1} required present" -f $inZip.Count, $zipRequired.Count)
+
 $total = Get-ChildItem -LiteralPath $site -Recurse -File | Measure-Object -Sum Length
 Write-Host ("release   {0} files, {1:N1} MB, all {2} required artefacts present" -f `
         $total.Count, ($total.Sum / 1MB), $required.Count)

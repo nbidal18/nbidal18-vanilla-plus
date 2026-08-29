@@ -69,6 +69,13 @@ $mmc = @"
 "@
 W (Join-Path $stage 'mmc-pack.json') $mmc
 
+# minecraft\prism\mmc-pack.json is REQUIRED, not optional. The supervisor promotes it over the
+# instance's own mmc-pack.json on every launch, and throws if it is missing - which is how a future
+# Minecraft or loader bump reaches an instance that was imported once and never re-imported.
+# Leaving it out of the ZIP made the pre-launch command exit 1 before Minecraft ever started.
+New-Item -ItemType Directory -Path (Join-Path $mcDir 'prism') -Force | Out-Null
+W (Join-Path $mcDir 'prism\mmc-pack.json') $mmc
+
 # Player-owned runtime state that must never be swept into an export or an update.
 W (Join-Path $stage '.packignore') @"
 minecraft/saves
