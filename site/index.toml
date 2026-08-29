@@ -22,7 +22,7 @@ hash = "436581c972cb3a3b2ec36526b99b76572b4bd41d98fe2980b40d61d527bb3164"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "0b666a29c9af09be3878086adbcd7da666681ed56ac83ef019917e5726b1279c"
+hash = "53f39340851bc9c7d4606b008579ad34c601e9cfa0d0e3d771049a56998d0ac6"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -777,8 +777,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.0+26.2-fabric.jar"
-hash = "d82b16ed5100378c97c967d46768ba7c93bf814b0f51be6ccf43a96a09e1f535"
+file = "mods/nbidal18-integrity-1.0.1+26.2-fabric.jar"
+hash = "06fade3206412fab2b02fb75c0f322e4c4b66bd8d007d6e066dc0e9028e83a55"
 
 [[files]]
 file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
@@ -875,6 +875,10 @@ hash = "fd62d1d9b5b303fa45032fbba155d3851c477f3197954e3ab28b16f8a9957b42"
 [[files]]
 file = "mods/variantsandventures-fabric-1.0.26+mc26.2.jar"
 hash = "cff8ce164b80c52cb123b7467f571f5857dcf3b6ce5f1e350599f351c8340d04"
+
+[[files]]
+file = "mods/voicechat-fabric-2.6.22+26.2.jar"
+hash = "1b6a8c6c41d6d7edaa10543ac623a70b0c60f22f34567969b6999c345aa277b2"
 
 [[files]]
 file = "mods/voxy-0.2.18-beta.jar"

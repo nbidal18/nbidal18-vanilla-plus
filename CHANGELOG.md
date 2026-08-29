@@ -5,11 +5,45 @@ build that was not published.
 
 ---
 
+## v1.0.1
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-29 | see below | `6fe2b134898ec273` | `d3dbe17a78672dc8` | 245 | 106 |
+
+**You can talk to each other now.** Simple Voice Chat was running on the server and was missing from
+the client, so nobody could hear anybody. It ships to clients from this release, on UDP **27108**,
+48 blocks of range and 24 for whisper.
+
+**Nothing else about the pack changed.** The integrity helper is rebuilt only because the pack
+version is compiled into it — `PACK_VERSION` is a compile-time constant, so javac inlines it into
+`SyncManifest` as well, and a helper left on `1.0.0` would refuse to parse a `1.0.1` manifest and
+lock everyone out. That is the failure this line exists to avoid, not a new feature.
+
+**Updating is clicking Play.** Nothing to re-import.
+
+**Server-side, not shipped through the channel.** Two things were wrong on the server and are now
+fixed. It was running a Vanilla Refresh build from two commits before the play-tested values were
+adopted, and had written its own config from *that* jar's defaults — 22 settings wrong, including
+death souls and the death message switched off. And the singleplayer world upload brought its Voxy
+generation cache with it: 565,452 chunks marked already-generated, so nothing near a player ever
+loaded, so no distant terrain was ever sent. Voxy streams LOD on chunk **load**, and its backfill
+only sends chunks already in memory. Deleting that cache lets the generator re-walk from the player
+outward, reading chunks off disk rather than regenerating them.
+
+---
+
 ## v1.0.0
 
 | Date | Commit | Manifest digest | Files | Mods |
 | --- | --- | --- | --- | --- |
-| 2026-08-29 | see below | `a1d49ddb7f12884c` | 240 | 103 |
+| 2026-08-29 | see below | `d3dbe17a78672dc8` | 244 | 105 |
+
+> **This entry was corrected on 2026-08-29.** It first recorded `a1d49ddb7f12884c` / 240 files / 103
+> mods, and v1.0.0 was then published three more times on the same version number — to ship the
+> `prism/mmc-pack.json` that blocked launch, to add the integrity helper, and to remove ore glow from
+> both shaders. The row above is what players actually ended up on. **This is exactly what the
+> one-publish-per-version rule exists to prevent**; from v1.0.1 a fix after release is a patch bump.
 
 **The first release.** Minecraft 26.2 on Fabric, and a different pack from the 1.21.1 one: vanilla
 expanded rather than extended. **No mod adds new blocks or items to find.** The deliberate
