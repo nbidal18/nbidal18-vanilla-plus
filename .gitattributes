@@ -1,0 +1,11 @@
+# The version and URL files are read by scripts; a stray CR breaks a string compare.
+*.txt text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.json text eol=lf
+*.toml text eol=lf
+*.ps1 text eol=lf
+*.jar binary
+*.zip binary
+*.ogg binary
+*.png binary
