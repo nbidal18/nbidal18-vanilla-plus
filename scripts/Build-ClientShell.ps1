@@ -119,6 +119,12 @@ if (Test-Path -LiteralPath $icon) { Copy-Item -LiteralPath $icon -Destination $s
 $seedOptions = Join-Path $release '3. modpack\client\options.txt'
 if (Test-Path -LiteralPath $seedOptions) { Copy-Item -LiteralPath $seedOptions -Destination $mcDir -Force }
 
+# servers.dat puts the server in the multiplayer list on first launch. It ships HERE and not as
+# pack content on purpose: published through the channel, the updater would overwrite the player's
+# own server list on every update. Seeded once, then theirs.
+$seedServers = Join-Path $release '3. modpack\client\servers.dat'
+if (Test-Path -LiteralPath $seedServers) { Copy-Item -LiteralPath $seedServers -Destination $mcDir -Force }
+
 # ---------------------------------------------------------------- pack
 $out = Join-Path $site 'nbidal18-client.zip'
 if (Test-Path -LiteralPath $out) { Remove-Item -LiteralPath $out -Force }
