@@ -278,7 +278,7 @@ hash = "e988b95200492369a1b8eef7e6a41fe1147ee5eb53d89c6c6f555a908df81f68"
 
 [[files]]
 file = "config/nbidal18-vanillarefresh.json"
-hash = "35852a814e69fcf8ed03ba841fa5bf4d1d3d0c2a6c8f369584c0d5daf308bbd8"
+hash = "997b6d47827e3dc475d578524007aa0e602ad59d3afd316f4a9f695f913c084d"
 
 [[files]]
 file = "config/notenoughanimations.json"
@@ -762,7 +762,7 @@ hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
 file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
-hash = "192b4c1bba7193bfc75985979339a274a6fb7bb65749828bde745bd262f193aa"
+hash = "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
 
 [[files]]
 file = "mods/notenoughanimations-fabric-1.12.4-mc26.2.jar"

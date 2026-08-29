@@ -593,7 +593,7 @@
                                 },
                                 {
                                     "path":  "config/nbidal18-vanillarefresh.json",
-                                    "sha256":  "35852a814e69fcf8ed03ba841fa5bf4d1d3d0c2a6c8f369584c0d5daf308bbd8"
+                                    "sha256":  "997b6d47827e3dc475d578524007aa0e602ad59d3afd316f4a9f695f913c084d"
                                 },
                                 {
                                     "path":  "config/notenoughanimations.json",
@@ -1067,7 +1067,7 @@
                   },
                   {
                       "path":  "config/nbidal18-vanillarefresh.json",
-                      "sha256":  "35852a814e69fcf8ed03ba841fa5bf4d1d3d0c2a6c8f369584c0d5daf308bbd8"
+                      "sha256":  "997b6d47827e3dc475d578524007aa0e602ad59d3afd316f4a9f695f913c084d"
                   },
                   {
                       "path":  "config/notenoughanimations.json",
@@ -1551,7 +1551,7 @@
                   },
                   {
                       "path":  "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar",
-                      "sha256":  "192b4c1bba7193bfc75985979339a274a6fb7bb65749828bde745bd262f193aa"
+                      "sha256":  "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
                   },
                   {
                       "path":  "mods/notenoughanimations-fabric-1.12.4-mc26.2.jar",
