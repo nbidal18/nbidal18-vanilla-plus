@@ -5,6 +5,41 @@ build that was not published.
 
 ---
 
+## v1.0.6
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-29 | see below | `21b811bf70a105ff` | `2731ae371d2e6b55` | 250 | 106 |
+
+**Items render in inventory slots again.** v1.0.4 added Weskerson's Torches, and the pack ships a
+replacement for `shaders/core/item.vsh` and `item.fsh` in an overlay that covers 26.2. That is the
+core shader Minecraft uses to draw item sprites, and the pack's version drops the `Sampler1` uniform
+26.2's item pipeline binds. The game said so on every load:
+
+```
+minecraft:pipeline/item_cutout shader program does not use sampler Sampler1
+defined in the pipeline. This might be a bug.
+```
+
+The result was empty armour slots, empty hotbar slots and an inventory of nothing, while the world
+itself rendered normally.
+
+**The pack is patched rather than dropped**, so the 3D torches stay: `nbidal18-Weskersons-Torches-1.02.zip`
+is the upstream pack with its fourteen shader files removed and nothing else touched, plus five
+hundred stray macOS metadata entries swept out - one of which was logging a warning of its own. The
+only thing lost is the emissive glow on torch *items*.
+
+**A pack that ships core shaders can break rendering far from what it looks like it does.** Nothing
+about a torch pack suggests it can blank an inventory. Worth checking `assets/minecraft/shaders/`
+before adding any resource pack.
+
+**Server-side, not shipped through the channel.** JEI is installed on the server. It is
+`environment: "*"` with a server entrypoint, and without it JEI told every player their recipes
+might be wrong - which for this pack is true, because Hardcore Revive+ adds the Soul Charm recipe
+through a datapack. JEI now serves the server's real recipes instead of guessing from the client.
+
+---
+
 ## v1.0.5
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

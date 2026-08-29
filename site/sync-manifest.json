@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.5",
+    "packVersion":  "1.0.6",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -325,7 +325,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "0fc3d7f02486e30c0f749143eca088b4f50d09cfa3d38f540f92548448fad29b"
+                                    "sha256":  "2ac441f6a04464f7e35ea1d3ae3b85ca48ac93d01e6acf79ef6701cc138a2a96"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -799,7 +799,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "0fc3d7f02486e30c0f749143eca088b4f50d09cfa3d38f540f92548448fad29b"
+                      "sha256":  "2ac441f6a04464f7e35ea1d3ae3b85ca48ac93d01e6acf79ef6701cc138a2a96"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1550,8 +1550,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.5+26.2-fabric.jar",
-                      "sha256":  "c88c8979b518269c1b1efe7ea91c94053719f06aac9e055dfc56933b350a8c48"
+                      "path":  "mods/nbidal18-integrity-1.0.6+26.2-fabric.jar",
+                      "sha256":  "b0725a4520810e55026dce06b42d493b71c2db184c66540a9702f1955524aa8b"
                   },
                   {
                       "path":  "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar",
@@ -1679,7 +1679,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "5bd6edf9a4d31b37c30692f29e7e383251de70b6e7928fd224b129ca2a0cf868"
+                      "sha256":  "9b43e866df5b1e3cdbf35fe1614f40d5125492594f54507b6e78c8dae9d00e15"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",
@@ -1742,8 +1742,8 @@
                       "sha256":  "5d1f2ea9b8af9cd931796c09f2159e119b25db909b0a84269b42fb3c9f55893d"
                   },
                   {
-                      "path":  "resourcepacks/Weskerson\u0027s Torches.zip",
-                      "sha256":  "b0bcb5e73a6ee82a2894bbacc3fe591a68b11e0a22ad4cf9ba28cbd147353874"
+                      "path":  "resourcepacks/nbidal18-Weskersons-Torches-1.02.zip",
+                      "sha256":  "5afa8c8ab70a32943ffea105ec123b6c386b2ef0df5c420349dce3b257161afa"
                   },
                   {
                       "path":  "resourcepacks/§3Fresh §bFlower Pots Rotated.zip",
