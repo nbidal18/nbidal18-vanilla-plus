@@ -49,4 +49,18 @@ if ($missing.Count) { throw ("The release is incomplete; these are missing from 
 $total = Get-ChildItem -LiteralPath $site -Recurse -File | Measure-Object -Sum Length
 Write-Host ("release   {0} files, {1:N1} MB, all {2} required artefacts present" -f `
         $total.Count, ($total.Sum / 1MB), $required.Count)
+
+# --- the copy a person actually opens ---------------------------------------------------------
+# site\ is generated output nobody should be browsing, and the ZIP lives three folders down inside
+# it. "1. setup" is where a player - or the owner, six months from now - goes looking. Refreshed
+# from the build every time so the two cannot drift.
+$version = (Get-Content -LiteralPath (Join-Path $repo 'PACK-VERSION.txt') -Raw).Trim()
+$setup = Join-Path (Split-Path -Parent $repo) "v.$version\1. setup"
+New-Item -ItemType Directory -Path $setup -Force | Out-Null
+Copy-Item -LiteralPath (Join-Path $site 'nbidal18-client.zip') -Destination $setup -Force
+
+$sha = (Get-FileHash -LiteralPath (Join-Path $setup 'nbidal18-client.zip') -Algorithm SHA256).Hash.ToLower()
+[IO.File]::WriteAllText((Join-Path $setup 'SHA256SUMS.txt'), "$sha  nbidal18-client.zip`n",
+    (New-Object Text.UTF8Encoding($false)))
+Write-Host ("setup     1. setup\nbidal18-client.zip refreshed, sha256 {0}" -f $sha.Substring(0, 16))
 Write-Host "ready to publish"

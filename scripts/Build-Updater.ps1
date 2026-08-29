@@ -33,6 +33,41 @@ foreach ($tool in $javac, $jar) {
     if (-not (Test-Path -LiteralPath $tool)) { throw "Missing $tool" }
 }
 
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+Add-Type -AssemblyName System.IO.Compression
+
+<#
+    Rewrite a zip/jar with its entries in sorted order and every timestamp pinned, so identical
+    input always produces identical bytes. Without this nothing downstream can be verified against
+    a published copy: the archive differs on every build for reasons that have nothing to do with
+    its contents.
+#>
+function Normalize-Archive([string] $path) {
+    $epoch = [DateTimeOffset]::new(2000, 1, 1, 0, 0, 0, [TimeSpan]::Zero)
+    $items = [ordered]@{}
+    $src = [IO.Compression.ZipFile]::OpenRead($path)
+    try {
+        foreach ($e in ($src.Entries | Sort-Object FullName)) {
+            $ms = New-Object IO.MemoryStream
+            $s = $e.Open(); try { $s.CopyTo($ms) } finally { $s.Dispose() }
+            $items[$e.FullName] = $ms.ToArray()
+        }
+    }
+    finally { $src.Dispose() }
+
+    Remove-Item -LiteralPath $path -Force
+    $dst = [IO.Compression.ZipFile]::Open($path, [IO.Compression.ZipArchiveMode]::Create)
+    try {
+        foreach ($name in $items.Keys) {
+            $entry = $dst.CreateEntry($name, [IO.Compression.CompressionLevel]::Optimal)
+            $entry.LastWriteTime = $epoch
+            $es = $entry.Open()
+            try { $es.Write($items[$name], 0, $items[$name].Length) } finally { $es.Dispose() }
+        }
+    }
+    finally { $dst.Dispose() }
+}
+
 if (Test-Path -LiteralPath $out) { Remove-Item -LiteralPath $out -Recurse -Force }
 New-Item -ItemType Directory -Path $out -Force | Out-Null
 
@@ -59,6 +94,11 @@ foreach ($b in $builds) {
         if ($LASTEXITCODE -ne 0) { throw "jar failed for $($b.jar)" }
     }
     finally { Pop-Location }
+
+    # `jar --create` stamps every entry with the current time, so an unchanged source produced a
+    # different jar on each build - and those jars go inside nbidal18-client.zip, which made the
+    # ZIP unreproducible too. Rewrite with sorted entries and a pinned timestamp.
+    Normalize-Archive $target
 
     # ship it, and ship the staged copy the supervisor promotes on the next launch
     Copy-Item -LiteralPath $target -Destination (Join-Path $site $b.jar) -Force

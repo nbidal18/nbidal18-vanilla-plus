@@ -116,7 +116,27 @@ if (Test-Path -LiteralPath $seedOptions) { Copy-Item -LiteralPath $seedOptions -
 $out = Join-Path $site 'nbidal18-client.zip'
 if (Test-Path -LiteralPath $out) { Remove-Item -LiteralPath $out -Force }
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-[IO.Compression.ZipFile]::CreateFromDirectory($stage, $out, [IO.Compression.CompressionLevel]::Optimal, $false)
+Add-Type -AssemblyName System.IO.Compression   # ZipArchiveMode lives here, not in .FileSystem
+
+# Built deterministically: entries in sorted order, every timestamp pinned. CreateFromDirectory
+# stamps each entry with its file's mtime, so an unchanged shell produced a different ZIP on every
+# build - which means the published copy and the local one disagree forever, and any verification
+# of the channel against the build reports a difference that is not one.
+$epoch = [DateTimeOffset]::new(2000, 1, 1, 0, 0, 0, [TimeSpan]::Zero)
+$zip = [IO.Compression.ZipFile]::Open($out, [IO.Compression.ZipArchiveMode]::Create)
+try {
+    Get-ChildItem -LiteralPath $stage -Recurse -File |
+        Sort-Object { $_.FullName.Substring($stage.Length + 1).Replace('\', '/') } |
+        ForEach-Object {
+            $rel = $_.FullName.Substring($stage.Length + 1).Replace('\', '/')
+            $entry = $zip.CreateEntry($rel, [IO.Compression.CompressionLevel]::Optimal)
+            $entry.LastWriteTime = $epoch
+            $in = [IO.File]::OpenRead($_.FullName)
+            try { $es = $entry.Open(); try { $in.CopyTo($es) } finally { $es.Dispose() } }
+            finally { $in.Dispose() }
+        }
+}
+finally { $zip.Dispose() }
 Remove-Item -LiteralPath $stage -Recurse -Force
 
 $zip = [IO.Compression.ZipFile]::OpenRead($out)
