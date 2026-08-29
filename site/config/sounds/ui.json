@@ -87,7 +87,7 @@
 		"enabledDynamic": true
 	},
 	"ignoreEmptyHotbarSlots": false,
-	"itemSoundCooldown": 0.05,
+	"itemSoundCooldown": 0.2,
 	"enableItemSoundCooldown": true,
 	"enableDynamicItemSounds": true
 }

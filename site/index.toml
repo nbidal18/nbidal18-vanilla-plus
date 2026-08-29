@@ -138,7 +138,7 @@ hash = "7b98a6bf611bd12ca97ffb221856a06c3786a6b97a0344823e685cad968c8e26"
 
 [[files]]
 file = "config/invmove/unrecognized.json"
-hash = "4c5cb5a13e38380a2b0cd4a29e5ca684223d8dd7d4594c9d1d076f4a007b68a2"
+hash = "ec6a46970b4ac9e7d53d2ffb781926003939bf0b00cfc89e35ca745bc77d15da"
 
 [[files]]
 file = "config/invmove/vanilla.json"
@@ -330,7 +330,7 @@ hash = "7765257a12db9422a8d5bd0c823d73a2dd11ecfd6fef7bf146f5e644d91f660a"
 
 [[files]]
 file = "config/smoothscroll.json"
-hash = "efa2507ea0c96cb2a55b298cf07d6e7cef5850bd4acea5b981e5b2c06e5cbb4b"
+hash = "3bb120637792d9780f01168b9ad70a925c2436f1d490758cddce2b54c07f1340"
 
 [[files]]
 file = "config/smoothswapping.json"
@@ -386,7 +386,7 @@ hash = "d2517d46af150921582220fa0cd2c23ceb30963a7044fe21cc7b8552c5ad83da"
 
 [[files]]
 file = "config/sounds/ui.json"
-hash = "2c5de40d9e9986dfb220b22078b1cc921133c17b47cc4d4d1efc008e02719289"
+hash = "013c061a2399a1610dd40671b749b6355a25e2608901618338f907cdba516c5c"
 
 [[files]]
 file = "config/sounds/world.json"

@@ -421,7 +421,7 @@
                                 },
                                 {
                                     "path":  "config/invmove/unrecognized.json",
-                                    "sha256":  "4c5cb5a13e38380a2b0cd4a29e5ca684223d8dd7d4594c9d1d076f4a007b68a2"
+                                    "sha256":  "ec6a46970b4ac9e7d53d2ffb781926003939bf0b00cfc89e35ca745bc77d15da"
                                 },
                                 {
                                     "path":  "config/invmove/vanilla.json",
@@ -613,7 +613,7 @@
                                 },
                                 {
                                     "path":  "config/smoothscroll.json",
-                                    "sha256":  "efa2507ea0c96cb2a55b298cf07d6e7cef5850bd4acea5b981e5b2c06e5cbb4b"
+                                    "sha256":  "3bb120637792d9780f01168b9ad70a925c2436f1d490758cddce2b54c07f1340"
                                 },
                                 {
                                     "path":  "config/smoothswapping.json",
@@ -669,7 +669,7 @@
                                 },
                                 {
                                     "path":  "config/sounds/ui.json",
-                                    "sha256":  "2c5de40d9e9986dfb220b22078b1cc921133c17b47cc4d4d1efc008e02719289"
+                                    "sha256":  "013c061a2399a1610dd40671b749b6355a25e2608901618338f907cdba516c5c"
                                 },
                                 {
                                     "path":  "config/sounds/world.json",
@@ -891,7 +891,7 @@
                   },
                   {
                       "path":  "config/invmove/unrecognized.json",
-                      "sha256":  "4c5cb5a13e38380a2b0cd4a29e5ca684223d8dd7d4594c9d1d076f4a007b68a2"
+                      "sha256":  "ec6a46970b4ac9e7d53d2ffb781926003939bf0b00cfc89e35ca745bc77d15da"
                   },
                   {
                       "path":  "config/invmove/vanilla.json",
@@ -1083,7 +1083,7 @@
                   },
                   {
                       "path":  "config/smoothscroll.json",
-                      "sha256":  "efa2507ea0c96cb2a55b298cf07d6e7cef5850bd4acea5b981e5b2c06e5cbb4b"
+                      "sha256":  "3bb120637792d9780f01168b9ad70a925c2436f1d490758cddce2b54c07f1340"
                   },
                   {
                       "path":  "config/smoothswapping.json",
@@ -1139,7 +1139,7 @@
                   },
                   {
                       "path":  "config/sounds/ui.json",
-                      "sha256":  "2c5de40d9e9986dfb220b22078b1cc921133c17b47cc4d4d1efc008e02719289"
+                      "sha256":  "013c061a2399a1610dd40671b749b6355a25e2608901618338f907cdba516c5c"
                   },
                   {
                       "path":  "config/sounds/world.json",

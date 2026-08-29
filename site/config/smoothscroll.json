@@ -20,7 +20,7 @@
   "Creative Screen": {
     "Smoothness": 50.0,
     "Speed": 30.0,
-    "RP Compatibility Mode": false
+    "RP Compatibility Mode": true
   },
   "Entry List": {
     "Smoothness": 50.0,
