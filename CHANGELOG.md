@@ -9,7 +9,7 @@ build that was not published.
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
 | --- | --- | --- | --- | --- | --- |
-| 2026-08-29 | see below | `05b0e1392b7839fb` | `19df306ff3d3236d` | 249 | 106 |
+| 2026-08-29 | see below | `f4d5905c3e4b870e` | `19df306ff3d3236d` | 250 | 106 |
 
 **The world map works.** It has been black since v1.0.0, and the pack was the reason.
 
@@ -23,14 +23,22 @@ The pin is gone, the shipped default is `true`, and a one-time seed puts it back
 that had it forced off. **The eight pins that do prevent something are untouched** - cave mode,
 coordinates, biome names, tracked players, distances, teleport, the minimap radar and footsteps.
 
+**Actually 3D Blocks & Items is back, patched.** v1.0.7 removed it whole; that was too blunt. Its
+metadata does understate its support, but that is not what broke: **45 of its models reference a
+texture variable named literally `#missing`**, the author's own placeholder left in, and those are
+the ones that rendered as untextured brown geometry. Every other model resolves - all textures sit
+in the base `assets/`, and the overlay that does not apply on 26.2 holds a single entry.
+
+`nbidal18-Actually-3D-r1.8.zip` is the upstream pack minus those 45 models, minus an uppercase
+namespace folder Minecraft rejects, minus a lang file with missing commas, and minus the macOS
+noise. **2,112 files kept** - including the 150 three-dimensional item models that were the reason
+for adding it. Vanilla and 3D Default supply the 45 blocks it no longer touches.
+
 **Containers are light instead of dark.** Recolourful Containers 3.1.3, the same version, the
 standard theme rather than the DARK variant. Only `rendertype_text.fsh` differs between the two
-builds, which is the text colour and exactly what should differ.
-
-**Both packs were checked against the two rules the last three releases wrote.** The GUI pack
-declares `max_format: 99` with overlays covering 88, and it does ship `assets/minecraft/shaders/` -
-26 files - but they are byte-identical to the DARK pack that has been running all day apart from
-that one text shader. Metadata read, shader folder opened, then shipped.
+builds, which is the text colour and exactly what should differ. It ships 26 core shader files, but
+they are byte-identical to the DARK pack that has been running all day apart from that one - checked
+before shipping, because of what the last three releases cost.
 
 ---
 
@@ -40,10 +48,12 @@ that one text shader. Metadata read, shader folder opened, then shipped.
 | --- | --- | --- | --- | --- | --- |
 | 2026-08-29 | see below | `19df306ff3d3236d` | `21b811bf70a105ff` | 249 | 106 |
 
-**Actually 3D Blocks & Items is removed. It does not support 26.2.** Its Modrinth listing is tagged
-for it; its own metadata is not, and the metadata is what Minecraft obeys - `max_format: 84` against
-26.2's **88**, with a single overlay that stops at 75. Nothing in it applies, so the base models
-load against a format they were never written for.
+**Actually 3D Blocks & Items is removed.** Its metadata understates its support - `max_format: 84`
+against 26.2's **88**, with a single overlay that stops at 75.
+
+> **Corrected in v1.0.8.** The format mismatch was not what broke it, and removing the whole pack
+> was too blunt. 45 of its models reference a texture variable named literally `#missing`; those are
+> the ones that rendered untextured. The rest resolve. v1.0.8 brings it back with those 45 removed.
 
 The visible symptom was a brown untextured shape rendered in the player's hand. The log named the
 cause on every load:

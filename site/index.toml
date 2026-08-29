@@ -902,7 +902,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "6a011f0c72104f0c565d5e770619123ce28e60a278927ab8e00a20342094ac7e"
+hash = "cb0bb3388319637e03c9fddad61d24670ec760a0a8f79cac209217de655e53c8"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -963,6 +963,10 @@ hash = "fe14f85cf5c551fb1d0f122d7fa07a4b371186f15e23b467a409999658974948"
 [[files]]
 file = "resourcepacks/Theone's Eating Animation Pack v1.0.zip"
 hash = "5d1f2ea9b8af9cd931796c09f2159e119b25db909b0a84269b42fb3c9f55893d"
+
+[[files]]
+file = "resourcepacks/nbidal18-Actually-3D-r1.8.zip"
+hash = "c8966ca5330c93a186619aaca2ad5184919660827229444c034c005d19f77259"
 
 [[files]]
 file = "resourcepacks/nbidal18-Weskersons-Torches-1.02.zip"
