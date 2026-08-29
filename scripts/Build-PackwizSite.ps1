@@ -110,9 +110,72 @@ try {
 }
 finally { Pop-Location }
 
-$entries = (Select-String -LiteralPath (Join-Path $site 'index.toml') -Pattern '^\[\[files\]\]' -AllMatches).Count
+$entriesList = @(
+    Select-String -LiteralPath (Join-Path $site 'index.toml') -Pattern '^file = "(.+)"$' |
+        ForEach-Object { $_.Matches[0].Groups[1].Value }
+)
+$entries = $entriesList.Count
+if ($entries -eq 0) { throw 'packwiz produced an index with no file entries.' }
 $indexHash = (Get-FileHash -LiteralPath (Join-Path $site 'index.toml') -Algorithm SHA256).Hash.ToLower()
 Write-Host ("index     {0} files, sha256 {1}" -f $entries, $indexHash.Substring(0, 16))
+
+# ---------------------------------------------------------------- sync manifest
+#
+# What the pre-launch updater and (later) the integrity helper read. The packwiz index says what
+# the files are; this says how each one may be treated.
+function Get-NormalizedTextSha256([string] $path) {
+    # A second hash with line endings normalised. Windows, macOS and Linux clients otherwise
+    # disagree about the same config file, which is a false alarm rather than tampering.
+    $text = [IO.File]::ReadAllText($path) -replace "`r`n", "`n"
+    $sha = [Security.Cryptography.SHA256]::Create()
+    try { return -join ($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($text)) | ForEach-Object { $_.ToString('x2') }) }
+    finally { $sha.Dispose() }
+}
+
+$playerPaths = @($class.rules | Where-Object { $_.class -eq 'player' } | ForEach-Object { $_.match })
+$supportPaths = @($class.rules | Where-Object { $_.class -eq 'support' } | ForEach-Object { $_.match })
+foreach ($o in $class.outsideConfig) {
+    if ($o.class -eq 'player') { $playerPaths += $o.match }
+}
+
+# Never overwritten once installed: genuinely player-owned files, plus the SUPPORT files their own
+# mod rewrites at startup. Gameplay files are deliberately not preserved even when they rewrite -
+# measurement showed those rewrites are byte-identical, so updating them costs nothing and a
+# preserved gameplay file could never be corrected by a release.
+$supportLookup = @{}
+foreach ($s in $supportPaths) { $supportLookup[$s] = $true }
+$preserved = @($playerPaths) + @($class.rewrittenAtRuntime | Where-Object { $supportLookup.ContainsKey($_) })
+
+$manifestFiles = [Collections.Generic.List[object]]::new()
+$normalizedTextFiles = [Collections.Generic.List[object]]::new()
+foreach ($entry in $entriesList) {
+    $full = Join-Path $site ($entry -replace '/', '\')
+    $manifestFiles.Add([ordered]@{ path = $entry; sha256 = (Get-FileHash -LiteralPath $full -Algorithm SHA256).Hash.ToLower() })
+    if ($entry -like 'config/*') {
+        $normalizedTextFiles.Add([ordered]@{ path = $entry; sha256 = Get-NormalizedTextSha256 $full })
+    }
+}
+
+$manifest = [ordered]@{
+    schema              = 1
+    packVersion         = $version
+    exactRoots          = @('mods', 'config', 'datapacks', 'resourcepacks', 'shaderpacks')
+    extraTolerantRoots  = @($class.extraTolerantRoots | ForEach-Object { $_.prefix })
+    runtimeMutableRoots = @($playerPaths + $supportPaths)
+    localAllowed        = @($preserved)
+    propertyRules       = @($class.propertyRules | ForEach-Object { [ordered]@{ path = $_.path; key = $_.key; value = $_.value } })
+    normalizedTextFiles = @($normalizedTextFiles)
+    files               = @($manifestFiles)
+}
+if ($manifest.extraTolerantRoots.Count -eq 0) { throw 'The classification defines no extra-tolerant roots.' }
+if ($manifest.propertyRules.Count -eq 0) { throw 'The classification defines no property rules; the ore pins would be lost.' }
+
+[IO.File]::WriteAllText((Join-Path $site 'sync-manifest.json'),
+    (($manifest | ConvertTo-Json -Depth 6) + "`n"), (New-Object Text.UTF8Encoding($false)))
+$manifestDigest = (Get-FileHash -LiteralPath (Join-Path $site 'sync-manifest.json') -Algorithm SHA256).Hash.ToLower()
+Write-Host ("manifest  {0} files, {1} preserved, {2} pinned keys" -f `
+        $manifestFiles.Count, $preserved.Count, $manifest.propertyRules.Count)
+Write-Host ("digest    {0}" -f $manifestDigest)
 
 # ---------------------------------------------------------------- checksums
 $sums = New-Object Text.StringBuilder

@@ -52,7 +52,7 @@ OverrideMemory=true
 MinMemAlloc=2048
 MaxMemAlloc=8192
 OverrideCommands=true
-PreLaunchCommand="`$INST_JAVA" -jar packwiz-installer-bootstrap.jar $url
+PreLaunchCommand="`$INST_JAVA" -jar nbidal18-packwiz-sync.jar
 UseAccountForInstance=false
 "@
 
@@ -87,8 +87,22 @@ minecraft/.packwiz-cache
 "@
 
 # ---------------------------------------------------------------- payload
+#
+# Prism runs nbidal18-packwiz-sync.jar (the supervisor). It promotes any staged .next.jar and then
+# runs the updater, which talks to the channel and drives packwiz-installer.
+#
+# Every jar ships twice, as .jar and .next.jar. The .next copy is what the supervisor promotes, and
+# shipping it in the ZIP means the very first launch already has a complete staging pair rather
+# than a half-populated one.
 foreach ($j in 'packwiz-installer-bootstrap.jar', 'packwiz-installer.jar') {
     Copy-Item -LiteralPath (Join-Path $tools $j) -Destination $mcDir -Force
+    Copy-Item -LiteralPath (Join-Path $tools $j) -Destination (Join-Path $mcDir ($j -replace '\.jar$', '.next.jar')) -Force
+}
+foreach ($j in 'nbidal18-packwiz-sync.jar', 'nbidal18-packwiz-updater.jar') {
+    $built = Join-Path $repo "client\$j"
+    if (-not (Test-Path -LiteralPath $built)) { throw "Run Build-Updater.ps1 first - missing $j" }
+    Copy-Item -LiteralPath $built -Destination $mcDir -Force
+    Copy-Item -LiteralPath $built -Destination (Join-Path $mcDir ($j -replace '\.jar$', '.next.jar')) -Force
 }
 $icon = Join-Path $tools 'server-icon.png'
 if (Test-Path -LiteralPath $icon) { Copy-Item -LiteralPath $icon -Destination $stage -Force }
