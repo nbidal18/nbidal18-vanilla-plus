@@ -441,11 +441,6 @@
       "reason": "Client keybind wiring."
     },
     {
-      "match": "config/resourceful-config-web.json",
-      "class": "player",
-      "reason": "Contains a generated password UUID for the local config web server. Per install, and a secret; it must never be published from one machine and enforced on another."
-    },
-    {
       "match": "config/servercore/config.yml",
       "class": "support",
       "reason": "Tick and chunk performance tuning."
@@ -726,7 +721,6 @@
     "config/punchy/merged_animation_selection.json",
     "config/punchy/punchy_config.json",
     "config/punchy/triggerable-keybindings.json",
-    "config/resourceful-config-web.json",
     "config/servercore/config.yml",
     "config/skinlayers.json",
     "config/smooth_steps.json",
@@ -848,7 +842,7 @@
       "reason": "Shader settings; the ore-glow switch is separately pinned by a property rule."
     },
     {
-      "match": "shaderpacks/nbidal18-\u00a7lE-LITE shaders 5.1.1.zip.txt",
+      "match": "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt",
       "class": "player",
       "reason": "Shader settings; the ore-glow switch is separately pinned by a property rule."
     }

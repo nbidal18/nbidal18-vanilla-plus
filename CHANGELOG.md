@@ -5,6 +5,40 @@ build that was not published.
 
 ---
 
+## v1.0.4
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-29 | see below | `19d2fc241fc34dee` | `2769fc637c42839b` | 250 | 106 |
+
+**Torches are 3D too.** Weskerson's Torches joins the pack, above everything that would otherwise
+replace its models. Os' Colorful Grasses moves above the two 3D packs, and Simple Voice Chat's dark
+icon set is enabled at the very top.
+
+**It starts gentle.** Shaders now ship **off** and Voxy ships at **32 chunks**. Both shaders stay
+installed and one stays selected, so turning them on is a toggle — but a first launch no longer
+hands a low-end machine a shader pack and a quarter of a thousand chunks of LOD before the player
+has any say. Turn either up as far as your machine likes.
+
+**Two files stopped shipping somebody else's settings.** `config/sounds/chat.json` shipped a personal
+`@handle` as the mention keyword, so every new player's chat pinged on a name that was not theirs;
+it ships empty now. `config/resourceful-config-web.json` shipped one machine's generated password
+UUID to every install and is no longer published at all — the mod writes its own on first launch, so
+each install gets its own secret. **Marking a file as player-owned protects it after the first copy,
+not the first copy itself.**
+
+**Updating is clicking Play**, and the pack order arrives with it.
+
+**Maintainer-facing.** The seed carries a new token, `resourcepacks-v104`; a marker is written once
+and never re-read, so changed rows need a new one and the previous declaration is replaced rather
+than left beside it. Weskerson's Torches declares `max_format` 84 against 26.2's 88, so it ships in
+the acknowledged-incompatible list like Actually 3D — its `26.1` overlay covers 84–128 and applies
+normally. Voxy's render distance is stored as chunks ÷ 16, while its own option is labelled "in
+chunks": the shipped `16.0` was 256 chunks and 32 chunks is `2.0`. The classification is down to
+118 rules — 10 gameplay, 99 support, 9 player — and 109 measured runtime rewrites.
+
+---
+
 ## v1.0.3
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

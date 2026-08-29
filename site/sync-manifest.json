@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.3",
+    "packVersion":  "1.0.4",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -16,14 +16,13 @@
                                 "config/fzzy_config/keybinds.toml",
                                 "config/iris.properties",
                                 "config/nbidal18-vanillarefresh.json",
-                                "config/resourceful-config-web.json",
                                 "config/sodium-fingerprint.json",
                                 "config/sodium-options.json",
                                 "config/sounds/chat.json",
                                 "config/xaero/minimap/profiles/default.cfg",
                                 "config/xaero/world-map/profiles/default.cfg",
                                 "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",
-                                "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt",
+                                "shaderpacks/nbidal18-Â§lE-LITE shaders 5.1.1.zip.txt",
                                 "config/MouseTweaks.cfg",
                                 "config/almanac-nbtFix.json5",
                                 "config/asyncparticles/asyncparticles-mixin.properties",
@@ -129,14 +128,13 @@
                          "config/fzzy_config/keybinds.toml",
                          "config/iris.properties",
                          "config/nbidal18-vanillarefresh.json",
-                         "config/resourceful-config-web.json",
                          "config/sodium-fingerprint.json",
                          "config/sodium-options.json",
                          "config/sounds/chat.json",
                          "config/xaero/minimap/profiles/default.cfg",
                          "config/xaero/world-map/profiles/default.cfg",
                          "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",
-                         "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt",
+                         "shaderpacks/nbidal18-Â§lE-LITE shaders 5.1.1.zip.txt",
                          "config/MouseTweaks.cfg",
                          "config/almanac-nbtFix.json5",
                          "config/asyncparticles/asyncparticles-mixin.properties",
@@ -327,7 +325,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "fe0ccf96df75f766aa65961a88fe61156818884ddfe5a275844fd5e1dad117ea"
+                                    "sha256":  "b312ea158a399a7d6ff832a83145fe2729eb14e558e23761651b64a7bb8c0269"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -459,7 +457,7 @@
                                 },
                                 {
                                     "path":  "config/iris.properties",
-                                    "sha256":  "e8792b24fce06bf11ef6a4cff8250404424e868d52cc2182a2dffcf07396d63f"
+                                    "sha256":  "3781f150b856c8fd1a1921e53300605189f242b7fc1753e243717d006c14f025"
                                 },
                                 {
                                     "path":  "config/ixeris.toml",
@@ -614,10 +612,6 @@
                                     "sha256":  "9148991f4ec6e759cf2b45ea60f02650959b8a3f6ed5b16522ed5ed63cfcf3ea"
                                 },
                                 {
-                                    "path":  "config/resourceful-config-web.json",
-                                    "sha256":  "001845d7368d9417485b33895351308d769fafdd2b7c9b3981ce84fe4fe9b1dd"
-                                },
-                                {
                                     "path":  "config/servercore/config.yml",
                                     "sha256":  "384271d5f0a964d713586d3ce648c0d172e82fbe281f12281b49aeac48b5f5bd"
                                 },
@@ -683,7 +677,7 @@
                                 },
                                 {
                                     "path":  "config/sounds/chat.json",
-                                    "sha256":  "432d28b6f6e4d4ce4b8e6f8b167a41cba6aff5cf90cd1e10b6035f6cffa73f65"
+                                    "sha256":  "580248b70a7c0ce5b8ae2cda237e341fa3594c48a57257aceecdd29cf7c32a71"
                                 },
                                 {
                                     "path":  "config/sounds/event.json",
@@ -755,7 +749,7 @@
                                 },
                                 {
                                     "path":  "config/voxy-config.json",
-                                    "sha256":  "2fee83d7e3f08da4e0ff87f6ab958965147932415f01177f171f90cc39fad558"
+                                    "sha256":  "e20f5955e3f87a59c29abb892de600189f27aa718bf1360cdf7b5a5ceccb8fb7"
                                 },
                                 {
                                     "path":  "config/voxyworldgenv2.json",
@@ -805,7 +799,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "fe0ccf96df75f766aa65961a88fe61156818884ddfe5a275844fd5e1dad117ea"
+                      "sha256":  "b312ea158a399a7d6ff832a83145fe2729eb14e558e23761651b64a7bb8c0269"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -937,7 +931,7 @@
                   },
                   {
                       "path":  "config/iris.properties",
-                      "sha256":  "5f1f7674459f170d20d13c535ee51e9355f24bcbb6902c8a274b70274ae69e0a"
+                      "sha256":  "3781f150b856c8fd1a1921e53300605189f242b7fc1753e243717d006c14f025"
                   },
                   {
                       "path":  "config/ixeris.toml",
@@ -1092,10 +1086,6 @@
                       "sha256":  "9148991f4ec6e759cf2b45ea60f02650959b8a3f6ed5b16522ed5ed63cfcf3ea"
                   },
                   {
-                      "path":  "config/resourceful-config-web.json",
-                      "sha256":  "001845d7368d9417485b33895351308d769fafdd2b7c9b3981ce84fe4fe9b1dd"
-                  },
-                  {
                       "path":  "config/servercore/config.yml",
                       "sha256":  "384271d5f0a964d713586d3ce648c0d172e82fbe281f12281b49aeac48b5f5bd"
                   },
@@ -1161,7 +1151,7 @@
                   },
                   {
                       "path":  "config/sounds/chat.json",
-                      "sha256":  "432d28b6f6e4d4ce4b8e6f8b167a41cba6aff5cf90cd1e10b6035f6cffa73f65"
+                      "sha256":  "580248b70a7c0ce5b8ae2cda237e341fa3594c48a57257aceecdd29cf7c32a71"
                   },
                   {
                       "path":  "config/sounds/event.json",
@@ -1233,7 +1223,7 @@
                   },
                   {
                       "path":  "config/voxy-config.json",
-                      "sha256":  "2fee83d7e3f08da4e0ff87f6ab958965147932415f01177f171f90cc39fad558"
+                      "sha256":  "e20f5955e3f87a59c29abb892de600189f27aa718bf1360cdf7b5a5ceccb8fb7"
                   },
                   {
                       "path":  "config/voxyworldgenv2.json",
@@ -1560,8 +1550,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.3+26.2-fabric.jar",
-                      "sha256":  "591f66f190fa1c6cebaeb49d466274a17214bf200dc292e8c38c636b75451eb3"
+                      "path":  "mods/nbidal18-integrity-1.0.4+26.2-fabric.jar",
+                      "sha256":  "6a58daff7c7b41b277c05c27e9b30e1a7f81d95540b8c99f1b032e7b044802c4"
                   },
                   {
                       "path":  "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar",
@@ -1689,7 +1679,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "86d3acbd0933bb251ba4ed6ca5dc808ef415b2616624e336d11b67d36dde5540"
+                      "sha256":  "5bd6edf9a4d31b37c30692f29e7e383251de70b6e7928fd224b129ca2a0cf868"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",
@@ -1750,6 +1740,10 @@
                   {
                       "path":  "resourcepacks/Theone\u0027s Eating Animation Pack v1.0.zip",
                       "sha256":  "5d1f2ea9b8af9cd931796c09f2159e119b25db909b0a84269b42fb3c9f55893d"
+                  },
+                  {
+                      "path":  "resourcepacks/Weskerson\u0027s Torches.zip",
+                      "sha256":  "b0bcb5e73a6ee82a2894bbacc3fe591a68b11e0a22ad4cf9ba28cbd147353874"
                   },
                   {
                       "path":  "resourcepacks/§3Fresh §bFlower Pots Rotated.zip",

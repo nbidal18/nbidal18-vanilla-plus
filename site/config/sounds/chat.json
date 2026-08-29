@@ -13,9 +13,7 @@
 		"pitch": 1.8,
 		"volume": 0.9
 	},
-	"mentionKeywords": [
-		"@nizarbidal"
-	],
+	"mentionKeywords": [],
 	"ignoreSystemChats": false,
 	"enableChatSoundCooldown": false,
 	"chatSoundCooldown": 0.5

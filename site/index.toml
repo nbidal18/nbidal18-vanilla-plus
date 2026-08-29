@@ -22,7 +22,7 @@ hash = "436581c972cb3a3b2ec36526b99b76572b4bd41d98fe2980b40d61d527bb3164"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "fe0ccf96df75f766aa65961a88fe61156818884ddfe5a275844fd5e1dad117ea"
+hash = "b312ea158a399a7d6ff832a83145fe2729eb14e558e23761651b64a7bb8c0269"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -154,7 +154,7 @@ hash = "4d3264b58c502afaeca3f44e8d2db0843c54b8ba957afd21a2d450fe10dafefb"
 
 [[files]]
 file = "config/iris.properties"
-hash = "5f1f7674459f170d20d13c535ee51e9355f24bcbb6902c8a274b70274ae69e0a"
+hash = "3781f150b856c8fd1a1921e53300605189f242b7fc1753e243717d006c14f025"
 
 [[files]]
 file = "config/ixeris.toml"
@@ -309,10 +309,6 @@ file = "config/punchy/triggerable-keybindings.json"
 hash = "9148991f4ec6e759cf2b45ea60f02650959b8a3f6ed5b16522ed5ed63cfcf3ea"
 
 [[files]]
-file = "config/resourceful-config-web.json"
-hash = "001845d7368d9417485b33895351308d769fafdd2b7c9b3981ce84fe4fe9b1dd"
-
-[[files]]
 file = "config/servercore/config.yml"
 hash = "384271d5f0a964d713586d3ce648c0d172e82fbe281f12281b49aeac48b5f5bd"
 
@@ -378,7 +374,7 @@ hash = "d29dede3f214ee4b1aa03314f92c3f973c21ee6e26d173eba3d01a2083237b6d"
 
 [[files]]
 file = "config/sounds/chat.json"
-hash = "432d28b6f6e4d4ce4b8e6f8b167a41cba6aff5cf90cd1e10b6035f6cffa73f65"
+hash = "580248b70a7c0ce5b8ae2cda237e341fa3594c48a57257aceecdd29cf7c32a71"
 
 [[files]]
 file = "config/sounds/event.json"
@@ -450,7 +446,7 @@ hash = "3722e961204446525a1057da429c14898cf9f2244870aec769d8784585b6656c"
 
 [[files]]
 file = "config/voxy-config.json"
-hash = "2fee83d7e3f08da4e0ff87f6ab958965147932415f01177f171f90cc39fad558"
+hash = "e20f5955e3f87a59c29abb892de600189f27aa718bf1360cdf7b5a5ceccb8fb7"
 
 [[files]]
 file = "config/voxyworldgenv2.json"
@@ -777,8 +773,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.3+26.2-fabric.jar"
-hash = "591f66f190fa1c6cebaeb49d466274a17214bf200dc292e8c38c636b75451eb3"
+file = "mods/nbidal18-integrity-1.0.4+26.2-fabric.jar"
+hash = "6a58daff7c7b41b277c05c27e9b30e1a7f81d95540b8c99f1b032e7b044802c4"
 
 [[files]]
 file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
@@ -906,7 +902,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "86d3acbd0933bb251ba4ed6ca5dc808ef415b2616624e336d11b67d36dde5540"
+hash = "5bd6edf9a4d31b37c30692f29e7e383251de70b6e7928fd224b129ca2a0cf868"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -967,6 +963,10 @@ hash = "cd4878ce5fa00e61e02f326ce2751026be30fc8e79d65041986d8b66cdade89d"
 [[files]]
 file = "resourcepacks/Theone's Eating Animation Pack v1.0.zip"
 hash = "5d1f2ea9b8af9cd931796c09f2159e119b25db909b0a84269b42fb3c9f55893d"
+
+[[files]]
+file = "resourcepacks/Weskerson's Torches.zip"
+hash = "b0bcb5e73a6ee82a2894bbacc3fe591a68b11e0a22ad4cf9ba28cbd147353874"
 
 [[files]]
 file = "resourcepacks/§3Fresh §bFlower Pots Rotated.zip"
