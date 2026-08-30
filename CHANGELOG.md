@@ -5,6 +5,49 @@ build that was not published.
 
 ---
 
+## v1.0.12
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-30 | see below | `146ae8ca9020a032` | `f909b2ad8cec33a2` | 253 | 109 |
+
+**The Soul Charm is a real item, and Xaero is down to the map and its pins.**
+
+### The Soul Charm
+
+Hardcore Revive+ is a datapack in a mod wrapper - 129 data files and zero classes - so its Soul
+Charm was a ghast tear wearing an `item_name` component. It could not be told apart from a ghast
+tear in a chest, could not be found in JEI by name (JEI's list is the item registry, and no such
+item was in it), and could not be given a texture without retexturing every ghast tear in the game.
+
+The fork now carries Java and registers `hcrplus:soul_charm`: its own name, its own 3D vial, gold
+contents taken from the Totem of Undying's palette. Ghast tears go back to looking like ghast tears.
+
+**Revival is unchanged.** The datapack finds a dropped charm by its `custom_data {Revive:1b}`
+component and not by item id, so any charm crafted before this release still works, and the refund
+path clears both forms.
+
+### Xaero: the full-screen map and pins, nothing else
+
+Two new first-party mods, one per target.
+
+Removed from the map's right-click menus, because **none of these are settings** - "Share Location
+In Chat" posts coordinates as hover text and has no config at all:
+
+```
+Share Location In Chat        Teleport Here
+Share Waypoint In Chat        Teleport to Waypoint / to Player
+```
+
+Cave mode, nether cave mode and the entity radar are refused through Xaero's own server-rules path,
+so the mod greys them out and explains why rather than fighting a setting. Three further settings
+are now pinned: waypoint coordinates hidden, tracked players not drawn in the world, server chunk
+radius off.
+
+Nothing a player has to do beyond clicking **Play**.
+
+---
+
 ## v1.0.11
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
