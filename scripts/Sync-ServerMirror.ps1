@@ -3,6 +3,7 @@
 
       scripts\Sync-ServerMirror.ps1 -Pull
       scripts\Sync-ServerMirror.ps1 -Push -Files 'mods\a.jar','config\b.properties'
+      scripts\Sync-ServerMirror.ps1 -Push -Remove 'mods\superseded-helper.jar'
 
     Why this exists: `Y:` was a CloudMounter SFTP mount and that trial expired, so Deploy-LiveServer
     has no filesystem to write to. Every deploy since has been ad-hoc WinSCP commands typed once and
@@ -23,6 +24,10 @@ param(
     [Parameter(ParameterSetName = 'Pull')]  [switch] $Pull,
     [Parameter(ParameterSetName = 'Push')]  [switch] $Push,
     [Parameter(ParameterSetName = 'Push')]  [string[]] $Files,
+    # Deleting is named separately from copying and is never inferred. A superseded helper has to
+    # go - two jars claiming one mod id and the loader picks one - but nothing here should ever
+    # work out on its own what the server no longer needs.
+    [Parameter(ParameterSetName = 'Push')]  [string[]] $Remove,
     [string] $Session = $env:NBIDAL18_WINSCP_SESSION,
     [string] $MirrorRoot,
     [string] $RemoteRoot = '/'
@@ -75,7 +80,7 @@ if ($Pull) {
 }
 
 if ($Push) {
-    if (-not $Files) { throw 'Push needs -Files: the reviewed paths, relative to the mirror root.' }
+    if (-not $Files -and -not $Remove) { throw 'Push needs -Files or -Remove: reviewed paths, relative to the mirror root.' }
     foreach ($rel in $Files) {
         $local = Join-Path $MirrorRoot $rel
         if (-not (Test-Path -LiteralPath $local -PathType Leaf)) { throw "Not in the mirror: $local" }
@@ -83,6 +88,11 @@ if ($Push) {
         $remote = $RemoteRoot + $rel.Replace([IO.Path]::DirectorySeparatorChar, [char]47)
         $lines.Add("put `"$local`" `"$remote`"")
         Write-Host ("push      {0}" -f $rel)
+    }
+    foreach ($rel in $Remove) {
+        $remote = $RemoteRoot + $rel.Replace([IO.Path]::DirectorySeparatorChar, [char]47)
+        $lines.Add("rm `"$remote`"")
+        Write-Host ("remove    {0}" -f $rel)
     }
 }
 
