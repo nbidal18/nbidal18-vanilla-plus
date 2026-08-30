@@ -5,6 +5,44 @@ build that was not published.
 
 ---
 
+## v1.0.14
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-30 | see below | `15abbe137cc86b1a` | `5bb9cf7186a29e02` | 253 | 109 |
+
+**You can land a fish from a dock now.**
+
+### Better Fishing's landing distance
+
+A catch lands when the hook comes within `LANDING_DISTANCE` of the player, and that distance is
+measured in three dimensions. Upstream sets it to **2.35 blocks**, which is unreachable from a dock:
+standing two blocks above the water puts the floating hook at least two blocks away vertically
+before any horizontal distance is counted. The fight could never finish.
+
+Worse, nothing said so. Progress is deliberately clamped to 96.5% while the hook is further away
+than the landing distance, and landing is a pure distance test - so the bar sits just short of full
+for ever and there is no feedback that the spot is unwinnable.
+
+The fork raises it to **4.5 blocks**, which covers a dock or pier three to four blocks above the
+water. It is not a setting: the mod's only options are difficulty and three sound toggles, and this
+is a `private static final double` that javac inlined into the constant pool. Rewriting that one
+pool entry moves all four use sites at once.
+
+One consequence: the fight is about 20% shorter on a long cast, because progress is normalised over
+`startDistance - LANDING_DISTANCE`.
+
+**This is server-side.** The landing test runs in the server's copy of the mixin.
+
+### Fishing Rod Fix removed
+
+It changed nothing in play. It is client-only, and the fishing behaviour that matters is decided on
+the server.
+
+Nothing to do beyond clicking **Play**.
+
+---
+
 ## v1.0.13
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
