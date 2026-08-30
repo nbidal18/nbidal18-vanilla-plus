@@ -5,6 +5,42 @@ build that was not published.
 
 ---
 
+## v1.0.15
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-30 | see below | `86b41dd370202a81` | `15abbe137cc86b1a` | 256 | 112 |
+
+**VinURL and Immersive Paintings**, both back from the 1.21.1 pack. Both had native 26.2 Fabric
+builds, so neither needed porting.
+
+### Five jars, not two
+
+Both declare `environment: "*"`, so both belong on the server as well as the client - and they bring
+a dependency chain that was only half-installed:
+
+```
+vinurl              -> owo-lib                    not in the pack at all
+immersive_paintings -> fzzy_config                present client-side, absent on the server
+fzzy_config         -> fabric-language-kotlin     the same
+```
+
+`Test-DedicatedServer` caught the second link by refusing to boot - the loader stopped with
+`HARD_DEP_NO_CANDIDATE` on `fabric-language-kotlin` rather than starting. That is the exact gap a
+side audit had flagged days earlier as a curiosity: Fzzy Config declares itself server-required and
+was sitting client-side only. It stayed harmless until something server-side depended on it.
+
+### What VinURL does, for the record
+
+Each **client** downloads `yt-dlp`, `ffmpeg` and `ffprobe` from GitHub - about 180 MB - and runs
+them as subprocesses to turn a URL into playable audio, auto-updating to whatever "latest" is. The
+**server never does**: `ServerEvent` and the common class do not touch the runner, they only relay
+the disc data. Worth knowing before a new player joins, not a reason to avoid it.
+
+Nothing to do beyond clicking **Play**.
+
+---
+
 ## v1.0.14
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
