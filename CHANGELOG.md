@@ -5,6 +5,51 @@ build that was not published.
 
 ---
 
+## v1.0.13
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-30 | see below | `5bb9cf7186a29e02` | `146ae8ca9020a032` | 254 | 110 |
+
+**Fishing works now, and the Soul Charm can be found by name.**
+
+### Better Fishing never ran on the server
+
+Fishing had stayed vanilla since the mod was added. Its Fabric build declares
+`"environment": "client"` and one `ClientModInitializer` - and that single client entrypoint is
+where it registers its *serverbound* payload types and its `ServerPlayNetworking` receivers. A
+`ClientModInitializer` never runs on a dedicated server, and the environment flag stops the mod
+loading there at all. So the server never handled the reeling or catch packets and resolved fishing
+with vanilla logic: the minigame drew on the client and changed nothing. Copying the jar across
+would not have helped - the loader honours the flag.
+
+`nbidal18-betterfishing` sets the environment to `*` and adds a `main` entrypoint carrying exactly
+the registrations that were stranded, transcribed from upstream's own lambdas so both sides keep
+agreeing about what a packet means. It does nothing on a client, where the mod's own initializer
+still runs.
+
+**This is a new mod on the server**, not just an updated one.
+
+### The Soul Charm is findable
+
+v1.0.12 registered it, which fixed the icon and the name but not the search. JEI's list is built
+from the creative mode tabs, not the item registry, so an item in no tab is in no list. It now joins
+Tools & Utilities, and typing "soul" finds it.
+
+### Also
+
+**Fishing Rod Fix** added, client-side only. **Fishing Real** was considered and dropped - Better
+Fishing already renders the caught fish on the hook, which was the reason to want it.
+
+A side-audit compared every jar's declared environment against where it actually is: 45 client-only
+mods are correctly client-only and nothing is on the server that should not be. Better Fishing was
+invisible to that check because it *declares* itself client-only - the mismatch was between what it
+says and what it contains.
+
+Nothing to do beyond clicking **Play**.
+
+---
+
 ## v1.0.12
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
