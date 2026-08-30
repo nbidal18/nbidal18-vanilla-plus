@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.14",
+    "packVersion":  "1.0.15",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -335,7 +335,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "a10bc0b98afb5d50c3ad1ebd09520cc0ceac7324bc59b93ec8536cb20a4b1064"
+                                    "sha256":  "f7ec2d3dfa879df879f1c6d60c3ac5e1a932552d68b796c4e68297c56cb7b8ce"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -809,7 +809,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "a10bc0b98afb5d50c3ad1ebd09520cc0ceac7324bc59b93ec8536cb20a4b1064"
+                      "sha256":  "f7ec2d3dfa879df879f1c6d60c3ac5e1a932552d68b796c4e68297c56cb7b8ce"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1484,6 +1484,10 @@
                       "sha256":  "5eafbc57d60b0d4439f1c365348b7b02f516f4e9df22199da817bd50ca55fa01"
                   },
                   {
+                      "path":  "mods/immersive_paintings-fabric-26.2-0.7.8.jar",
+                      "sha256":  "e16f317966687b8a8da42a10c5a1874c3730c066a5d91b30c33b99461865a987"
+                  },
+                  {
                       "path":  "mods/iris-fabric-1.11.2+mc26.2.jar",
                       "sha256":  "df0e2ccddaea17b191eda32b21c979e131bc9d4ef4f831113b50b461fc4a3804"
                   },
@@ -1560,8 +1564,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.14+26.2-fabric.jar",
-                      "sha256":  "ef42a46680ce746ff9c604fd6f05d2c55df6c5be5504b1db6ad332428d1179f5"
+                      "path":  "mods/nbidal18-integrity-1.0.15+26.2-fabric.jar",
+                      "sha256":  "372a7d3e10881006f5c8b05c5f46e4039e4e1bbfe5ee1338ae7b0453f8bf50e0"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1582,6 +1586,10 @@
                   {
                       "path":  "mods/notenoughanimations-fabric-1.12.4-mc26.2.jar",
                       "sha256":  "8533f2a27ce9cfed184859f4fa33c48a29fd91830a5a2d922a8a6e34be7770f3"
+                  },
+                  {
+                      "path":  "mods/owo-lib-0.13.1+26.2.jar",
+                      "sha256":  "c774b8049b5477e6100514db64bd6de70201d1e3d05e7eb5fd9cfce723a1801d"
                   },
                   {
                       "path":  "mods/placeholder-api-3.1.0-beta.1+26.2.jar",
@@ -1670,6 +1678,10 @@
                   {
                       "path":  "mods/variantsandventures-fabric-1.0.26+mc26.2.jar",
                       "sha256":  "cff8ce164b80c52cb123b7467f571f5857dcf3b6ce5f1e350599f351c8340d04"
+                  },
+                  {
+                      "path":  "mods/vinurl-2.6.0+mc26.2.jar",
+                      "sha256":  "f4c02a35387e839e3d36ba140714aa6e8da81083433ebfd2adcebc3f8ec2d459"
                   },
                   {
                       "path":  "mods/voicechat-fabric-2.6.22+26.2.jar",
