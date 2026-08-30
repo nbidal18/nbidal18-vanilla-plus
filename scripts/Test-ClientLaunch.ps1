@@ -111,7 +111,17 @@ $fatalPatterns = @(
         Note = 'a resource pack is overriding shaders/core for a different game version (v1.0.6)' }
     @{ Name = 'model with unresolved textures'
         Pattern = 'Missing texture references in model'
-        Note = 'a resource pack ships models whose texture variables are undefined (v1.0.7)' }
+        Note = 'a resource pack ships models whose texture variables are undefined (v1.0.7)'
+        # Traveler's Backpack ships its backpack geometry as loose Blockbench sources under
+        # models/block/. Measured against the jar rather than assumed: of 89 models there, 76 are
+        # referenced by a blockstate, item model or parent chain and 13 are not - and every one of
+        # the 13 is a backpack_* file, while not one referenced model starts with backpack_. The
+        # mod's renderer loads that geometry itself, so nothing goes through the model registry and
+        # nothing renders untextured; the loader simply parses every file in the folder and warns.
+        #
+        # The v1.0.7 fault this pattern exists for was the opposite case - models that were in use
+        # and untextured - so the check stays live for every other model, including the other 76.
+        Except = 'travelersbackpack:block/backpack_' }
     @{ Name = 'malformed JSON in a resource pack'
         Pattern = 'MalformedJsonException'
         Note = 'a pack ships JSON the game cannot parse and silently drops (v1.0.7)' }
@@ -207,6 +217,10 @@ try {
         $failures = New-Object Collections.Generic.List[string]
         foreach ($check in $fatalPatterns) {
             $hits = @($lines | Where-Object { $_ -match $check.Pattern } | Select-Object -Unique)
+            # An exemption is per-line and per-pattern, so the check stays live for everything else.
+            if ($check.ContainsKey('Except')) {
+                $hits = @($hits | Where-Object { $_ -notmatch $check.Except })
+            }
             if ($hits.Count) {
                 $failures.Add(("{0} ({1} lines) - {2}`n    {3}" -f $check.Name, $hits.Count, $check.Note,
                     (($hits | Select-Object -First 3) -join "`n    ")))

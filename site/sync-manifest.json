@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.16",
+    "packVersion":  "1.0.17",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -335,7 +335,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "5614d1046b00ce8c30dc0626161b470f407fc3101fb88937cf102b943954f76a"
+                                    "sha256":  "c2ea2f9fa382323098715a8daafa50b303f53626af9515c767b03ef0c9d2ccfe"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -759,7 +759,7 @@
                                 },
                                 {
                                     "path":  "config/voxy-config.json",
-                                    "sha256":  "230d79ec9e99c0072b2576fb606b8ee52fdcc859ad7132bf725dfa6c87b6d79c"
+                                    "sha256":  "4177e2f8165d220f607c554e20b316f195cf31336fa7c3000e295e3033e37dde"
                                 },
                                 {
                                     "path":  "config/voxyworldgenv2.json",
@@ -809,7 +809,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "5614d1046b00ce8c30dc0626161b470f407fc3101fb88937cf102b943954f76a"
+                      "sha256":  "c2ea2f9fa382323098715a8daafa50b303f53626af9515c767b03ef0c9d2ccfe"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1233,7 +1233,7 @@
                   },
                   {
                       "path":  "config/voxy-config.json",
-                      "sha256":  "230d79ec9e99c0072b2576fb606b8ee52fdcc859ad7132bf725dfa6c87b6d79c"
+                      "sha256":  "4177e2f8165d220f607c554e20b316f195cf31336fa7c3000e295e3033e37dde"
                   },
                   {
                       "path":  "config/voxyworldgenv2.json",
@@ -1282,6 +1282,10 @@
                   {
                       "path":  "mods/EnchantmentDescriptions-fabric-MC26.2-26.2.0.2.jar",
                       "sha256":  "4a53b9a5f6510f9cf779875ca4d7877ee624ebc76b50dca8bc03794ba0ee8511"
+                  },
+                  {
+                      "path":  "mods/ForgeConfigAPIPort-v26.2.1-mc26.2.x-Fabric.jar",
+                      "sha256":  "1b4b17fc4150481447201152604688c74726d6631c9a626dd21f2c5e2b3df1ac"
                   },
                   {
                       "path":  "mods/Gnetum-4.5.4+26.2-fabric.jar",
@@ -1565,19 +1569,23 @@
                   },
                   {
                       "path":  "mods/nbidal18-immersiveaircraft-1.4.7+26.2-fabric.jar",
-                      "sha256":  "28ccc2a12936ae2d553815e942e6bb6781086ccc700cdab1f2a8c49f65cf0a13"
+                      "sha256":  "0cb24252f60c6fe1c226da3a87f0fb86c3f05f3f3a90bd2d049971a35d2fb9c5"
                   },
                   {
                       "path":  "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar",
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.16+26.2-fabric.jar",
-                      "sha256":  "556b81b9d62fc15cc6b842d6e6b7dccc74511a599e37723a092bee3d3a6b617f"
+                      "path":  "mods/nbidal18-integrity-1.0.17+26.2-fabric.jar",
+                      "sha256":  "ba3b4e7be14ced5e710cb5ad5a2ffbc6ee1a3c5738feada6bfe2fa9faf518057"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
                       "sha256":  "f3fef0c67abb35173c0d8408f96e632308fe65b969e116c7e52e7f429477f727"
+                  },
+                  {
+                      "path":  "mods/nbidal18-tectonic-1.0.0+26.2-fabric.jar",
+                      "sha256":  "ad7773d915ff1f44aebd38a2167bb4730fde70cbf1f766892f3dbab7d7ec5152"
                   },
                   {
                       "path":  "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar",
@@ -1680,6 +1688,10 @@
                       "sha256":  "4fa2b27fdccb60da9942af70b2d157feea4609049ad80950ec4c33db36502168"
                   },
                   {
+                      "path":  "mods/travelersbackpack-fabric-26.2-11.3.1.jar",
+                      "sha256":  "9b63544d3415699566222a940bb5971d88416fd10dcb53bf60e888328a4ce173"
+                  },
+                  {
                       "path":  "mods/vanilla-refresh-1.4.31.jar",
                       "sha256":  "fd62d1d9b5b303fa45032fbba155d3851c477f3197954e3ab28b16f8a9957b42"
                   },
@@ -1721,7 +1733,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "824c54b35120b9d75b851d1a76295ea9155571140d77f41274ae1cc1cf451155"
+                      "sha256":  "f38aa71a84738dc5b67047141e3dd53174af523ccd411ca8324e4e84be835837"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",

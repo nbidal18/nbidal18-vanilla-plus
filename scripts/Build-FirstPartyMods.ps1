@@ -41,7 +41,10 @@ $mods = @(
     @{ Name = 'nbidal18-hardcorerevive'; Generator = $null; Builder = 'patch_hcrplus.py' },
     @{ Name = 'nbidal18-xaerominimap'; Generator = $null; Builder = 'build_xaerominimap.py' },
     @{ Name = 'nbidal18-xaeroworldmap'; Generator = $null; Builder = 'build_xaeroworldmap.py' },
-    @{ Name = 'nbidal18-betterfishing'; Generator = $null; Builder = 'patch_betterfishing.py' }
+    @{ Name = 'nbidal18-betterfishing'; Generator = $null; Builder = 'patch_betterfishing.py' },
+    # Data only - no src\, so no javac. Its builder reads the vanilla loot table out of the game jar
+    # and edits it, which is why it needs no classpath either.
+    @{ Name = 'nbidal18-tectonic'; Generator = $null; Builder = 'build_tectonic.py' }
 )
 if ($Only) {
     $mods = @($mods | Where-Object { $Only -contains $_.Name })
@@ -140,8 +143,27 @@ try {
             finally { Pop-Location }
         }
 
-        $sources = @(Get-ChildItem -LiteralPath (Join-Path $modRoot 'src') -Recurse -Filter *.java)
-        if ($sources.Count -eq 0) { throw "No sources under $modRoot\src" }
+        # A first-party artefact may be data only - a loot table or a datapack override with no Java
+        # at all. Those skip the compile entirely rather than being made to carry an empty src\.
+        # Assigned in two statements, not as an if-expression: under StrictMode the empty branch
+        # yields $null rather than an empty array, and $sources.Count then throws.
+        $srcRoot = Join-Path $modRoot 'src'
+        $sources = @()
+        if (Test-Path -LiteralPath $srcRoot) {
+            $sources = @(Get-ChildItem -LiteralPath $srcRoot -Recurse -Filter *.java)
+        }
+        if ((Test-Path -LiteralPath $srcRoot) -and $sources.Count -eq 0) {
+            throw "$modRoot has a src\ directory but no .java in it"
+        }
+        if ($sources.Count -eq 0) {
+            Push-Location $modRoot
+            try {
+                & python $mod.Builder
+                if ($LASTEXITCODE -ne 0) { throw "$($mod.Builder) failed for $name" }
+            }
+            finally { Pop-Location }
+            continue
+        }
         $out = Join-Path ([IO.Path]::GetTempPath()) "nbidal18-build-$name"
         if (Test-Path -LiteralPath $out) { Remove-Item -LiteralPath $out -Recurse -Force }
         New-Item -ItemType Directory -Path $out | Out-Null

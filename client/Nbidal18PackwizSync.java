@@ -188,11 +188,16 @@ public final class Nbidal18PackwizSync {
             new PlayerFileSeed("config/autohud.json5", ':', "autohud-mount-health-v1016", List.of(
                     new SeedRow(List.of("elements", "minecraft:mount_health_bar"), "alwaysHidden", "true"))),
             // Voxy off by default: its far terrain is the single heaviest thing in the pack on a weak
-            // machine. The distance still moves to 32 so that anyone who turns it on gets the tuned
-            // value rather than the shipped 1.0, which renders almost nothing and looks broken.
-            new PlayerFileSeed("config/voxy-config.json", ':', "voxy-default-off-v1016", List.of(
+            // machine.
+            //
+            // section_render_distance goes back to 1.0, which is what the pack shipped before
+            // v1.0.16 raised it to 32.0. That was a mistake: the field is not a chunk count, and at
+            // 32.0 the owner's client reported a render distance of 1024. A fresh token, because
+            // v1.0.16's marker has already been written on every instance that updated and a seed
+            // never fires twice under the same one.
+            new PlayerFileSeed("config/voxy-config.json", ':', "voxy-default-off-v1017", List.of(
                     SeedRow.of("enabled", "false"),
-                    SeedRow.of("section_render_distance", "32.0"))));
+                    SeedRow.of("section_render_distance", "1.0"))));
 
         /**
      * Empty on purpose, and it must stay that way until a mod is actually retired from THIS

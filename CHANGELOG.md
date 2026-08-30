@@ -5,6 +5,117 @@ build that was not published.
 
 ---
 
+## v1.0.17
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-30 | see below | `54ef3fd20909399a` | `449107b924ed127b` | 261 | 117 |
+
+**Two fixes for things v1.0.16 broke, backpacks, and shipwreck maps that resolve.** Both faults were mine.
+
+### Shipwreck treasure maps could not resolve
+
+Vanilla's `chests/shipwreck_map` sets no `search_radius`, so `exploration_map` uses the default of
+**50 - in chunks, 800 blocks**. Find nothing and it returns the stack unchanged, which is still a
+blank `minecraft:map`: no message, no log line, and a chest that looks like it gave you loot. Half
+of all shipwrecks are the open-ocean variant while buried treasure only generates on beaches.
+
+That default was tuned for vanilla oceans. Tectonic ships `continents_scale 0.13` and
+`ocean_offset -0.8` - checked against `ConfigState$Continents.DEFAULT` in the jar, so they are its
+own shipped values and not something this pack chose - and those oceans are far larger.
+
+Measured rather than argued. The owner's shipwreck at chunk `-88, 56`, nearest buried treasure at
+chunk `-105, -3`:
+
+```
+offset  17 by 59 chunks       972 blocks
+50-chunk box   outside, on the z axis alone
+100-chunk box  inside, with 41 chunks to spare
+```
+
+`nbidal18-tectonic` widens it to **100**, which is what vanilla itself uses for the woodland mansion
+map. Named for Tectonic and not for the loot table it edits: the reason it exists is Tectonic's
+terrain, so if Tectonic ever leaves, this must leave with it.
+
+The table is read out of the game jar and edited at build time, never copied in - a hardcoded copy
+goes stale the first time Mojang touches it and nothing says so. The builder asserts vanilla still
+has exactly one `exploration_map` function and still sets no radius of its own.
+
+It is the pack's first **data-only** first-party artefact, so `Build-FirstPartyMods.ps1` now skips
+the compile step for a mod with no `src\`.
+
+### Traveler's Backpack
+
+The 1.21.1 pack had **Inmis** and **InmisAddon**; neither has a 26.2 build and Inmis upstream has
+not been touched since September 2024, so a port was the only way to keep them. That turned out to
+be a much larger job than it looked: unlike Immersive Aircraft, which was Mojang-named through
+Architectury, Inmis is written against **Yarn**. Its whole source needs translating before any 26.2
+work starts - 926 errors across 28 files, 102 distinct missing symbols - and the backpack is drawn
+on the player's back through a `FeatureRenderer`, which is the single most-rewritten corner of 26.2.
+Its addon draws with `Tessellator` and `BufferBuilder`, which 26.2 deleted outright.
+
+Traveler's Backpack does the same job, is native to 26.2, and is maintained. It brought
+`forgeconfigapiport` with it as a **required** dependency that was in neither the client pack nor
+the server - the same half-installed shape v1.0.15 shipped - so both jars go to both sides.
+
+### A launch check that was right to complain
+
+`Test-ClientLaunch` failed this release on twelve `Missing texture references in model` warnings,
+the pattern that exists because of v1.0.7. Checked against the jar rather than waved through: of the
+89 models under `travelersbackpack:block/`, **76 are referenced** by a blockstate, item model or
+parent chain and **13 are not** - and every one of the 13 is a `backpack_*` file, while not one
+referenced model starts with `backpack_`. The mod's renderer loads that geometry itself, so none of
+it goes through the model registry.
+
+So the check gets a per-pattern `Except`, scoped to exactly `travelersbackpack:block/backpack_`. It
+stays live for the other 76 models and for every other mod. v1.0.7's fault was the opposite case -
+models that were in use and untextured - and that is still caught.
+
+### The hotbar could not hide
+
+v1.0.16 put the aircraft overlay inside `AutoHudRenderer.wrap` so it would fade with the hotbar.
+That call is built for Auto HUD's own elements and it drives global state: `startRender` sets
+`inRender` and `AutoHudGuiItemRenderState.IS_HUD_ITEM`, and `endRender` clears both
+unconditionally.
+
+The overlay's entry point is injected at the **head** of `Hud.extractItemHotbar` and runs on every
+frame whether or not you are in an aircraft. So that begin/end pair ran *before* vanilla drew the
+hotbar, and `inRender` was already false by the time it did.
+
+Auto HUD fades the HUD through two independent paths. `GuiGraphicsExtractorMixin` wraps `fill`,
+`blit` and `text` and applies transparency **only while `inRender` is set** - that is the slot
+frames, the durability bars and the stack counts. The item icons go through
+`GuiItemRenderStateMixin` and `HudMixin.autoHud$skipItemRendering`, which do not read `inRender` at
+all.
+
+So in the hidden state the icons disappeared correctly and **the hotbar itself stayed on screen at
+full opacity**, because the only path that could have faded it had been switched off. It affected
+everyone, all the time, not just while flying.
+
+It now only **reads** Auto HUD - whether the hotbar is hidden - and touches nothing Auto HUD relies
+on. The overlay appears and disappears with the hotbar instead of cross-fading with it. Matching the
+fade curve means threading an alpha through every draw call in the overlay, which is worth doing on
+its own and not as part of a regression fix.
+
+**No check here could have caught it.** `Test-ClientLaunch` passed on the broken jar, because the
+title screen never draws a hotbar. A HUD rendering fault is invisible to every gate this pack has
+and needs a play-test.
+
+### Voxy's render distance was 32x too far
+
+v1.0.16 seeded `section_render_distance: 32.0`, described in its changelog as a tuned value
+replacing a `1.0` that "renders almost nothing and looks broken". That was wrong on both counts:
+the field is not a chunk count, and at `32.0` the owner's client reported a render distance of
+**1024**. `1.0` was correct all along and is what the pack shipped from v1.0.0 until v1.0.16.
+
+Back to `1.0`, under a fresh seed token - v1.0.16's marker has already been written on every
+instance that updated, and a seed never fires twice under the same one. Voxy stays **off** by
+default, which was the actual intent.
+
+Nothing to do beyond clicking **Play**.
+
+---
+
 ## v1.0.16
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

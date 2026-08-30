@@ -22,7 +22,7 @@ hash = "d954976cca7faa29db88894517863098c237debf838e7fd725642e9030e3f238"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "5614d1046b00ce8c30dc0626161b470f407fc3101fb88937cf102b943954f76a"
+hash = "c2ea2f9fa382323098715a8daafa50b303f53626af9515c767b03ef0c9d2ccfe"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -446,7 +446,7 @@ hash = "3722e961204446525a1057da429c14898cf9f2244870aec769d8784585b6656c"
 
 [[files]]
 file = "config/voxy-config.json"
-hash = "230d79ec9e99c0072b2576fb606b8ee52fdcc859ad7132bf725dfa6c87b6d79c"
+hash = "4177e2f8165d220f607c554e20b316f195cf31336fa7c3000e295e3033e37dde"
 
 [[files]]
 file = "config/voxyworldgenv2.json"
@@ -495,6 +495,10 @@ hash = "8bf79bc2940c4272aa954a561831a36cfc70dfe7c26db16f8daf222e39b9ce77"
 [[files]]
 file = "mods/EnchantmentDescriptions-fabric-MC26.2-26.2.0.2.jar"
 hash = "4a53b9a5f6510f9cf779875ca4d7877ee624ebc76b50dca8bc03794ba0ee8511"
+
+[[files]]
+file = "mods/ForgeConfigAPIPort-v26.2.1-mc26.2.x-Fabric.jar"
+hash = "1b4b17fc4150481447201152604688c74726d6631c9a626dd21f2c5e2b3df1ac"
 
 [[files]]
 file = "mods/Gnetum-4.5.4+26.2-fabric.jar"
@@ -778,19 +782,23 @@ hash = "fae5e4b909a80f7748fda4bf4f6c7de88eb03b9368f1c02a3281fc80b4836b87"
 
 [[files]]
 file = "mods/nbidal18-immersiveaircraft-1.4.7+26.2-fabric.jar"
-hash = "28ccc2a12936ae2d553815e942e6bb6781086ccc700cdab1f2a8c49f65cf0a13"
+hash = "0cb24252f60c6fe1c226da3a87f0fb86c3f05f3f3a90bd2d049971a35d2fb9c5"
 
 [[files]]
 file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.16+26.2-fabric.jar"
-hash = "556b81b9d62fc15cc6b842d6e6b7dccc74511a599e37723a092bee3d3a6b617f"
+file = "mods/nbidal18-integrity-1.0.17+26.2-fabric.jar"
+hash = "ba3b4e7be14ced5e710cb5ad5a2ffbc6ee1a3c5738feada6bfe2fa9faf518057"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
 hash = "f3fef0c67abb35173c0d8408f96e632308fe65b969e116c7e52e7f429477f727"
+
+[[files]]
+file = "mods/nbidal18-tectonic-1.0.0+26.2-fabric.jar"
+hash = "ad7773d915ff1f44aebd38a2167bb4730fde70cbf1f766892f3dbab7d7ec5152"
 
 [[files]]
 file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
@@ -893,6 +901,10 @@ file = "mods/tectonic-3.0.26-fabric-26.2.jar"
 hash = "4fa2b27fdccb60da9942af70b2d157feea4609049ad80950ec4c33db36502168"
 
 [[files]]
+file = "mods/travelersbackpack-fabric-26.2-11.3.1.jar"
+hash = "9b63544d3415699566222a940bb5971d88416fd10dcb53bf60e888328a4ce173"
+
+[[files]]
 file = "mods/vanilla-refresh-1.4.31.jar"
 hash = "fd62d1d9b5b303fa45032fbba155d3851c477f3197954e3ab28b16f8a9957b42"
 
@@ -934,7 +946,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "824c54b35120b9d75b851d1a76295ea9155571140d77f41274ae1cc1cf451155"
+hash = "f38aa71a84738dc5b67047141e3dd53174af523ccd411ca8324e4e84be835837"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
