@@ -22,7 +22,7 @@ hash = "436581c972cb3a3b2ec36526b99b76572b4bd41d98fe2980b40d61d527bb3164"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "82e58d2e77c2cc0dc46d2c332e7922f24d40db47086532b2c2540fe61c6be90e"
+hash = "9f93072c2014f07cbc8ba864e791576efea0258542288e32dba38ff9637cf815"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -458,7 +458,7 @@ hash = "00c6e34f0adbb41db954d296fd7c55dc3412463a38038dc836626433dd7f6d92"
 
 [[files]]
 file = "config/xaero/minimap/profiles/default.cfg"
-hash = "be45d8632db1cd7cd707f321ad802876bc06f4df42812cf3e18db851bd8ab68a"
+hash = "2e2d25893747903d9d16c0cc50f9bb56c4ebbcbb7f91a1d8210158394781c507"
 
 [[files]]
 file = "config/xaero/world-map/profiles/default.cfg"
@@ -766,15 +766,15 @@ hash = "101a59b5a662c920a8ea05c2396e82f546be87f2cc7d698822eccd4821ad8a85"
 
 [[files]]
 file = "mods/nbidal18-hardcorerevive-1.12.0+26.2-fabric.jar"
-hash = "63abde8a556eafa79bed3f7cc7be49c8b0b9f76514670c545dda7722b9ca1f3f"
+hash = "5572b8c92661636c28d57dbc3214c9a9d4d1c5e976c39c9056cba5b2dc9f06d0"
 
 [[files]]
 file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.11+26.2-fabric.jar"
-hash = "bcf8d292f60817f554d1f38c394507e474289493264af32d26a53e79ff556d95"
+file = "mods/nbidal18-integrity-1.0.12+26.2-fabric.jar"
+hash = "50c176f19b2fa8bffe8070244e4971deddb6b1225b3eb827445a7b16f77b4485"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -783,6 +783,14 @@ hash = "f3fef0c67abb35173c0d8408f96e632308fe65b969e116c7e52e7f429477f727"
 [[files]]
 file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
 hash = "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
+
+[[files]]
+file = "mods/nbidal18-xaerominimap-1.0.0+26.2-fabric.jar"
+hash = "10678e567e8dcd8e0c6b97de493f0565abf5914e89f1234804a08bfa3e4bd296"
+
+[[files]]
+file = "mods/nbidal18-xaeroworldmap-1.0.0+26.2-fabric.jar"
+hash = "9ebbd685b4fecba0ed0800440068a79f823c3436bffecea0a604aee0baab946a"
 
 [[files]]
 file = "mods/notenoughanimations-fabric-1.12.4-mc26.2.jar"

@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.11",
+    "packVersion":  "1.0.12",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -295,6 +295,21 @@
                               "path":  "config/xaero/minimap/profiles/default.cfg",
                               "key":  "minimap_undiscovered_opacity",
                               "value":  "0"
+                          },
+                          {
+                              "path":  "config/xaero/minimap/profiles/default.cfg",
+                              "key":  "hide_waypoint_coordinates",
+                              "value":  "true"
+                          },
+                          {
+                              "path":  "config/xaero/minimap/profiles/default.cfg",
+                              "key":  "tracked_players_in_world",
+                              "value":  "false"
+                          },
+                          {
+                              "path":  "config/xaero/world-map/profiles/default.cfg",
+                              "key":  "display_server_chunk_radius",
+                              "value":  "false"
                           }
                       ],
     "normalizedTextFiles":  [
@@ -320,7 +335,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "82e58d2e77c2cc0dc46d2c332e7922f24d40db47086532b2c2540fe61c6be90e"
+                                    "sha256":  "9f93072c2014f07cbc8ba864e791576efea0258542288e32dba38ff9637cf815"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -756,7 +771,7 @@
                                 },
                                 {
                                     "path":  "config/xaero/minimap/profiles/default.cfg",
-                                    "sha256":  "be45d8632db1cd7cd707f321ad802876bc06f4df42812cf3e18db851bd8ab68a"
+                                    "sha256":  "2e2d25893747903d9d16c0cc50f9bb56c4ebbcbb7f91a1d8210158394781c507"
                                 },
                                 {
                                     "path":  "config/xaero/world-map/profiles/default.cfg",
@@ -794,7 +809,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "82e58d2e77c2cc0dc46d2c332e7922f24d40db47086532b2c2540fe61c6be90e"
+                      "sha256":  "9f93072c2014f07cbc8ba864e791576efea0258542288e32dba38ff9637cf815"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1230,7 +1245,7 @@
                   },
                   {
                       "path":  "config/xaero/minimap/profiles/default.cfg",
-                      "sha256":  "be45d8632db1cd7cd707f321ad802876bc06f4df42812cf3e18db851bd8ab68a"
+                      "sha256":  "2e2d25893747903d9d16c0cc50f9bb56c4ebbcbb7f91a1d8210158394781c507"
                   },
                   {
                       "path":  "config/xaero/world-map/profiles/default.cfg",
@@ -1538,15 +1553,15 @@
                   },
                   {
                       "path":  "mods/nbidal18-hardcorerevive-1.12.0+26.2-fabric.jar",
-                      "sha256":  "63abde8a556eafa79bed3f7cc7be49c8b0b9f76514670c545dda7722b9ca1f3f"
+                      "sha256":  "5572b8c92661636c28d57dbc3214c9a9d4d1c5e976c39c9056cba5b2dc9f06d0"
                   },
                   {
                       "path":  "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar",
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.11+26.2-fabric.jar",
-                      "sha256":  "bcf8d292f60817f554d1f38c394507e474289493264af32d26a53e79ff556d95"
+                      "path":  "mods/nbidal18-integrity-1.0.12+26.2-fabric.jar",
+                      "sha256":  "50c176f19b2fa8bffe8070244e4971deddb6b1225b3eb827445a7b16f77b4485"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1555,6 +1570,14 @@
                   {
                       "path":  "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar",
                       "sha256":  "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
+                  },
+                  {
+                      "path":  "mods/nbidal18-xaerominimap-1.0.0+26.2-fabric.jar",
+                      "sha256":  "10678e567e8dcd8e0c6b97de493f0565abf5914e89f1234804a08bfa3e4bd296"
+                  },
+                  {
+                      "path":  "mods/nbidal18-xaeroworldmap-1.0.0+26.2-fabric.jar",
+                      "sha256":  "9ebbd685b4fecba0ed0800440068a79f823c3436bffecea0a604aee0baab946a"
                   },
                   {
                       "path":  "mods/notenoughanimations-fabric-1.12.4-mc26.2.jar",

@@ -828,6 +828,21 @@
       "path": "config/xaero/minimap/profiles/default.cfg",
       "key": "minimap_undiscovered_opacity",
       "value": "0"
+    },
+    {
+      "path": "config/xaero/minimap/profiles/default.cfg",
+      "key": "hide_waypoint_coordinates",
+      "value": "true"
+    },
+    {
+      "path": "config/xaero/minimap/profiles/default.cfg",
+      "key": "tracked_players_in_world",
+      "value": "false"
+    },
+    {
+      "path": "config/xaero/world-map/profiles/default.cfg",
+      "key": "display_server_chunk_radius",
+      "value": "false"
     }
   ],
   "outsideConfig": [
@@ -837,7 +852,7 @@
       "reason": "Shader settings. Published once so the pack ships its tuning, then owned by the player - a property rule cannot pin a key here, because these are not properties files."
     },
     {
-      "match": "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt",
+      "match": "shaderpacks/nbidal18-\u00a7lE-LITE shaders 5.1.1.zip.txt",
       "class": "player",
       "reason": "Shader settings. Published once so the pack ships its tuning, then owned by the player - a property rule cannot pin a key here, because these are not properties files."
     }

@@ -38,7 +38,9 @@ if (-not (Test-Path -LiteralPath $ReleaseRoot)) { throw "No release folder at $R
 $mods = @(
     @{ Name = 'nbidal18-integrity'; Generator = 'port_integrity.py'; Builder = 'build_integrity.py' },
     @{ Name = 'nbidal18-invmov'; Generator = $null; Builder = 'build_invmov.py' },
-    @{ Name = 'nbidal18-hardcorerevive'; Generator = $null; Builder = 'patch_hcrplus.py' }
+    @{ Name = 'nbidal18-hardcorerevive'; Generator = $null; Builder = 'patch_hcrplus.py' },
+    @{ Name = 'nbidal18-xaerominimap'; Generator = $null; Builder = 'build_xaerominimap.py' },
+    @{ Name = 'nbidal18-xaeroworldmap'; Generator = $null; Builder = 'build_xaeroworldmap.py' }
 )
 if ($Only) {
     $mods = @($mods | Where-Object { $Only -contains $_.Name })
