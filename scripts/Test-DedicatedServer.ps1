@@ -8,9 +8,10 @@
     ports that do not clash, with a fresh world. It is safe to run while the real server is up.
 
     This line keeps no server payload in the release - the server exists only on the mount - so the
-    throwaway is assembled from what is actually installed there, with **this release's helper jar
-    and policy overlaid on top**. That makes the question it answers the useful one: *will the
-    server boot with what we are about to deploy to it?* Nothing has ever asked that.
+    throwaway is assembled from what is actually installed there, with **everything this release
+    would deploy overlaid on top**: the helper jar, the policy, and every other jar the server and
+    the client pack share. That makes the question it answers the useful one: *will the server boot
+    with what we are about to deploy to it?* Nothing has ever asked that.
 
     A fresh world is the point, not a shortcut. Generating one exercises every datapack the pack
     ships, which is how a broken one announces itself - v1.0.10 removed a recipe and left two
@@ -82,7 +83,23 @@ try {
     Copy-Item -LiteralPath $helpers[0].FullName -Destination (Join-Path $testRoot 'mods') -Force
     Copy-Item -LiteralPath (Join-Path $release '4. server\nbidal18-integrity.properties') `
         -Destination (Join-Path $testRoot 'config') -Force
-    Write-Host ("overlaid  {0} and this release's policy" -f $helpers[0].Name)
+    # Every other jar the server and the release both carry, replaced with the release's copy. The
+    # helper alone is not what a release changes: a fork whose datapack we edited boots here or it
+    # does not, and a broken recipe or a dangling advancement fails at worldgen and nowhere else.
+    # Overlaying only the helper meant this tested the previous release's datapacks.
+    $releaseMods = Join-Path $release '3. modpack\client\mods'
+    $refreshed = 0
+    foreach ($live in @(Get-ChildItem -LiteralPath (Join-Path $testRoot 'mods') -Filter *.jar -File)) {
+        if ($live.Name -like 'nbidal18-integrity-*.jar') { continue }
+        $mirror = Join-Path $releaseMods $live.Name
+        if (-not (Test-Path -LiteralPath $mirror -PathType Leaf)) { continue }
+        if ((Get-FileHash -LiteralPath $live.FullName -Algorithm SHA256).Hash -eq
+            (Get-FileHash -LiteralPath $mirror -Algorithm SHA256).Hash) { continue }
+        [IO.File]::WriteAllBytes($live.FullName, [IO.File]::ReadAllBytes($mirror))
+        Write-Host ("overlaid  {0} (differed from the live server's copy)" -f $live.Name)
+        $refreshed++
+    }
+    Write-Host ("overlaid  {0}, this release's policy and {1} other jar(s)" -f $helpers[0].Name, $refreshed)
 
     # A properties file of our own rather than the live one: no whitelist, no ops, its own ports and
     # its own world, so nothing here can collide with the real server or need its player files.
