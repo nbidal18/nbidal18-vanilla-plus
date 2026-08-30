@@ -597,10 +597,6 @@ file = "mods/better-compatability-checker-fabric-26.2.0.1.jar"
 hash = "9f051ab8e70d4a16f3e01e53600043ff6f297a20765296d4aa0bf7a73f48647c"
 
 [[files]]
-file = "mods/better_fishing-1.0.0-hotfix-fabric-26.2.jar"
-hash = "4e59170eeadfe1c648fe5a6acb3d9460c874bbdc9e9e9306ad1b43d3a03d994e"
-
-[[files]]
 file = "mods/betterbiomeblend-fabric-26.2-1.4.0.jar"
 hash = "8c6a41fe64802f4867de86017492a081d6947e2f3afa9b9d84b72a2d9e0da5c1"
 
@@ -689,6 +685,10 @@ file = "mods/ferritecore-9.0.0-fabric.jar"
 hash = "213966c72ed967acc7392beb28a866fba301ff56b9976c2e7801c2db7de6bf22"
 
 [[files]]
+file = "mods/fishingrodfix-26.2-v0.5.jar"
+hash = "8cab68524a67b199a42f8c7eb0bb19d370716c0ade625558f0c285a0fcc726c3"
+
+[[files]]
 file = "mods/fzzy_config-0.7.6+26.2.jar"
 hash = "bbd4bbab6f381e123db5031ed051a9ad2d1a5ad4fb6ccf64d983ba416745e551"
 
@@ -755,6 +755,10 @@ hash = "84b7cfd23caa5c4c978f1e0a2cd464a59b6b7d17d2cfaa6ce0e9c887c03e2e26"
 [[files]]
 file = "mods/nbidal18-autohud-9.0-beta.3+26.2-fabric.jar"
 hash = "eb6973d3e60f81deebd3dabd60846a6ffceb3df86ddac2e1020df0947789e5fb"
+
+[[files]]
+file = "mods/nbidal18-betterfishing-1.0.0+26.2-fabric.jar"
+hash = "3f6eac9ef70be915595f62c389714305bb36b67e7350119226500918647f93a1"
 
 [[files]]
 file = "mods/nbidal18-betterthirdperson-1.9.0+26.2-fabric.jar"

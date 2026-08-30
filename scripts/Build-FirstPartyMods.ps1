@@ -40,7 +40,8 @@ $mods = @(
     @{ Name = 'nbidal18-invmov'; Generator = $null; Builder = 'build_invmov.py' },
     @{ Name = 'nbidal18-hardcorerevive'; Generator = $null; Builder = 'patch_hcrplus.py' },
     @{ Name = 'nbidal18-xaerominimap'; Generator = $null; Builder = 'build_xaerominimap.py' },
-    @{ Name = 'nbidal18-xaeroworldmap'; Generator = $null; Builder = 'build_xaeroworldmap.py' }
+    @{ Name = 'nbidal18-xaeroworldmap'; Generator = $null; Builder = 'build_xaeroworldmap.py' },
+    @{ Name = 'nbidal18-betterfishing'; Generator = $null; Builder = 'patch_betterfishing.py' }
 )
 if ($Only) {
     $mods = @($mods | Where-Object { $Only -contains $_.Name })
@@ -86,6 +87,16 @@ foreach ($component in $pack.components) {
 foreach ($jar in Get-ChildItem -LiteralPath $releaseMods -Filter *.jar) {
     if ($jar.Name -like 'nbidal18-*') { continue }
     $classpath.Add($jar.FullName)
+}
+# A fork compiles against the upstream jar it patches, which by then has been replaced in mods\ by
+# the fork itself - so the original is kept in the mod's own dl\ and added here. Without this a
+# fork can only be built once, and never rebuilt.
+$customModsRoot = Join-Path $ReleaseRoot '5. modpack source\custom mods'
+if (Test-Path -LiteralPath $customModsRoot) {
+    foreach ($jar in Get-ChildItem -LiteralPath $customModsRoot -Recurse -Filter *.jar -File |
+        Where-Object { $_.Directory.Name -eq 'dl' }) {
+        if (-not $classpath.Contains($jar.FullName)) { $classpath.Add($jar.FullName) }
+    }
 }
 
 Add-Type -AssemblyName System.IO.Compression.FileSystem
