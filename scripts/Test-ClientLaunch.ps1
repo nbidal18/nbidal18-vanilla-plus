@@ -139,7 +139,10 @@ $fatalPatterns = @(
 # startup error if its jei_mod_plugin entrypoint is missing, plus build_invmov.py refusing to
 # package a jar whose declared entrypoints are not all present.
 $requiredLines = @(
-    @{ Name = 'InvMove bridge registered'; Pattern = 'Registered the JEI search module with InvMove' }
+    # Matches both module names, so losing either one fails here rather than shipping a bridge that
+    # loads and does half its job. v1.0.10's did exactly that with the JEI half.
+    @{ Name = 'InvMove bridge registered'
+        Pattern = 'Registered the JEI search and allow-movement modules with InvMove' }
 )
 
 $mixinFailure = '(?m)(org\.spongepowered\.asm\.mixin\..*throwables\.|Mixin apply failed|' +

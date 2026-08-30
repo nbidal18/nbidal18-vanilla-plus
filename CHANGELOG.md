@@ -5,6 +5,50 @@ build that was not published.
 
 ---
 
+## v1.0.19
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-30 | see below | `9ae1eb921365cd18` | `70e40a714e2d84a1` | 261 | 117 |
+
+**Movement now continues in a plane's inventory and in Xaero's full-screen map.**
+
+### The config for this has never worked
+
+InvMove has a per-screen list, `config/invmove/unrecognized.json`, and setting a screen to `true`
+there does nothing. `InvMove.allowMovementInScreen` asks every registered module first and consults
+that map only if all of them returned `PASS` - and read out of the jar, `VanillaModule` returns
+`SUGGEST_DISABLE` on six paths and `SUGGEST_ENABLE` on one. It never returns `PASS`, so a module
+answer is always present and the map is never reached.
+
+The evidence was already in the pack: **`"xaero.map.gui.GuiMap": true` shipped in v1.0.0 and has
+never once worked.** Eighteen releases of a setting that cannot take effect. v1.0.18 added
+`immersive_aircraft.client.gui.VehicleScreen` to the same file, copying a pattern that was already
+dead rather than testing the mechanism.
+
+### Said as a module instead
+
+`nbidal18-invmov` gains a second module returning `Movement.FORCE_ENABLE` for those two screens.
+`FORCE` outranks `SUGGEST`, which is the same mechanism the artefact's JEI half already relies on in
+the opposite direction.
+
+**Typing still wins.** A focused `EditBox` returns `PASS` and hands the decision back to InvMove's
+own text-field rule, so Xaero's map search does not walk the player - the exact fault the JEI half
+exists to prevent, and easy to reintroduce here. Each screen is a separate toggle in InvMove's
+config screen, because that guard sees vanilla text widgets and a mod drawing its own would slip
+through it.
+
+### Two guards fired while building this
+
+`build_invmov.py` refused a five-class jar when it expected four, and `Test-ClientLaunch` failed
+because the log line it asserts had been reworded. Both exist because v1.0.10 shipped this same
+artefact silently doing nothing. The required line now names both modules, so losing either one
+fails the build rather than shipping half a bridge.
+
+Nothing to do beyond clicking **Play**.
+
+---
+
 ## v1.0.18
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
