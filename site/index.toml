@@ -18,11 +18,11 @@ hash = "55779c27c60b8b920acbc19f63987064beb9fd8887d79e8fa7bac80c5be77137"
 
 [[files]]
 file = "config/autohud.json5"
-hash = "436581c972cb3a3b2ec36526b99b76572b4bd41d98fe2980b40d61d527bb3164"
+hash = "d954976cca7faa29db88894517863098c237debf838e7fd725642e9030e3f238"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "f7ec2d3dfa879df879f1c6d60c3ac5e1a932552d68b796c4e68297c56cb7b8ce"
+hash = "5614d1046b00ce8c30dc0626161b470f407fc3101fb88937cf102b943954f76a"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -446,7 +446,7 @@ hash = "3722e961204446525a1057da429c14898cf9f2244870aec769d8784585b6656c"
 
 [[files]]
 file = "config/voxy-config.json"
-hash = "dbbf0d111897264bc2f30afca6ae8b82c0b3dbb4cd21d472d57226c8f6515975"
+hash = "230d79ec9e99c0072b2576fb606b8ee52fdcc859ad7132bf725dfa6c87b6d79c"
 
 [[files]]
 file = "config/voxyworldgenv2.json"
@@ -697,6 +697,10 @@ file = "mods/imfast-FABRIC-26.2-1.0.3.jar"
 hash = "5eafbc57d60b0d4439f1c365348b7b02f516f4e9df22199da817bd50ca55fa01"
 
 [[files]]
+file = "mods/immersive_optimization-fabric-26.2-0.2.0.jar"
+hash = "c2de58954cc0d202dd22bd4dcd6198f5f8d30d8e5c223bcbc63ed6e6e74bbc81"
+
+[[files]]
 file = "mods/immersive_paintings-fabric-26.2-0.7.8.jar"
 hash = "e16f317966687b8a8da42a10c5a1874c3730c066a5d91b30c33b99461865a987"
 
@@ -773,12 +777,16 @@ file = "mods/nbidal18-hardcorerevive-1.12.0+26.2-fabric.jar"
 hash = "fae5e4b909a80f7748fda4bf4f6c7de88eb03b9368f1c02a3281fc80b4836b87"
 
 [[files]]
+file = "mods/nbidal18-immersiveaircraft-1.4.7+26.2-fabric.jar"
+hash = "28ccc2a12936ae2d553815e942e6bb6781086ccc700cdab1f2a8c49f65cf0a13"
+
+[[files]]
 file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.15+26.2-fabric.jar"
-hash = "372a7d3e10881006f5c8b05c5f46e4039e4e1bbfe5ee1338ae7b0453f8bf50e0"
+file = "mods/nbidal18-integrity-1.0.16+26.2-fabric.jar"
+hash = "556b81b9d62fc15cc6b842d6e6b7dccc74511a599e37723a092bee3d3a6b617f"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -926,7 +934,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "7fe3ae75fb0c9e4dc92654e4e112516fa05c9be5721807b23a43906e3dc9458a"
+hash = "824c54b35120b9d75b851d1a76295ea9155571140d77f41274ae1cc1cf451155"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"

@@ -27,6 +27,9 @@ param(
     [int] $VoicePort = 29151,
     [int] $BootTimeoutSeconds = 420,
     [string] $DriveRoot = 'Y:\',
+    # Jars this release puts on the server for the first time. Deploying one is a decision,
+    # so proving it boots is opt-in rather than inferred from the jar's environment.
+    [string[]] $AddMods = @(),
     [switch] $Interactive,
     [switch] $KeepGameDir
 )
@@ -99,7 +102,22 @@ try {
         Write-Host ("overlaid  {0} (differed from the live server's copy)" -f $live.Name)
         $refreshed++
     }
-    Write-Host ("overlaid  {0}, this release's policy and {1} other jar(s)" -f $helpers[0].Name, $refreshed)
+    # A jar the release adds that the server does not have yet. Deploy-LiveServer deliberately
+    # refuses to add one - a new server-side mod is a decision, not a sync - and the same holds
+    # here, so these are named rather than detected. The jar's own `environment` is not the test:
+    # most of this pack's client-only mods declare "*" as well, and trusting it put Iris Extension
+    # on a server with no Iris, which fails resolution before anything else is proven.
+    $addedNames = @()
+    foreach ($name in $AddMods) {
+        $candidate = Join-Path $releaseMods $name
+        if (-not (Test-Path -LiteralPath $candidate -PathType Leaf)) {
+            throw "-AddMods named $name, which is not in the release's mods folder"
+        }
+        Copy-Item -LiteralPath $candidate -Destination (Join-Path $testRoot 'mods') -Force
+        $addedNames += $name
+        Write-Host ("added     {0} (named by -AddMods, absent from the server)" -f $name)
+    }
+    Write-Host ("overlaid  {0}, this release's policy and {1} other jar(s); added {2} named jar(s)" -f $helpers[0].Name, $refreshed, $addedNames.Count)
 
     # A properties file of our own rather than the live one: no whitelist, no ops, its own ports and
     # its own world, so nothing here can collide with the real server or need its player files.

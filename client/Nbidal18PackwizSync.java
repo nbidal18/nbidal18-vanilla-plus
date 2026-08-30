@@ -162,7 +162,37 @@ public final class Nbidal18PackwizSync {
             // and leaves the map alone. Xaero binds a "Toggle In-World Waypoints" key, so a player
             // who wants them back has one already.
             new PlayerFileSeed("config/xaero/minimap/profiles/default.cfg", '=', "xaero-world-waypoints-v1010", List.of(
-                    SeedRow.of("waypoints_in_world", "false"))));
+                    SeedRow.of("waypoints_in_world", "false"))),
+            // Auto HUD's global on/off already exists - Hud.toggleHud() flips the whole mod off and
+            // the HUD goes back to drawing vanilla, permanently, until it is flipped back. It just
+            // ships bound to nothing, so nobody finds it and the only visible way to stop an element
+            // hiding is to turn that element off one at a time. H is free in this pack, and F3+H is
+            // a chord rather than a binding, so it does not collide.
+            new PlayerFileSeed("options.txt", ':', "defaults-v1016", List.of(
+                    // Auto HUD's global on/off already exists - Hud.toggleHud() flips the whole mod
+                    // off and the HUD goes back to drawing vanilla until it is flipped back. It just
+                    // ships bound to nothing, so nobody finds it and the only visible way to stop an
+                    // element hiding is to turn that element off one at a time. H is free here, and
+                    // F3+H is a chord rather than a binding, so it does not collide.
+                    SeedRow.of("key_identifier.autohud.toggle-hud", "key.keyboard.h"),
+                    // Simple Voice Chat registers mute on GLFW 77 - M - and Xaero's world map opens
+                    // on M too, so a fresh install has both on one key and muting also opens the map.
+                    // Neither mod knows about the other; only the pack can break the tie.
+                    SeedRow.of("key_key.mute_microphone", "key.keyboard.l"),
+                    // The owner's own mix, shipped as the pack's.
+                    SeedRow.of("soundCategory_master", "0.2"),
+                    SeedRow.of("soundCategory_weather", "0.5"))),
+            // The mount's health bar is one of the five the first-party Auto HUD jar groups, so it
+            // cannot simply be dropped from the group - alwaysHidden is what stops it drawing, and
+            // it is enforced when the element is drawn rather than when it is revealed.
+            new PlayerFileSeed("config/autohud.json5", ':', "autohud-mount-health-v1016", List.of(
+                    new SeedRow(List.of("elements", "minecraft:mount_health_bar"), "alwaysHidden", "true"))),
+            // Voxy off by default: its far terrain is the single heaviest thing in the pack on a weak
+            // machine. The distance still moves to 32 so that anyone who turns it on gets the tuned
+            // value rather than the shipped 1.0, which renders almost nothing and looks broken.
+            new PlayerFileSeed("config/voxy-config.json", ':', "voxy-default-off-v1016", List.of(
+                    SeedRow.of("enabled", "false"),
+                    SeedRow.of("section_render_distance", "32.0"))));
 
         /**
      * Empty on purpose, and it must stay that way until a mod is actually retired from THIS

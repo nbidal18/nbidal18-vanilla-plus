@@ -164,7 +164,7 @@
 		},
 		"minecraft:mount_health_bar": {
 			"minimumAlpha": 0.0,
-			"alwaysHidden": false,
+			"alwaysHidden": true,
 			"maximumAlpha": 1.0,
 			"dynamic": true,
 			"policy": "Changing"

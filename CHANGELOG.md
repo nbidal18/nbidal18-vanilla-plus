@@ -5,6 +5,109 @@ build that was not published.
 
 ---
 
+## v1.0.16
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-30 | see below | `449107b924ed127b` | `86b41dd370202a81` | 258 | 114 |
+
+**Immersive Aircraft, ported to 26.2 here**, gated behind engine tiers so it sits around the elytra
+rather than before it. Plus an Auto HUD on/off switch that existed all along, and a keybind clash
+every fresh install has had.
+
+### The port
+
+Upstream has no 26.2 build and has not done 26.1 either, so this is a source port, not a jar patch:
+`nbidal18-immersiveaircraft`, source in `5. modpack source\custom mods`. 298 compile errors across
+174 files, but only 25 distinct causes - the mod was already written against 26.x's render-state
+model, so most of it was renames.
+
+The one real deletion: **`MultiBufferSource` is gone.** Geometry is submitted as a deferred callback
+now instead of written into a shared buffer. Rather than turn thirty method signatures inside out, a
+shim records the writes and replays them through `submitCustomGeometry`, under an identity pose
+because this mod bakes its own model matrix into every vertex.
+
+**The compiler proves none of the mixins.** `GameRenderer.bobHurt` still exists by name but lost its
+partial-tick argument, and the client crashed on first launch because `javap` on the *name* said it
+was fine. Every mixin target had to be checked by descriptor.
+
+### Engine gates
+
+| Aircraft | Engine |
+| --- | --- |
+| gyrodyne | none |
+| airship, quadrocopter, bamboo_hopper | `eco_engine` |
+| cargo_airship | none - built from an airship, so it inherits that gate |
+| biplane, warship | `nether_engine` |
+
+Both engines are crafting components now rather than upgrades: their upgrade definitions and their
+entries in the `upgrades` item tag are gone, because that tag is what the upgrade slot accepts and
+leaving them would let a player insert an engine that no longer does anything. Steel boiler is the
+only engine upgrade left.
+
+### Auto HUD
+
+The aircraft overlay is drawn from a mixin inside `Hud.extractItemHotbar`, which Auto HUD cannot see
+- it finds modded elements through registered HUD layers. It drew at full opacity over a hotbar that
+was fading out. It now goes through `AutoHudRenderer.wrap`, the same call Auto HUD uses for its own
+elements, so it takes the hotbar's exact alpha and offset.
+
+**The global on/off already existed.** `Hud.toggleHud()` turns the whole mod off and the HUD goes
+back to drawing vanilla - it just shipped bound to nothing, so nobody found it. Now on **H**.
+
+### Defaults seeded once
+
+`options.txt` and the two config files below are player-owned, so these are `PlayerFileSeed` rows:
+written once, and yours from that moment on.
+
+| Setting | Value | Why |
+| --- | --- | --- |
+| `key_identifier.autohud.toggle-hud` | `H` | The switch above, which shipped unbound |
+| `key_key.mute_microphone` | `L` | **Simple Voice Chat registers mute on GLFW 77 - M - and Xaero opens the map on M.** Every fresh install had both on one key, and neither mod can know about the other |
+| `soundCategory_master` / `_weather` | `0.2` / `0.5` | The owner's mix, shipped as the pack's |
+| `minecraft:mount_health_bar` `alwaysHidden` | `true` | |
+| Voxy `enabled` / `section_render_distance` | `false` / `32.0` | Off by default - its far terrain is the heaviest thing here on a weak machine. The distance still moves so anyone who turns it on gets a tuned value rather than the shipped `1.0`, which renders almost nothing and looks broken |
+
+### Immersive Optimization
+
+An entity tick scheduler: it gives each entity a tier from its distance to the nearest player and
+ticks it every Nth tick instead of every tick. Read from the bytecode rather than the description,
+because the defaults are what decide whether it costs anything here:
+
+| Default | Value | What it means |
+| --- | --- | --- |
+| `enableBlockEntities` | **false** | Hoppers, furnaces and brewing stands are untouched |
+| `optimizeForceLoadedChunks` | **false** | Chunk-loaded farms are exempt |
+| `minDistance` | 6 | Anything within 6 blocks always ticks fully |
+| `blocksPerLevel` | 64 | One tier per 64 blocks when a player is tracking it |
+| tracking / viewport culled | 10 / 20 | Far steeper for entities nobody is tracking or looking at |
+| blacklist | players, ender dragon, ender pearls, `#minecraft:arrows` | Never throttled |
+
+At `simulation-distance=8` nothing beyond 128 blocks ticks at all, so the band this can affect is
+narrow - which is the reasoning the owner gave when the mod came up, and it holds. It overlaps with
+nothing installed: Lithium optimises the work inside a tick, C2ME optimises chunk IO and worldgen,
+and ServerCore's `dynamic` block does a blunter version of this but ships disabled.
+
+Six of its seven mixins target `ServerLevel`, `MinecraftServer` and `EntityTickList`, so it is
+**server-side work** and does nothing useful client-only. It writes its own config at runtime; the
+pack ships none, so the defaults above are what apply.
+
+### A test that could not have caught this
+
+`Test-DedicatedServer` only ever *replaced* jars the server already had, so a release that **adds** a
+server-side mod booted without it and passed - the same shape as v1.0.15's half-installed dependency
+chain. It takes `-AddMods` now. Inferring it from each jar's `environment` was tried first and is
+wrong: most of this pack's client-only mods declare `"*"` too, and it put Iris Extension on a server
+with no Iris.
+
+Immersive Aircraft and Immersive Optimization are both **new server-side mods**, so both were
+uploaded by hand - `Deploy-LiveServer` deliberately will not add a jar the server does not already
+have.
+
+Nothing to do beyond clicking **Play**.
+
+---
+
 ## v1.0.15
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
