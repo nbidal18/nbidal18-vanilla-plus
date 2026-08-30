@@ -71,10 +71,25 @@ if ($Pull) {
     foreach ($item in @('mods', 'config')) {
         $local = Join-Path $MirrorRoot $item
         if (-not (Test-Path -LiteralPath $local)) { New-Item -ItemType Directory -Path $local | Out-Null }
-        $lines.Add("synchronize local -delete -criteria=size `"$local`" `"$RemoteRoot$item`"")
+        # -criteria=either (time or size), not size alone. The integrity policy is 352 bytes before
+        # and after a release and the MOTD line keeps its length, so a size comparison skips exactly
+        # the two files a deploy changes, and the mirror then reports our own writes back to us as
+        # if they were the server's. That is how a rehearsal's output was once mistaken for the
+        # live policy.
+        #
+        # Not -criteria=checksum: that makes WinSCP run a hashing command over SSH, and this host is
+        # SFTP-only - it answers "Server refused to start a shell/command" and the pull fails.
+        $lines.Add("synchronize local -delete -criteria=either `"$local`" `"$RemoteRoot$item`"")
     }
-    foreach ($file in @('server.properties')) {
-        $lines.Add("get -neweronly `"$RemoteRoot$file`" `"$(Join-Path $MirrorRoot $file)`"")
+    # Fetched unconditionally rather than left to the directory sync. These two are what a deploy
+    # is judged by, they are small, and both keep their byte count across a release - so any
+    # criteria-based comparison is exactly the wrong tool for them.
+    foreach ($file in @('server.properties', 'config/nbidal18-integrity.properties')) {
+        # Built by splitting on the separator and joining part by part: no literal backslash, and
+        # no regex, both of which have bitten this repo before.
+        $target = $MirrorRoot
+        foreach ($part in $file.Split([char]47)) { $target = Join-Path $target $part }
+        $lines.Add("get `"$RemoteRoot$file`" `"$target`"")
     }
     Write-Host ("pull      mods, config and server.properties -> {0}" -f $MirrorRoot)
 }
