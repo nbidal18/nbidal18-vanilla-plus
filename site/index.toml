@@ -22,7 +22,7 @@ hash = "436581c972cb3a3b2ec36526b99b76572b4bd41d98fe2980b40d61d527bb3164"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "46b9734fe0c9ff074e54fd38b64abf5f24e0299d612c10a025cd011244e3d405"
+hash = "a10bc0b98afb5d50c3ad1ebd09520cc0ceac7324bc59b93ec8536cb20a4b1064"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -685,10 +685,6 @@ file = "mods/ferritecore-9.0.0-fabric.jar"
 hash = "213966c72ed967acc7392beb28a866fba301ff56b9976c2e7801c2db7de6bf22"
 
 [[files]]
-file = "mods/fishingrodfix-26.2-v0.5.jar"
-hash = "8cab68524a67b199a42f8c7eb0bb19d370716c0ade625558f0c285a0fcc726c3"
-
-[[files]]
 file = "mods/fzzy_config-0.7.6+26.2.jar"
 hash = "bbd4bbab6f381e123db5031ed051a9ad2d1a5ad4fb6ccf64d983ba416745e551"
 
@@ -777,8 +773,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.13+26.2-fabric.jar"
-hash = "b7685b26936dcf46bff2c09f55bcad41bf27626905349b78c4e1ba838a015af9"
+file = "mods/nbidal18-integrity-1.0.14+26.2-fabric.jar"
+hash = "ef42a46680ce746ff9c604fd6f05d2c55df6c5be5504b1db6ad332428d1179f5"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
