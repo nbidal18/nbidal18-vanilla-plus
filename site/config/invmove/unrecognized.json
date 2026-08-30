@@ -7,7 +7,8 @@
     "dev.isxander.yacl3.gui.YACLScreen": false,
     "net.minecraft.client.gui.screens.MultiplayerOptionsScreen": false,
     "mezz.jei.gui.recipes.RecipesGui": false,
-    "xaero.map.gui.GuiMap": true
+    "xaero.map.gui.GuiMap": true,
+    "immersive_aircraft.client.gui.VehicleScreen": true
   },
   "hideBackground": {}
 }

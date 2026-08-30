@@ -5,6 +5,49 @@ build that was not published.
 
 ---
 
+## v1.0.18
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-30 | see below | `70e40a714e2d84a1` | `54ef3fd20909399a` | 261 | 117 |
+
+**Two things wrong with the aircraft, both reported from a screenshot.**
+
+### The vehicle screen drew no items at all
+
+Open a plane's inventory and every slot was empty - the vehicle's slots *and* the player's - while
+the panel and the slot outlines drew correctly.
+
+The port mapped 1.21's `renderBg` onto `extractContents`. Wrong method. In 26.2 `extractContents`
+is the **whole content pass**: it calls `Screen.extractRenderState`, `extractLabels`,
+`extractSlotHighlightBack`, **`extractSlots`** and `extractSlotHighlightFront`. Overriding it
+without calling super drew the background and then nothing else, which is exactly what a screen full
+of empty slots looks like.
+
+`renderBg`'s actual replacement is **`extractBackground`**, which is what vanilla's own
+`ContainerScreen` and `HopperScreen` override - and they call `super.extractBackground` first,
+because that is what draws the dimmed backdrop behind the panel. Fixed to match.
+
+**A method that still exists under a plausible name is worse than one that was deleted.** The
+compiler was happy, the screen opened, and only the items were missing.
+
+### Movement stopped while a plane's inventory was open
+
+The 1.21.1 pack solved this and it was never carried over. It is not code - InvMove reads
+`config/invmove/unrecognized.json`, and the entry is one line:
+
+```json
+"immersive_aircraft.client.gui.VehicleScreen": true
+```
+
+`nbidal18-invmov` is untouched. It exists to stop InvMove walking the player while they type in
+JEI's search box, and a per-screen movement rule is a setting the mod already has - adding it to the
+jar would have put an unrelated fix in an artefact named for something else.
+
+Nothing to do beyond clicking **Play**.
+
+---
+
 ## v1.0.17
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
