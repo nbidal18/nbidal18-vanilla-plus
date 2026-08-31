@@ -5,6 +5,36 @@ build that was not published.
 
 ---
 
+## v1.0.22
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-31 | see below | `7e776ae95cd7cbf5` | `ce4e93bcc5a33627` | 274 | 127 |
+
+**Buckets are 3D.** Neither of the two 3D packs in this list contains a single bucket model -
+checked both, zero matches each - so buckets stayed flat while the blocks and items around them did
+not. **Refined Buckets 2.4.1** covers all twelve vanilla buckets and sits directly after the two 3D
+packs, which is above them: later in `resourcePacks` wins.
+
+Of the pack's eight overlays only `26-1` has any content at 26.2's resource format of **88** - four
+core shader files. `21-5-FA` and `Polytone` are declared for this range but ship nothing, so there
+is no Fresh Animations or Polytone interaction to reason about.
+
+**This restates the whole resource pack row**, under a new token, because `resourcepacks-v1010` has
+already fired everywhere and a seed sets a row rather than editing it. A player who had reordered
+their own packs gets this order back once.
+
+### It also finishes v1.0.21's server half
+
+v1.0.21 reached the channel but its policy never reached the server: the server came back up between
+the push and the deploy, so for a while the channel served v1.0.21 while the server still demanded
+v1.0.20's digest, and any client that relaunched was refused at login. This release's policy is
+deployed in the same sequence as its push, which is what should have happened there.
+
+Nothing to do beyond clicking **Play**.
+
+---
+
 ## v1.0.21
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
