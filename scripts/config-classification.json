@@ -626,6 +626,11 @@
       "reason": "LOD generation threading; machine-dependent."
     },
     {
+      "match": "config/wover/client.json",
+      "class": "player",
+      "reason": "World Weaver's client answers, shipped once so its first-run welcome screen never appears and its version check never runs. That check sends the player's IP to the mod author's server and keeps it in their logs for four weeks; nothing in this pack needs it, because the pack updates through its own channel. Published once and then owned by the player: all three are also settings, reachable from Mod Menu, and the welcome screen writes this file itself the moment it is answered - so restoring it would overwrite a choice a player had just made."
+    },
+    {
       "match": "config/whitenoise-client.toml",
       "class": "support",
       "reason": "Ambient audio."

@@ -5,6 +5,45 @@ build that was not published.
 
 ---
 
+## v1.0.21
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-31 | see below | `ce4e93bcc5a33627` | `8088a08e154808db` | 273 | 127 |
+
+**World Weaver's first-run screen is answered before anyone sees it.**
+
+v1.0.20 brought World Weaver in as a Better End dependency, and it greets every player once with a
+full-screen setup page holding three checkboxes. Nobody should have to read it, and one of its
+defaults is worse than it looks: **"Check for new versions and notify" is on out of the box, and by
+its own description it sends the player's IP address to the mod author's server and keeps it in
+their logs for four weeks.** This pack updates through its own channel and has no use for it.
+
+`config/wover/client.json` now ships with all three answered - version check **off**, BetterX world
+type **off**, experimental warning left visible - and `did_present_welcome_screen` already true, so
+the screen never opens.
+
+### The BetterX world type is not needed here
+
+It is only consulted when a world is *created*, and players join a server rather than making one.
+The server does not need it either: the boot log on a `level-type=minecraft:normal` world - which is
+what the live server runs - shows `Created WoverChunkGenerator with WoverEndBiomeSource`. BCLib
+installs the biome source that carries Better End's biomes regardless of world type.
+
+### Classified `player`, not `support`
+
+The welcome screen writes this same file the moment it is answered, and all three are ordinary
+settings reachable from Mod Menu. As `support` it would be restored on every sync, so a player who
+changed one would find it changed back - the fault `config/voxy-config.json` was moved out of
+`support` for. Published once, then theirs.
+
+Proved rather than assumed: a real client launch leaves the file byte-identical, and the version
+checker's own `cached.json` records `"last_check_date": "never"`.
+
+Nothing to do beyond clicking **Play**.
+
+---
+
 ## v1.0.20
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

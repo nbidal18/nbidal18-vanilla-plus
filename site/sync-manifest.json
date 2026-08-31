@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.20",
+    "packVersion":  "1.0.21",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -20,6 +20,7 @@
                                 "config/sodium-options.json",
                                 "config/sounds/chat.json",
                                 "config/voxy-config.json",
+                                "config/wover/client.json",
                                 "config/xaero/minimap/profiles/default.cfg",
                                 "config/xaero/world-map/profiles/default.cfg",
                                 "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",
@@ -132,6 +133,7 @@
                          "config/sodium-options.json",
                          "config/sounds/chat.json",
                          "config/voxy-config.json",
+                         "config/wover/client.json",
                          "config/xaero/minimap/profiles/default.cfg",
                          "config/xaero/world-map/profiles/default.cfg",
                          "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",
@@ -335,7 +337,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "0b71e184d086c1af394aa81638317e9dd7626569f8d6e4cb79d1075cc80c5d04"
+                                    "sha256":  "dc5bd4064a7268314a602dba05bb03a5515af4ba46008622fe42da207f6eec8c"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -774,6 +776,10 @@
                                     "sha256":  "86061aeaa531953c4bbdd96610bca2c54d41c5cba9c8b91e67ce77b340071c1e"
                                 },
                                 {
+                                    "path":  "config/wover/client.json",
+                                    "sha256":  "c63f1c6695fde5530e0f1d6794e36e739f6dca96094e354914f15288b01e9f92"
+                                },
+                                {
                                     "path":  "config/xaero/minimap/profiles/default.cfg",
                                     "sha256":  "2e2d25893747903d9d16c0cc50f9bb56c4ebbcbb7f91a1d8210158394781c507"
                                 },
@@ -813,7 +819,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "0b71e184d086c1af394aa81638317e9dd7626569f8d6e4cb79d1075cc80c5d04"
+                      "sha256":  "dc5bd4064a7268314a602dba05bb03a5515af4ba46008622fe42da207f6eec8c"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1252,6 +1258,10 @@
                       "sha256":  "00c6e34f0adbb41db954d296fd7c55dc3412463a38038dc836626433dd7f6d92"
                   },
                   {
+                      "path":  "config/wover/client.json",
+                      "sha256":  "c63f1c6695fde5530e0f1d6794e36e739f6dca96094e354914f15288b01e9f92"
+                  },
+                  {
                       "path":  "config/xaero/minimap/profiles/default.cfg",
                       "sha256":  "2e2d25893747903d9d16c0cc50f9bb56c4ebbcbb7f91a1d8210158394781c507"
                   },
@@ -1612,8 +1622,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.20+26.2-fabric.jar",
-                      "sha256":  "45292b16aff9a1bd16266eb7b13c3c668f867eb78b0d02426fe8c485808d65f9"
+                      "path":  "mods/nbidal18-integrity-1.0.21+26.2-fabric.jar",
+                      "sha256":  "79e50c390c16406f910c7b55cbf42dc51a23f423ed55ad29191db4f28611b3d7"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
