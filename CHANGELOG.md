@@ -5,6 +5,71 @@ build that was not published.
 
 ---
 
+## v1.0.20
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-31 | see below | `8088a08e154808db` | `9ae1eb921365cd18` | 272 | 127 |
+
+**New worldgen in all three dimensions, and the world was reset around it.** This is the largest
+release of the line and the only one so far that needed the world edited rather than the pack.
+
+### The End: Nullscape for terrain, Better End for biomes
+
+Nullscape overwrites `data/minecraft/dimension/the_end.json` and the End noise settings; Better End
+registers its biomes through BCLib and lets BCLib swap the End's biome source at world load. Read
+out of both jars: Nullscape ships 11 biomes and a `minecraft:multi_noise` source that BCLib then
+replaces, and the boot log shows `Created WoverChunkGenerator with WoverEndBiomeSource` over
+Nullscape's `minecraft:end` settings. The two do not fight — they occupy different halves of the
+same dimension, which is why Nullscape's own page names Better End as its one compatible End mod.
+
+Better End brings **BCLib** and **World Weaver** with it (WunderLib is nested inside World Weaver).
+
+### Nether and overworld
+
+**Incendium** for the Nether. **Towns and Towers**, **Structory** and **Structory: Towers** for
+overworld structures, with **Cristel Lib** as their config library. **Sparse Structures** at
+`spreadFactor 5` thins every structure set at once, so three structure mods stacked on vanilla's
+spacing do not turn the surface into a theme park.
+
+### Shipwreck treasure maps could come back blank
+
+Vanilla's `ExplorationMapFunction` returns the map unmarked rather than failing when no structure is
+in range, and its default `search_radius` is **50 chunks**. Tectonic's continent scale pushes
+shipwrecks much further from land than vanilla assumes: the measured case was 17 by 59 chunks from
+its treasure — outside the box, and invisible as anything but an empty map. `nbidal18-tectonic`
+raises the radius to 100, which had 41 chunks of margin on that case.
+
+### Movement, and a coordinate leak
+
+Movement now continues in the Immersive Aircraft screens and the Traveler's Backpack screen. The
+aircraft screens needed a second mechanism, not a longer list: the mod reads its own `KeyMapping`
+objects for pitch and roll, which stay unpressed while a screen is open however InvMove answers, so
+`nbidal18-invmov` now also forces the aircraft's own control keys through. Typing still wins.
+
+Xaero's **Show/Hide coordinates** button on the waypoint dialog is greyed out and locked to hidden.
+It was a one-click reveal of any waypoint's exact position to everyone.
+
+### The client clears two caches on update
+
+Voxy's far-terrain cache and Xaero's world-map images both describe terrain this release
+regenerates, so the updater deletes `.voxy` and `xaero/world-map` once, **naming each one and
+showing its progress** rather than stalling silently on several gigabytes. **Waypoints are not
+touched** — `xaero/minimap` is left alone, and a test plants a waypoint and asserts it survives.
+
+### A guard against publishing a version twice
+
+`Build-Release.ps1` now refuses to build a version that already has an entry in this file. Three
+builds this line went into an already-published version and had to be restored from git. It caught
+this release's own first attempt, where the entry was written before the last code change moved
+the digest.
+
+**Players need only click Play.** The world's outer chunks, the Nether and the End were deleted
+before this release, so everything beyond the explored area generates fresh with the new worldgen.
+Built areas, inventories and waypoints are untouched.
+
+---
+
 ## v1.0.19
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

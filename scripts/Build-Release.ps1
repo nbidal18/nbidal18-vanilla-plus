@@ -21,7 +21,30 @@ param()
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
+# A version that already has a CHANGELOG entry has reached players - an entry means exactly that.
+# Rebuilding into it silently rewrites what the archive says shipped, and the built site then
+# disagrees with the digest the live server accepts.
+#
+# This has happened three times - v1.0.15, v1.0.17 and v1.0.19 - each caught by hand afterwards and
+# each needing the release folder restored from the published bytes. New-Release makes cutting the
+# next version cheap; this makes forgetting to expensive.
+function Assert-VersionUnpublished([string] $version, [string] $repoRoot) {
+    $changelog = Join-Path $repoRoot 'CHANGELOG.md'
+    if (-not (Test-Path -LiteralPath $changelog)) { return }
+    $heading = '## v' + $version
+    foreach ($line in [IO.File]::ReadAllLines($changelog)) {
+        if ($line.Trim() -eq $heading) {
+            throw ("v$version already has a CHANGELOG entry, so it has been published. Run " +
+                "scripts/New-Release.ps1 to cut the next version and build into that instead.")
+        }
+    }
+}
+
+
 $repo = Split-Path -Parent $PSScriptRoot
+# Before anything is built, not after: the sub-scripts below wipe and regenerate site\, so a late
+# check still rewrites the published release before refusing.
+Assert-VersionUnpublished ((Get-Content -LiteralPath (Join-Path $repo 'PACK-VERSION.txt') -Raw).Trim()) $repo
 $site = Join-Path $repo 'site'
 
 Write-Host "== 1/4 updater jars"

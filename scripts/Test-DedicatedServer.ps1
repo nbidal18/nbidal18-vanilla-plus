@@ -4,10 +4,11 @@
       scripts\Test-DedicatedServer.ps1
       scripts\Test-DedicatedServer.ps1 -Interactive     keep it up and drive the console
 
-    **Nothing here touches the live server.** It reads `Y:` and writes only to a temp directory, on
-    ports that do not clash, with a fresh world. It is safe to run while the real server is up.
+    **Nothing here touches the live server.** It reads the local mirror that Sync-ServerMirror -Pull
+    writes, and itself writes only to a temp directory, on ports that do not clash, with a fresh
+    world. It is safe to run while the real server is up.
 
-    This line keeps no server payload in the release - the server exists only on the mount - so the
+    This line keeps no server payload in the release - the server exists only remotely - so the
     throwaway is assembled from what is actually installed there, with **everything this release
     would deploy overlaid on top**: the helper jar, the policy, and every other jar the server and
     the client pack share. That makes the question it answers the useful one: *will the server boot
@@ -26,7 +27,9 @@ param(
     [int] $MinecraftPort = 29150,
     [int] $VoicePort = 29151,
     [int] $BootTimeoutSeconds = 420,
-    [string] $DriveRoot = 'Y:\',
+    # The local mirror Sync-ServerMirror -Pull writes, not a mount: the `Y:` CloudMounter drive this
+    # defaulted to expired, so the old default could only ever throw "A drive with the name 'Y'".
+    [string] $DriveRoot = (Join-Path (Split-Path -Parent (Split-Path -Parent $PSScriptRoot)) '_server-payload-cache'),
     # Jars this release puts on the server for the first time. Deploying one is a decision,
     # so proving it boots is opt-in rather than inferred from the jar's environment.
     [string[]] $AddMods = @(),
@@ -208,6 +211,24 @@ try {
             'No data fixer registered for'
         )
         $lines = (Read-SharedText $logPath) -split "`r?`n"
+
+        # BCLib patches an existing world's level.dat on boot, and it does so before the server has
+        # created one. Against a world that already exists - every real server - it reads the file
+        # and patches it. Against this harness's deliberately fresh world there is nothing to read,
+        # so it throws, logs three ERROR lines and carries on booting.
+        #
+        # Allowed only when the stack trace proves that is what happened. A genuine patch failure on
+        # a real level.dat raises the same three lines without the missing-file exception, and still
+        # fails this test.
+        if ($lines | Where-Object { $_ -match 'NoSuchFileException: .*level\.dat' }) {
+            $benign += @(
+                'Failed fixing Level-Data',
+                'There were Errors while fixing the Level',
+                # Same cause, one stage earlier: no level.dat means no world preset to read back.
+                'WorldPresetInfoRegistry: Registry not read'
+            )
+        }
+
         $errors = @($lines | Where-Object { $_ -match '/ERROR\]' } | Where-Object {
                 $line = $_
                 -not ($benign | Where-Object { $line -match [regex]::Escape($_) })

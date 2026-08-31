@@ -142,7 +142,42 @@ try {
         return $output
     }
 
-    Invoke-Sync 'sync 1' | Out-Null
+    # The retired-directory sweep deletes whole trees on a player's machine, so it is checked here
+    # rather than trusted. Two must go - Voxy's LOD cache and Xaero's map images, both stale the
+    # moment worldgen changes - and one must survive: the minimap folder holds the waypoints, which
+    # are the single Xaero feature this pack kept.
+    $sep = [IO.Path]::DirectorySeparatorChar
+    $doomedVoxy = Join-Path $minecraft (@('.voxy', 'saves', '194.54.88.14_27107') -join $sep)
+    $doomedMap = Join-Path $minecraft (@('xaero', 'world-map', 'Multiplayer_test', 'tiles') -join $sep)
+    $keptWaypoints = Join-Path $minecraft (@('xaero', 'minimap', 'Multiplayer_test') -join $sep)
+    foreach ($dir in @($doomedVoxy, $doomedMap, $keptWaypoints)) {
+        New-Item -ItemType Directory -Path $dir -Force | Out-Null
+    }
+    [IO.File]::WriteAllText((Join-Path $doomedVoxy 'lod.bin'), 'cache')
+    [IO.File]::WriteAllText((Join-Path $doomedMap 'region.zip'), 'cache')
+    $waypointFile = Join-Path $keptWaypoints 'waypoints.txt'
+    [IO.File]::WriteAllText($waypointFile, "waypoint:Keep me:K:1:2:3")
+
+    $firstSync = Invoke-Sync 'sync 1'
+
+    Assert (-not (Test-Path -LiteralPath (Join-Path $minecraft '.voxy'))) `
+        "the retired-directory sweep left Voxy's LOD cache behind"
+    Assert (-not (Test-Path -LiteralPath (Join-Path $minecraft (@('xaero', 'world-map') -join $sep)))) `
+        "the retired-directory sweep left Xaero's map cache behind"
+    Assert (Test-Path -LiteralPath $waypointFile) `
+        'the retired-directory sweep deleted the Xaero waypoints, which it must never touch'
+
+    # Deleting several gigabytes silently reads as a hang, so the sweep has to say what it is doing
+    # by name. Asserted rather than assumed: a status line that quietly stops being emitted would
+    # otherwise only show up as a player watching a frozen updater.
+    $swept = @($firstSync | Where-Object { $_ -match "Clearing Voxy's far-terrain cache" })
+    Assert ($swept.Count -gt 0) `
+        'the sweep removed the caches without announcing it - the updater would look frozen'
+    if ($swept.Count) { Write-Host ("retired   {0}" -f ($swept[0] -replace '^\[nbidal18 packwiz\] ', '')) }
+    if ((Test-Path -LiteralPath $waypointFile) -and
+        -not (Test-Path -LiteralPath (Join-Path $minecraft '.voxy'))) {
+        Write-Host 'retired   Voxy and Xaero map caches removed, waypoints preserved'
+    }
 
     $manifest = [IO.File]::ReadAllText((Join-Path $site 'sync-manifest.json'), [Text.Encoding]::UTF8) | ConvertFrom-Json
     $normalized = @{}

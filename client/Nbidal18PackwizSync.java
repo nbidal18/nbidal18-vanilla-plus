@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Comparator;
 import java.security.MessageDigest;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -207,11 +208,33 @@ public final class Nbidal18PackwizSync {
     private static final List<String> RETIRED_LOCAL_FILES = List.of();
 
     /**
+     * Whole directories to remove once, listed separately from the files above.
+     *
+     * <p>Separate on purpose: deleting a tree is not a mistake anyone should be able to make with a
+     * typo in a list of file names. A path here is walked and removed; a path there is a single
+     * {@code deleteIfExists}, which throws on a non-empty directory rather than doing something
+     * surprising.
+     *
+     * <p>Both entries are pure render caches of terrain that v1.0.20 changes. Deleting the server's
+     * chunks makes every cached image and LOD wrong, and neither mod notices on its own - Voxy
+     * keeps showing the old far terrain and Xaero keeps drawing the old map. Voxy's is 6.8 GB on
+     * the owner's instance, so this is also the only sane way to reclaim it.
+     *
+     * <p><b>{@code xaero/minimap} is deliberately absent.</b> That folder is two kilobytes and holds
+     * the waypoints - the one Xaero feature this pack kept. The map images live in
+     * {@code xaero/world-map}, and taking {@code xaero/} wholesale would throw the pins away with
+     * the cache.
+     */
+    private static final List<String> RETIRED_LOCAL_DIRECTORIES = List.of(
+            ".voxy",
+            "xaero/world-map");
+
+    /**
      * Bumped whenever an entry is added above, because the marker below records that the sweep has
      * already run. Without a new token, an instance that applied the previous list would skip the
      * new entries permanently.
      */
-    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v445";
+    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1020";
 
     private final Path minecraftRoot;
     private final Path stateRoot;
@@ -724,6 +747,18 @@ public final class Nbidal18PackwizSync {
                     removed++;
                 }
             }
+            for (String relative : RETIRED_LOCAL_DIRECTORIES) {
+                Path target = minecraftRoot.resolve(relative).normalize();
+                if (!target.startsWith(minecraftRoot) || target.equals(minecraftRoot)
+                        || Files.isSymbolicLink(target)) {
+                    warning("Refusing to remove the retired directory " + relative
+                            + ": it does not resolve inside this instance.");
+                    continue;
+                }
+                if (deleteTree(target, describeCache(relative))) {
+                    removed++;
+                }
+            }
             Files.createDirectories(stateRoot);
             Files.writeString(marker, RETIRED_LOCAL_FILES_TOKEN + System.lineSeparator(),
                     StandardCharsets.UTF_8);
@@ -734,6 +769,82 @@ public final class Nbidal18PackwizSync {
             warning("Could not remove the configuration left behind by a retired mod: "
                     + messageOf(error));
         }
+    }
+
+    /**
+     * Removes a directory and everything under it, refusing to follow a symbolic link out.
+     *
+     * <p>Every path is re-checked against the instance root as the walk proceeds rather than only
+     * at the top. A link planted inside the tree is the one way a contained-looking delete reaches
+     * outside it, and this runs unattended on someone else's machine.
+     *
+     * @return whether anything was there to remove
+     */
+    private boolean deleteTree(Path root, String label) throws IOException {
+        if (!Files.exists(root, LinkOption.NOFOLLOW_LINKS)) {
+            return false;
+        }
+        List<Path> doomed = new ArrayList<>();
+        long bytes = 0L;
+        // Files.walk does not follow symbolic links unless asked to, which is the behaviour wanted.
+        try (Stream<Path> walk = Files.walk(root)) {
+            for (Path path : (Iterable<Path>) walk::iterator) {
+                doomed.add(path);
+                if (Files.isRegularFile(path, LinkOption.NOFOLLOW_LINKS)) {
+                    bytes += Files.size(path);
+                }
+            }
+        }
+        // Deepest first, so a directory is only removed once it is empty.
+        doomed.sort(Comparator.comparingInt(Path::getNameCount).reversed());
+
+        // Voxy's cache runs to several gigabytes across tens of thousands of files. Deleting that
+        // silently looks like the updater has hung, so it reports like any other step - named, sized
+        // and on the bar - rather than happening behind a stale "Checking files" label.
+        status("Clearing " + label + " (" + describeSize(bytes) + ")");
+        int done = 0;
+        int total = doomed.size();
+        for (Path path : doomed) {
+            Path normalized = path.normalize();
+            if (!normalized.startsWith(minecraftRoot) || normalized.equals(minecraftRoot)) {
+                warning("Refusing to remove " + path + ": it escapes this instance.");
+                return false;
+            }
+            Files.deleteIfExists(path);
+            done++;
+            // Every 250 entries: often enough to move visibly, rarely enough not to spend the whole
+            // delete repainting a label.
+            if (done % 250 == 0 || done == total) {
+                progressTo(done, total);
+            }
+        }
+        status("Cleared " + label + ", " + describeSize(bytes) + " freed");
+        return true;
+    }
+
+    /**
+     * A player-facing name for a retired cache directory.
+     *
+     * <p>The label on screen should say what is being cleared, not print a relative path at someone
+     * mid-launch. Anything unlisted falls back to the path, which is still better than nothing.
+     */
+    private static String describeCache(String relative) {
+        return switch (relative) {
+            case ".voxy" -> "Voxy's far-terrain cache";
+            case "xaero/world-map" -> "Xaero's map images";
+            default -> relative;
+        };
+    }
+
+    /** Bytes as something a player reads at a glance, rather than a ten-digit number. */
+    private static String describeSize(long bytes) {
+        if (bytes >= 1024L * 1024L * 1024L) {
+            return String.format(Locale.ROOT, "%.1f GB", bytes / (1024.0 * 1024.0 * 1024.0));
+        }
+        if (bytes >= 1024L * 1024L) {
+            return String.format(Locale.ROOT, "%.0f MB", bytes / (1024.0 * 1024.0));
+        }
+        return String.format(Locale.ROOT, "%.0f KB", Math.max(1.0, bytes / 1024.0));
     }
 
     /**

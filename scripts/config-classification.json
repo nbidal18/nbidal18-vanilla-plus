@@ -596,6 +596,11 @@
       "reason": "Terrain generation."
     },
     {
+      "match": "config/sparsestructures.json5",
+      "class": "gameplay",
+      "reason": "Structure rarity. Worldgen, so it decides what the world contains - enforced like tectonic and terralith."
+    },
+    {
       "match": "config/transition.json",
       "class": "support",
       "reason": "Crash report consent."
@@ -739,6 +744,7 @@
     "config/sounds/mod_utils.json",
     "config/sounds/ui.json",
     "config/sounds/world.json",
+    "config/sparsestructures.json5",
     "config/status-effect-bars.json",
     "config/structure_layout_optimizer.jsonc",
     "config/subtle_effects/blocks.toml",
@@ -852,7 +858,7 @@
       "reason": "Shader settings. Published once so the pack ships its tuning, then owned by the player - a property rule cannot pin a key here, because these are not properties files."
     },
     {
-      "match": "shaderpacks/nbidal18-\u00a7lE-LITE shaders 5.1.1.zip.txt",
+      "match": "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt",
       "class": "player",
       "reason": "Shader settings. Published once so the pack ships its tuning, then owned by the player - a property rule cannot pin a key here, because these are not properties files."
     }

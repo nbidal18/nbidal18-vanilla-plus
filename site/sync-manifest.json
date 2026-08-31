@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.19",
+    "packVersion":  "1.0.20",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -335,7 +335,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "6fc726fc77db637e74df79fd5c60b37deea90184d5f1dd201ef0d05f3a9391ff"
+                                    "sha256":  "0b71e184d086c1af394aa81638317e9dd7626569f8d6e4cb79d1075cc80c5d04"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -706,6 +706,10 @@
                                     "sha256":  "e698f9f2184dad829d45013b85d821abce38a024d47822cbac5846778ca398a2"
                                 },
                                 {
+                                    "path":  "config/sparsestructures.json5",
+                                    "sha256":  "85b353ced421c2a24285067525796100b4876cf3d7cd8be2bf95427aaf54430d"
+                                },
+                                {
                                     "path":  "config/status-effect-bars.json",
                                     "sha256":  "9d6b9cee844e073d40de18fdfb268c267978a3cb0e64f1d1f17f79e6bf688a70"
                                 },
@@ -809,7 +813,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "6fc726fc77db637e74df79fd5c60b37deea90184d5f1dd201ef0d05f3a9391ff"
+                      "sha256":  "0b71e184d086c1af394aa81638317e9dd7626569f8d6e4cb79d1075cc80c5d04"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1180,6 +1184,10 @@
                       "sha256":  "e698f9f2184dad829d45013b85d821abce38a024d47822cbac5846778ca398a2"
                   },
                   {
+                      "path":  "config/sparsestructures.json5",
+                      "sha256":  "85b353ced421c2a24285067525796100b4876cf3d7cd8be2bf95427aaf54430d"
+                  },
+                  {
                       "path":  "config/status-effect-bars.json",
                       "sha256":  "9d6b9cee844e073d40de18fdfb268c267978a3cb0e64f1d1f17f79e6bf688a70"
                   },
@@ -1296,6 +1304,10 @@
                       "sha256":  "c5ed022ebce7f46606cbd20a0a725787627f5ce486da5a602c9cda496f1aeb69"
                   },
                   {
+                      "path":  "mods/Incendium_Legacy_26.2_v5.5.0.jar",
+                      "sha256":  "1626bcced55d5baa3a9c7c3526c830880cbd828bd8793a3cfc60f713479fcc34"
+                  },
+                  {
                       "path":  "mods/InvMove-0.9.5+26.2-Fabric.jar",
                       "sha256":  "cc513bdf749876bcb8b7909f13b48baa5b7de82933047853a84cc3465bf4f0ec"
                   },
@@ -1318,6 +1330,10 @@
                   {
                       "path":  "mods/MouseTweaks-fabric-mc26.2-2.31.jar",
                       "sha256":  "4592eff38a2e7af3487688e888a637a8cbd4767b46662df94d993a889102effe"
+                  },
+                  {
+                      "path":  "mods/Nullscape_26.2_v1.2.20.jar",
+                      "sha256":  "21aff09a80c18670689a104f461d2e03b75a711c0820269de467db0f7c2abace"
                   },
                   {
                       "path":  "mods/PlayerAnimationLibMerged-1.2.6+mc.26.2.jar",
@@ -1346,6 +1362,14 @@
                   {
                       "path":  "mods/Smooth Steps v1.2.0-26.2.jar",
                       "sha256":  "9da31ecfbdc0d0a58aabb40ed0d170dd94399d5c0e6ff851823deced0b2821cb"
+                  },
+                  {
+                      "path":  "mods/Structory_26.2_v1.3.7.jar",
+                      "sha256":  "e9079b2bb9bc2efb9b0f1244376488e41f8b50f25415094d8f03dc753cdfb131"
+                  },
+                  {
+                      "path":  "mods/Structory_Towers_26.2_v1.0.17.jar",
+                      "sha256":  "226d8cb187e0d4fb75571db017c0abb26176aec16586c337a1b5620f3805a372"
                   },
                   {
                       "path":  "mods/SubtleEffects-fabric-26.2-1.14.3.jar",
@@ -1384,8 +1408,16 @@
                       "sha256":  "5187752710768c0323e615ef112083e89aef8f6a24cdf15d155d70eae6fb47d9"
                   },
                   {
+                      "path":  "mods/bclib-26.201.2.jar",
+                      "sha256":  "797bb8dbde0c28265d08cc31581587e2c6eb2f344a20cde1654fb819cda1193d"
+                  },
+                  {
                       "path":  "mods/better-compatability-checker-fabric-26.2.0.1.jar",
                       "sha256":  "9f051ab8e70d4a16f3e01e53600043ff6f297a20765296d4aa0bf7a73f48647c"
+                  },
+                  {
+                      "path":  "mods/better-end-26.201.2.jar",
+                      "sha256":  "97dac860402e781ee50a5e10e1c3d299f9c84873e7426f53fab76918c1559425"
                   },
                   {
                       "path":  "mods/betterbiomeblend-fabric-26.2-1.4.0.jar",
@@ -1430,6 +1462,10 @@
                   {
                       "path":  "mods/continuity-3.0.1+26.2.jar",
                       "sha256":  "2094a52b98e247f664ef2ecdbb41d7dcad7779cc7a8fb87f0ed8a4f8196c0446"
+                  },
+                  {
+                      "path":  "mods/cristellib-fabric-26.2-3.1.11.jar",
+                      "sha256":  "568da42a87eab96f26df08be6aee3cc227064addae70a4711101545393fd80dd"
                   },
                   {
                       "path":  "mods/cursors_extended-fabric-4.1.7+26.2.jar",
@@ -1576,12 +1612,12 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.19+26.2-fabric.jar",
-                      "sha256":  "0ab53a6571b05facd67b9e409e439ae8ec999f692880255b1877e3d133375b00"
+                      "path":  "mods/nbidal18-integrity-1.0.20+26.2-fabric.jar",
+                      "sha256":  "45292b16aff9a1bd16266eb7b13c3c668f867eb78b0d02426fe8c485808d65f9"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
-                      "sha256":  "b7ff9c17ce4f10422d8dfdcc839c2b760bc2442bc84522c439e66e0adb191647"
+                      "sha256":  "ddb25fdd66ee853231d0246eb6d703d6aa7a184a78398f0db52c65eb6fdec7a0"
                   },
                   {
                       "path":  "mods/nbidal18-tectonic-1.0.0+26.2-fabric.jar",
@@ -1593,7 +1629,7 @@
                   },
                   {
                       "path":  "mods/nbidal18-xaerominimap-1.0.0+26.2-fabric.jar",
-                      "sha256":  "10678e567e8dcd8e0c6b97de493f0565abf5914e89f1234804a08bfa3e4bd296"
+                      "sha256":  "e82f26bf0f705dd2c3a3ab53a633812ae7ac60cc07c46171e2496a9a3a07e1a6"
                   },
                   {
                       "path":  "mods/nbidal18-xaeroworldmap-1.0.0+26.2-fabric.jar",
@@ -1672,12 +1708,20 @@
                       "sha256":  "2f2678140346e6efe7b1a5497ec9abcb52b107556c29a0be78c22e6880cb6e6b"
                   },
                   {
+                      "path":  "mods/sparsestructures-fabric-26.2-3.1.4.jar",
+                      "sha256":  "bbefc0c02b3a5fb92f8b6aad52e2566cafa421eb56b22dcbaaf7181524642dc2"
+                  },
+                  {
                       "path":  "mods/status-effect-bars-1.0.12.jar",
                       "sha256":  "8cb64d13fb73ae1dff415734b980bca0f858311ffa010c8a21522113a9dddee5"
                   },
                   {
                       "path":  "mods/structure_layout_optimizer-1.1.4+26.1-fabric.jar",
                       "sha256":  "189a4356cc34b34156ec18dd22b9d63e617f12dddfe31729c640fcc62b5ad1fc"
+                  },
+                  {
+                      "path":  "mods/t_and_t-fabric-neoforge-1.13.11.jar",
+                      "sha256":  "13b38f18cff6103b02f2b7d768b0d495edb8969df724e1538e13ce5bcc05f8be"
                   },
                   {
                       "path":  "mods/tcdcommons-5.5.6+fn-26.2.jar",
@@ -1712,6 +1756,10 @@
                       "sha256":  "dd9e10d2110879f07c1ce9bdf1945f3470b32e83977f094005ee8c642e8128d5"
                   },
                   {
+                      "path":  "mods/worldweaver-26.201.2.jar",
+                      "sha256":  "e042ec2011d1613eaf9e7fc3e27179f31b1a1be704b4271d035589a69914b8a1"
+                  },
+                  {
                       "path":  "mods/xaerominimap-fabric-26.2-26.4.2.jar",
                       "sha256":  "69284892d2eb853c9aefa85a4c9b74232c322da00207994c67ab8aeed8a64048"
                   },
@@ -1733,7 +1781,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "f38aa71a84738dc5b67047141e3dd53174af523ccd411ca8324e4e84be835837"
+                      "sha256":  "b25acbd5b7a69d3c55f34c2832bd25a8332c6dd770603ef0045110df3872c5c7"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",
