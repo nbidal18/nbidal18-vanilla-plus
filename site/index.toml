@@ -22,7 +22,7 @@ hash = "d954976cca7faa29db88894517863098c237debf838e7fd725642e9030e3f238"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "4073d6722195bc8fad497ccc3270f460c43fe9291920c546fdd94a2ab8c2a164"
+hash = "40efe2b4125eccd1c2b4f7599450ed3e0be0741c175b95e12e05e996f8df46d6"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -801,10 +801,6 @@ file = "mods/mru-1.0.33+26.2-fabric.jar"
 hash = "e6bd3b6a2be100fbe96fb44f528bfae913d79b24537e95fc4899c99f75fa88cc"
 
 [[files]]
-file = "mods/nbidal18-3dmaps-1.0.0+26.2-fabric.jar"
-hash = "6cf6cf8c281c9ae2b0e1201791c50ec3f08c902b007ede016877fb952d5d4b72"
-
-[[files]]
 file = "mods/nbidal18-JEI-30.28.0.191+26.2-fabric.jar"
 hash = "84b7cfd23caa5c4c978f1e0a2cd464a59b6b7d17d2cfaa6ce0e9c887c03e2e26"
 
@@ -837,8 +833,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.27+26.2-fabric.jar"
-hash = "9263fd32106b64a046c79a785a396768d6ad52809d4f4b3850771bb4528c16fb"
+file = "mods/nbidal18-integrity-1.0.28+26.2-fabric.jar"
+hash = "cb08bc2d8c914921ba91b1e67ebb6b1b1dba243722d8772eb19b12dd07e15e03"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -1014,7 +1010,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "1fdcdd5f1bd2ace14c12f791fa40c7d91052521cac12f0e70801c960d1de2029"
+hash = "3c91e243ab247c65c53408ceb10aaa14a5e0cd99a17e916fcb389ca5bdfba4ac"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -1083,6 +1079,10 @@ hash = "2c566bc61e40c8aee17106487322f9e91360a4fa29fcc405833bcbeb0150fafd"
 [[files]]
 file = "resourcepacks/§5§lNo Enchant Glint §f§l26.2.zip"
 hash = "46f2630fe76ec7dbc95c8ca54b09ad1a88812bf6e38fcbf5034b8c67320ffe23"
+
+[[files]]
+file = "resourcepacks/§f§lActually §6§l3D §fBlocks & Items!§7.zip"
+hash = "0df22f984e62f4c9d25132e52103e201971a5ba5c2aeed091a4db0d8b0c30d88"
 
 [[files]]
 file = "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip"

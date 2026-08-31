@@ -5,6 +5,37 @@ build that was not published.
 
 ---
 
+## v1.0.28
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-31 | see below | `b0c7bd8277a4139b` | `8a9719601c679fbb` | 275 | 129 |
+
+**3D Maps goes back to stock, and Actually 3D Blocks & Items comes back on its own.**
+
+### The ore-finder patch is off
+
+`nbidal18-3dmaps` is no longer built, so 3D Maps captures a full voxel volume again and its cutaway
+reaches bedrock. **The map can be used to find caves and ores.** That is a deliberate choice to
+judge the mod at stock quality first, not an oversight.
+
+The work is intact - the source stays under `custom mods\`, and re-adding one line to
+Build-FirstPartyMods revives it. Nothing about the patch was wrong: it built, the server booted with
+it, and both mixins applied.
+
+### One 3D pack, not three
+
+**Actually 3D Blocks & Items** returns on its own, directly above `Overlay's` where it used to sit.
+3D Default and Refined Buckets stay out.
+
+That was the lesson from v1.0.26: the three together covered 470 of 1,533 items with overlapping and
+inconsistent styles, which read as unfinished rather than as a look. One pack of 130 hand-modelled
+items is a smaller claim, consistently made.
+
+**Players need only click Play.**
+
+---
+
 ## v1.0.27
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

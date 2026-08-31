@@ -42,10 +42,11 @@ $mods = @(
     @{ Name = 'nbidal18-xaerominimap'; Generator = $null; Builder = 'build_xaerominimap.py' },
     @{ Name = 'nbidal18-xaeroworldmap'; Generator = $null; Builder = 'build_xaeroworldmap.py' },
     @{ Name = 'nbidal18-betterfishing'; Generator = $null; Builder = 'patch_betterfishing.py' },
-    # Patches 3D Maps' server-side capture so it records one surface block per column. Its mixins
-    # are common, not client: the capture runs on the server, and that is the only place the fix
-    # holds against a modified client.
-    @{ Name = 'nbidal18-3dmaps'; Generator = $null; Builder = 'build_3dmaps.py' },
+    # nbidal18-3dmaps is deliberately NOT built. It trimmed 3D Maps' capture to one surface block
+    # per column so the mod could not be used to find ores; that was set aside to judge the map at
+    # stock quality first. The source stays under `custom mods\`; re-add this line to revive it.
+    # While it is off, the cutaway reaches bedrock and the map shows caves and ores.
+
     # Makes SoundsBegone's telemetry threads daemon and never builds its PostHog client, so the
     # client can exit. Drop this fork the moment upstream calls its own Telemetry.shutdown().
     @{ Name = 'nbidal18-soundsbegone'; Generator = $null; Builder = 'build_soundsbegone.py' },
