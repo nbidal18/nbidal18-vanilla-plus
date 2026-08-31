@@ -9,9 +9,9 @@ build that was not published.
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
 | --- | --- | --- | --- | --- | --- |
-| 2026-08-31 | see below | `6d144471a9e15785` | `cf4890137dc2328e` | 274 | 129 |
+| 2026-08-31 | see below | `8a9719601c679fbb` | `cf4890137dc2328e` | 275 | 130 |
 
-**3D Maps can no longer be used to find ores, and the visual work is rolled back to plain.**
+**3D Maps can no longer be used to find ores, the client can finally exit, and the visual work is rolled back to plain.**
 
 ### The map records one block per column
 
@@ -63,6 +63,30 @@ was rejected and Minecraft pruned it from `options.txt` on save. The texture pat
 along - the fork blits `immersive_aircraft:textures/gui/container/inventory.png` and the addon
 supplies exactly that. Reviving it needs `min_format`/`max_format` in place of `supported_formats`,
 and nothing else.
+
+### The client stopped hanging on exit
+
+Quitting left the process alive for 15 seconds until Minecraft's shutdown watchdog force-killed it.
+That exits non-zero, which is why Prism's console appeared long after the window had closed - every
+session, on every client.
+
+The thread dump in each crash report showed four threads: the JVM trying to exit, and three that
+would not let it. All three came from **SoundsBegone**. Its `Telemetry` builds a PostHog analytics
+client and a single-thread scheduler, both non-daemon, and one non-daemon thread is enough to stop
+the JVM exiting. It has a `shutdown()` that tears both down correctly, and nothing in the mod ever
+calls it.
+
+Its own telemetry setting could not have fixed this: the constructor builds PostHog *before*
+consulting the toggle, so the setting only decides whether events are sent, never whether the
+threads exist.
+
+`nbidal18-soundsbegone` makes the scheduler a daemon thread, never builds the PostHog client, and
+drops the one call that would have used it. Sound muting is untouched. What stops is the reporting -
+by default it sent the player's OS, Java version, language and muted sounds to eu.posthog.com, keyed
+by a hash of their username.
+
+**Drop this fork when upstream calls its own `shutdown()`.** The build fails loudly if the redirects
+stop matching, which is the signal to check.
 
 **Players need only click Play.**
 

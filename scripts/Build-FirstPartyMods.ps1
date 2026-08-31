@@ -46,6 +46,9 @@ $mods = @(
     # are common, not client: the capture runs on the server, and that is the only place the fix
     # holds against a modified client.
     @{ Name = 'nbidal18-3dmaps'; Generator = $null; Builder = 'build_3dmaps.py' },
+    # Makes SoundsBegone's telemetry threads daemon and never builds its PostHog client, so the
+    # client can exit. Drop this fork the moment upstream calls its own Telemetry.shutdown().
+    @{ Name = 'nbidal18-soundsbegone'; Generator = $null; Builder = 'build_soundsbegone.py' },
     # nbidal18-travelersbackpack is deliberately NOT built. Its source stays under `custom mods\`
     # because the work is sound and will be picked up again, but a uniform tint is not what
     # Recolourful does - it recolours a panel region by region - so shipping it looked unfinished

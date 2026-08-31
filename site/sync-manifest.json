@@ -1648,6 +1648,10 @@
                       "sha256":  "ddb25fdd66ee853231d0246eb6d703d6aa7a184a78398f0db52c65eb6fdec7a0"
                   },
                   {
+                      "path":  "mods/nbidal18-soundsbegone-1.0.0+26.2-fabric.jar",
+                      "sha256":  "de4082a89f3f0bf681928538789b315193fa542d72c3dad908bbb4db99a64dc6"
+                  },
+                  {
                       "path":  "mods/nbidal18-tectonic-1.0.0+26.2-fabric.jar",
                       "sha256":  "ad7773d915ff1f44aebd38a2167bb4730fde70cbf1f766892f3dbab7d7ec5152"
                   },
