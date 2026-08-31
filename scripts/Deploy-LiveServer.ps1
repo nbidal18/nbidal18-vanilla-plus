@@ -18,10 +18,11 @@
     JEI by the owner, not by any check. Both were copied by hand afterwards, which is the same
     exposure again. Now every shared jar is hashed and any that differs is deployed with the rest.
 
-    What it deliberately does not do is add a jar the server does not already have. Most of the
-    client pack is client-only and nothing here can tell which of it belongs on a server, so a
-    genuinely new server-side mod is still a decision, not a sync. The count of client-only jars is
-    printed so that stays visible rather than silent.
+    What it will not do is *work out* that a jar the server does not have belongs on it. Most of the
+    client pack is client-only and nothing here can tell which of it is not, so a genuinely new
+    server-side mod stays a decision - but one made by naming it in -AddMods, where it is copied and
+    hash-verified with everything else, rather than dragged across afterwards. The count of
+    client-only jars is printed so that stays visible rather than silent.
 
     Refusals, all of which have a real incident behind them:
 
@@ -42,6 +43,11 @@
 [CmdletBinding()]
 param(
     [switch] $Apply,
+    # Jars this release puts on the server for the first time, named one by one. Which client jars
+    # belong on a server cannot be inferred - see the note above - but doing the copy by hand
+    # afterwards is the same exposure the rest of this script exists to remove. So it stays a
+    # decision, and the decision is written down here rather than typed into a file manager.
+    [string[]] $AddMods = @(),
     [string] $DriveRoot = 'Y:\',
     [int] $TimeoutSec = 8
 )
@@ -167,6 +173,22 @@ foreach ($live in @(Get-ChildItem -LiteralPath $modsDir -Filter *.jar -File)) {
 $staleShared = @($shared | Where-Object { $_.Stale })
 $clientOnly = @(Get-ChildItem -LiteralPath $releaseMods -Filter *.jar -File).Count - $shared.Count - 1
 
+# Refuse a name that is already there as loudly as one that does not exist. A jar the server has is
+# a shared jar and is compared by hash above; listing it here too would mean two rules deciding the
+# same file, and the answer to "was it deployed?" would depend on which ran last.
+$added = @()
+foreach ($name in $AddMods) {
+    $source = Join-Path $releaseMods $name
+    if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {
+        throw "-AddMods named $name, which is not in the release's mods folder"
+    }
+    $live = Join-Path $modsDir $name
+    if (Test-Path -LiteralPath $live -PathType Leaf) {
+        throw "-AddMods named $name, which the server already has - it is a shared jar and is handled by hash"
+    }
+    $added += [pscustomobject]@{ Name = $name; Live = $live; Source = $source }
+}
+
 $wantMotd = "motd=v$version - @nbidal18 on Discord"
 $propsText = [IO.File]::ReadAllText($propsPath)
 $motdNow = ([regex]::Match($propsText, '(?m)^motd=.*$')).Value
@@ -182,6 +204,7 @@ if ($staleShared.Count) {
 else {
     Write-Host ("  jars     none - all {0} shared jars already match" -f $shared.Count)
 }
+foreach ($jar in $added) { Write-Host ("  new jar  {0}" -f $jar.Name) }
 Write-Host ("           {0} server-only jars untouched, {1} client-only jars not considered" -f $serverOnly, $clientOnly)
 
 if (-not $Apply) {
@@ -230,7 +253,7 @@ foreach ($old in $existingHelpers) {
     if ($old.Name -ne $helperSource.Name) { [IO.File]::Delete($old.FullName) }
 }
 [IO.File]::WriteAllText($propsPath, [regex]::Replace($propsText, '(?m)^motd=.*$', { $wantMotd }))
-foreach ($jar in $staleShared) {
+foreach ($jar in @($staleShared) + @($added)) {
     [IO.File]::WriteAllBytes($jar.Live, [IO.File]::ReadAllBytes($jar.Source))
 }
 
@@ -239,7 +262,7 @@ $failures = New-Object Collections.Generic.List[string]
 $verify = @(
     @{ s = $policySource; d = $policyLive },
     @{ s = $helperSource.FullName; d = (Join-Path $modsDir $helperSource.Name) })
-foreach ($jar in $staleShared) { $verify += @{ s = $jar.Source; d = $jar.Live } }
+foreach ($jar in @($staleShared) + @($added)) { $verify += @{ s = $jar.Source; d = $jar.Live } }
 foreach ($pair in $verify) {
     $a = (Get-FileHash -LiteralPath $pair.s -Algorithm SHA256).Hash
     $b = (Get-FileHash -LiteralPath $pair.d -Algorithm SHA256).Hash
@@ -275,8 +298,8 @@ Write-Host ("MATCH     {0} shared jars byte-identical to the release" -f $shared
 if ($failures.Count) { throw ('Deployment did not verify: ' + ($failures -join '; ')) }
 Write-Host ''
 if ($live) {
-    Write-Host ("OK        policy, helper, MOTD and {0} jar(s) deployed. Start the server." -f $staleShared.Count)
+    Write-Host ("OK        policy, helper, MOTD, {0} updated and {1} new jar(s) deployed. Start the server." -f $staleShared.Count, $added.Count)
 }
 else {
-    Write-Host ("OK        rehearsal complete: {0} jar(s) deployed and verified against {1}. The live server was not touched." -f $staleShared.Count, $DriveRoot)
+    Write-Host ("OK        rehearsal complete: {0} updated and {1} new jar(s) deployed and verified against {2}. The live server was not touched." -f $staleShared.Count, $added.Count, $DriveRoot)
 }
