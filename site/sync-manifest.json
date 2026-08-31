@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.26",
+    "packVersion":  "1.0.27",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -339,7 +339,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "017cdddf3b913bf9ef38ab14511eb6e4b16f79a606a124ebbcf9e3e4f10cfa5f"
+                                    "sha256":  "4073d6722195bc8fad497ccc3270f460c43fe9291920c546fdd94a2ab8c2a164"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -825,7 +825,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "017cdddf3b913bf9ef38ab14511eb6e4b16f79a606a124ebbcf9e3e4f10cfa5f"
+                      "sha256":  "4073d6722195bc8fad497ccc3270f460c43fe9291920c546fdd94a2ab8c2a164"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1604,6 +1604,10 @@
                       "sha256":  "e6bd3b6a2be100fbe96fb44f528bfae913d79b24537e95fc4899c99f75fa88cc"
                   },
                   {
+                      "path":  "mods/nbidal18-3dmaps-1.0.0+26.2-fabric.jar",
+                      "sha256":  "6cf6cf8c281c9ae2b0e1201791c50ec3f08c902b007ede016877fb952d5d4b72"
+                  },
+                  {
                       "path":  "mods/nbidal18-JEI-30.28.0.191+26.2-fabric.jar",
                       "sha256":  "84b7cfd23caa5c4c978f1e0a2cd464a59b6b7d17d2cfaa6ce0e9c887c03e2e26"
                   },
@@ -1636,8 +1640,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.26+26.2-fabric.jar",
-                      "sha256":  "dbb3b81f42604709a51bdf599360159d87abfe7aa6ff869c0b13d07201f8761d"
+                      "path":  "mods/nbidal18-integrity-1.0.27+26.2-fabric.jar",
+                      "sha256":  "9263fd32106b64a046c79a785a396768d6ad52809d4f4b3850771bb4528c16fb"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1646,10 +1650,6 @@
                   {
                       "path":  "mods/nbidal18-tectonic-1.0.0+26.2-fabric.jar",
                       "sha256":  "ad7773d915ff1f44aebd38a2167bb4730fde70cbf1f766892f3dbab7d7ec5152"
-                  },
-                  {
-                      "path":  "mods/nbidal18-travelersbackpack-1.0.0+26.2-fabric.jar",
-                      "sha256":  "d7bfa4485aa6924301634c4c4350961d36ba79cc2b72e1613d0d5f99364363a6"
                   },
                   {
                       "path":  "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar",
@@ -1813,7 +1813,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "68816ab29a92f16396ebbe4ed5c79d129aaee3b32b4d315b30a90ef35ad1fe49"
+                      "sha256":  "1fdcdd5f1bd2ace14c12f791fa40c7d91052521cac12f0e70801c960d1de2029"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",
@@ -1826,10 +1826,6 @@
                   {
                       "path":  "prism/mmc-pack.json",
                       "sha256":  "48f695f86304c1b76a23905b266c7eb50c5273c47c041b2c128e0001390ab441"
-                  },
-                  {
-                      "path":  "resourcepacks/3D Default 1.21.2+ v1.15.0.zip",
-                      "sha256":  "f0bf02ddaba7fa69049c9d2f2c736556b1fe31ea02acb0bd879bf95d8193f428"
                   },
                   {
                       "path":  "resourcepacks/Better Lanterns v1.3.2 - 26.2.zip",
@@ -1868,14 +1864,6 @@
                       "sha256":  "ac40030dd211be141e42b445f0aee77591dbf46ad1e1f5066f6ddace2925806a"
                   },
                   {
-                      "path":  "resourcepacks/Recolourful Containers 3.1.3 (1.19.4+).zip",
-                      "sha256":  "fe14f85cf5c551fb1d0f122d7fa07a4b371186f15e23b467a409999658974948"
-                  },
-                  {
-                      "path":  "resourcepacks/Refined Buckets 2.4.1.zip",
-                      "sha256":  "198748b54fb15bc01883da58aa87da44bd8c15d41fef862613f1adb03bd33637"
-                  },
-                  {
                       "path":  "resourcepacks/Theone\u0027s Eating Animation Pack v1.0.zip",
                       "sha256":  "5d1f2ea9b8af9cd931796c09f2159e119b25db909b0a84269b42fb3c9f55893d"
                   },
@@ -1892,16 +1880,8 @@
                       "sha256":  "2c566bc61e40c8aee17106487322f9e91360a4fa29fcc405833bcbeb0150fafd"
                   },
                   {
-                      "path":  "resourcepacks/§5§lModded §f§lContainers§8.zip",
-                      "sha256":  "790ed40150f27989f6343c356ffc8bc1f0ccb3d8b9ff4855f00235f949333928"
-                  },
-                  {
                       "path":  "resourcepacks/§5§lNo Enchant Glint §f§l26.2.zip",
                       "sha256":  "46f2630fe76ec7dbc95c8ca54b09ad1a88812bf6e38fcbf5034b8c67320ffe23"
-                  },
-                  {
-                      "path":  "resourcepacks/§f§lActually §6§l3D §fBlocks \u0026 Items!§7.zip",
-                      "sha256":  "0df22f984e62f4c9d25132e52103e201971a5ba5c2aeed091a4db0d8b0c30d88"
                   },
                   {
                       "path":  "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip",

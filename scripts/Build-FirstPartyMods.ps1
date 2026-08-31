@@ -42,10 +42,14 @@ $mods = @(
     @{ Name = 'nbidal18-xaerominimap'; Generator = $null; Builder = 'build_xaerominimap.py' },
     @{ Name = 'nbidal18-xaeroworldmap'; Generator = $null; Builder = 'build_xaeroworldmap.py' },
     @{ Name = 'nbidal18-betterfishing'; Generator = $null; Builder = 'patch_betterfishing.py' },
-    # Its generator samples the 44 backpack textures out of the mod's own jar and bakes a colour
-    # table, so a backpack added by a mod update is themed by the next build with nobody picking
-    # a colour for it. Needs Pillow, and says so rather than shipping a stale table.
-    @{ Name = 'nbidal18-travelersbackpack'; Generator = 'generate_backpack_colors.py'; Builder = 'build_travelersbackpack.py' },
+    # Patches 3D Maps' server-side capture so it records one surface block per column. Its mixins
+    # are common, not client: the capture runs on the server, and that is the only place the fix
+    # holds against a modified client.
+    @{ Name = 'nbidal18-3dmaps'; Generator = $null; Builder = 'build_3dmaps.py' },
+    # nbidal18-travelersbackpack is deliberately NOT built. Its source stays under `custom mods\`
+    # because the work is sound and will be picked up again, but a uniform tint is not what
+    # Recolourful does - it recolours a panel region by region - so shipping it looked unfinished
+    # next to the vanilla containers rather than matching them. Re-add this line to revive it.
     # Data only - no src\, so no javac. Its builder reads the vanilla loot table out of the game jar
     # and edits it, which is why it needs no classpath either.
     @{ Name = 'nbidal18-tectonic'; Generator = $null; Builder = 'build_tectonic.py' }

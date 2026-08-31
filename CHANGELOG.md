@@ -5,6 +5,69 @@ build that was not published.
 
 ---
 
+## v1.0.27
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-31 | see below | `6d144471a9e15785` | `cf4890137dc2328e` | 274 | 129 |
+
+**3D Maps can no longer be used to find ores, and the visual work is rolled back to plain.**
+
+### The map records one block per column
+
+`nbidal18-3dmaps` trims every captured column to its topmost block before the volume stores it. The
+interior is not hidden, filtered or gated - it is never recorded, so there is nothing to reveal.
+
+A Y threshold was the obvious fix and it does not work: a mountain has caves well above any
+threshold worth picking. Per-column removes Y from the question entirely and is correct at every
+elevation. Digging a shaft does not defeat it either, because the exclusion is per column - a shaft
+lowers only its own column, its neighbours keep their surface, and you see the hole you dug.
+
+It is done on the **capture**, which runs server-side, rather than on the renderer or the cutaway
+slider. The client only ever draws what `Map3DDataPayload` sends it, so a modified client has
+nothing to recover. Same principle as the integrity helper: do not police the client, do not send it
+the information.
+
+Cliffs still read as solid because the mesh builder extrudes each column to the volume floor -
+`Map3DMesh` already carries `BASE_DEPTH` and a `SURFACE_DETAIL` level for exactly this shape.
+
+Injected at `applyColumn`, the single choke point every captured column passes through, so no
+capture path can bypass it. `@Coerce` reaches the package-private `ColumnSample`; both mixins ship
+`defaultRequire: 1`, so a failed injection stops the server rather than quietly leaving an ore
+finder running.
+
+### The visual work comes out
+
+Everything from v1.0.26 and the three 3D item packs are removed, back to 2D items and a plain
+light-mode UI, until the whole look can be settled in one go rather than half-applied.
+
+- **3D Default, Actually 3D Blocks & Items, Refined Buckets.** Between them they covered 470 of
+  1,533 items, which read as inconsistent rather than as a style - and they were the source of the
+  `Invalid path ..._3D_e.png` errors in every client log.
+- **Recolourful Containers**, so vanilla containers go back to plain light mode.
+- **`nbidal18-travelersbackpack`.** It worked, but a uniform tint is not what Recolourful does -
+  Recolourful recolours a panel region by region - so the backpack looked tinted rather than
+  themed. The source stays under `custom mods\`; re-adding one line to Build-FirstPartyMods revives it.
+
+### Modded Containers never loaded at all
+
+Worth recording, because it looked like it simply had no effect. 26.2 **refuses** the pack:
+
+```
+Pack key supported_formats is deprecated starting from pack format 65.
+Removed resource pack Modded Containers from options because it is no longer compatible
+```
+
+Its `pack.mcmeta` declares only `supported_formats`, which throws from format 65 onward, so the pack
+was rejected and Minecraft pruned it from `options.txt` on save. The texture path was right all
+along - the fork blits `immersive_aircraft:textures/gui/container/inventory.png` and the addon
+supplies exactly that. Reviving it needs `min_format`/`max_format` in place of `supported_formats`,
+and nothing else.
+
+**Players need only click Play.**
+
+---
+
 ## v1.0.26
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

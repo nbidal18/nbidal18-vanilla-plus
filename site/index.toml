@@ -22,7 +22,7 @@ hash = "d954976cca7faa29db88894517863098c237debf838e7fd725642e9030e3f238"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "017cdddf3b913bf9ef38ab14511eb6e4b16f79a606a124ebbcf9e3e4f10cfa5f"
+hash = "4073d6722195bc8fad497ccc3270f460c43fe9291920c546fdd94a2ab8c2a164"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -801,6 +801,10 @@ file = "mods/mru-1.0.33+26.2-fabric.jar"
 hash = "e6bd3b6a2be100fbe96fb44f528bfae913d79b24537e95fc4899c99f75fa88cc"
 
 [[files]]
+file = "mods/nbidal18-3dmaps-1.0.0+26.2-fabric.jar"
+hash = "6cf6cf8c281c9ae2b0e1201791c50ec3f08c902b007ede016877fb952d5d4b72"
+
+[[files]]
 file = "mods/nbidal18-JEI-30.28.0.191+26.2-fabric.jar"
 hash = "84b7cfd23caa5c4c978f1e0a2cd464a59b6b7d17d2cfaa6ce0e9c887c03e2e26"
 
@@ -833,8 +837,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.26+26.2-fabric.jar"
-hash = "dbb3b81f42604709a51bdf599360159d87abfe7aa6ff869c0b13d07201f8761d"
+file = "mods/nbidal18-integrity-1.0.27+26.2-fabric.jar"
+hash = "9263fd32106b64a046c79a785a396768d6ad52809d4f4b3850771bb4528c16fb"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -843,10 +847,6 @@ hash = "ddb25fdd66ee853231d0246eb6d703d6aa7a184a78398f0db52c65eb6fdec7a0"
 [[files]]
 file = "mods/nbidal18-tectonic-1.0.0+26.2-fabric.jar"
 hash = "ad7773d915ff1f44aebd38a2167bb4730fde70cbf1f766892f3dbab7d7ec5152"
-
-[[files]]
-file = "mods/nbidal18-travelersbackpack-1.0.0+26.2-fabric.jar"
-hash = "d7bfa4485aa6924301634c4c4350961d36ba79cc2b72e1613d0d5f99364363a6"
 
 [[files]]
 file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
@@ -1010,7 +1010,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "68816ab29a92f16396ebbe4ed5c79d129aaee3b32b4d315b30a90ef35ad1fe49"
+hash = "1fdcdd5f1bd2ace14c12f791fa40c7d91052521cac12f0e70801c960d1de2029"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -1023,10 +1023,6 @@ hash = "c9f646908d340d84773948a9a7d98bc1dae250d35e1016dc6e2b8459760b5598"
 [[files]]
 file = "prism/mmc-pack.json"
 hash = "48f695f86304c1b76a23905b266c7eb50c5273c47c041b2c128e0001390ab441"
-
-[[files]]
-file = "resourcepacks/3D Default 1.21.2+ v1.15.0.zip"
-hash = "f0bf02ddaba7fa69049c9d2f2c736556b1fe31ea02acb0bd879bf95d8193f428"
 
 [[files]]
 file = "resourcepacks/Better Lanterns v1.3.2 - 26.2.zip"
@@ -1065,14 +1061,6 @@ file = "resourcepacks/Overlay’s.zip"
 hash = "ac40030dd211be141e42b445f0aee77591dbf46ad1e1f5066f6ddace2925806a"
 
 [[files]]
-file = "resourcepacks/Recolourful Containers 3.1.3 (1.19.4+).zip"
-hash = "fe14f85cf5c551fb1d0f122d7fa07a4b371186f15e23b467a409999658974948"
-
-[[files]]
-file = "resourcepacks/Refined Buckets 2.4.1.zip"
-hash = "198748b54fb15bc01883da58aa87da44bd8c15d41fef862613f1adb03bd33637"
-
-[[files]]
 file = "resourcepacks/Theone's Eating Animation Pack v1.0.zip"
 hash = "5d1f2ea9b8af9cd931796c09f2159e119b25db909b0a84269b42fb3c9f55893d"
 
@@ -1089,16 +1077,8 @@ file = "resourcepacks/§3Fresh §bFlower Pots.zip"
 hash = "2c566bc61e40c8aee17106487322f9e91360a4fa29fcc405833bcbeb0150fafd"
 
 [[files]]
-file = "resourcepacks/§5§lModded §f§lContainers§8.zip"
-hash = "790ed40150f27989f6343c356ffc8bc1f0ccb3d8b9ff4855f00235f949333928"
-
-[[files]]
 file = "resourcepacks/§5§lNo Enchant Glint §f§l26.2.zip"
 hash = "46f2630fe76ec7dbc95c8ca54b09ad1a88812bf6e38fcbf5034b8c67320ffe23"
-
-[[files]]
-file = "resourcepacks/§f§lActually §6§l3D §fBlocks & Items!§7.zip"
-hash = "0df22f984e62f4c9d25132e52103e201971a5ba5c2aeed091a4db0d8b0c30d88"
 
 [[files]]
 file = "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip"
