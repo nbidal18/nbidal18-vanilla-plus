@@ -158,6 +158,18 @@ try {
     $waypointFile = Join-Path $keptWaypoints 'waypoints.txt'
     [IO.File]::WriteAllText($waypointFile, "waypoint:Keep me:K:1:2:3")
 
+    # Every marker the sweep has ever written, planted before the sync. A fresh instance cannot show
+    # the failure that matters: these caches describe terrain, so they go stale every time the world
+    # is regenerated, and the sweep is one-time per token. v1.0.23 cleared the world a second time
+    # without bumping the token, so the sweep did nothing on every instance that already carried
+    # v1.0.20's marker - which was all of them. Planting them here means the release either brings a
+    # token no instance has seen or this fails.
+    $stateDir = Join-Path $minecraft '.nbidal18-packwiz'
+    New-Item -ItemType Directory -Path $stateDir -Force | Out-Null
+    foreach ($old in @('retired-files-v1020')) {
+        [IO.File]::WriteAllText((Join-Path $stateDir ("applied-" + $old)), $old)
+    }
+
     $firstSync = Invoke-Sync 'sync 1'
 
     Assert (-not (Test-Path -LiteralPath (Join-Path $minecraft '.voxy'))) `

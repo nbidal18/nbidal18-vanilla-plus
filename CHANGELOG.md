@@ -5,6 +5,41 @@ build that was not published.
 
 ---
 
+## v1.0.24
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-31 | see below | `ce533358b06bf4ca` | `5fa65eb35b61f409` | 275 | 128 |
+
+**The client cache sweep runs again, for the second world wipe.**
+
+v1.0.20 cleared `.voxy` and `xaero/world-map` because the world had been regenerated. The world was
+then cleared a second time for v1.0.23's structure spacing - and the sweep did nothing, on every
+instance, because it is one-time per token and every instance already held v1.0.20's marker. So
+Voxy kept drawing far terrain, and Xaero kept drawing map tiles, for a world that no longer exists.
+
+The token is now `retired-files-v1024`. Waypoints are untouched, as before.
+
+### The comment was half the bug
+
+It said the token is bumped *whenever an entry is added to the list*, and that is what was done -
+the list had not changed, so nothing was bumped. But both entries are caches **describing terrain**,
+so they go stale every time that terrain is replaced, list unchanged. The comment now says so.
+
+### The test could not have caught it
+
+`Test-LocalSync` sweeps a fresh instance, which has no marker, so the sweep always fired there and
+always passed. It now plants every token the sweep has ever written before syncing, so a release
+that reuses a token fails instead of shipping. Confirmed by planting `retired-files-v1024` as well
+and watching it fail with exactly the symptom players would have had.
+
+`Test-DedicatedServer` was not re-run: nothing server-side changed but the helper's version stamp,
+and the deploy verifies that by hash.
+
+**Players need only click Play** - the sweep names each cache and shows its progress.
+
+---
+
 ## v1.0.23
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

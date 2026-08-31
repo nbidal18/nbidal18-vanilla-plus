@@ -243,8 +243,15 @@ public final class Nbidal18PackwizSync {
      * Bumped whenever an entry is added above, because the marker below records that the sweep has
      * already run. Without a new token, an instance that applied the previous list would skip the
      * new entries permanently.
+     *
+     * <p><b>Also bumped whenever the world is regenerated, with the list unchanged.</b> Both entries
+     * above are caches describing terrain, so they go stale every time that terrain is replaced, not
+     * only when this list grows. v1.0.20 swept them for the first chunk wipe; the world was then
+     * cleared a second time for v1.0.23's structure spacing and the sweep did not run, because every
+     * instance already held the v1.0.20 marker. That leaves Voxy drawing far terrain, and Xaero
+     * drawing map tiles, for a world that no longer exists.
      */
-    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1020";
+    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1024";
 
     private final Path minecraftRoot;
     private final Path stateRoot;

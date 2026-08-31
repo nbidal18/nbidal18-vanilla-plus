@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.23",
+    "packVersion":  "1.0.24",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -337,7 +337,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "a2a4f5525d2b5631801a2eb9bd3f99b0ddb56560fafce9e4830e4013d6524151"
+                                    "sha256":  "cd01c24f3bd6dacafc078dacb432d786546ca0f5b3b81471ee8dc20d17dbbb68"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -819,7 +819,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "a2a4f5525d2b5631801a2eb9bd3f99b0ddb56560fafce9e4830e4013d6524151"
+                      "sha256":  "cd01c24f3bd6dacafc078dacb432d786546ca0f5b3b81471ee8dc20d17dbbb68"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1622,8 +1622,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.23+26.2-fabric.jar",
-                      "sha256":  "fb22fee08c14baaa7f6474063666022d2b861c5b5001785c1281f40317cff501"
+                      "path":  "mods/nbidal18-integrity-1.0.24+26.2-fabric.jar",
+                      "sha256":  "55e6d4f170a344a200e4ef0d30d2d55f94ed80fdd6cd9267d1927a855d52b817"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1795,7 +1795,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "7581fca84c4133ffabc141383530da5b65b48f4dc9df2d40552ecc63fddf314a"
+                      "sha256":  "17187b74a1ee95415ab37a21aa34dd4902fd3cfff4c5df187db18cfec9da359e"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",
