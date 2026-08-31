@@ -5,6 +5,40 @@ build that was not published.
 
 ---
 
+## v1.0.29
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-31 | see below | `0a1c06ae4da331ae` | `b0c7bd8277a4139b` | 275 | 128 |
+
+**3D Maps is out, and Recolourful Containers is back.**
+
+### 3D Maps removed
+
+It reads badly under this pack's shaders, which is the one thing the stock trial in v1.0.26 existed
+to find out. Removed from the client and the server; the pack no longer carries `maps3d`.
+
+`nbidal18-3dmaps` goes with it - a fork of a mod the pack does not ship is only a trap for whoever
+reads it next. Nothing is lost: v.1.0.28's release folder keeps the full source, and the two
+findings behind it are recorded in this file. The patch was never the problem - it built, the server
+booted with it, and both mixins applied.
+
+**Any map you filled while the patch was live keeps its data.** `Map3DSavedData` persists a volume
+per map and never re-captures a column it already has, so those maps stayed trimmed in the middle
+and filled in at the edges as you explored. With the mod gone they are inert either way.
+
+### Recolourful Containers back, on its own
+
+Vanilla containers are coloured again, back in its old place just below Compact Font. Modded GUIs -
+the aircraft, the backpack - stay plain: Modded Containers is not compatible with 26.2 as shipped,
+and the backpack tint did not match Recolourful's per-region recolouring.
+
+**Actually 3D Blocks & Items** remains the single 3D pack.
+
+**Players need only click Play.**
+
+---
+
 ## v1.0.28
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

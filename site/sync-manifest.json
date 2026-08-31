@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.28",
+    "packVersion":  "1.0.29",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -339,7 +339,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "40efe2b4125eccd1c2b4f7599450ed3e0be0741c175b95e12e05e996f8df46d6"
+                                    "sha256":  "706118f82f4af068f779441af7250f19b235b1e2ae002c33c7ece79cde564efb"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -825,7 +825,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "40efe2b4125eccd1c2b4f7599450ed3e0be0741c175b95e12e05e996f8df46d6"
+                      "sha256":  "706118f82f4af068f779441af7250f19b235b1e2ae002c33c7ece79cde564efb"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1288,10 +1288,6 @@
                       "sha256":  "869457ea7a5f78803c7003b694cba54a95c9176b3632f327f7a74a99a62ea454"
                   },
                   {
-                      "path":  "mods/3d-maps-0.8.2.jar",
-                      "sha256":  "a58cea1502862054876f988decda248615e4e2322e988a44a107eac51339636b"
-                  },
-                  {
                       "path":  "mods/AmbientSounds_FABRIC_v6.3.6_mc26.2.jar",
                       "sha256":  "f59a8c076896d5f7666adf6b7b3370a6729ee5fa986ddae5f4da17c57f5141e4"
                   },
@@ -1636,8 +1632,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.28+26.2-fabric.jar",
-                      "sha256":  "cb08bc2d8c914921ba91b1e67ebb6b1b1dba243722d8772eb19b12dd07e15e03"
+                      "path":  "mods/nbidal18-integrity-1.0.29+26.2-fabric.jar",
+                      "sha256":  "311f317bb57e90d95835881d86a4b821653035e0020d8bae093958882b091119"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1813,7 +1809,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "3c91e243ab247c65c53408ceb10aaa14a5e0cd99a17e916fcb389ca5bdfba4ac"
+                      "sha256":  "f7df75a133f113f6c357efe7427cd73aac97d23e5ab9cf9ef83197d405950f9b"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",
@@ -1862,6 +1858,10 @@
                   {
                       "path":  "resourcepacks/Overlay’s.zip",
                       "sha256":  "ac40030dd211be141e42b445f0aee77591dbf46ad1e1f5066f6ddace2925806a"
+                  },
+                  {
+                      "path":  "resourcepacks/Recolourful Containers 3.1.3 (1.19.4+).zip",
+                      "sha256":  "fe14f85cf5c551fb1d0f122d7fa07a4b371186f15e23b467a409999658974948"
                   },
                   {
                       "path":  "resourcepacks/Theone\u0027s Eating Animation Pack v1.0.zip",

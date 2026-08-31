@@ -22,7 +22,7 @@ hash = "d954976cca7faa29db88894517863098c237debf838e7fd725642e9030e3f238"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "40efe2b4125eccd1c2b4f7599450ed3e0be0741c175b95e12e05e996f8df46d6"
+hash = "706118f82f4af068f779441af7250f19b235b1e2ae002c33c7ece79cde564efb"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -485,10 +485,6 @@ file = "config/zfastnoise.mixin.toml"
 hash = "869457ea7a5f78803c7003b694cba54a95c9176b3632f327f7a74a99a62ea454"
 
 [[files]]
-file = "mods/3d-maps-0.8.2.jar"
-hash = "a58cea1502862054876f988decda248615e4e2322e988a44a107eac51339636b"
-
-[[files]]
 file = "mods/AmbientSounds_FABRIC_v6.3.6_mc26.2.jar"
 hash = "f59a8c076896d5f7666adf6b7b3370a6729ee5fa986ddae5f4da17c57f5141e4"
 
@@ -833,8 +829,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.28+26.2-fabric.jar"
-hash = "cb08bc2d8c914921ba91b1e67ebb6b1b1dba243722d8772eb19b12dd07e15e03"
+file = "mods/nbidal18-integrity-1.0.29+26.2-fabric.jar"
+hash = "311f317bb57e90d95835881d86a4b821653035e0020d8bae093958882b091119"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -1010,7 +1006,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "3c91e243ab247c65c53408ceb10aaa14a5e0cd99a17e916fcb389ca5bdfba4ac"
+hash = "f7df75a133f113f6c357efe7427cd73aac97d23e5ab9cf9ef83197d405950f9b"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -1059,6 +1055,10 @@ hash = "13fa9c58de7beb6ce8a12e3231e9d0b3f54b7032e1b3fd4e68f0c198b8cd3b4b"
 [[files]]
 file = "resourcepacks/Overlay’s.zip"
 hash = "ac40030dd211be141e42b445f0aee77591dbf46ad1e1f5066f6ddace2925806a"
+
+[[files]]
+file = "resourcepacks/Recolourful Containers 3.1.3 (1.19.4+).zip"
+hash = "fe14f85cf5c551fb1d0f122d7fa07a4b371186f15e23b467a409999658974948"
 
 [[files]]
 file = "resourcepacks/Theone's Eating Animation Pack v1.0.zip"
