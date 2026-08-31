@@ -170,6 +170,17 @@ try {
         [IO.File]::WriteAllText((Join-Path $stateDir ("applied-" + $old)), $old)
     }
 
+    # "Published once, preserved forever" starts counting at the FIRST delivery, so a player-class
+    # file that already exists is still replaced the one time the pack starts publishing it. That is
+    # what makes the aircraft keybind fix reach people who are already playing, and it is worth
+    # pinning down: the obvious reading - that an existing file is never touched - would mean the
+    # fix silently missed every current player, and a fresh instance cannot tell the two apart.
+    $aircraftDir = Join-Path $minecraft 'config'
+    New-Item -ItemType Directory -Path $aircraftDir -Force | Out-Null
+    $aircraftConfig = Join-Path $aircraftDir 'immersive_aircraft.json'
+    [IO.File]::WriteAllText($aircraftConfig,
+        "{`n  `"useCustomKeybindSystem`": true,`n  `"enableTrails`": false`n}`n")
+
     $firstSync = Invoke-Sync 'sync 1'
 
     Assert (-not (Test-Path -LiteralPath (Join-Path $minecraft '.voxy'))) `
@@ -182,6 +193,15 @@ try {
     # Deleting several gigabytes silently reads as a hang, so the sweep has to say what it is doing
     # by name. Asserted rather than assumed: a status line that quietly stops being emitted would
     # otherwise only show up as a player watching a frozen updater.
+    $aircraftAfter = [IO.File]::ReadAllText($aircraftConfig)
+    Assert ($aircraftAfter -match '"useCustomKeybindSystem"\s*:\s*false') `
+        'an instance that already had immersive_aircraft.json kept useCustomKeybindSystem on - aircraft controls stay dead in every screen for everyone already playing'
+    Assert ($aircraftAfter -match '"fuelConsumption"') `
+        'immersive_aircraft.json was not replaced by the published copy - only the planted stub is there'
+    if ($aircraftAfter -match '"useCustomKeybindSystem"\s*:\s*false') {
+        Write-Host 'published immersive_aircraft.json replaced, now on the vanilla movement keys'
+    }
+
     $swept = @($firstSync | Where-Object { $_ -match "Clearing Voxy's far-terrain cache" })
     Assert ($swept.Count -gt 0) `
         'the sweep removed the caches without announcing it - the updater would look frozen'

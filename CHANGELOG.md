@@ -5,6 +5,51 @@ build that was not published.
 
 ---
 
+## v1.0.25
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-31 | see below | `592006cd06c62322` | `ce533358b06bf4ca` | 276 | 128 |
+
+**Aircraft controls work with a screen open.** Confirmed in game on a gyrodyne.
+
+### It was never a screen list
+
+v1.0.19 and v1.0.20 approached this as "which screens should allow movement", and that was the
+wrong question - the aircraft never asks InvMove anything. `KeyBindings` picks between two entirely
+different control systems on one flag, `useCustomKeybindSystem`:
+
+- **true**, the mod's default: the aircraft builds its **own** key objects,
+  `key.immersive_aircraft.multi_control_*`, and `VehicleEntity.tickPilot` polls those directly.
+  InvMove has never heard of them, so nothing it does can help.
+- **false**: those same bindings delegate to `options.keyUp / keyLeft / keyJump / keyShift` - the
+  vanilla movement keys, which are exactly what InvMove already drives while a screen is open.
+
+The pack never shipped this config, so everyone got `true`. It now ships with `false`. Defaults are
+identical either way, which is why nothing else changes - and it explains why boats and walking
+always worked: those *are* vanilla keys.
+
+### Classified `player`, and that is what makes it reach people
+
+The same file carries genuine preferences - third person, trails, render distance - so hash-enforcing
+it would stop a player turning trails off. It is not `support` either, which would restore it on
+every sync.
+
+**"Published once, preserved forever" starts at the first delivery**, so a player-class file that
+already exists is still replaced the one time the pack begins publishing it. That is what carries
+this to everyone already playing - and it means a player's own Immersive Aircraft settings are
+replaced on this update, once.
+
+That behaviour is now pinned by a test. `Test-LocalSync` plants the mod's default in the instance
+before syncing and asserts the published copy replaced it; the opposite reading - that an existing
+file is never touched - would have meant this fix silently missed every current player, and a fresh
+instance cannot tell the two apart. A seed written on that wrong assumption was removed rather than
+left in as dead belt-and-braces.
+
+**Players need only click Play.**
+
+---
+
 ## v1.0.24
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

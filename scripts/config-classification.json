@@ -246,6 +246,11 @@
       "reason": "Shader exclusions."
     },
     {
+      "match": "config/immersive_aircraft.json",
+      "class": "player",
+      "reason": "Immersive Aircraft settings. Published so the file exists at all - the mod otherwise writes its own on first launch, and its default useCustomKeybindSystem=true builds the aircraft its own key objects, which InvMove has never heard of, so no aircraft control works while any screen is open. Player class rather than gameplay because the same file carries genuine preferences - third person by default, trails, render distance - and the values that matter for fairness are read server-side from the server's own copy. Player class still delivers this file once to instances that already have one - preserved-forever starts after that first delivery - so no seed is needed, but it does mean a player's own Immersive Aircraft settings are replaced on the update that introduces it."
+    },
+    {
       "match": "config/iris.properties",
       "class": "player",
       "reason": "Selected shader pack and shader toggles."

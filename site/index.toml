@@ -22,7 +22,7 @@ hash = "d954976cca7faa29db88894517863098c237debf838e7fd725642e9030e3f238"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "cd01c24f3bd6dacafc078dacb432d786546ca0f5b3b81471ee8dc20d17dbbb68"
+hash = "24db8338a08dff3b8a053d79d36099cd7e713a57af2e4e7211c3228f9d1a6690"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -135,6 +135,10 @@ hash = "5670885d277274a734abdd065cd55f9c43a770b473353a420686d450b6259ef4"
 [[files]]
 file = "config/immediatelyfast.json"
 hash = "351554b5d847acfb0dcdd05a93b5b93f27035178bcbde4d5193b4dc5a5a2f11b"
+
+[[files]]
+file = "config/immersive_aircraft.json"
+hash = "2c31cc24f644b7d28b68f5dabe5f66d5b2197309abdb1cca6153d3f26148aeea"
 
 [[files]]
 file = "config/invmove.json"
@@ -825,8 +829,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.24+26.2-fabric.jar"
-hash = "55e6d4f170a344a200e4ef0d30d2d55f94ed80fdd6cd9267d1927a855d52b817"
+file = "mods/nbidal18-integrity-1.0.25+26.2-fabric.jar"
+hash = "404c6b0e6ed1e4090ba001ff8800df145096c923e388297ea13ea89cc39147f9"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"

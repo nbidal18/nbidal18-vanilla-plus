@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.24",
+    "packVersion":  "1.0.25",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -14,6 +14,7 @@
     "runtimeMutableRoots":  [
                                 "config/autohud.json5",
                                 "config/fzzy_config/keybinds.toml",
+                                "config/immersive_aircraft.json",
                                 "config/iris.properties",
                                 "config/nbidal18-vanillarefresh.json",
                                 "config/sodium-fingerprint.json",
@@ -127,6 +128,7 @@
     "localAllowed":  [
                          "config/autohud.json5",
                          "config/fzzy_config/keybinds.toml",
+                         "config/immersive_aircraft.json",
                          "config/iris.properties",
                          "config/nbidal18-vanillarefresh.json",
                          "config/sodium-fingerprint.json",
@@ -337,7 +339,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "cd01c24f3bd6dacafc078dacb432d786546ca0f5b3b81471ee8dc20d17dbbb68"
+                                    "sha256":  "24db8338a08dff3b8a053d79d36099cd7e713a57af2e4e7211c3228f9d1a6690"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -450,6 +452,10 @@
                                 {
                                     "path":  "config/immediatelyfast.json",
                                     "sha256":  "351554b5d847acfb0dcdd05a93b5b93f27035178bcbde4d5193b4dc5a5a2f11b"
+                                },
+                                {
+                                    "path":  "config/immersive_aircraft.json",
+                                    "sha256":  "2c31cc24f644b7d28b68f5dabe5f66d5b2197309abdb1cca6153d3f26148aeea"
                                 },
                                 {
                                     "path":  "config/invmove.json",
@@ -819,7 +825,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "cd01c24f3bd6dacafc078dacb432d786546ca0f5b3b81471ee8dc20d17dbbb68"
+                      "sha256":  "24db8338a08dff3b8a053d79d36099cd7e713a57af2e4e7211c3228f9d1a6690"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -932,6 +938,10 @@
                   {
                       "path":  "config/immediatelyfast.json",
                       "sha256":  "351554b5d847acfb0dcdd05a93b5b93f27035178bcbde4d5193b4dc5a5a2f11b"
+                  },
+                  {
+                      "path":  "config/immersive_aircraft.json",
+                      "sha256":  "2c31cc24f644b7d28b68f5dabe5f66d5b2197309abdb1cca6153d3f26148aeea"
                   },
                   {
                       "path":  "config/invmove.json",
@@ -1622,8 +1632,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.24+26.2-fabric.jar",
-                      "sha256":  "55e6d4f170a344a200e4ef0d30d2d55f94ed80fdd6cd9267d1927a855d52b817"
+                      "path":  "mods/nbidal18-integrity-1.0.25+26.2-fabric.jar",
+                      "sha256":  "404c6b0e6ed1e4090ba001ff8800df145096c923e388297ea13ea89cc39147f9"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
