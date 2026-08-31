@@ -70,7 +70,17 @@ if ($Pull) {
     # write them back.
     foreach ($item in @('mods', 'config')) {
         $local = Join-Path $MirrorRoot $item
-        if (-not (Test-Path -LiteralPath $local)) { New-Item -ItemType Directory -Path $local | Out-Null }
+        # Emptied first, so every file is fetched rather than compared. WinSCP's synchronize skips a
+        # local file that is NEWER than the remote one, and Deploy-LiveServer rehearses by writing
+        # into this mirror - so every file a rehearsal touched was newer than the server's, and a
+        # pull silently left the rehearsal's own output in place and called it the server's state.
+        #
+        # That is how a mirror came to report spreadFactor 7 while the server sat at 2. The next
+        # deploy would have compared against that, found it already correct, and skipped the one
+        # file the release existed to deliver. Re-fetching costs about sixty megabytes and takes
+        # seconds; believing a stale mirror costs a release.
+        if (Test-Path -LiteralPath $local) { Remove-Item -LiteralPath $local -Recurse -Force }
+        New-Item -ItemType Directory -Path $local | Out-Null
         # -criteria=either (time or size), not size alone. The integrity policy is 352 bytes before
         # and after a release and the MOTD line keeps its length, so a size comparison skips exactly
         # the two files a deploy changes, and the mirror then reports our own writes back to us as
