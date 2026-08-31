@@ -23,6 +23,15 @@
 param(
     [Parameter(ParameterSetName = 'Pull')]  [switch] $Pull,
     [Parameter(ParameterSetName = 'Push')]  [switch] $Push,
+    # Read-only remote directory listing, for the things the mirror deliberately never copies - the
+    # world above all. Diagnosing anything in there otherwise means typing WinSCP commands by hand,
+    # which is how the one step that touches the server ended up with no script behind it.
+    # Listing is safe while the server is running; it writes nothing.
+    [Parameter(ParameterSetName = 'List')]  [string] $List,
+    # Read-only fetch of one remote file to a scratch path, for the same reason as -List: reading a
+    # log or a world-folder file to diagnose something should not mean hand-typed WinSCP.
+    [Parameter(ParameterSetName = 'Get')]   [string] $Get,
+    [Parameter(ParameterSetName = 'Get')]   [string] $To,
     [Parameter(ParameterSetName = 'Push')]  [string[]] $Files,
     # Deleting is named separately from copying and is never inferred. A superseded helper has to
     # go - two jars claiming one mod id and the loader picks one - but nothing here should ever
@@ -102,6 +111,21 @@ if ($Pull) {
         $lines.Add("get `"$RemoteRoot$file`" `"$target`"")
     }
     Write-Host ("pull      mods, config and server.properties -> {0}" -f $MirrorRoot)
+}
+
+if ($List) {
+    $remote = $List.Replace([IO.Path]::DirectorySeparatorChar, [char]47)
+    if (-not $remote.StartsWith('/')) { $remote = $RemoteRoot + $remote }
+    $lines.Add("ls `"$remote`"")
+    Write-Host ("list      {0}" -f $remote)
+}
+
+if ($Get) {
+    $remote = $Get.Replace([IO.Path]::DirectorySeparatorChar, [char]47)
+    if (-not $remote.StartsWith('/')) { $remote = $RemoteRoot + $remote }
+    if (-not $To) { $To = Join-Path ([IO.Path]::GetTempPath()) (Split-Path $remote -Leaf) }
+    $lines.Add("get `"$remote`" `"$To`"")
+    Write-Host ("get       {0} -> {1}" -f $remote, $To)
 }
 
 if ($Push) {
