@@ -42,6 +42,10 @@ $mods = @(
     @{ Name = 'nbidal18-xaerominimap'; Generator = $null; Builder = 'build_xaerominimap.py' },
     @{ Name = 'nbidal18-xaeroworldmap'; Generator = $null; Builder = 'build_xaeroworldmap.py' },
     @{ Name = 'nbidal18-betterfishing'; Generator = $null; Builder = 'patch_betterfishing.py' },
+    # Its generator samples the 44 backpack textures out of the mod's own jar and bakes a colour
+    # table, so a backpack added by a mod update is themed by the next build with nobody picking
+    # a colour for it. Needs Pillow, and says so rather than shipping a stale table.
+    @{ Name = 'nbidal18-travelersbackpack'; Generator = 'generate_backpack_colors.py'; Builder = 'build_travelersbackpack.py' },
     # Data only - no src\, so no javac. Its builder reads the vanilla loot table out of the game jar
     # and edits it, which is why it needs no classpath either.
     @{ Name = 'nbidal18-tectonic'; Generator = $null; Builder = 'build_tectonic.py' }

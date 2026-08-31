@@ -199,16 +199,18 @@ public final class Nbidal18PackwizSync {
             new PlayerFileSeed("config/voxy-config.json", ':', "voxy-default-off-v1017", List.of(
                     SeedRow.of("enabled", "false"),
                     SeedRow.of("section_render_distance", "1.0"))),
-            // Refined Buckets, added in v1.0.22. Neither 3D pack in this list contains a single
-            // bucket model - checked, both are zero - so buckets were the one item group still flat
-            // while everything around them was not.
+            // Modded Containers v6 sits directly BELOW Recolourful Containers. It overrides 115
+            // vanilla files, 14 of which Recolourful also replaces, and later in this list wins -
+            // so below it, Recolourful keeps every vanilla container while Modded Containers still
+            // supplies the modded namespaces. That ordering is the only reason an addon built for a
+            // different GUI family can be used here at all.
             //
-            // Later in this list wins, so it sits directly after the two 3D packs and overrides
-            // them. It has to be a fresh token and the whole row restated: resourcepacks-v1010 has
-            // already fired on every instance, and a seed sets a row rather than editing it.
-            new PlayerFileSeed("options.txt", ':', "resourcepacks-v1022", List.of(
+            // Refined Buckets keeps its place directly after the two 3D packs, which contain no
+            // bucket model between them. A fresh token and the whole row restated, because a seed
+            // sets a row rather than editing it and every earlier token has already fired.
+            new PlayerFileSeed("options.txt", ':', "resourcepacks-v1026", List.of(
                     SeedRow.of("resourcePacks",
-                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/3D Default 1.21.2+ v1.15.0.zip\",\"file/§f§lActually §6§l3D §fBlocks \\u0026 Items!§7.zip\",\"file/Refined Buckets 2.4.1.zip\",\"file/Os\\u0027 Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/Theone\\u0027s Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/Recolourful Containers 3.1.3 (1.19.4+).zip\",\"file/Compact Font.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"))));
+                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/3D Default 1.21.2+ v1.15.0.zip\",\"file/§f§lActually §6§l3D §fBlocks & Items!§7.zip\",\"file/Refined Buckets 2.4.1.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/Theone's Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/§5§lModded §f§lContainers§8.zip\",\"file/Recolourful Containers 3.1.3 (1.19.4+).zip\",\"file/Compact Font.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"))));
 
         /**
      * Empty on purpose, and it must stay that way until a mod is actually retired from THIS

@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.25",
+    "packVersion":  "1.0.26",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -339,7 +339,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "24db8338a08dff3b8a053d79d36099cd7e713a57af2e4e7211c3228f9d1a6690"
+                                    "sha256":  "017cdddf3b913bf9ef38ab14511eb6e4b16f79a606a124ebbcf9e3e4f10cfa5f"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -825,7 +825,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "24db8338a08dff3b8a053d79d36099cd7e713a57af2e4e7211c3228f9d1a6690"
+                      "sha256":  "017cdddf3b913bf9ef38ab14511eb6e4b16f79a606a124ebbcf9e3e4f10cfa5f"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1288,6 +1288,10 @@
                       "sha256":  "869457ea7a5f78803c7003b694cba54a95c9176b3632f327f7a74a99a62ea454"
                   },
                   {
+                      "path":  "mods/3d-maps-0.8.2.jar",
+                      "sha256":  "a58cea1502862054876f988decda248615e4e2322e988a44a107eac51339636b"
+                  },
+                  {
                       "path":  "mods/AmbientSounds_FABRIC_v6.3.6_mc26.2.jar",
                       "sha256":  "f59a8c076896d5f7666adf6b7b3370a6729ee5fa986ddae5f4da17c57f5141e4"
                   },
@@ -1632,8 +1636,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.25+26.2-fabric.jar",
-                      "sha256":  "404c6b0e6ed1e4090ba001ff8800df145096c923e388297ea13ea89cc39147f9"
+                      "path":  "mods/nbidal18-integrity-1.0.26+26.2-fabric.jar",
+                      "sha256":  "dbb3b81f42604709a51bdf599360159d87abfe7aa6ff869c0b13d07201f8761d"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1642,6 +1646,10 @@
                   {
                       "path":  "mods/nbidal18-tectonic-1.0.0+26.2-fabric.jar",
                       "sha256":  "ad7773d915ff1f44aebd38a2167bb4730fde70cbf1f766892f3dbab7d7ec5152"
+                  },
+                  {
+                      "path":  "mods/nbidal18-travelersbackpack-1.0.0+26.2-fabric.jar",
+                      "sha256":  "d7bfa4485aa6924301634c4c4350961d36ba79cc2b72e1613d0d5f99364363a6"
                   },
                   {
                       "path":  "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar",
@@ -1805,7 +1813,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "17187b74a1ee95415ab37a21aa34dd4902fd3cfff4c5df187db18cfec9da359e"
+                      "sha256":  "68816ab29a92f16396ebbe4ed5c79d129aaee3b32b4d315b30a90ef35ad1fe49"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",
@@ -1882,6 +1890,10 @@
                   {
                       "path":  "resourcepacks/§3Fresh §bFlower Pots.zip",
                       "sha256":  "2c566bc61e40c8aee17106487322f9e91360a4fa29fcc405833bcbeb0150fafd"
+                  },
+                  {
+                      "path":  "resourcepacks/§5§lModded §f§lContainers§8.zip",
+                      "sha256":  "790ed40150f27989f6343c356ffc8bc1f0ccb3d8b9ff4855f00235f949333928"
                   },
                   {
                       "path":  "resourcepacks/§5§lNo Enchant Glint §f§l26.2.zip",

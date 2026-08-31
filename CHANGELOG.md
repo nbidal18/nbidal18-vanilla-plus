@@ -5,6 +5,59 @@ build that was not published.
 
 ---
 
+## v1.0.26
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-31 | see below | `cf4890137dc2328e` | `592006cd06c62322` | 279 | 129 |
+
+**Modded container GUIs get colour, and 3D Maps goes in for evaluation.**
+
+### The backpack panel now matches the backpack
+
+Recolourful Containers colours every vanilla container after the block it belongs to, which left
+Traveler's Backpack as the one screen still flat grey - and it was only noticeable *because* the
+vanilla ones had been coloured.
+
+No resource pack can fix it. The mod draws one background texture for all 44 backpacks, and a dyed
+backpack carries an arbitrary RGB value, so there is no finite set of textures anyone could author.
+Every pack that targets this mod is dark-mode, or 4x resolution, or stops at 1.20.2.
+
+`nbidal18-travelersbackpack` tints the panel instead. A dyed backpack uses its dye; anything else
+uses the colour **sampled from that backpack's own texture at build time** - bee yellow, diamond
+cyan, creeper green, standard dark brown, netherite grey. `generate_backpack_colors.py` reads all 44
+textures out of the mod's jar, so a backpack added by a future update is themed by the next build
+with nobody choosing a colour for it.
+
+Brightness is normalised into a readable band while hue and saturation are left alone: the panel is
+`#C6C6C6`, and an unmodified standard-backpack brown would render the inventory nearly black. Slots
+stay vanilla grey for free, because `slots.png` is a separate texture the tint never reaches.
+
+### The aircraft screen
+
+**Modded Containers v6** (light) covers `immersive_aircraft`. It declares pack formats 30-99, so
+26.2 loads it without a compatibility warning.
+
+It sits **directly below Recolourful** in the pack list, and that ordering is load-bearing: it
+overrides 115 vanilla files, 14 of which Recolourful also replaces. Below it, Recolourful keeps every
+vanilla container and Modded Containers still supplies the modded namespaces - which is the only
+reason an addon built for a different GUI family works alongside this one.
+
+### 3D Maps, stock and unpatched
+
+**Maps in item frames render as 3D terrain.** Installed as shipped, to confirm it works with this
+pack's shaders before any work goes into it.
+
+**It can currently be used to find ores.** Its cutaway defaults to y=48 and can be dragged to -64,
+and the volume it captures genuinely includes what is underground. That is a known, temporary state:
+the next release patches the server-side capture to record one surface block per column, after which
+the data simply does not exist to reveal. Shipping it stock first is deliberate - there is no point
+patching a mod that turns out to render wrong on these shaders.
+
+**Players need only click Play.**
+
+---
+
 ## v1.0.25
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

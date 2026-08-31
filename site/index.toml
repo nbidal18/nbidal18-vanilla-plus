@@ -22,7 +22,7 @@ hash = "d954976cca7faa29db88894517863098c237debf838e7fd725642e9030e3f238"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "24db8338a08dff3b8a053d79d36099cd7e713a57af2e4e7211c3228f9d1a6690"
+hash = "017cdddf3b913bf9ef38ab14511eb6e4b16f79a606a124ebbcf9e3e4f10cfa5f"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -485,6 +485,10 @@ file = "config/zfastnoise.mixin.toml"
 hash = "869457ea7a5f78803c7003b694cba54a95c9176b3632f327f7a74a99a62ea454"
 
 [[files]]
+file = "mods/3d-maps-0.8.2.jar"
+hash = "a58cea1502862054876f988decda248615e4e2322e988a44a107eac51339636b"
+
+[[files]]
 file = "mods/AmbientSounds_FABRIC_v6.3.6_mc26.2.jar"
 hash = "f59a8c076896d5f7666adf6b7b3370a6729ee5fa986ddae5f4da17c57f5141e4"
 
@@ -829,8 +833,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.25+26.2-fabric.jar"
-hash = "404c6b0e6ed1e4090ba001ff8800df145096c923e388297ea13ea89cc39147f9"
+file = "mods/nbidal18-integrity-1.0.26+26.2-fabric.jar"
+hash = "dbb3b81f42604709a51bdf599360159d87abfe7aa6ff869c0b13d07201f8761d"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -839,6 +843,10 @@ hash = "ddb25fdd66ee853231d0246eb6d703d6aa7a184a78398f0db52c65eb6fdec7a0"
 [[files]]
 file = "mods/nbidal18-tectonic-1.0.0+26.2-fabric.jar"
 hash = "ad7773d915ff1f44aebd38a2167bb4730fde70cbf1f766892f3dbab7d7ec5152"
+
+[[files]]
+file = "mods/nbidal18-travelersbackpack-1.0.0+26.2-fabric.jar"
+hash = "d7bfa4485aa6924301634c4c4350961d36ba79cc2b72e1613d0d5f99364363a6"
 
 [[files]]
 file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
@@ -1002,7 +1010,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "17187b74a1ee95415ab37a21aa34dd4902fd3cfff4c5df187db18cfec9da359e"
+hash = "68816ab29a92f16396ebbe4ed5c79d129aaee3b32b4d315b30a90ef35ad1fe49"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -1079,6 +1087,10 @@ hash = "41d0f1c7ff7008527488b6a00f25db7770122a14aa943f58f33672eeb6b39111"
 [[files]]
 file = "resourcepacks/§3Fresh §bFlower Pots.zip"
 hash = "2c566bc61e40c8aee17106487322f9e91360a4fa29fcc405833bcbeb0150fafd"
+
+[[files]]
+file = "resourcepacks/§5§lModded §f§lContainers§8.zip"
+hash = "790ed40150f27989f6343c356ffc8bc1f0ccb3d8b9ff4855f00235f949333928"
 
 [[files]]
 file = "resourcepacks/§5§lNo Enchant Glint §f§l26.2.zip"
