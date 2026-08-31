@@ -48,6 +48,14 @@ param(
     # afterwards is the same exposure the rest of this script exists to remove. So it stays a
     # decision, and the decision is written down here rather than typed into a file manager.
     [string[]] $AddMods = @(),
+    # Config files, relative to config\, to put on the server from the release's client copy.
+    #
+    # Named rather than synced, because most config genuinely differs: c2me.toml carries the CPU's
+    # own parallelism and the server has fewer cores than any client. But nothing deployed config at
+    # all, and two files paid for it - sparsestructures.json5 sat at the mod's default spreadFactor
+    # of 2 while the pack shipped 5, so the server generated structures at a density nobody chose,
+    # and bcc-common.toml still said v1.0.0 twenty-two releases later.
+    [string[]] $Config = @(),
     [string] $DriveRoot = 'Y:\',
     [int] $TimeoutSec = 8
 )
@@ -189,6 +197,25 @@ foreach ($name in $AddMods) {
     $added += [pscustomobject]@{ Name = $name; Live = $live; Source = $source }
 }
 
+# Unlike -AddMods these may already exist - both files this was written for did - so an existing
+# copy is overwritten rather than refused. One that already matches is dropped from the plan so the
+# report says what will actually change.
+$releaseConfig = Join-Path $release '3. modpack\client\config'
+$configFiles = @()
+foreach ($name in $Config) {
+    $source = Join-Path $releaseConfig $name
+    if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {
+        throw "-Config named $name, which the release does not publish under config\"
+    }
+    $live = Join-Path $configDir $name
+    if ((Test-Path -LiteralPath $live -PathType Leaf) -and
+        (Get-FileHash -LiteralPath $live -Algorithm SHA256).Hash -eq
+        (Get-FileHash -LiteralPath $source -Algorithm SHA256).Hash) {
+        continue
+    }
+    $configFiles += [pscustomobject]@{ Name = $name; Live = $live; Source = $source }
+}
+
 $wantMotd = "motd=v$version - @nbidal18 on Discord"
 $propsText = [IO.File]::ReadAllText($propsPath)
 $motdNow = ([regex]::Match($propsText, '(?m)^motd=.*$')).Value
@@ -205,6 +232,7 @@ else {
     Write-Host ("  jars     none - all {0} shared jars already match" -f $shared.Count)
 }
 foreach ($jar in $added) { Write-Host ("  new jar  {0}" -f $jar.Name) }
+foreach ($cfg in $configFiles) { Write-Host ("  config   {0}" -f $cfg.Name) }
 Write-Host ("           {0} server-only jars untouched, {1} client-only jars not considered" -f $serverOnly, $clientOnly)
 
 if (-not $Apply) {
@@ -253,7 +281,7 @@ foreach ($old in $existingHelpers) {
     if ($old.Name -ne $helperSource.Name) { [IO.File]::Delete($old.FullName) }
 }
 [IO.File]::WriteAllText($propsPath, [regex]::Replace($propsText, '(?m)^motd=.*$', { $wantMotd }))
-foreach ($jar in @($staleShared) + @($added)) {
+foreach ($jar in @($staleShared) + @($added) + @($configFiles)) {
     [IO.File]::WriteAllBytes($jar.Live, [IO.File]::ReadAllBytes($jar.Source))
 }
 
@@ -262,7 +290,7 @@ $failures = New-Object Collections.Generic.List[string]
 $verify = @(
     @{ s = $policySource; d = $policyLive },
     @{ s = $helperSource.FullName; d = (Join-Path $modsDir $helperSource.Name) })
-foreach ($jar in @($staleShared) + @($added)) { $verify += @{ s = $jar.Source; d = $jar.Live } }
+foreach ($jar in @($staleShared) + @($added) + @($configFiles)) { $verify += @{ s = $jar.Source; d = $jar.Live } }
 foreach ($pair in $verify) {
     $a = (Get-FileHash -LiteralPath $pair.s -Algorithm SHA256).Hash
     $b = (Get-FileHash -LiteralPath $pair.d -Algorithm SHA256).Hash
