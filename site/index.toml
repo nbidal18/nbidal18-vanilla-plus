@@ -22,7 +22,7 @@ hash = "d954976cca7faa29db88894517863098c237debf838e7fd725642e9030e3f238"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "84ed44ca81962560959a4d4ebf67b4a98c7f5fa5f34cb0e04cb0e183b97d5fdc"
+hash = "a2a4f5525d2b5631801a2eb9bd3f99b0ddb56560fafce9e4830e4013d6524151"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -394,7 +394,7 @@ hash = "e698f9f2184dad829d45013b85d821abce38a024d47822cbac5846778ca398a2"
 
 [[files]]
 file = "config/sparsestructures.json5"
-hash = "85b353ced421c2a24285067525796100b4876cf3d7cd8be2bf95427aaf54430d"
+hash = "5282e8fa801d0b0adb0a38e2dee83107a01a672cd3a458a7f7b6f86c339d90bc"
 
 [[files]]
 file = "config/status-effect-bars.json"
@@ -825,8 +825,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.22+26.2-fabric.jar"
-hash = "bed2ed6d022d4d77178ee75dbb101d30652d12f9b537c560d8b5d8bd1cc402ce"
+file = "mods/nbidal18-integrity-1.0.23+26.2-fabric.jar"
+hash = "fb22fee08c14baaa7f6474063666022d2b861c5b5001785c1281f40317cff501"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -923,6 +923,10 @@ hash = "2f2678140346e6efe7b1a5497ec9abcb52b107556c29a0be78c22e6880cb6e6b"
 [[files]]
 file = "mods/sparsestructures-fabric-26.2-3.1.4.jar"
 hash = "bbefc0c02b3a5fb92f8b6aad52e2566cafa421eb56b22dcbaaf7181524642dc2"
+
+[[files]]
+file = "mods/spyglass-zoom-2.4.0.jar"
+hash = "46ca2b3c6a5fc7a8b78430df1d7762c697c5f8a9acd124ec55ea08403bee81d0"
 
 [[files]]
 file = "mods/status-effect-bars-1.0.12.jar"

@@ -5,6 +5,47 @@ build that was not published.
 
 ---
 
+## v1.0.23
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-31 | see below | `5fa65eb35b61f409` | `7e776ae95cd7cbf5` | 275 | 128 |
+
+**Structures go to spreadFactor 7, and this time the server gets the file.**
+
+### The server had never been running the pack's value
+
+`config/sparsestructures.json5` shipped `spreadFactor: 5` from v1.0.20, and the live server ran at
+**2** the whole time - the mod's own default, which it wrote itself on first boot because nothing
+ever deployed the file. v1.0.20 deployed ten jars and no config. `Deploy-LiveServer` now takes a
+`-Config` list, hash-verified with the rest; the same sweep found `bcc-common.toml` on the server
+still reading `v1.0.0`, twenty-two releases stale.
+
+So the crowding that prompted this was real, and it was 2 rather than a failure of the mod.
+
+### It does reach modded structures
+
+Read out of the jar: `MakeStructuresSparseFabric` hooks the datapack resource loader and rewrites
+`spacing` and `separation` for **any** resource under `worldgen/structure_set`, in any namespace,
+skipping only `minecraft:concentric_rings` so strongholds keep their ring. Every structure mod here
+ships its sets as JSON - Towns and Towers 3, Structory 5, Structory: Towers 5, Incendium 3,
+Nullscape 3, Better End 12 - and Cristel Lib feeds its configured placements in as a generated
+datapack, through that same loader. Nothing is bypassing it.
+
+What made modded structures look untouched is that their base spacings are far tighter than
+vanilla's: Structory's quiet ruins sit at 23 chunks against a village's 34, so at a factor of 2 they
+were 736 blocks apart. At 7 they are about 2,600, and villages about 3,800.
+
+### Also
+
+**Spyglass Zoom 2.4.0** - scroll to zoom while holding a spyglass. Client-only, no dependencies, so
+the server does not carry it.
+
+**Players need only click Play.** The new spacing applies to chunks generated from the restart
+onward, which is why it goes out against a freshly cleared world.
+
+---
+
 ## v1.0.22
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.22",
+    "packVersion":  "1.0.23",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -337,7 +337,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "84ed44ca81962560959a4d4ebf67b4a98c7f5fa5f34cb0e04cb0e183b97d5fdc"
+                                    "sha256":  "a2a4f5525d2b5631801a2eb9bd3f99b0ddb56560fafce9e4830e4013d6524151"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -709,7 +709,7 @@
                                 },
                                 {
                                     "path":  "config/sparsestructures.json5",
-                                    "sha256":  "85b353ced421c2a24285067525796100b4876cf3d7cd8be2bf95427aaf54430d"
+                                    "sha256":  "5282e8fa801d0b0adb0a38e2dee83107a01a672cd3a458a7f7b6f86c339d90bc"
                                 },
                                 {
                                     "path":  "config/status-effect-bars.json",
@@ -819,7 +819,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "84ed44ca81962560959a4d4ebf67b4a98c7f5fa5f34cb0e04cb0e183b97d5fdc"
+                      "sha256":  "a2a4f5525d2b5631801a2eb9bd3f99b0ddb56560fafce9e4830e4013d6524151"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1191,7 +1191,7 @@
                   },
                   {
                       "path":  "config/sparsestructures.json5",
-                      "sha256":  "85b353ced421c2a24285067525796100b4876cf3d7cd8be2bf95427aaf54430d"
+                      "sha256":  "5282e8fa801d0b0adb0a38e2dee83107a01a672cd3a458a7f7b6f86c339d90bc"
                   },
                   {
                       "path":  "config/status-effect-bars.json",
@@ -1622,8 +1622,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.22+26.2-fabric.jar",
-                      "sha256":  "bed2ed6d022d4d77178ee75dbb101d30652d12f9b537c560d8b5d8bd1cc402ce"
+                      "path":  "mods/nbidal18-integrity-1.0.23+26.2-fabric.jar",
+                      "sha256":  "fb22fee08c14baaa7f6474063666022d2b861c5b5001785c1281f40317cff501"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1720,6 +1720,10 @@
                   {
                       "path":  "mods/sparsestructures-fabric-26.2-3.1.4.jar",
                       "sha256":  "bbefc0c02b3a5fb92f8b6aad52e2566cafa421eb56b22dcbaaf7181524642dc2"
+                  },
+                  {
+                      "path":  "mods/spyglass-zoom-2.4.0.jar",
+                      "sha256":  "46ca2b3c6a5fc7a8b78430df1d7762c697c5f8a9acd124ec55ea08403bee81d0"
                   },
                   {
                       "path":  "mods/status-effect-bars-1.0.12.jar",
