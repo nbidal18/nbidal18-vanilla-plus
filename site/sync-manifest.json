@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.35",
+    "packVersion":  "1.0.36",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -339,7 +339,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "9fafa4134a742fd3a9560e135ccda0a46db4695dcc55694fa3a441e1f0a6e842"
+                                    "sha256":  "e90b7a484c5571bdf45ae956140f2a4607193a69a5e69ea7194cd04b8c46f05e"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -825,7 +825,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "9fafa4134a742fd3a9560e135ccda0a46db4695dcc55694fa3a441e1f0a6e842"
+                      "sha256":  "e90b7a484c5571bdf45ae956140f2a4607193a69a5e69ea7194cd04b8c46f05e"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1640,20 +1640,24 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.35+26.2-fabric.jar",
-                      "sha256":  "2613a20b0bbbfb0a64996b249223136a073efab2300ee779dcd43de125709639"
+                      "path":  "mods/nbidal18-integrity-1.0.36+26.2-fabric.jar",
+                      "sha256":  "cde45659105e1ad68203cda62eed7d1d738845cf37eae45ff2b09ffcfe01a942"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
                       "sha256":  "ddb25fdd66ee853231d0246eb6d703d6aa7a184a78398f0db52c65eb6fdec7a0"
                   },
                   {
-                      "path":  "mods/nbidal18-ixeris-1.0.0+26.2-fabric.jar",
-                      "sha256":  "19e2f2d5d9dd6d85a0a50c117f63fb21c97d68d062de23f05d26aef9c9ff6e3e"
+                      "path":  "mods/nbidal18-mousewheelie-1.0.0+26.2-fabric.jar",
+                      "sha256":  "a299326c4077e6e50a2cd84b8edef0bef6aee2dc7db1ab0b2c00c4cb3537fa24"
+                  },
+                  {
+                      "path":  "mods/nbidal18-skinoverrides-1.0.0+26.2-fabric.jar",
+                      "sha256":  "7336d8dace6b4b0700c2da59cdb562a11776bcdcb6a8380dbe1f9c98a8d68c17"
                   },
                   {
                       "path":  "mods/nbidal18-soundsbegone-1.0.0+26.2-fabric.jar",
-                      "sha256":  "de4082a89f3f0bf681928538789b315193fa542d72c3dad908bbb4db99a64dc6"
+                      "sha256":  "c5f04e5de20c181a83101645e24f2f73e71e42270cf688a3cd5312d24e0c63b0"
                   },
                   {
                       "path":  "mods/nbidal18-tectonic-1.0.0+26.2-fabric.jar",

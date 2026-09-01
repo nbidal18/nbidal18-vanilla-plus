@@ -42,14 +42,23 @@ $mods = @(
     @{ Name = 'nbidal18-xaerominimap'; Generator = $null; Builder = 'build_xaerominimap.py' },
     @{ Name = 'nbidal18-xaeroworldmap'; Generator = $null; Builder = 'build_xaeroworldmap.py' },
     @{ Name = 'nbidal18-betterfishing'; Generator = $null; Builder = 'patch_betterfishing.py' },
-    # Makes SoundsBegone's telemetry threads daemon and never builds its PostHog client, so the
-    # client can exit. Drop this fork the moment upstream calls its own Telemetry.shutdown().
+    # Neutralises BOTH PostHog clients this mod ships - its own, and the one inside the bundled
+    # meza_core library. meza's is the one that mattered: PostHog's sender thread is non-daemon, so
+    # the JVM could not exit and Minecraft's watchdog halted it 15 seconds later, which is a
+    # non-zero exit and why Prism opened its console on every quit. A thread dump names the culprit
+    # in one line; two releases were spent guessing before anyone took one. Drop this fork the
+    # moment upstream calls its own Telemetry.shutdown().
     @{ Name = 'nbidal18-soundsbegone'; Generator = $null; Builder = 'build_soundsbegone.py' },
-    # Ixeris busy-spins in MainThreadDispatcher.runNowImpl with no timeout, so once its event
-    # polling thread exits the render thread spins until Minecraft's watchdog halts the JVM 15
-    # seconds later - a non-zero exit, which is why Prism opened its console on every quit. Drop
-    # this fork when upstream bounds that wait.
-    @{ Name = 'nbidal18-ixeris'; Generator = $null; Builder = 'build_ixeris.py' },
+    # skin_overrides schedules three fixed-rate tasks on a pool with no thread factory, so its
+    # threads are non-daemon: the JVM could not exit and the watchdog halted it 15 seconds later.
+    # Its own cleanup hangs off Util.shutdownExecutors(), which 26.2 no longer reaches on that path,
+    # so this makes the threads daemon instead - correct whenever cleanup runs, or does not.
+    @{ Name = 'nbidal18-skinoverrides'; Generator = $null; Builder = 'build_skinoverrides.py' },
+    # Mouse Wheelie's InteractionManager constructs a ScheduledThreadPoolExecutor in <clinit>
+    # with no thread factory, so non-daemon, and schedules a fixed-rate tick that never ends and
+    # is never shut down. Second of the two threads that stopped the client exiting.
+    @{ Name = 'nbidal18-mousewheelie'; Generator = $null; Builder = 'build_mousewheelie.py' },
+
     # nbidal18-travelersbackpack is deliberately NOT built. Its source stays under `custom mods\`
     # because the work is sound and will be picked up again, but a uniform tint is not what
     # Recolourful does - it recolours a panel region by region - so shipping it looked unfinished

@@ -5,6 +5,62 @@ build that was not published.
 
 ---
 
+## v1.0.36
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-01 | see below | `c514e2bfcfcd` | `3842e2436270` | 283 | 133 |
+
+**The Prism console is fixed, and this time it was measured rather than reasoned about.** Click
+**Play**. Nothing else changes.
+
+### What it actually was
+
+A JVM will not exit while a single **non-daemon** thread is alive. A thread dump taken during the
+hang showed `DestroyJavaVM` - so `main()` had already returned and the game was completely finished -
+with every thread marked daemon except **two** nameless `pool-N-thread-1` threads, both parked
+forever in `DelayedWorkQueue.take`. Minecraft's shutdown watchdog gave up on them after fifteen
+seconds and halted the JVM, and that halt is a non-zero exit, which is exactly what Prism opens its
+console for.
+
+| Mod | | |
+| --- | --- | --- |
+| **skin_overrides** | schedules three `scheduleAtFixedRate` tasks on a pool created with no thread factory | its own cleanup calls `shutdownNow()` from `Util.shutdownExecutors()`, which **26.2 no longer reaches** on that path - stale hook, not a broken one |
+| **Mouse Wheelie** | `new ScheduledThreadPoolExecutor(1)` in `<clinit>`, then a fixed-rate tick | never shut down at all |
+
+No thread factory means `Executors.defaultThreadFactory` - which is what produces the
+`pool-N-thread-M` name and, crucially, a **non-daemon** thread.
+
+`nbidal18-skinoverrides` and `nbidal18-mousewheelie` give each pool a daemon factory. A daemon thread
+never holds the JVM open, whenever - or whether - cleanup runs. Both pools behave identically while
+the game is running.
+
+**Both were verified before shipping**, by dumping the live client's threads and watching each
+nameless pool disappear and its named daemon replacement appear, then by a real quit that produced
+no watchdog line and no crash report.
+
+### Three earlier attempts were wrong, and are corrected here
+
+**`nbidal18-ixeris` is removed entirely.** v1.0.35 claimed Ixeris busy-spun at shutdown. That was
+reasoning from a log tail - Ixeris's "Exiting event polling thread" is simply the last line printed
+before the wait - and it fixed nothing.
+
+**v1.0.27 blamed SoundsBegone's telemetry.** It did not cause this either. That fork stays, because
+it does stop a PostHog client being built and does make its threads daemon, which is worth having on
+its own - but it was never the shutdown fix and this file said otherwise with more confidence than
+the evidence supported.
+
+**This release also neutralises the second PostHog client**, in the `meza_core` library SoundsBegone
+bundles, which v1.0.27 missed. **That is a privacy change, not the shutdown fix** - it was written
+while still chasing the wrong cause, and the dump shows the thread it removes was not the one holding
+the JVM open. Kept for what it actually does.
+
+**The lesson, recorded in the mods' own source:** a thread dump lists every non-daemon thread in one
+line and would have named both culprits on the first day. Three releases were spent guessing at logs
+before anyone took one.
+
+---
+
 ## v1.0.35
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
