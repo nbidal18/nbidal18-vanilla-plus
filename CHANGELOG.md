@@ -5,6 +5,88 @@ build that was not published.
 
 ---
 
+## v1.0.34
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-01 | see below | `9e2b57ba02e0` | `26c3ec426f67` | 281 | 131 |
+
+**The GUI overhaul actually works now**, three mods are added, and Compact Font is out. Click **Play**.
+
+### Three new mods
+
+| | |
+| --- | --- |
+| **Accurate Block Placement Reborn 1.4.6** | client only - placing blocks while moving lands where you aimed |
+| **Bridging Mod 2.7.0** | client only - crosshair and outline help when bridging |
+| **The Block Keeps Ticking 1.2.1** | **client and server** - crops, furnaces, campfires and brewing stands catch up on the time a chunk spent unloaded |
+
+**The Block Keeps Ticking does not keep chunks loaded**, which is the obvious worry. Its 21 mixins are
+all growable blocks and block entities - `CropBlock`, `SugarCane`, `AbstractFurnace`, `Campfire`,
+`BrewingStand`, `BuddingAmethyst`, `PointedDripstone` - and **none touch chunk loading or tickets**.
+It records when a chunk was last loaded and simulates the elapsed time when it loads again. The
+server carries it too, because growth is decided there.
+
+### Immersive Interfaces, finally right
+
+v1.0.33 shipped a build of the author's GitHub `main`, and **that repository is not a complete pack**.
+It was missing 134 files - every `lang/*.json`. In this pack those are not translations: **the
+container art is drawn as glyphs, and the language files are what map each container to its art.**
+Without them every storage block fell back to a bare grid with a literal title like `Large chest`,
+which is what the last release actually shipped.
+
+This one is the **published 0.8.2 release, whole**, with only the 26.2 work grafted on:
+
+- the author's `_26.2_shaders` overlay and updated `interfaces.glsl`
+- **a `text.vsh` port**, written here. 26.2 renamed the `rendertype_text` core shader to `text`, so
+  the pack's text shader was a dead file and the glyph art was positioned by vanilla instead of by
+  `interfaces_text()` - the art was drawn but offset from the panel it belonged to
+- **a fix to the `posCheck` helpers.** Upstream corrects the quad corner index for batched draws
+  inside `interfaces()`, but the three helper functions above it still used the raw `gl_VertexID`.
+  Chest sizing is a chain of those helpers, so it never matched, `rows` stayed 0, and every chest,
+  barrel, ender chest and copper chest drew the one-row frame
+
+### Compact Font is removed
+
+It replaced the font atlas that Immersive Interfaces probes for its marker glyphs. With both
+installed, ordinary letters read as markers and the shader **deleted them** - every `t` in the game
+vanished, and the deleted glyphs flew across the screen as white streaks. The two cannot both be
+installed. Compact Font lost, because it is a font and the other is every container in the game.
+
+### Modded containers fall back to vanilla art
+
+38 keys added, taking each mod's own display name and appending the vanilla art marker: Better End's
+10 chests, 10 barrels and 10 chest boats, and Lootr's chests, copper variants, barrel and minecart.
+
+`entity.betterend.*_chest_boat` had **no translation at all**, which is why the raw key showed on
+screen. Those now read properly as well as drawing the oak boat art.
+
+**Immersive Aircraft is deliberately left on the vanilla UI** for now.
+
+### Items are no longer dark
+
+The three Weskerson packs shipped an `item.fsh` in their `26.1` overlay that 26.2's item pipeline
+does not match - the `item_cutout shader program does not use sampler Sampler1` warning the launch
+test has been printing since v1.0.31. Stripped. They keep every 3D model and lose only the emissive
+shading, which Weskerson's Torches never had. Renamed with the `nbidal18-` prefix, because they are
+forks now.
+
+### SmoothGUI's open animation is off
+
+Its 220 ms scale animation moves GUI vertices while the shader is reading their positions, so a chest
+opened as one row and snapped to full size. Off everywhere, which is broader than the fault - a
+`screensForceDisabled` list would be narrower, and is untested.
+
+### The dev harness
+
+`Test-ClientLaunch.ps1` gained `-Hold`, `-ReplacePack`, `-ReplaceConfig`, `-World` and `-QuickPlay`.
+It stages a throwaway instance, swaps in candidate packs and configs, restores a world and loads
+straight into it. None of the above could be judged from a log line, and the updater keeps
+`resourcepacks` exact-match so candidates cannot be tested on a real instance. Every fix in this
+release was confirmed there before it was built.
+
+---
+
 ## v1.0.33
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

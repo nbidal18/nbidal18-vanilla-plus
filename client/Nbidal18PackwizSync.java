@@ -199,28 +199,25 @@ public final class Nbidal18PackwizSync {
             new PlayerFileSeed("config/voxy-config.json", ':', "voxy-default-off-v1017", List.of(
                     SeedRow.of("enabled", "false"),
                     SeedRow.of("section_render_distance", "1.0"))),
-            // v1.0.31 reshaped the resource packs. Actually 3D and Recolourful Containers are out.
-            // Three more Weskerson packs join the torches one directly below it, and the Immersive
-            // Interfaces GUI overhaul plus its JEI and Traveler's Backpack add-ons sit below the
-            // font. Later in the list wins, so "below" is earlier in this array.
+            // Two rows, always. Minecraft drops a pack from resourcePacks at startup when its
+            // declared format does not cover 26.2's 88, unless it is ALSO named in
+            // incompatibleResourcePacks - the list the "made for an older version, use anyway?"
+            // prompt writes. v1.0.31 seeded only the first row and five of its six new packs were
+            // switched off on the next launch, logged as "no longer compatible".
             //
-            // <b>The second row is why v1.0.31 did not stick.</b> Minecraft drops a pack from
-            // resourcePacks at startup when its declared format does not cover 26.2's 88, unless
-            // that pack is ALSO named in incompatibleResourcePacks - the list the "this pack was
-            // made for an older version, use anyway?" prompt writes. Seeding only the first row
-            // removed five of six new packs on the next launch, logged as "no longer compatible".
-            //
-            // v1.0.33 swaps the Immersive Interfaces release for a build of the author's own
-            // source, which carries the 26.2 shader port, and it leaves the incompatible list
-            // because it now declares max_format 999. Everything else there still needs its entry.
+            // v1.0.34: Compact Font is gone. It replaced the font atlas that Immersive Interfaces
+            // probes for its marker glyphs, so ordinary letters were read as markers and deleted -
+            // every "t" vanished from the game. The three Weskerson packs are renamed because they
+            // are forks now: their 26.1 item shader does not match 26.2's item pipeline and made
+            // every item render dark.
             //
             // A fresh token and both rows restated, because a seed sets a row rather than editing
             // it, and every earlier token has already fired on every instance.
-            new PlayerFileSeed("options.txt", ':', "resourcepacks-v1033", List.of(
+            new PlayerFileSeed("options.txt", ':', "resourcepacks-v1034", List.of(
                     SeedRow.of("resourcePacks",
-                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/Weskerson's 3D Items.zip\",\"file/Weskerson's 3D Food.zip\",\"file/Weskerson's Nature.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/Theone's Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-26.2.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/Compact Font.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"),
+                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/nbidal18-Weskersons-3D-Items-2.5.zip\",\"file/nbidal18-Weskersons-3D-Food-1.0.zip\",\"file/nbidal18-Weskersons-Nature-1.02.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/Theone's Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-26.2.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"),
                     SeedRow.of("incompatibleResourcePacks",
-                            "[\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/Weskerson's Nature.zip\",\"file/Weskerson's 3D Food.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\",\"file/Compact Font.zip\"]"))));
+                            "[\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/nbidal18-Weskersons-Nature-1.02.zip\",\"file/nbidal18-Weskersons-3D-Food-1.0.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\"]"))));
 
         /**
      * Empty on purpose, and it must stay that way until a mod is actually retired from THIS

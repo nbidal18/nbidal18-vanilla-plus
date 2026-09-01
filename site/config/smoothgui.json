@@ -1,5 +1,5 @@
 {
-  "enableAnimation": true,
+  "enableAnimation": false,
   "animationTime": 220,
   "animationScale": 1.0,
   "animationStyle": "BACK",

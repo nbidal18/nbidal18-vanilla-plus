@@ -43,6 +43,9 @@ param(
     # Copy these files over the staged resourcepacks folder, by name, after staging. A candidate
     # fork of a pack the release already ships replaces the shipped one.
     [string[]] $ReplacePack = @(),
+    # Copy these files over the staged config folder, by name. Same idea as -ReplacePack, for the
+    # settings a rendering question turns on.
+    [string[]] $ReplaceConfig = @(),
     # A saves folder to restore into the throwaway instance, so a run can start inside a world.
     # Container GUIs, held items and anything else that only exists in game cannot be reached from
     # the title screen, and creating a world by hand every run made that a person's job.
@@ -195,6 +198,12 @@ try {
     # The staged instance has no options.txt, so the game would boot with every pack switched off
     # and prove nothing about how they look. Both rows are copied from the release, which is what
     # the updater seeds onto a player's instance.
+    foreach ($candidate in $ReplaceConfig) {
+        if (-not (Test-Path -LiteralPath $candidate -PathType Leaf)) { throw "-ReplaceConfig: no file at $candidate" }
+        Copy-Item -LiteralPath $candidate -Destination (Join-Path (Join-Path $testRoot 'config') (Split-Path $candidate -Leaf)) -Force
+        Write-Host ("config    {0}" -f (Split-Path $candidate -Leaf))
+    }
+
     if ($World) {
         if (-not (Test-Path -LiteralPath $World -PathType Container)) { throw "-World: no folder at $World" }
         Copy-Item -LiteralPath $World -Destination (Join-Path $testRoot 'saves') -Recurse -Force

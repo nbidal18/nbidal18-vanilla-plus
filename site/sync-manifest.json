@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.33",
+    "packVersion":  "1.0.34",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -339,7 +339,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "5fda2f306d50df521bc9b595b09ddff7c664df005a5b9913039d2584f4aabf09"
+                                    "sha256":  "2cb46a79484d2087503296b75368ac52465984150cfcc0a83486fbc0f54044ae"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -647,7 +647,7 @@
                                 },
                                 {
                                     "path":  "config/smoothgui.json",
-                                    "sha256":  "7765257a12db9422a8d5bd0c823d73a2dd11ecfd6fef7bf146f5e644d91f660a"
+                                    "sha256":  "231b56dc0bdd15c0c4629bf1aaa473ec891a41946ffa91926ae3d49559674d78"
                                 },
                                 {
                                     "path":  "config/smoothscroll.json",
@@ -825,7 +825,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "5fda2f306d50df521bc9b595b09ddff7c664df005a5b9913039d2584f4aabf09"
+                      "sha256":  "2cb46a79484d2087503296b75368ac52465984150cfcc0a83486fbc0f54044ae"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1133,7 +1133,7 @@
                   },
                   {
                       "path":  "config/smoothgui.json",
-                      "sha256":  "7765257a12db9422a8d5bd0c823d73a2dd11ecfd6fef7bf146f5e644d91f660a"
+                      "sha256":  "231b56dc0bdd15c0c4629bf1aaa473ec891a41946ffa91926ae3d49559674d78"
                   },
                   {
                       "path":  "config/smoothscroll.json",
@@ -1288,6 +1288,10 @@
                       "sha256":  "869457ea7a5f78803c7003b694cba54a95c9176b3632f327f7a74a99a62ea454"
                   },
                   {
+                      "path":  "mods/AccurateBlockPlacement-Reborn-1.4.6+mc-26.1-26.2.jar",
+                      "sha256":  "f729f017976e1c9f8fbc50358b980bd8b8a522a09829bda2a5e2fd3d60fcfaa0"
+                  },
+                  {
                       "path":  "mods/AmbientSounds_FABRIC_v6.3.6_mc26.2.jar",
                       "sha256":  "f59a8c076896d5f7666adf6b7b3370a6729ee5fa986ddae5f4da17c57f5141e4"
                   },
@@ -1302,6 +1306,10 @@
                   {
                       "path":  "mods/BetterF3-19.0.0-Fabric-26.2.jar",
                       "sha256":  "5647c86d1969da775e34ffc5096dd31193b63509de56dfcc83f3c66212812459"
+                  },
+                  {
+                      "path":  "mods/BridgingMod-2.7.0+26.2.fabric-release.jar",
+                      "sha256":  "7f1ba21ebdaaa8a8bb9976dbc794fa716f3fbfef6a43eafb5abcf97a6df3900c"
                   },
                   {
                       "path":  "mods/CreativeCore_FABRIC_v2.14.16_mc26.2.jar",
@@ -1632,8 +1640,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.33+26.2-fabric.jar",
-                      "sha256":  "0f4fd98ffec49ff8a02fa2554adb261f747317bbfd20f99e9b35a0f5f3b0c022"
+                      "path":  "mods/nbidal18-integrity-1.0.34+26.2-fabric.jar",
+                      "sha256":  "62fb560783a976249234a712760a55f3769d2c1b5ed30e1e9990576e66790061"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1760,6 +1768,10 @@
                       "sha256":  "4fa2b27fdccb60da9942af70b2d157feea4609049ad80950ec4c33db36502168"
                   },
                   {
+                      "path":  "mods/the-block-keeps-ticking-1.2.1.jar",
+                      "sha256":  "ca0da67313c1d2a5860d11087da960f1742f34fd3d6055142ac6f241aa829c13"
+                  },
+                  {
                       "path":  "mods/travelersbackpack-fabric-26.2-11.3.1.jar",
                       "sha256":  "9b63544d3415699566222a940bb5971d88416fd10dcb53bf60e888328a4ce173"
                   },
@@ -1809,7 +1821,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "ccc2992465c42edf41e07fdea99ff00fa4c08e409762185ff5098cc8d98148d5"
+                      "sha256":  "6ae1c065cfc3be29e6609a0ee59bac4a38a9b5847b538ed1b28ef287d1844302"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",
@@ -1826,10 +1838,6 @@
                   {
                       "path":  "resourcepacks/Better Lanterns v1.3.2 - 26.2.zip",
                       "sha256":  "09d06aa067f9fb00eb76f5d1be05fc7fe26199c05f6c3e25f126a5faca86ad76"
-                  },
-                  {
-                      "path":  "resourcepacks/Compact Font.zip",
-                      "sha256":  "0f6366d0a9199d08ae449ea2520091c87325683a13cf890af7516763b860f207"
                   },
                   {
                       "path":  "resourcepacks/Enchanted Covers v1.3.zip",
@@ -1864,20 +1872,8 @@
                       "sha256":  "5d1f2ea9b8af9cd931796c09f2159e119b25db909b0a84269b42fb3c9f55893d"
                   },
                   {
-                      "path":  "resourcepacks/Weskerson\u0027s 3D Food.zip",
-                      "sha256":  "e781e4ffbc566d1ed1889bfc8fbc79411827fa07ca996ff705c6f00d2fecf69e"
-                  },
-                  {
-                      "path":  "resourcepacks/Weskerson\u0027s 3D Items.zip",
-                      "sha256":  "8a12dbf4337eef99456fde3c04f83cf460d6aba400f52652e0ed75fee6abcb7d"
-                  },
-                  {
-                      "path":  "resourcepacks/Weskerson\u0027s Nature.zip",
-                      "sha256":  "527d7bc4608ccc52c304adbeaed936051aaaea428c266f7029ed99162e4768a6"
-                  },
-                  {
                       "path":  "resourcepacks/nbidal18-Immersive-Interfaces-26.2.zip",
-                      "sha256":  "a00c95d840e76306e61af893c2e04aa634851b3a9641c3287f9b1d18c8e92edc"
+                      "sha256":  "b7d587b9f00b6f123c1f22d850f1be796c212f1ff6a2be56eb213477f0eedff5"
                   },
                   {
                       "path":  "resourcepacks/nbidal18-Immersive-Interfaces-JEI-1.0.zip",
@@ -1886,6 +1882,18 @@
                   {
                       "path":  "resourcepacks/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip",
                       "sha256":  "b6954fb374d9f99b0b7a020a4e7047326d0546824b7aa3730d23afadbc63649a"
+                  },
+                  {
+                      "path":  "resourcepacks/nbidal18-Weskersons-3D-Food-1.0.zip",
+                      "sha256":  "41801267719b6863cc2ee7637cd397579d0e90b45dc41ac44355bbae18f4b856"
+                  },
+                  {
+                      "path":  "resourcepacks/nbidal18-Weskersons-3D-Items-2.5.zip",
+                      "sha256":  "b721994fdf7b0451683c2fe28a45b291331762738e4265171759e6674c8b799c"
+                  },
+                  {
+                      "path":  "resourcepacks/nbidal18-Weskersons-Nature-1.02.zip",
+                      "sha256":  "22f2f242329ffdc6b1ecc03d997683e939bcf8761ed6a4aa84487fc0fa4fe6f3"
                   },
                   {
                       "path":  "resourcepacks/nbidal18-Weskersons-Torches-1.02.zip",
