@@ -199,16 +199,29 @@ public final class Nbidal18PackwizSync {
             new PlayerFileSeed("config/voxy-config.json", ':', "voxy-default-off-v1017", List.of(
                     SeedRow.of("enabled", "false"),
                     SeedRow.of("section_render_distance", "1.0"))),
-            // v1.0.31 reshapes the resource packs. Actually 3D and Recolourful Containers are out.
+            // v1.0.31 reshaped the resource packs. Actually 3D and Recolourful Containers are out.
             // Three more Weskerson packs join the torches one directly below it, and the Immersive
             // Interfaces GUI overhaul plus its JEI and Traveler's Backpack add-ons sit below the
             // font. Later in the list wins, so "below" is earlier in this array.
             //
-            // A fresh token and the whole row restated, because a seed sets a row rather than
-            // editing it, and every earlier token has already fired on every instance.
-            new PlayerFileSeed("options.txt", ':', "resourcepacks-v1031", List.of(
+            // <b>The second row is why v1.0.31 did not stick.</b> Minecraft drops a pack from
+            // resourcePacks at startup when its declared format does not cover 26.2's 88, unless
+            // that pack is ALSO named in incompatibleResourcePacks - the list the "this pack was
+            // made for an older version, use anyway?" prompt writes. v1.0.31 seeded only the first
+            // row, so five of the six new packs were removed on the next launch and logged as
+            // "no longer compatible". Torches survived a byte-identical 46-84 range purely because
+            // the owner had accepted that prompt for it long ago.
+            //
+            // Every entry below is a pack whose range stops short of 88 and which we ship anyway.
+            // The list is the game's own, read back out of options.txt after it had rebuilt it.
+            //
+            // A fresh token and both rows restated, because a seed sets a row rather than editing
+            // it, and every earlier token has already fired on every instance.
+            new PlayerFileSeed("options.txt", ':', "resourcepacks-v1032", List.of(
                     SeedRow.of("resourcePacks",
-                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/Weskerson's 3D Items.zip\",\"file/Weskerson's 3D Food.zip\",\"file/Weskerson's Nature.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/Theone's Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/§6Immersive§8_§6Interfaces§8.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/Compact Font.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"))));
+                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/Weskerson's 3D Items.zip\",\"file/Weskerson's 3D Food.zip\",\"file/Weskerson's Nature.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/Theone's Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/§6Immersive§8_§6Interfaces§8.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/Compact Font.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"),
+                    SeedRow.of("incompatibleResourcePacks",
+                            "[\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/Weskerson's Nature.zip\",\"file/Weskerson's 3D Food.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/No Potion Particles.zip\",\"file/§6Immersive§8_§6Interfaces§8.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\",\"file/Compact Font.zip\"]"))));
 
         /**
      * Empty on purpose, and it must stay that way until a mod is actually retired from THIS

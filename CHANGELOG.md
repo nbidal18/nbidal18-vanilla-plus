@@ -5,6 +5,66 @@ build that was not published.
 
 ---
 
+## v1.0.32
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-01 | see below | `c39781e18777` | `b447e789e955` | 279 | 128 |
+
+**Fixes v1.0.31: five of the six new packs were switched back off on the next launch.** No pack is
+added or removed. Click **Play**.
+
+### What went wrong
+
+`options.txt` holds **two** pack lists, not one. `resourcePacks` is the selection;
+`incompatibleResourcePacks` is the list of packs the player has acknowledged through the *"this pack
+was made for an older version of Minecraft, use anyway?"* prompt. **Minecraft drops a pack from the
+first list at startup unless it is also in the second**, and logs it:
+
+```
+Removed resource pack file/Weskerson's Nature.zip from options because it is no longer compatible
+```
+
+v1.0.31 seeded only `resourcePacks`. So 3D Food, Nature, Immersive Interfaces and both of its add-ons
+were selected once, removed on the next launch, and never seen. Only 3D Items survived, because it is
+the one whose declared range reaches past 26.2's resource format of **88**.
+
+**Weskerson's Torches gave the game away.** It declares `min_format 46, max_format 84` - byte-for-byte
+the same range as Nature, which was dropped - and stayed selected throughout, because it has been in
+`incompatibleResourcePacks` since the owner accepted that prompt for it long ago.
+
+### This was already written down
+
+The v1.0.10 seed sets **both** rows, and its comment says why: *"without its entry there Minecraft
+treats it as unacknowledged and drops it from the selection on the first launch that reads the row"*.
+Every seed since - v1.0.29 and v1.0.31 included - restated only `resourcePacks` and quietly lost the
+second row. It went unnoticed because until now every pack that needed acknowledging had already been
+acknowledged by hand on the owner's instance.
+
+The seed now restates both rows, and the list is the game's own, read back out of `options.txt` after
+Minecraft had rebuilt it rather than worked out by hand.
+
+### Not a metadata problem
+
+v1.0.31 patched the JEI and Traveler's Backpack add-ons from `supported_formats` to
+`min_format`/`max_format`, on the reading that 26.2 refuses the older field. **That patch was not what
+was wrong here** - both add-ons were dropped anyway, by the rule above. It is kept because a pack that
+parses is strictly better than one that may not, but it is not the fix and should not be remembered
+as one.
+
+### Immersive Interfaces still looks wrong on the vanilla inventory
+
+Its mod-support add-ons are fine. The main pack is not, and the cause is **not** its version range:
+**26.2 added a `textures/gui/sprites/container/slot/*` family** - helmet, chestplate, leggings, boots,
+shield, saddle and the rest - which 1.21.1 baked into the single `container/inventory.png` sheet. So
+26.2 draws vanilla slot squares at vanilla coordinates on top of a panel that has its own slots
+painted in, and the two do not line up. Immersive Interfaces 0.8.2 is the newest build and targets
+26.1.2, before that change.
+
+Left as it is in this release, and being worked on separately.
+
+---
+
 ## v1.0.31
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
