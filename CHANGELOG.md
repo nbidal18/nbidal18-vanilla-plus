@@ -5,6 +5,52 @@ build that was not published.
 
 ---
 
+## v1.0.41
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-01 | see below | `bda87d84fcf9` | `377c60eafdf9` | 287 | 135 |
+
+**Voxy sends less, and less often.** One config file. Click **Play**.
+
+`config/voxyworldgenv2.json`:
+
+| | Was | Now | Effect |
+| --- | --- | --- | --- |
+| `generationRadius` | 512 | **256** | LOD sync radius 8192 -> **4096 blocks** |
+| `update_interval` | 20 | **100** | LOD flush every 1000ms -> **every 5000ms** |
+
+Nothing about how far Voxy renders changes for anyone who was inside 4 km of what they were
+looking at, and far terrain now updates up to five seconds later - which is not perceptible at LOD
+distance.
+
+### Why
+
+A player on a constrained connection was fine on the 1.21.1 pack and not on this one. That pack
+ships no LOD mod at all, and runs a *higher* vanilla view distance (20 against this pack's 10) - so
+it was not view distance, it was the LOD stream on top of it.
+
+Reading the mod rather than guessing at it:
+
+- `syncRadiusSq()` is `(generationRadius * 16)^2`, and `generationRadius` is in chunks - so 512 was
+  a **8192-block** sync radius. Every player was within LOD range of essentially the whole active
+  world, so every block anyone changed rebroadcast that chunk's LOD to everyone
+- `ChunkUpdateTracker` coalesces updates over `update_interval * 50` ms, so 20 meant a flush **every
+  second**, continuously
+- each send is capped at `MAX_PACKET_BYTES = 32768`, about 23 full-size TCP segments per burst
+
+Together that is a relentless burst pattern that the other pack does not produce at all.
+
+**Both values are server-authoritative.** `Config$ServerConfig` is a record the server pushes to
+every client over `SERVER_CONFIG_PUSH_ID`, so a client's own copy of these fields is overridden.
+Changing them means changing the server's file, which this release deploys; the published client
+copy is kept in step so the two do not disagree on paper.
+
+This reduces how hard a bad network path gets hit. It does not repair one - the player's own router
+still cannot carry 1500-byte packets, and that is a separate fix on his side.
+
+---
+
 ## v1.0.40
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
