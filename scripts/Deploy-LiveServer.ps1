@@ -4,6 +4,14 @@
 
       scripts\Deploy-LiveServer.ps1              check everything and report, change nothing
       scripts\Deploy-LiveServer.ps1 -Apply       do it
+      scripts\Deploy-LiveServer.ps1 -Apply -Rehearse    stage and verify locally, send nothing
+
+    **It reaches the server over SFTP, not a drive letter.** It used to write to `Y:`, a CloudMounter
+    SFTP mount, and when that trial expired the default pointed at a drive that no longer existed -
+    so every run since died on `Cannot find drive` and the deploy was finished by hand with
+    Sync-ServerMirror, which is the exact exposure this script exists to remove. Now it pulls the
+    mirror, stages into it, verifies, pings, pushes, and reads every file back off the server to
+    prove it landed. Nothing about the order or the refusals changed; only how the bytes travel.
 
     It exists because the server half was a set of separate writes done by hand, and only the ones
     that break something announce themselves when forgotten. A stale policy locks every player out
@@ -36,9 +44,14 @@
       can hold the port open with the server stopped; and log timestamps are UTC while the clock
       here is not.
 
-      every backup is diffed against the file it copied. This SFTP mount serves stale content - to
+      every backup is diffed against the file it copied. SFTP here serves stale content - to
       Copy-Item as well as to Bash - and a backup that silently predates the live file is not a
       rollback.
+
+      the mirror is pulled before the plan is drawn, because the whole plan is "what does the server
+      have and how does it differ from the release". Computed against a mirror of unknown age it
+      would compare this release against jars the server replaced weeks ago and report a clean
+      deploy for files it never looked at. -SkipPull exists for a mirror refreshed moments ago.
 #>
 [CmdletBinding()]
 param(
@@ -56,7 +69,17 @@ param(
     # of 2 while the pack shipped 5, so the server generated structures at a density nobody chose,
     # and bcc-common.toml still said v1.0.0 twenty-two releases later.
     [string[]] $Config = @(),
-    [string] $DriveRoot = 'Y:\',
+    # The local mirror the deploy is staged into. Defaults to the one Sync-ServerMirror keeps, which
+    # is the server's own state as of the last pull - so the plan below is computed against what is
+    # really installed, not against a guess. Point it somewhere else only to rehearse.
+    [string] $DriveRoot,
+    # Skip the pull. Only when the mirror was refreshed moments ago and nothing has touched the
+    # server since, because everything downstream trusts the mirror to be the server.
+    [switch] $SkipPull,
+    # Stage and verify locally, then stop without touching the server. Implied by a -DriveRoot that
+    # is not the real mirror, because a throwaway tree has no server behind it to push to.
+    [switch] $Rehearse,
+    [string] $Session = $env:NBIDAL18_WINSCP_SESSION,
     [int] $TimeoutSec = 8
 )
 
@@ -74,8 +97,15 @@ $address = (Get-Content -LiteralPath $serverFile -Raw).Trim()
 $serverHost, $serverPort = $address -split ':', 2
 $serverPort = [int] $serverPort
 
+$mirrorDefault = Join-Path (Split-Path -Parent $repo) '_server-payload-cache'
+if (-not $DriveRoot) { $DriveRoot = $mirrorDefault }
+$isMirror = [IO.Path]::GetFullPath($DriveRoot).TrimEnd('\') -eq [IO.Path]::GetFullPath($mirrorDefault).TrimEnd('\')
+$push = $isMirror -and -not $Rehearse
+$syncScript = Join-Path $PSScriptRoot 'Sync-ServerMirror.ps1'
+
 Write-Host ("release   v{0}" -f $version)
 Write-Host ("server    {0}" -f $address)
+Write-Host ("staging   {0}" -f $DriveRoot)
 
 # ---------------------------------------------------------------- what this release expects
 $policySource = Join-Path $release '4. server\nbidal18-integrity.properties'
@@ -150,6 +180,21 @@ function Test-ServerUp {
     }
     catch { return $false }
     finally { $client.Close() }
+}
+
+# ---------------------------------------------------------------- the mirror must be the server
+# Everything below reads the mirror and calls it the live server, so it has to have been the live
+# server recently. A stale mirror would compare this release against jars the server replaced weeks
+# ago and report a clean deploy for files it never looked at. The pull empties mods\ and config\
+# first, because WinSCP's synchronize skips a locally-newer file - which is how a rehearsal's own
+# output was once read back as the server's state.
+if ($push -and -not $SkipPull) {
+    Write-Host 'pull      refreshing the mirror from the live server'
+    # Sync-ServerMirror throws if WinSCP exits non-zero, and $ErrorActionPreference stops here.
+    & $syncScript -Pull -Session $Session -MirrorRoot $DriveRoot | Out-Null
+}
+elseif ($push) {
+    Write-Host 'pull      SKIPPED by -SkipPull - the mirror is trusted to still be the server'
 }
 
 $configDir = Join-Path $DriveRoot 'config'
@@ -245,7 +290,7 @@ if (-not $Apply) {
 # reading the mount is safe, and being unable to preview a deploy while the server is up is just
 # an obstacle. For -Apply it is the last thing before the first write, which is where the rule
 # wants it: never carry forward an earlier "it's off".
-$live = [IO.Path]::GetFullPath($DriveRoot) -eq [IO.Path]::GetFullPath('Y:')
+$live = $push
 if ($live) {
     if (Test-ServerUp) {
         throw 'The server answered a status ping. Stop it from the provider panel; the helper jar, the shared jars and the MOTD are not hot-reloadable.'
@@ -253,10 +298,10 @@ if ($live) {
     Write-Host 'server    confirmed down (no status reply)'
 }
 else {
-    # A -DriveRoot that is not the live mount is a rehearsal against a throwaway tree, so there is
-    # no server to be down. This exists so the write-and-verify half can be exercised without an
-    # outage - it had never run against a stale jar until it was tested this way.
-    Write-Host ("REHEARSAL not the live mount ({0}) - no ping, nothing here reaches the server" -f $DriveRoot)
+    # A rehearsal writes into a tree with no server behind it, so there is nothing to be down. This
+    # exists so the write-and-verify half can be exercised without an outage - it had never run
+    # against a stale jar until it was tested this way.
+    Write-Host ("REHEARSAL staging only ({0}) - no ping, nothing here reaches the server" -f $DriveRoot)
 }
 
 # ---------------------------------------------------------------- back up, and prove the backup
@@ -324,10 +369,50 @@ if ($stillStale.Count) { $failures.Add('shared jars still differ: ' + ($stillSta
 Write-Host ("MATCH     {0} shared jars byte-identical to the release" -f $shared.Count)
 
 if ($failures.Count) { throw ('Deployment did not verify: ' + ($failures -join '; ')) }
+
+# ---------------------------------------------------------------- send it
+# Everything above wrote into the mirror. Nothing has reached the server yet, which is the point:
+# the plan is checked, staged and hash-verified against a copy first, and only a deploy that passed
+# all of that is allowed near the live host.
+if (-not $push) {
+    Write-Host ''
+    Write-Host ("OK        rehearsal complete: {0} updated and {1} new jar(s) staged and verified in {2}. The live server was not touched." -f $staleShared.Count, $added.Count, $DriveRoot)
+    return
+}
+
+$sendFiles = @('config\nbidal18-integrity.properties', ('mods\' + $helperSource.Name), 'server.properties')
+foreach ($jar in @($staleShared) + @($added)) { $sendFiles += ('mods\' + $jar.Name) }
+foreach ($cfg in $configFiles) { $sendFiles += ('config\' + $cfg.Name) }
+$sendRemove = @($existingHelpers | Where-Object { $_.Name -ne $helperSource.Name } | ForEach-Object { 'mods\' + $_.Name })
+
 Write-Host ''
-if ($live) {
-    Write-Host ("OK        policy, helper, MOTD, {0} updated and {1} new jar(s) deployed. Start the server." -f $staleShared.Count, $added.Count)
+# The ping again, because the outage is only proved for the moment it was taken and the checks above
+# are not instant. A server that came back up between them would save its own state over this.
+if (Test-ServerUp) { throw 'The server came back up while this was staging. Nothing was sent. Stop it and re-run.' }
+Write-Host 'server    still down immediately before the first remote write'
+
+& $syncScript -Push -Files $sendFiles -Remove $sendRemove -Session $Session -MirrorRoot $DriveRoot | Out-Null
+
+# ---------------------------------------------------------------- prove it landed
+# Read every file back off the server rather than trusting the transfer's own OK. A push that
+# reported success and a file that is actually there are different claims, and only the second one
+# keeps players out of a lockout.
+$readback = Join-Path $env:TEMP ('nbidal18-deploy-verify-' + [Guid]::NewGuid())
+New-Item -ItemType Directory -Force -Path $readback | Out-Null
+$remoteBad = @()
+try {
+    foreach ($rel in $sendFiles) {
+        $to = Join-Path $readback ($rel -replace '[\\/]', '_')
+        & $syncScript -Get ($rel -replace '\\', '/') -To $to -Session $Session -MirrorRoot $DriveRoot | Out-Null
+        if (-not (Test-Path -LiteralPath $to)) { $remoteBad += ($rel + ' (not readable back)'); continue }
+        $want = (Get-FileHash -LiteralPath (Join-Path $DriveRoot $rel) -Algorithm SHA256).Hash
+        $got = (Get-FileHash -LiteralPath $to -Algorithm SHA256).Hash
+        if ($want -ne $got) { $remoteBad += ($rel + ' (hash differs on the server)') }
+        Write-Host ("{0}  {1}" -f $(if ($want -eq $got) { 'ON SERVER' } else { 'DIFFERS  ' }), $rel)
+    }
 }
-else {
-    Write-Host ("OK        rehearsal complete: {0} updated and {1} new jar(s) deployed and verified against {2}. The live server was not touched." -f $staleShared.Count, $added.Count, $DriveRoot)
-}
+finally { Remove-Item -LiteralPath $readback -Recurse -Force -ErrorAction SilentlyContinue }
+if ($remoteBad.Count) { throw ('Deployed but did not verify on the server: ' + ($remoteBad -join '; ')) }
+
+Write-Host ''
+Write-Host ("OK        policy, helper, MOTD, {0} updated and {1} new jar(s) on the server and verified by hash. Start it." -f $staleShared.Count, $added.Count)

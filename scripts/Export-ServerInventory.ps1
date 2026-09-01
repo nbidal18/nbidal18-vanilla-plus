@@ -5,7 +5,12 @@
 
     Nothing else in this repository records it. The client pack is versioned in full, the channel is
     verifiable against the build, and the server - the thing players actually connect to - existed
-    only as 46 jars on an SFTP mount. Losing that drive meant rebuilding it from memory.
+    only as jars on an SFTP mount. Losing that drive meant rebuilding it from memory.
+
+    **That drive is exactly what was then lost.** This read `Y:`, a CloudMounter mount whose trial
+    expired, so it threw on every run afterwards and the inventory silently stopped being updated -
+    still describing 46 mods and a login mod that had been removed, while the server ran 67. It now
+    pulls the same mirror the deploy uses, over SFTP, with no drive letter involved.
 
     The output goes to the release folder, not to site\, so it is never published and never moves
     the manifest digest.
@@ -17,7 +22,12 @@
 #>
 [CmdletBinding()]
 param(
-    [string] $DriveRoot = 'Y:\'
+    # The local mirror of the server. Defaults to the one Sync-ServerMirror keeps.
+    [string] $DriveRoot,
+    # Skip the pull and read the mirror as it stands. Only when it was refreshed moments ago -
+    # otherwise this writes down a server that has moved on, which is worse than writing nothing.
+    [switch] $SkipPull,
+    [string] $Session = $env:NBIDAL18_WINSCP_SESSION
 )
 
 $ErrorActionPreference = 'Stop'
@@ -29,7 +39,24 @@ $release = Join-Path (Split-Path -Parent $repo) "v.$version"
 $clientMods = Join-Path $release '3. modpack\client\mods'
 $out = Join-Path $release '4. server\SERVER-INVENTORY.md'
 
-if (-not (Test-Path -LiteralPath $DriveRoot)) { throw "The server is not mounted at $DriveRoot" }
+$mirrorDefault = Join-Path (Split-Path -Parent $repo) '_server-payload-cache'
+if (-not $DriveRoot) { $DriveRoot = $mirrorDefault }
+$syncScript = Join-Path $PSScriptRoot 'Sync-ServerMirror.ps1'
+
+if (-not $SkipPull) {
+    Write-Host 'pull      refreshing the mirror from the live server'
+    & $syncScript -Pull -Session $Session -MirrorRoot $DriveRoot | Out-Null
+}
+if (-not (Test-Path -LiteralPath $DriveRoot)) { throw "No mirror of the server at $DriveRoot" }
+
+# whitelist.json and ops.json are live player state rather than deployable payload, so the mirror
+# does not carry them and they are fetched on their own. Only their counts are written down - see
+# the note above about this repository being public.
+$aside = Join-Path $env:TEMP ('nbidal18-inventory-' + [Guid]::NewGuid())
+New-Item -ItemType Directory -Force -Path $aside | Out-Null
+foreach ($name in @('whitelist.json', 'ops.json')) {
+    & $syncScript -Get $name -To (Join-Path $aside $name) -Session $Session -MirrorRoot $DriveRoot | Out-Null
+}
 
 $clientNames = @(Get-ChildItem -LiteralPath $clientMods -Filter *.jar | ForEach-Object { $_.Name })
 $serverMods = @(Get-ChildItem -LiteralPath (Join-Path $DriveRoot 'mods') -Filter *.jar | Sort-Object Name)
@@ -87,8 +114,8 @@ Add ''
 Add ("Voice chat listens on UDP **{0}**." -f ((Select-String -LiteralPath (Join-Path $DriveRoot 'config\voicechat\voicechat-server.properties') -Pattern '^port=(.+)$').Matches[0].Groups[1].Value))
 Add ''
 Add ("Whitelist holds **{0}** players, ops **{1}**." -f `
-    ((Get-Content -LiteralPath (Join-Path $DriveRoot 'whitelist.json') -Raw | ConvertFrom-Json) | Measure-Object).Count, `
-    ((Get-Content -LiteralPath (Join-Path $DriveRoot 'ops.json') -Raw | ConvertFrom-Json) | Measure-Object).Count)
+    ((Get-Content -LiteralPath (Join-Path $aside 'whitelist.json') -Raw | ConvertFrom-Json) | Measure-Object).Count, `
+    ((Get-Content -LiteralPath (Join-Path $aside 'ops.json') -Raw | ConvertFrom-Json) | Measure-Object).Count)
 Add ''
 
 Add "## Mods"
@@ -173,3 +200,6 @@ if ($mismatched.Count) {
 else { Write-Host 'match     every shared jar is byte-identical to the client pack' }
 Write-Host ("config    {0} files" -f $serverConfigs.Count)
 Write-Host ("wrote     {0}" -f $out)
+
+# Player names and UUIDs, which is why only their counts were written down. They do not linger.
+Remove-Item -LiteralPath $aside -Recurse -Force -ErrorAction SilentlyContinue
