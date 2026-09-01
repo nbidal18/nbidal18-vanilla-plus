@@ -3,8 +3,16 @@
     than guesses.
 
       scripts\Deploy-LiveServer.ps1              check everything and report, change nothing
-      scripts\Deploy-LiveServer.ps1 -Apply       do it
+      scripts\Deploy-LiveServer.ps1 -Apply -WaitForShutdown 900     do it, and keep the outage short
+      scripts\Deploy-LiveServer.ps1 -Apply       do it, server already stopped
       scripts\Deploy-LiveServer.ps1 -Apply -Rehearse    stage and verify locally, send nothing
+
+    **Prefer -WaitForShutdown.** Only the push at the end needs the server down; the pull, the plan,
+    the staging and the hash checks are read-only and safe while players are on - and the pull alone
+    moves 169 MB, because it empties the mirror rather than trust it. Started while the server is up,
+    all of that is done by the time the port closes and the outage is the push and the read-back.
+    Started after it is stopped, the same work runs with nobody able to play. v1.0.38 was the release
+    that made the difference obvious.
 
     **It reaches the server over SFTP, not a drive letter.** It used to write to `Y:`, a CloudMounter
     SFTP mount, and when that trial expired the default pointed at a drive that no longer existed -
@@ -40,7 +48,9 @@
 
       the server must be down before anything is written, proved by a Server List Ping and not by a
       TCP connect or a log timestamp. The ping runs immediately before the first write, never
-      earlier, so an "it's off" from a minute ago is never carried forward. The pack pauses when empty, so a running server writes nothing for hours; the host
+      earlier, so an "it's off" from a minute ago is never carried forward. -WaitForShutdown makes
+      it wait for the port to close rather than refuse; it never makes it skip the proof, and the
+      second ping before the first remote byte is unchanged. The pack pauses when empty, so a running server writes nothing for hours; the host
       can hold the port open with the server stopped; and log timestamps are UTC while the clock
       here is not.
 
@@ -80,7 +90,19 @@ param(
     # is not the real mirror, because a throwaway tree has no server behind it to push to.
     [switch] $Rehearse,
     [string] $Session = $env:NBIDAL18_WINSCP_SESSION,
-    [int] $TimeoutSec = 8
+    [int] $TimeoutSec = 8,
+    # Seconds to wait for the server to go down, instead of refusing the moment it answers.
+    #
+    # This is what keeps the outage short. Everything before the write - the pull, the plan, the
+    # staging, the hash checks - is local or read-only and perfectly safe while players are on, and
+    # the pull alone moves 169 MB. Run with this and all of it happens while the server is still
+    # serving; stop the server from the panel when it says it is waiting, and the writes go out
+    # within seconds of the port closing. Without it the same work sits inside the outage, which is
+    # how a two-mod release cost ten minutes of downtime.
+    #
+    # The server rewrites server.properties and the policy as it shuts down, so both are re-fetched
+    # after the wait and before anything is staged over them.
+    [int] $WaitForShutdown = 0
 )
 
 $ErrorActionPreference = 'Stop'
@@ -135,10 +157,15 @@ try {
 }
 finally { Remove-Item -LiteralPath $tmp -Force -ErrorAction SilentlyContinue }
 if ($served -ne $digest) {
-    throw ("The channel serves $($served.Substring(0,16))... but this release is $($digest.Substring(0,16))... - " +
+    # Only a real deploy is refused. A dry run and a rehearsal send nothing, and being unable to
+    # preview the plan until after the push made the push the first time anyone saw it - the same
+    # reason the ping below sits where it does.
+    $msg = ("The channel serves $($served.Substring(0,16))... but this release is $($digest.Substring(0,16))... - " +
         'push and wait for Pages first. Deploying ahead of the channel refuses every launching client.')
+    if ($Apply -and $push) { throw $msg }
+    Write-Host ("channel   BEHIND - {0}" -f $msg)
 }
-Write-Host 'channel   already serving this release'
+else { Write-Host 'channel   already serving this release' }
 
 # ---------------------------------------------------------------- the server must be down
 function Get-VarInt([int] $value) {
@@ -292,10 +319,36 @@ if (-not $Apply) {
 # wants it: never carry forward an earlier "it's off".
 $live = $push
 if ($live) {
+    $waited = $false
+    if ((Test-ServerUp) -and $WaitForShutdown -gt 0) {
+        Write-Host ("server    up - waiting up to {0}s for it to stop. Stop it from the provider panel now." -f $WaitForShutdown)
+        $waited = $true
+        $deadline = (Get-Date).AddSeconds($WaitForShutdown)
+        while (Test-ServerUp) {
+            if ((Get-Date) -gt $deadline) {
+                throw "The server was still up after ${WaitForShutdown}s. Nothing was sent."
+            }
+            Start-Sleep -Seconds 3
+        }
+    }
     if (Test-ServerUp) {
-        throw 'The server answered a status ping. Stop it from the provider panel; the helper jar, the shared jars and the MOTD are not hot-reloadable.'
+        throw ('The server answered a status ping. Stop it from the provider panel; the helper jar, ' +
+            'the shared jars and the MOTD are not hot-reloadable. Pass -WaitForShutdown to have this ' +
+            'wait for the port to close instead, which keeps the pull and the staging out of the outage.')
     }
     Write-Host 'server    confirmed down (no status reply)'
+
+    # The pull above ran while the server was still serving, so its copy of these two predates the
+    # shutdown. The server escapes and restamps server.properties as it stops, and pushing the older
+    # copy would silently undo that - which is the same stale-file trap the backups are diffed for.
+    # Only these two: the server never rewrites a jar or a mod's config.
+    if ($waited) {
+        Write-Host 'refresh   re-fetching server.properties and the policy after the shutdown'
+        & $syncScript -Pull -VolatileOnly -Session $Session -MirrorRoot $DriveRoot | Out-Null
+        $propsText = [IO.File]::ReadAllText($propsPath)
+        $motdNow = ([regex]::Match($propsText, '(?m)^motd=.*$')).Value
+        Write-Host ("  motd     {0}  ->  {1}" -f $motdNow, $wantMotd)
+    }
 }
 else {
     # A rehearsal writes into a tree with no server behind it, so there is nothing to be down. This

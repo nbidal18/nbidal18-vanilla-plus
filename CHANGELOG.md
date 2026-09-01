@@ -5,6 +5,63 @@ build that was not published.
 
 ---
 
+## v1.0.38
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-01 | see below | `f59606236c9a` | `a61f7fdb6274` | 287 | 135 |
+
+**Carry On.** Two mods. Click **Play**.
+
+- **Carry On** `2.11.0` - pick up chests, furnaces, barrels and mobs and carry them somewhere else.
+  Carrying slows you down, and more so for a bigger block or a bigger animal
+- **Carry On Extend** `1.5.1` - throw what you are carrying, with a charge-up power meter
+
+Both run on the server as well as the client, so both were deployed there with this release.
+
+### What you cannot pick up
+
+Carry On's own blacklist is written for packs this one shares nothing with - it knows about Create
+and Thaumcraft and not about anything installed here - so seven entries were added for this pack:
+
+| Blocked | Why |
+| --- | --- |
+| `minecraft:spawner`, `trial_spawner`, `vault` | Carrying a spawner is a mob farm without silk touch |
+| `lootr:*` | Its containers hold per-player loot; moving one is a duplication waiting to happen |
+| `travelersbackpack:*` | A placed backpack is an inventory |
+| `immersive_paintings:*`, `immersive_aircraft:*` | Matching Carry On's own `minecraft:painting` and `vehicle:*` entries |
+
+Everything else the mod allows by default is allowed here, including picking up other players.
+
+`config/carryon-common.json` is enforced at login, because the server reads its own copy of it - a
+client that had edited it would be told it can carry things the server refuses. `carryon-client.json`
+holds only how a carried thing is drawn and is not enforced.
+
+### Shorter outages from here
+
+Only the push at the end of a deploy needs the server down. The pull before it empties the mirror and
+re-fetches all 169 MB of server mods, and it ran **after** the server was stopped, so it sat inside
+the outage for no reason - measured at **48.7s**, against **1.0s** for the two files that actually
+need re-reading once the server has stopped.
+
+`Deploy-LiveServer.ps1 -WaitForShutdown` now pulls, plans, stages and hash-verifies while the server
+is still serving players, then waits for the port to close and pushes within seconds of it. The proof
+that the server is down is unchanged: it still pings, still refuses to write to a live server, and
+still re-pings immediately before the first remote byte. It re-fetches `server.properties` and the
+integrity policy after the shutdown, because the server rewrites both as it stops.
+
+A dry run no longer requires the channel to be ahead of the release, so the deploy plan can be read
+before the push instead of only after it.
+
+### The mod inventory is measured again
+
+`docs/archive/audit_mods.json` was assembled by hand during the v1.0.0 audit and then never
+regenerated. It claimed 117 client mods against 136 installed, so the inventory that exists to catch
+a missing row was missing nineteen. `docs/archive/gen_audit_mods.py` measures it now, and `mods.md`
+is generated end to end.
+
+---
+
 ## v1.0.37
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

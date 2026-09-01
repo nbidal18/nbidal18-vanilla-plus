@@ -22,6 +22,11 @@
 [CmdletBinding(DefaultParameterSetName = 'Pull')]
 param(
     [Parameter(ParameterSetName = 'Pull')]  [switch] $Pull,
+    # Re-fetch only the two files the server rewrites by itself, skipping the 169 MB of mods. A
+    # deploy pulls while the server is still serving players and stages against that, so by the
+    # time it is stopped its own shutdown has rewritten server.properties and the policy - and
+    # nothing else. This refreshes exactly those, in seconds, without a second full pull.
+    [Parameter(ParameterSetName = 'Pull')]  [switch] $VolatileOnly,
     [Parameter(ParameterSetName = 'Push')]  [switch] $Push,
     # Read-only remote directory listing, for the things the mirror deliberately never copies - the
     # world above all. Diagnosing anything in there otherwise means typing WinSCP commands by hand,
@@ -77,7 +82,7 @@ if ($Pull) {
     # Only what a deploy reads or replaces. The world, playerdata and logs are deliberately absent:
     # they are large, they are not ours to move, and nothing here should ever be in a position to
     # write them back.
-    foreach ($item in @('mods', 'config')) {
+    foreach ($item in $(if ($VolatileOnly) { @() } else { @('mods', 'config') })) {
         $local = Join-Path $MirrorRoot $item
         # Emptied first, so every file is fetched rather than compared. WinSCP's synchronize skips a
         # local file that is NEWER than the remote one, and Deploy-LiveServer rehearses by writing
@@ -110,7 +115,8 @@ if ($Pull) {
         foreach ($part in $file.Split([char]47)) { $target = Join-Path $target $part }
         $lines.Add("get `"$RemoteRoot$file`" `"$target`"")
     }
-    Write-Host ("pull      mods, config and server.properties -> {0}" -f $MirrorRoot)
+    Write-Host ("pull      {0} -> {1}" -f $(if ($VolatileOnly) { 'server.properties and the policy only' }
+            else { 'mods, config and server.properties' }), $MirrorRoot)
 }
 
 if ($List) {

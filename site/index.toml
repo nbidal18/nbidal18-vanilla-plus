@@ -22,7 +22,7 @@ hash = "d954976cca7faa29db88894517863098c237debf838e7fd725642e9030e3f238"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "fa7b05266eb66ef02f41eabf030b42acb7fedef43cf3144abb1e46f3be7c169d"
+hash = "2fc1a6827064fb8bd248b43723d26233595eb0f30608569e71efca217dafc95f"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -59,6 +59,14 @@ hash = "d3cbdf7fb43c942b01b64ecd870bd2b359d88f44240d77f2a14f7c75e106af10"
 [[files]]
 file = "config/cameraoverhaul.toml"
 hash = "43cb504fcd9130e84d2afbc765716b33555587d5913fec817aab3608c9e9304c"
+
+[[files]]
+file = "config/carryon-client.json"
+hash = "9909d01cf9427ea5d70a66b5c52d2fb7c5e414d410c2e20ae58460661e780de5"
+
+[[files]]
+file = "config/carryon-common.json"
+hash = "4feb29522d8bc4f008cde9d4f24cd3d2fcb74b6f027826ef5c1be85b257a6139"
 
 [[files]]
 file = "config/chatanimation.json"
@@ -669,6 +677,14 @@ file = "mods/c2me-fabric-mc26.2-0.4.1-beta.1.0.jar"
 hash = "aaa2d1c54126de073df5413e8ffe329d0cd5d67c3c4fe1647032c294d0e46fb0"
 
 [[files]]
+file = "mods/carryon-fabric-26.2-2.11.0.jar"
+hash = "c2ab5b8f5f072ef715228c02cb944d1617a8f963a7f2d60678a56b7d51864c63"
+
+[[files]]
+file = "mods/carryonextend-architectury-fabric-26.2-1.5.1.jar"
+hash = "45a5f697f4e19075d61421d6c9dab4852823ad345815df2773387de5a048a830"
+
+[[files]]
 file = "mods/chatanimation-fabric-1.3.0+mc26.2.jar"
 hash = "4ca08917c36479c246d9c283ffea75ff8b320e8f72f4b91da8eb9213fdf7b97d"
 
@@ -837,8 +853,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.37+26.2-fabric.jar"
-hash = "ff7cc631646b751bdd9370e2461548b9f7492e82214b65d2bef4921c728acf01"
+file = "mods/nbidal18-integrity-1.0.38+26.2-fabric.jar"
+hash = "7c8bd660cf67c91c1298b2806fdacddc647e9275ebb5a771c85a8bbc9a1455fd"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"

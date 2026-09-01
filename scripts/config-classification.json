@@ -131,6 +131,16 @@
       "reason": "Camera motion."
     },
     {
+      "match": "config/carryon-client.json",
+      "class": "support",
+      "reason": "How a carried block or mob is drawn - facing, rotation, arms, and the model-override list. Rendering, and the override list is content we may extend."
+    },
+    {
+      "match": "config/carryon-common.json",
+      "class": "gameplay",
+      "reason": "What can be picked up, how much it slows the player, and the block and entity blacklists. The server enforces its own copy, so a client editing this would be told it can carry things the server refuses."
+    },
+    {
       "match": "config/chatanimation.json",
       "class": "support",
       "reason": "Chat animation."
@@ -676,6 +686,8 @@
     "config/boids.json5",
     "config/c2me.toml",
     "config/cameraoverhaul.toml",
+    "config/carryon-client.json",
+    "config/carryon-common.json",
     "config/chatanimation.json",
     "config/cherishedworlds-client.toml",
     "config/collective.json5",
