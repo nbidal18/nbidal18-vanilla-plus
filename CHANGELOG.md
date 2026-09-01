@@ -44,14 +44,23 @@ re-fetches all 169 MB of server mods, and it ran **after** the server was stoppe
 the outage for no reason - measured at **48.7s**, against **1.0s** for the two files that actually
 need re-reading once the server has stopped.
 
-`Deploy-LiveServer.ps1 -WaitForShutdown` now pulls, plans, stages and hash-verifies while the server
-is still serving players, then waits for the port to close and pushes within seconds of it. The proof
-that the server is down is unchanged: it still pings, still refuses to write to a live server, and
-still re-pings immediately before the first remote byte. It re-fetches `server.properties` and the
-integrity policy after the shutdown, because the server rewrites both as it stops.
+So the deploy is now two scripts, and only the second one needs an outage:
 
-A dry run no longer requires the channel to be ahead of the release, so the deploy plan can be read
-before the push instead of only after it.
+- **`Test-ServerDeployment.ps1`** pulls, works out what changes, stages it, backs up what it
+  overwrites and hashes the lot, then writes a plan file. Nothing it does reaches the server, so it
+  runs with players still on
+- **`Deploy-LiveServer.ps1`** sends that plan and nothing else. It refuses a plan for another
+  version, digest or mirror, re-hashes every staged file immediately before sending it, and with
+  `-WaitForShutdown` waits for you to stop the server rather than refusing outright
+
+The proof that the server is down is unchanged: a status ping, a refusal to write to a live server,
+and a second ping immediately before the first remote byte. `server.properties` and the policy are
+re-read after the shutdown - the server escapes `level-type` and restamps its date comment as it
+stops, so the copy staged while it was running is already behind. Their backups are re-taken from
+what was just read, and the MOTD is re-applied to the fresh copy.
+
+A dry run no longer requires the channel to be ahead of the release, so the plan can be read before
+the push instead of only after it.
 
 ### The mod inventory is measured again
 
