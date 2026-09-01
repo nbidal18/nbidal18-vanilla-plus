@@ -45,6 +45,11 @@ $mods = @(
     # Makes SoundsBegone's telemetry threads daemon and never builds its PostHog client, so the
     # client can exit. Drop this fork the moment upstream calls its own Telemetry.shutdown().
     @{ Name = 'nbidal18-soundsbegone'; Generator = $null; Builder = 'build_soundsbegone.py' },
+    # Ixeris busy-spins in MainThreadDispatcher.runNowImpl with no timeout, so once its event
+    # polling thread exits the render thread spins until Minecraft's watchdog halts the JVM 15
+    # seconds later - a non-zero exit, which is why Prism opened its console on every quit. Drop
+    # this fork when upstream bounds that wait.
+    @{ Name = 'nbidal18-ixeris'; Generator = $null; Builder = 'build_ixeris.py' },
     # nbidal18-travelersbackpack is deliberately NOT built. Its source stays under `custom mods\`
     # because the work is sound and will be picked up again, but a uniform tint is not what
     # Recolourful does - it recolours a panel region by region - so shipping it looked unfinished

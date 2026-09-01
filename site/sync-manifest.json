@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.34",
+    "packVersion":  "1.0.35",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -339,7 +339,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "2cb46a79484d2087503296b75368ac52465984150cfcc0a83486fbc0f54044ae"
+                                    "sha256":  "9fafa4134a742fd3a9560e135ccda0a46db4695dcc55694fa3a441e1f0a6e842"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -647,7 +647,7 @@
                                 },
                                 {
                                     "path":  "config/smoothgui.json",
-                                    "sha256":  "231b56dc0bdd15c0c4629bf1aaa473ec891a41946ffa91926ae3d49559674d78"
+                                    "sha256":  "7765257a12db9422a8d5bd0c823d73a2dd11ecfd6fef7bf146f5e644d91f660a"
                                 },
                                 {
                                     "path":  "config/smoothscroll.json",
@@ -825,7 +825,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "2cb46a79484d2087503296b75368ac52465984150cfcc0a83486fbc0f54044ae"
+                      "sha256":  "9fafa4134a742fd3a9560e135ccda0a46db4695dcc55694fa3a441e1f0a6e842"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1133,7 +1133,7 @@
                   },
                   {
                       "path":  "config/smoothgui.json",
-                      "sha256":  "231b56dc0bdd15c0c4629bf1aaa473ec891a41946ffa91926ae3d49559674d78"
+                      "sha256":  "7765257a12db9422a8d5bd0c823d73a2dd11ecfd6fef7bf146f5e644d91f660a"
                   },
                   {
                       "path":  "config/smoothscroll.json",
@@ -1640,12 +1640,16 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.34+26.2-fabric.jar",
-                      "sha256":  "62fb560783a976249234a712760a55f3769d2c1b5ed30e1e9990576e66790061"
+                      "path":  "mods/nbidal18-integrity-1.0.35+26.2-fabric.jar",
+                      "sha256":  "2613a20b0bbbfb0a64996b249223136a073efab2300ee779dcd43de125709639"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
                       "sha256":  "ddb25fdd66ee853231d0246eb6d703d6aa7a184a78398f0db52c65eb6fdec7a0"
+                  },
+                  {
+                      "path":  "mods/nbidal18-ixeris-1.0.0+26.2-fabric.jar",
+                      "sha256":  "19e2f2d5d9dd6d85a0a50c117f63fb21c97d68d062de23f05d26aef9c9ff6e3e"
                   },
                   {
                       "path":  "mods/nbidal18-soundsbegone-1.0.0+26.2-fabric.jar",

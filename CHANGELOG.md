@@ -5,6 +5,53 @@ build that was not published.
 
 ---
 
+## v1.0.35
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-01 | see below | `3842e2436270` | `9e2b57ba02e0` | 282 | 132 |
+
+**The Prism console should stop opening when you quit**, and the GUI open animation is back. Click
+**Play**.
+
+### The console popup, three releases late
+
+**Ixeris, not SoundsBegone.** `MainThreadDispatcher.runNowImpl` hands work to the process main thread
+and then waits for it like this:
+
+```java
+sendToMainThread(r);
+while (!r.hasFinished) { Thread.onSpinWait(); }
+```
+
+A busy spin with **no timeout and no way out**. At shutdown the main thread leaves its polling loop -
+it logs `Exiting event polling thread` - so anything queued after that never runs, `hasFinished` never
+becomes true, and the render thread spins at full speed until Minecraft's own watchdog halts the JVM.
+That halt is a non-zero exit, which is exactly what Prism opens its console for.
+
+The timing was identical in all five logs checked: last line is Ixeris exiting its polling thread,
+then fifteen seconds of silence, then `[Client shutdown watchdog #1/ERROR]`.
+
+**`nbidal18-ixeris`** cancels that wait once there is provably nobody left to run the task -
+`Ixeris.shouldExit` is set, or the main thread is no longer alive. The task is dropped rather than
+run on the wrong thread, because it is a GLFW call and the window is being destroyed anyway. Neither
+condition can hold while the game is running.
+
+**v1.0.27's SoundsBegone fork was aimed at the wrong mod.** It is kept - it does stop that mod
+building a PostHog client and leaving non-daemon threads behind, which is worth having on its own -
+but it never was the cause, and the changelog said so with more confidence than the evidence
+supported.
+
+### The GUI animation is back on
+
+v1.0.34 disabled SmoothGUI's open animation because a chest flashed at one row before snapping to
+size. **That was never the animation.** It was the broken frame selection, and once Immersive
+Interfaces was actually working the flash was gone - re-tested with the animation on and the shipped
+packs before restoring it. The container art is drawn from glyphs now, so there is no wrong frame for
+an animation to catch mid-flight.
+
+---
+
 ## v1.0.34
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
