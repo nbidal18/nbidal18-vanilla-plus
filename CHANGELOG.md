@@ -5,6 +5,39 @@ build that was not published.
 
 ---
 
+## v1.0.40
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-01 | see below | `377c60eafdf9` | `3a514f7d1a7a` | 287 | 135 |
+
+**Reverts the F3 change from v1.0.39.** One config file. Click **Play**.
+
+`config/betterf3.json` goes back to its v1.0.38 contents, byte for byte. F3 looks and behaves
+exactly as it did before v1.0.39. Nothing else in v1.0.39 is affected - Carry On, Carry On Extend
+and the carryable gyrodyne all stay.
+
+### Why it was reverted
+
+v1.0.39 enabled BetterF3's **Misc Left** and **Misc Right** modules, which were genuinely missing
+from this pack's config, on the reasoning that they display the debug lines other mods add - Voxy's
+among them. They were missing, and enabling them changed nothing.
+
+Those modules read the **old string-based debug list**. 26.2 replaced it with the
+`DebugScreenEntry` system, which is what both Voxy mods register through, and BetterF3's own
+`DebugMixin` overrides `getCurrentlyEnabled()` on that list to return a hardcoded one-element list
+holding only BetterF3's own entry. **While BetterF3 is enabled, no mod's F3 entry renders at all**,
+so the Misc modules have nothing to collect. That was read out of the compiled mixin after the
+change had already shipped; it should have been read before.
+
+**To read Voxy's stats in the meantime**, set `"disable_mod": true` in `config/betterf3.json` for
+plain vanilla F3, and back to `false` afterwards. That file is never enforced at login and the
+updater does not restore it, so the edit is yours to keep.
+
+A first-party fork that lets third-party entries through was offered and declined for now.
+
+---
+
 ## v1.0.39
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
@@ -39,15 +72,22 @@ Aircraft's entity registration, the comparison from Carry On's pickup handler.
 The other six blacklist entries are unchanged: spawners, trial spawners, vaults, Lootr containers,
 Traveler's Backpack blocks and Immersive Paintings.
 
-### F3 was throwing away every modded line
+### F3: this half did not work, and v1.0.40 reverts it
 
-BetterF3 draws the debug screen from a list of modules, and this pack's config had three: FPS, and
-two System blocks. It collects the full debug text, subtracts the vanilla lines its own modules
-draw, and shows the remainder in two modules named **Misc Left** and **Misc Right** - and neither
-was in the config. So every line any mod added to F3 was being dropped, Voxy's included.
+**Struck out.** This release enabled BetterF3's Misc Left and Misc Right modules, on the reasoning
+that they show the debug lines other mods add and neither was in the pack's config. They were
+indeed missing, but enabling them changed nothing, and the claim that Voxy's stats would appear was
+wrong.
 
-Both are enabled now. Voxy and Voxy World Gen both register through 26.2's `DebugScreenEntry` API,
-which is the same class BetterF3 mixes into, so their stats arrive through that path.
+Those two modules read the **old string-based debug list**. 26.2 replaced it with the
+`DebugScreenEntry` system, which is what Voxy registers through - and BetterF3's own `DebugMixin`
+overrides `getCurrentlyEnabled()` on that list to return a hardcoded one-element list containing
+only BetterF3's own entry. **No mod's F3 entry renders at all while BetterF3 is enabled**, so there
+is nothing for the Misc modules to pick up.
+
+v1.0.40 puts `betterf3.json` back to its v1.0.38 contents, byte for byte. To read Voxy's stats
+meanwhile, set `"disable_mod": true` in `config/betterf3.json` for plain vanilla F3 - that file is
+never enforced and the edit survives updates.
 
 ---
 

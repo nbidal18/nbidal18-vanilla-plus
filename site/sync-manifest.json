@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.39",
+    "packVersion":  "1.0.40",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -341,7 +341,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "9f8181c39a7b7d8f8e9766f8f6f1bff7c6c887db8a329eb78ea9995e5c53359c"
+                                    "sha256":  "77d5925ff7cd064b2b2fcb7efc206e93464f3b223bab116820c3826fb8b854e1"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -361,7 +361,7 @@
                                 },
                                 {
                                     "path":  "config/betterf3.json",
-                                    "sha256":  "3bfc9e412c5e7acebb17998c76031e0e19ac089e742df8a9614f55ef500bf099"
+                                    "sha256":  "41a7bdf7d9406f41813d127f123e3190140b7be5d09c2173f5a675df657ac346"
                                 },
                                 {
                                     "path":  "config/betterthirdperson.json5",
@@ -835,7 +835,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "9f8181c39a7b7d8f8e9766f8f6f1bff7c6c887db8a329eb78ea9995e5c53359c"
+                      "sha256":  "77d5925ff7cd064b2b2fcb7efc206e93464f3b223bab116820c3826fb8b854e1"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -855,7 +855,7 @@
                   },
                   {
                       "path":  "config/betterf3.json",
-                      "sha256":  "3bfc9e412c5e7acebb17998c76031e0e19ac089e742df8a9614f55ef500bf099"
+                      "sha256":  "4168bac2dc287241056469b9cf32f118bc7804ae2325b256d9b734812e9e5ee7"
                   },
                   {
                       "path":  "config/betterthirdperson.json5",
@@ -1666,8 +1666,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.39+26.2-fabric.jar",
-                      "sha256":  "b21cdfa63d9ec38ce5715f1a1650683c88479186b3cd2dbd9a44378b831d42da"
+                      "path":  "mods/nbidal18-integrity-1.0.40+26.2-fabric.jar",
+                      "sha256":  "5677f3c79acd6d326c6afe6d3556608e17196b0b64a10713bcaa9b73d5f8a5d8"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
