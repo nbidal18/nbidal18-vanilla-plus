@@ -249,8 +249,14 @@ public final class Nbidal18PackwizSync {
      * cleared a second time for v1.0.23's structure spacing and the sweep did not run, because every
      * instance already held the v1.0.20 marker. That leaves Voxy drawing far terrain, and Xaero
      * drawing map tiles, for a world that no longer exists.
+     *
+     * <p>v1.0.30 sweeps for a third reason: not a chunk wipe but a stale LOD reset. Voxy World Gen
+     * generated nothing for the whole time EasyAuth was installed, so every client's store held far
+     * terrain from before that gap and nothing after it - visible in game as flat water planes
+     * hanging over the ocean. The server's own record is cleared in the same pass; clearing only one
+     * side leaves the two disagreeing about what exists.
      */
-    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1024";
+    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1030";
 
     private final Path minecraftRoot;
     private final Path stateRoot;

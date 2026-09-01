@@ -5,6 +5,59 @@ build that was not published.
 
 ---
 
+## v1.0.30
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-01 | see below | `0ef8c4e74c5a` | `0a1c06ae4da3` | 275 | 128 |
+
+**Far terrain resets. Nothing else changes** - no mod added, removed or updated, no config touched.
+The only edit is the sweep token, and the only thing you have to do is click **Play**.
+
+### What went wrong
+
+**EasyAuth, deployed to the server on the evening of 2026-08-31, silently stopped Voxy World Gen
+from pre-generating anything.**
+
+EasyAuth blocks custom network packets until a player has logged in. Voxy World Gen's client
+announces itself the instant it joins - before `/login` - and the server only generates terrain for
+players it has heard that announcement from. So it heard from nobody, and generated nothing, for
+about a day. The server's generation counter last grew at 18:12 that evening and never moved again.
+
+There was no error and no warning. The only visible sign was terrain quietly refusing to fill in,
+which is exactly what a merely overloaded server looks like - and this one was measured at 20 TPS and
+7 ms, so it was not overloaded.
+
+**Adding an exemption for Voxy's channel did not fix it.** After the change and a fresh join the
+server still loaded 0 chunks. Whether that exemption works at all here is now unknown, and that
+uncertainty applies equally to the one Simple Voice Chat depends on. EasyAuth was removed instead.
+
+### What that left behind
+
+Every client's far-terrain store held a snapshot from before the gap and nothing after it, so the
+world it drew and the world that exists had drifted apart - seen in game as flat planes of water
+hanging in the air over the ocean.
+
+**Both sides are cleared together in this release.** The client sweep removes `.voxy` and
+`xaero/world-map`; the server's `voxy_gen` record is deleted in the same deployment. Clearing one
+side alone leaves the two disagreeing about which chunks exist, which is the mismatch that produced
+this in the first place.
+
+**Your Xaero waypoints are preserved.** Only the drawn map tiles go.
+
+**Expect no distant terrain at first.** It rebuilds as the server regenerates and streams it out, and
+comes back further each session rather than all at once.
+
+### Server, unpublished
+
+EasyAuth is gone from the server. It was server-side only, so it never appeared in the manifest and
+its removal moves no digest - but it means **name impersonation is possible again**: the server runs
+`online-mode=false` with a name-based whitelist, so anyone who knows a whitelisted name can join as
+that player. Left that way deliberately for now. `online-mode=true` is the alternative that cannot
+cause this class of failure, because it filters no packets at all.
+
+---
+
 ## v1.0.29
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
