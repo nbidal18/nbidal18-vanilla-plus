@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.32",
+    "packVersion":  "1.0.33",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -339,7 +339,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "e1b9f3add8379764738c7317f9e2e875196fff2db00ade840bb34f2cac25fd46"
+                                    "sha256":  "5fda2f306d50df521bc9b595b09ddff7c664df005a5b9913039d2584f4aabf09"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -825,7 +825,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "e1b9f3add8379764738c7317f9e2e875196fff2db00ade840bb34f2cac25fd46"
+                      "sha256":  "5fda2f306d50df521bc9b595b09ddff7c664df005a5b9913039d2584f4aabf09"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1632,8 +1632,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.32+26.2-fabric.jar",
-                      "sha256":  "f4927fe66927e06cb94c4f12269d545533c5b075314f77cc8e31cab59622a918"
+                      "path":  "mods/nbidal18-integrity-1.0.33+26.2-fabric.jar",
+                      "sha256":  "0f4fd98ffec49ff8a02fa2554adb261f747317bbfd20f99e9b35a0f5f3b0c022"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1809,7 +1809,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "0dfa73870fc26400b5ae719867c239408a1d95fcdeed27357921bbd5cdf3a2dc"
+                      "sha256":  "ccc2992465c42edf41e07fdea99ff00fa4c08e409762185ff5098cc8d98148d5"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",
@@ -1876,6 +1876,10 @@
                       "sha256":  "527d7bc4608ccc52c304adbeaed936051aaaea428c266f7029ed99162e4768a6"
                   },
                   {
+                      "path":  "resourcepacks/nbidal18-Immersive-Interfaces-26.2.zip",
+                      "sha256":  "a00c95d840e76306e61af893c2e04aa634851b3a9641c3287f9b1d18c8e92edc"
+                  },
+                  {
                       "path":  "resourcepacks/nbidal18-Immersive-Interfaces-JEI-1.0.zip",
                       "sha256":  "0d4da2b8a5c0f1706e99ab7bbc9e55b451a321ffa62bdce7c668142610dfc084"
                   },
@@ -1898,10 +1902,6 @@
                   {
                       "path":  "resourcepacks/§5§lNo Enchant Glint §f§l26.2.zip",
                       "sha256":  "46f2630fe76ec7dbc95c8ca54b09ad1a88812bf6e38fcbf5034b8c67320ffe23"
-                  },
-                  {
-                      "path":  "resourcepacks/§6Immersive§8_§6Interfaces§8.zip",
-                      "sha256":  "91e8303b22d921074619252b9b66b9fc2127c97aa7a6d487f39056900c091547"
                   },
                   {
                       "path":  "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip",

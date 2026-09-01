@@ -31,7 +31,24 @@
 param(
     [int] $BootTimeoutSeconds = 300,
     [string] $InstanceName = 'nbidal18-vanilla-plus-client',
-    [switch] $KeepGameDir
+    [switch] $KeepGameDir,
+    # Leave the client running at the title screen instead of killing it, and keep the game
+    # directory. For looking at something that only exists on screen - a GUI, a model, a shader -
+    # which no log line can confirm.
+    #
+    # It exists because the alternative was cutting a release per attempt. The updater keeps
+    # resourcepacks exact-match, so a candidate pack dropped into the real instance is deleted
+    # before the game starts; this directory has no updater and no integrity helper.
+    [switch] $Hold,
+    # Copy these files over the staged resourcepacks folder, by name, after staging. A candidate
+    # fork of a pack the release already ships replaces the shipped one.
+    [string[]] $ReplacePack = @(),
+    # A saves folder to restore into the throwaway instance, so a run can start inside a world.
+    # Container GUIs, held items and anything else that only exists in game cannot be reached from
+    # the title screen, and creating a world by hand every run made that a person's job.
+    [string] $World,
+    # Load straight into this level and skip the menus. Needs -World.
+    [string] $QuickPlay
 )
 
 Set-StrictMode -Version Latest
@@ -167,6 +184,32 @@ try {
     $stagedMods = @(Get-ChildItem -LiteralPath (Join-Path $testRoot 'mods') -File -Filter '*.jar').Count
     Write-Host ("staging   {0} mods into {1}" -f $stagedMods, $testRoot)
 
+    foreach ($candidate in $ReplacePack) {
+        if (-not (Test-Path -LiteralPath $candidate -PathType Leaf)) { throw "-ReplacePack: no file at $candidate" }
+        $dest = Join-Path (Join-Path $testRoot 'resourcepacks') (Split-Path $candidate -Leaf)
+        $verb = if (Test-Path -LiteralPath $dest) { 'replaced' } else { 'added   ' }
+        Copy-Item -LiteralPath $candidate -Destination $dest -Force
+        Write-Host ("{0}  {1}" -f $verb, (Split-Path $candidate -Leaf))
+    }
+
+    # The staged instance has no options.txt, so the game would boot with every pack switched off
+    # and prove nothing about how they look. Both rows are copied from the release, which is what
+    # the updater seeds onto a player's instance.
+    if ($World) {
+        if (-not (Test-Path -LiteralPath $World -PathType Container)) { throw "-World: no folder at $World" }
+        Copy-Item -LiteralPath $World -Destination (Join-Path $testRoot 'saves') -Recurse -Force
+        Write-Host ("world     restored {0}" -f ((Get-ChildItem -LiteralPath $World -Directory | ForEach-Object { $_.Name }) -join ', '))
+    }
+
+    $releaseOptions = Join-Path $clientSource 'options.txt'
+    if ($Hold -and (Test-Path -LiteralPath $releaseOptions -PathType Leaf)) {
+        $rows = ([IO.File]::ReadAllText($releaseOptions) -split "`r?`n") |
+            Where-Object { $_ -match '^(resourcePacks|incompatibleResourcePacks):' }
+        [IO.File]::WriteAllText((Join-Path $testRoot 'options.txt'), (($rows -join "`n") + "`n"),
+            (New-Object Text.UTF8Encoding($false)))
+        Write-Host ("seeded    options.txt with {0} pack rows from the release" -f $rows.Count)
+    }
+
     $arguments = @(
         '-Xms512m', '-Xmx2048m',
         '-cp', ($classpath -join ';'),
@@ -181,11 +224,13 @@ try {
         '--userType', 'legacy',
         '--versionType', 'release'
     )
+    if ($QuickPlay) { $arguments += @('--quickPlaySingleplayer', $QuickPlay) }
 
     # WorkingDirectory matters as much as --gameDir: several mods write relative to the process
     # working directory, and launching from the checkout once scattered files through the repo.
+    # Minimized for a pass/fail run, on screen for -Hold: the whole point of Hold is to look at it.
     $client = Start-Process -FilePath $javaPath -ArgumentList $arguments -PassThru `
-        -WorkingDirectory $testRoot -WindowStyle Minimized `
+        -WorkingDirectory $testRoot -WindowStyle $(if ($Hold) { 'Normal' } else { 'Minimized' }) `
         -RedirectStandardOutput (Join-Path $testRoot 'stdout.txt') `
         -RedirectStandardError (Join-Path $testRoot 'stderr.txt')
 
@@ -241,21 +286,37 @@ try {
                 "apply is still a broken feature:`n" + (($mixinLines | Select-Object -First 10) -join "`n"))
         }
         if ($failures.Count) {
-            throw ("The client started, but the log contains faults that have shipped before:`n`n" +
-                ($failures -join "`n`n"))
+            # -Hold is for looking at something on screen, and it deliberately turns the resource
+            # packs on, which is when most of these fire. Reporting them is useful; throwing would
+            # kill the client the run exists to leave open.
+            if ($Hold) {
+                Write-Warning ("Faults in the log, reported rather than fatal because -Hold:`n`n" +
+                    ($failures -join "`n`n"))
+            }
+            else {
+                throw ("The client started, but the log contains faults that have shipped before:`n`n" +
+                    ($failures -join "`n`n"))
+            }
         }
         Write-Host ''
         Write-Host 'OK        title screen reached and no known-bad pattern in the log'
     }
     finally {
-        if (-not $client.HasExited) { $client.Kill(); $client.WaitForExit(30000) | Out-Null }
-        $client.Dispose()
+        if ($Hold -and -not $client.HasExited) {
+            Write-Host ''
+            Write-Host 'HOLD      the client is open and left running. Close it yourself when done.'
+            Write-Host '          Create a creative world to look at containers - this directory is'
+            Write-Host '          a throwaway and nothing in it reaches your real instance.'
+        }
+        elseif (-not $client.HasExited) { $client.Kill(); $client.WaitForExit(30000) | Out-Null }
+        if (-not $Hold) { $client.Dispose() }
     }
 }
 finally {
     $resolved = [IO.Path]::GetFullPath($testRoot)
     $tempBase = [IO.Path]::GetFullPath([IO.Path]::GetTempPath()).TrimEnd('\') + '\'
-    if (-not $KeepGameDir -and $resolved.StartsWith($tempBase, [StringComparison]::OrdinalIgnoreCase) -and
+    if (-not $KeepGameDir -and -not $Hold -and
+        $resolved.StartsWith($tempBase, [StringComparison]::OrdinalIgnoreCase) -and
         (Test-Path -LiteralPath $resolved)) {
         Remove-Item -LiteralPath $resolved -Recurse -Force
     }

@@ -22,7 +22,7 @@ hash = "d954976cca7faa29db88894517863098c237debf838e7fd725642e9030e3f238"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "e1b9f3add8379764738c7317f9e2e875196fff2db00ade840bb34f2cac25fd46"
+hash = "5fda2f306d50df521bc9b595b09ddff7c664df005a5b9913039d2584f4aabf09"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -829,8 +829,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.32+26.2-fabric.jar"
-hash = "f4927fe66927e06cb94c4f12269d545533c5b075314f77cc8e31cab59622a918"
+file = "mods/nbidal18-integrity-1.0.33+26.2-fabric.jar"
+hash = "0f4fd98ffec49ff8a02fa2554adb261f747317bbfd20f99e9b35a0f5f3b0c022"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -1006,7 +1006,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "0dfa73870fc26400b5ae719867c239408a1d95fcdeed27357921bbd5cdf3a2dc"
+hash = "ccc2992465c42edf41e07fdea99ff00fa4c08e409762185ff5098cc8d98148d5"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -1073,6 +1073,10 @@ file = "resourcepacks/Weskerson's Nature.zip"
 hash = "527d7bc4608ccc52c304adbeaed936051aaaea428c266f7029ed99162e4768a6"
 
 [[files]]
+file = "resourcepacks/nbidal18-Immersive-Interfaces-26.2.zip"
+hash = "a00c95d840e76306e61af893c2e04aa634851b3a9641c3287f9b1d18c8e92edc"
+
+[[files]]
 file = "resourcepacks/nbidal18-Immersive-Interfaces-JEI-1.0.zip"
 hash = "0d4da2b8a5c0f1706e99ab7bbc9e55b451a321ffa62bdce7c668142610dfc084"
 
@@ -1095,10 +1099,6 @@ hash = "2c566bc61e40c8aee17106487322f9e91360a4fa29fcc405833bcbeb0150fafd"
 [[files]]
 file = "resourcepacks/§5§lNo Enchant Glint §f§l26.2.zip"
 hash = "46f2630fe76ec7dbc95c8ca54b09ad1a88812bf6e38fcbf5034b8c67320ffe23"
-
-[[files]]
-file = "resourcepacks/§6Immersive§8_§6Interfaces§8.zip"
-hash = "91e8303b22d921074619252b9b66b9fc2127c97aa7a6d487f39056900c091547"
 
 [[files]]
 file = "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip"

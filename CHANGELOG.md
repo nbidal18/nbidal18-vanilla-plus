@@ -5,6 +5,55 @@ build that was not published.
 
 ---
 
+## v1.0.33
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-01 | see below | `26c3ec426f67` | `c39781e18777` | 279 | 128 |
+
+**Immersive Interfaces works.** Every vanilla screen - inventory, chests, enchanting table, the rest -
+is styled instead of showing a chest-shaped smear. Click **Play**. Nothing else changed.
+
+### Why it was broken
+
+The pack is a GUI engine written in a **core shader**. Its container textures are single sheets
+holding several frames side by side - `generic_54.png` is six chests in a row, one per size - and
+`position_tex_color` picks the frame, then *resizes the drawn quad* to fit art that is deliberately
+larger than the 176x166 panel Minecraft draws. Nothing about that can be fixed by editing a PNG,
+because the panel geometry is Minecraft's, not the pack's.
+
+**26.2 changed GUI rendering and the released 0.8.2 has no shader for it.** Its newest overlay updates
+`rendertype_text` for 26.1 - and 26.2 renamed that shader to `text`, so even that was a dead file.
+The shader loaded and ran (forcing its output red turned the whole GUI red), computed the screen size
+correctly, and still matched no element, so every container drew its raw multi-frame sheet.
+
+**The author has already written the 26.2 port**, in a `_26.2_shaders` overlay on the repository's
+`main` branch, declared for formats 88-200 and rewritten to `#version 330`. It is not in any Modrinth
+release. This ships a build of that source.
+
+`max_format` is 999 there, so 26.2 accepts the pack outright - the log says *"Removed from
+incompatibility list because it's now compatible"* - and it is the one pack dropped from
+`incompatibleResourcePacks` in the seed.
+
+Named `nbidal18-Immersive-Interfaces-26.2.zip` because it is a build of an unreleased branch rather
+than a version anyone can download, and a file named like the release would be a trap for whoever
+reads it next. The JEI and Traveler's Backpack add-ons are untouched; they never needed the shader.
+
+### A dev harness, because this could not be tested any other way
+
+`Test-ClientLaunch.ps1` gained `-Hold`, `-ReplacePack`, `-World` and `-QuickPlay`. It stages a
+throwaway instance, swaps in a candidate pack, restores a world, loads straight into it and leaves
+the client open. A GUI cannot be judged from a log line, and the updater keeps `resourcepacks`
+exact-match, so a candidate dropped into the real instance is deleted before the game starts. The
+alternative was cutting a release per attempt.
+
+**It also caught the mistake that wasted the most time here.** A first build of the pack came out
+with every entry path written using backslashes - `ZipFile.CreateFromDirectory` on Windows
+PowerShell does that - so Minecraft opened the pack, found no assets in it, and applied nothing. It
+read as "the pack is broken" when the packaging was.
+
+---
+
 ## v1.0.32
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
