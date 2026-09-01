@@ -265,8 +265,15 @@ public final class Nbidal18PackwizSync {
      * terrain from before that gap and nothing after it - visible in game as flat water planes
      * hanging over the ocean. The server's own record is cleared in the same pass; clearing only one
      * side leaves the two disagreeing about what exists.
+     *
+     * <p>v1.0.43 sweeps for a fourth: the caches are worth rebuilding now that rebuilding them
+     * works. The v1.0.30 sweep was suspected of never having run, because a player holding its
+     * marker still had a holed world. It had run - the marker was there and the directory had been
+     * deleted - and the store had simply refilled just as holed, because Voxy World Gen was dropping
+     * incoming chunks on the floor and never asking for them again. That is fixed in v1.0.42, so a
+     * sweep now refills cleanly, which a sweep before it could not.
      */
-    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1030";
+    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1043";
 
     private final Path minecraftRoot;
     private final Path stateRoot;
@@ -791,6 +798,25 @@ public final class Nbidal18PackwizSync {
                     removed++;
                 }
             }
+            // Prove it before recording it. The marker means "this sweep is done", and writing one
+            // for a sweep that did not finish retires the job silently - the next launch skips it and
+            // nobody ever finds out. A locked file throws out of the delete and is caught below, so
+            // the marker is not written and the sweep runs again next launch; this catches the
+            // quieter case where nothing threw and something is still there anyway.
+            List<String> survivors = new ArrayList<>();
+            for (String relative : RETIRED_LOCAL_DIRECTORIES) {
+                Path target = minecraftRoot.resolve(relative).normalize();
+                if (target.startsWith(minecraftRoot) && Files.exists(target, LinkOption.NOFOLLOW_LINKS)) {
+                    survivors.add(relative);
+                }
+            }
+            if (!survivors.isEmpty()) {
+                warning("Could not fully clear " + String.join(", ", survivors)
+                        + " - it will be tried again on the next launch."
+                        + " Close Minecraft fully if this keeps happening.");
+                return;
+            }
+
             Files.createDirectories(stateRoot);
             Files.writeString(marker, RETIRED_LOCAL_FILES_TOKEN + System.lineSeparator(),
                     StandardCharsets.UTF_8);

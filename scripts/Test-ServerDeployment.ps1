@@ -120,12 +120,36 @@ $existingHelpers = @(Get-ChildItem -LiteralPath $modsDir -Filter 'nbidal18-integ
 # version-stamped and handled on its own above - matching it by name here would compare v1.0.10
 # against v1.0.11 and call every release stale.
 $releaseMods = Join-Path $release '3. modpack\client\mods'
+
+# Any first-party jar the server holds that this release does not ship is superseded and has to go.
+# Two jars declaring one mod id is not a duplicate the loader tolerates: it picks one, and which one
+# is not something to leave to chance.
+#
+# Read here, before the staging below deletes the old helper out of the mirror - the list has to be
+# what the *server* holds, not what is left after staging. This used to cover only the integrity
+# helper, because that was the only first-party jar ever deployed; nbidal18-voxyworldgen going 1.0.0
+# to 1.1.0 renamed a server-side jar for the first time and would have left both installed.
+#
+# Scoped to nbidal18-* on purpose. A server jar that is not ours - spark, the whitelist mod - is
+# server-only by definition and must never be swept up by a rule about what the client pack ships.
+$releaseJarNames = @{}
+foreach ($jar in @(Get-ChildItem -LiteralPath $releaseMods -Filter *.jar -File)) {
+    $releaseJarNames[$jar.Name] = $true
+}
+$superseded = @(Get-ChildItem -LiteralPath $modsDir -Filter 'nbidal18-*.jar' -File |
+        Where-Object { -not $releaseJarNames.ContainsKey($_.Name) })
 $shared = @()
 $serverOnly = 0
 foreach ($live in @(Get-ChildItem -LiteralPath $modsDir -Filter *.jar -File)) {
     if ($live.Name -like 'nbidal18-integrity-*.jar') { continue }
     $mirror = Join-Path $releaseMods $live.Name
-    if (-not (Test-Path -LiteralPath $mirror -PathType Leaf)) { $serverOnly++; continue }
+    # A superseded first-party jar is also absent from the release, but it is being retired rather
+    # than left alone, so counting it as "server-only, untouched" would report the opposite of what
+    # is about to happen to it.
+    if (-not (Test-Path -LiteralPath $mirror -PathType Leaf)) {
+        if (-not ($superseded | Where-Object { $_.Name -eq $live.Name })) { $serverOnly++ }
+        continue
+    }
     $shared += [pscustomobject]@{
         Name = $live.Name
         Live = $live.FullName
@@ -191,6 +215,7 @@ else {
 }
 foreach ($jar in $added) { Write-Host ("  new jar  {0}" -f $jar.Name) }
 foreach ($cfg in $configFiles) { Write-Host ("  config   {0}" -f $cfg.Name) }
+foreach ($old in $superseded) { Write-Host ("  retire   {0}" -f $old.Name) }
 Write-Host ("           {0} server-only jars untouched, {1} client-only jars not considered" -f $serverOnly, $clientOnly)
 
 # ---------------------------------------------------------------- back up, and prove the backup
@@ -266,7 +291,7 @@ if ($failures.Count) { throw ('Staging did not verify: ' + ($failures -join '; '
 $sendFiles = @('config\nbidal18-integrity.properties', ('mods\' + $helperSource.Name), 'server.properties')
 foreach ($jar in @($staleShared) + @($added)) { $sendFiles += ('mods\' + $jar.Name) }
 foreach ($cfg in $configFiles) { $sendFiles += ('config\' + $cfg.Name) }
-$sendRemove = @($existingHelpers | Where-Object { $_.Name -ne $helperSource.Name } | ForEach-Object { 'mods\' + $_.Name })
+$sendRemove = @($superseded | ForEach-Object { 'mods\' + $_.Name })
 
 $send = @()
 foreach ($rel in $sendFiles) {

@@ -5,6 +5,61 @@ build that was not published.
 
 ---
 
+## v1.0.43
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-02 | see below | `d32d043d8cfa` | `f9e7cb7bf3bd` | 289 | 137 |
+
+**Turning Voxy off now stops the download, and the far-terrain caches are swept once more.**
+Click **Play**. The first launch clears Voxy's cache, so give it a minute.
+
+### Voxy off means Voxy off
+
+Until now, switching Voxy off stopped it *drawing* far terrain while the server kept streaming every
+LOD packet, which the client received and threw away. On a poor connection that is the worst of both:
+all of the cost, none of the benefit.
+
+`nbidal18-voxyworldgen` 1.1.0 announces the change the moment it happens, and the server stops
+sending. Switching it back on resumes immediately - no rejoining.
+
+**No new packet was needed.** The server decides who to stream to from `PlayerTracker.isModded`,
+which it sets from the `handshake_ack` the client sends at join - and that handler is stateless: it
+reads `clientHasMod`, calls `setModded`, and kicks the generation manager when true. Nothing in it
+assumes it runs only once, so re-sending the same ack whenever the setting changes is the whole
+mechanism.
+
+**Toggling costs no chunks.** `broadcastLODData` tests `isModded` *before* `setSyncedState`, so a
+switched-off player is skipped entirely and nothing is recorded as delivered to them. Everything
+missed while off is still unsynced and arrives normally on the way back in.
+
+### The caches are swept again
+
+The retired-cache token is bumped, so `.voxy` and `xaero/world-map` are cleared once on the next
+launch. Waypoints are untouched - `xaero/minimap` is deliberately not in that list.
+
+**Why now, and a correction.** The v1.0.30 sweep was suspected of never having run, because a player
+holding its marker still had a holed world. It had run: the marker was there and the directory had
+been deleted. The store simply refilled just as holed, because Voxy World Gen was dropping incoming
+chunks on the floor and never asking for them again - the bug fixed in v1.0.42. A sweep before that
+release could not have helped no matter how well it worked. This one refills cleanly, which is the
+entire reason to do it again.
+
+The sweep now also **verifies before it records**. It re-checks that each directory is actually gone
+and refuses to write its marker otherwise, so a sweep that half-finished is retried on the next
+launch instead of being silently retired.
+
+### A superseded first-party jar is now retired from the server
+
+Deploying only ever removed the old integrity helper, because that was the only first-party jar the
+server carried. `nbidal18-voxyworldgen` going from 1.0.0 to 1.1.0 renamed a server-side jar for the
+first time, and both copies would have been left installed - two jars declaring one mod id, with the
+loader picking one. `Test-ServerDeployment` now retires any `nbidal18-*` jar the server holds that
+the release does not ship. Scoped to ours: spark and the whitelist mod are server-only and are never
+touched by a rule about what the client pack ships.
+
+---
+
 ## v1.0.42
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
