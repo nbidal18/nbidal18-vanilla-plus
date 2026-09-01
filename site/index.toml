@@ -22,7 +22,7 @@ hash = "d954976cca7faa29db88894517863098c237debf838e7fd725642e9030e3f238"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "e0c0a6206b95e78894df7c998250e6e10a8dd58509dbe602a4f96b942e926ce1"
+hash = "b6187d52a5167a83b1caa3ca0c038fd7059f434b18300bdce184bc85ec40c60d"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -829,8 +829,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.30+26.2-fabric.jar"
-hash = "a5dcca3d4dd4ae1a3d4e33dda8bbdfba307138d991c7e999ce242790df8196fd"
+file = "mods/nbidal18-integrity-1.0.31+26.2-fabric.jar"
+hash = "2946c49f1808ab9f0122676559ec9ca7fae72c96790780f5559f1f57285f7a06"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -1006,7 +1006,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "770a5970c8b04dcbbeb9091473ed26d87490492690b4014bb630962f61c8f08b"
+hash = "1bd1e597a4ba4040ecdf4cca339b38ac101aacf1ece1372aab9da7122c3210c1"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -1057,12 +1057,28 @@ file = "resourcepacks/Overlay’s.zip"
 hash = "ac40030dd211be141e42b445f0aee77591dbf46ad1e1f5066f6ddace2925806a"
 
 [[files]]
-file = "resourcepacks/Recolourful Containers 3.1.3 (1.19.4+).zip"
-hash = "fe14f85cf5c551fb1d0f122d7fa07a4b371186f15e23b467a409999658974948"
-
-[[files]]
 file = "resourcepacks/Theone's Eating Animation Pack v1.0.zip"
 hash = "5d1f2ea9b8af9cd931796c09f2159e119b25db909b0a84269b42fb3c9f55893d"
+
+[[files]]
+file = "resourcepacks/Weskerson's 3D Food.zip"
+hash = "e781e4ffbc566d1ed1889bfc8fbc79411827fa07ca996ff705c6f00d2fecf69e"
+
+[[files]]
+file = "resourcepacks/Weskerson's 3D Items.zip"
+hash = "8a12dbf4337eef99456fde3c04f83cf460d6aba400f52652e0ed75fee6abcb7d"
+
+[[files]]
+file = "resourcepacks/Weskerson's Nature.zip"
+hash = "527d7bc4608ccc52c304adbeaed936051aaaea428c266f7029ed99162e4768a6"
+
+[[files]]
+file = "resourcepacks/nbidal18-Immersive-Interfaces-JEI-1.0.zip"
+hash = "0d4da2b8a5c0f1706e99ab7bbc9e55b451a321ffa62bdce7c668142610dfc084"
+
+[[files]]
+file = "resourcepacks/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip"
+hash = "b6954fb374d9f99b0b7a020a4e7047326d0546824b7aa3730d23afadbc63649a"
 
 [[files]]
 file = "resourcepacks/nbidal18-Weskersons-Torches-1.02.zip"
@@ -1081,8 +1097,8 @@ file = "resourcepacks/§5§lNo Enchant Glint §f§l26.2.zip"
 hash = "46f2630fe76ec7dbc95c8ca54b09ad1a88812bf6e38fcbf5034b8c67320ffe23"
 
 [[files]]
-file = "resourcepacks/§f§lActually §6§l3D §fBlocks & Items!§7.zip"
-hash = "0df22f984e62f4c9d25132e52103e201971a5ba5c2aeed091a4db0d8b0c30d88"
+file = "resourcepacks/§6Immersive§8_§6Interfaces§8.zip"
+hash = "91e8303b22d921074619252b9b66b9fc2127c97aa7a6d487f39056900c091547"
 
 [[files]]
 file = "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip"

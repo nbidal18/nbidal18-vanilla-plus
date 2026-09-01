@@ -5,6 +5,63 @@ build that was not published.
 
 ---
 
+## v1.0.31
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-01 | see below | `b447e789e955` | `0ef8c4e74c5a` | 279 | 128 |
+
+**Resource packs only.** No mod, config or server change. Click **Play**.
+
+### Out
+
+**Actually 3D** and **Recolourful Containers**, both by request.
+
+### In, below Weskerson's Torches
+
+Three more packs from the same author, so the 3D look extends past torches:
+
+| | |
+| --- | --- |
+| **Tools & Utils 2.5** | published as *Weskerson's 3D Items* - 411 item models, the largest of the three |
+| **Weskerson's 3D Food 1.0** | 41 food items |
+| **Weskerson's Nature 1.02** | 20 items, plus blockstates |
+
+### In, below Compact Font
+
+**Immersive Interfaces 0.8.2**, a full GUI overhaul, with its **JEI** and **Traveler's Backpack**
+add-ons. The pack runs both of those mods, so both add-ons have something to target.
+
+### Two of them would not have loaded
+
+The JEI and Traveler's Backpack add-ons declared only `supported_formats` in `pack.mcmeta`, with no
+`min_format` or `max_format`. **That is the same shape that made Modded Containers silently vanish in
+v1.0.26** - it was never rejected for being too old, it was dropped from `options.txt` and the
+texture path everyone suspected was correct all along.
+
+That pack's metadata was re-read to confirm the reading rather than assume it: it declared
+`supported_formats` covering **30 to 99**, which already includes 26.2's resource format of **88**.
+So the range was never the problem. **26.2 refuses the field itself.**
+
+Both add-ons now carry `min_format`/`max_format` instead and are renamed with the `nbidal18-` prefix,
+the same treatment `nbidal18-Weskersons-Torches` already has. The other four packs declare the modern
+fields and were shipped untouched.
+
+**Out of range is fine; the wrong field is fatal.** Weskerson's Torches has declared `max_format: 84`
+against 26.2's 88 since it was added, and works. A pack whose metadata parses is loaded even when it
+says it is for an older game.
+
+### What to expect from 3D Food
+
+These packs get their 3D from item models, but their emissive shading from a custom `item` shader
+supplied per game version. 3D Food's newest overlay stops at format 75, so at 88 it gets **the models
+but not the shader** - exactly the state Weskerson's Torches has been in all along, whose 26.1
+overlay is empty. Nature and 3D Items both carry a 26.1 overlay that does apply.
+
+Immersive Aircraft's UI is still vanilla light. Known, and left for later.
+
+---
+
 ## v1.0.30
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

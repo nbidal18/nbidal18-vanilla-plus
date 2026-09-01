@@ -199,15 +199,16 @@ public final class Nbidal18PackwizSync {
             new PlayerFileSeed("config/voxy-config.json", ':', "voxy-default-off-v1017", List.of(
                     SeedRow.of("enabled", "false"),
                     SeedRow.of("section_render_distance", "1.0"))),
-            // Recolourful Containers comes back in v1.0.29, on its own and back where it sat
-            // before - vanilla containers coloured, modded ones left plain. Actually 3D stays as
-            // the single 3D pack.
+            // v1.0.31 reshapes the resource packs. Actually 3D and Recolourful Containers are out.
+            // Three more Weskerson packs join the torches one directly below it, and the Immersive
+            // Interfaces GUI overhaul plus its JEI and Traveler's Backpack add-ons sit below the
+            // font. Later in the list wins, so "below" is earlier in this array.
             //
             // A fresh token and the whole row restated, because a seed sets a row rather than
             // editing it, and every earlier token has already fired on every instance.
-            new PlayerFileSeed("options.txt", ':', "resourcepacks-v1029", List.of(
+            new PlayerFileSeed("options.txt", ':', "resourcepacks-v1031", List.of(
                     SeedRow.of("resourcePacks",
-                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/§f§lActually §6§l3D §fBlocks & Items!§7.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/Theone's Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/Recolourful Containers 3.1.3 (1.19.4+).zip\",\"file/Compact Font.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"))));
+                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/Weskerson's 3D Items.zip\",\"file/Weskerson's 3D Food.zip\",\"file/Weskerson's Nature.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/Theone's Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/§6Immersive§8_§6Interfaces§8.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/Compact Font.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"))));
 
         /**
      * Empty on purpose, and it must stay that way until a mod is actually retired from THIS
