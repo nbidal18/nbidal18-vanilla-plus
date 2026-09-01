@@ -282,8 +282,7 @@
       "aeronautics:*",
       "offroad:*",
       "coloreditemframes:*",
-      "immersive_paintings:*",
-      "immersive_aircraft:*"
+      "immersive_paintings:*"
     ],
     "//forbiddenStacking": "Entities that cannot have other entities stacked on top of them",
     "forbiddenStacking": [

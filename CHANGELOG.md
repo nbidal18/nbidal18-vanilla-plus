@@ -5,6 +5,52 @@ build that was not published.
 
 ---
 
+## v1.0.39
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-01 | see below | `3a514f7d1a7a` | `f59606236c9a` | 287 | 135 |
+
+**Small aircraft can be carried, and F3 shows what mods put there.** Two config files. Click **Play**.
+
+### Gyrodynes and quadrocopters are carryable
+
+v1.0.38 blocked every Immersive Aircraft entity from Carry On. That was too blunt: carrying a small
+aircraft is useful, and Carry On already refuses anything too big. The blanket entry is gone and the
+size limit decides, which also means a future aircraft is classified the day it is added rather than
+whenever someone remembers the list.
+
+Carry On allows up to **1.5 wide by 2.5 tall** in survival, compared with `>=`. Against Immersive
+Aircraft's registered dimensions:
+
+| Aircraft | Size | |
+| --- | --- | --- |
+| Gyrodyne | 1.3 x 0.6 | **carryable** |
+| Quadrocopter | 1.5 x 0.5 | **carryable** |
+| Biplane | 1.75 x 0.85 | too wide |
+| Bamboo hopper | 3.0 x 1.5 | too wide |
+| Airship | 1.5 x 3.0 | too tall |
+| Cargo airship | 1.75 x 3.0 | too wide, too tall |
+| Warship | 5.0 x 6.5 | both |
+
+Both numbers were read out of the two mods rather than estimated - the sizes from Immersive
+Aircraft's entity registration, the comparison from Carry On's pickup handler.
+
+The other six blacklist entries are unchanged: spawners, trial spawners, vaults, Lootr containers,
+Traveler's Backpack blocks and Immersive Paintings.
+
+### F3 was throwing away every modded line
+
+BetterF3 draws the debug screen from a list of modules, and this pack's config had three: FPS, and
+two System blocks. It collects the full debug text, subtracts the vanilla lines its own modules
+draw, and shows the remainder in two modules named **Misc Left** and **Misc Right** - and neither
+was in the config. So every line any mod added to F3 was being dropped, Voxy's included.
+
+Both are enabled now. Voxy and Voxy World Gen both register through 26.2's `DebugScreenEntry` API,
+which is the same class BetterF3 mixes into, so their stats arrive through that path.
+
+---
+
 ## v1.0.38
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

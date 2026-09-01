@@ -22,7 +22,7 @@ hash = "d954976cca7faa29db88894517863098c237debf838e7fd725642e9030e3f238"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "2fc1a6827064fb8bd248b43723d26233595eb0f30608569e71efca217dafc95f"
+hash = "9f8181c39a7b7d8f8e9766f8f6f1bff7c6c887db8a329eb78ea9995e5c53359c"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -42,7 +42,7 @@ hash = "fa497006bef4420ea30c9387dbd174f5726a3ed436147099319a8f0afe7035ef"
 
 [[files]]
 file = "config/betterf3.json"
-hash = "4168bac2dc287241056469b9cf32f118bc7804ae2325b256d9b734812e9e5ee7"
+hash = "3bfc9e412c5e7acebb17998c76031e0e19ac089e742df8a9614f55ef500bf099"
 
 [[files]]
 file = "config/betterthirdperson.json5"
@@ -66,7 +66,7 @@ hash = "9909d01cf9427ea5d70a66b5c52d2fb7c5e414d410c2e20ae58460661e780de5"
 
 [[files]]
 file = "config/carryon-common.json"
-hash = "4feb29522d8bc4f008cde9d4f24cd3d2fcb74b6f027826ef5c1be85b257a6139"
+hash = "30f6138e2e21ebc7ca31884b5555cad05871c10c6e6391a538f57ff0e8058755"
 
 [[files]]
 file = "config/chatanimation.json"
@@ -853,8 +853,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.38+26.2-fabric.jar"
-hash = "7c8bd660cf67c91c1298b2806fdacddc647e9275ebb5a771c85a8bbc9a1455fd"
+file = "mods/nbidal18-integrity-1.0.39+26.2-fabric.jar"
+hash = "b21cdfa63d9ec38ce5715f1a1650683c88479186b3cd2dbd9a44378b831d42da"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
