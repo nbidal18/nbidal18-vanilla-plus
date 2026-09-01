@@ -22,7 +22,7 @@ hash = "d954976cca7faa29db88894517863098c237debf838e7fd725642e9030e3f238"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "b4dc63842af0c7407aac86d77f082b4a65e98b0e54e4d2bbc40eb226e48074a7"
+hash = "e5971d7aee811b75a839029cfa2e94775119b8c80e4bb0abdd3d5dd3c3623339"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -829,6 +829,10 @@ file = "mods/nbidal18-autohud-9.0-beta.3+26.2-fabric.jar"
 hash = "eb6973d3e60f81deebd3dabd60846a6ffceb3df86ddac2e1020df0947789e5fb"
 
 [[files]]
+file = "mods/nbidal18-autopilot-1.0.0+26.2-fabric.jar"
+hash = "47a8a1887461550686676d110d751ca5c673cf7994aec5164a9a4563923ed09c"
+
+[[files]]
 file = "mods/nbidal18-betterfishing-1.0.0+26.2-fabric.jar"
 hash = "9f40acd1782e0ff9b9c910ca7f253d770daec0984ec03ac01b4cc9ae30baad13"
 
@@ -853,8 +857,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.41+26.2-fabric.jar"
-hash = "e3695b862e4fb60e5b465bca364fda71f988c3610422df30e7efc434a8a90875"
+file = "mods/nbidal18-integrity-1.0.42+26.2-fabric.jar"
+hash = "e99878e25b65fb2e1641d0c2a85817f452c4c9ab5d801bba426a6dd5f113e71d"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -879,6 +883,10 @@ hash = "ad7773d915ff1f44aebd38a2167bb4730fde70cbf1f766892f3dbab7d7ec5152"
 [[files]]
 file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
 hash = "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
+
+[[files]]
+file = "mods/nbidal18-voxyworldgen-1.0.0+26.2-fabric.jar"
+hash = "23aa635fbc7f6b7950bc3845acd0d202b0dc29cc6d5983a44a1053d88c5b56af"
 
 [[files]]
 file = "mods/nbidal18-xaerominimap-1.0.0+26.2-fabric.jar"

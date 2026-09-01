@@ -5,6 +5,72 @@ build that was not published.
 
 ---
 
+## v1.0.42
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-02 | see below | `f9e7cb7bf3bd` | `bda87d84fcf9` | 289 | 137 |
+
+**Two first-party mods: Voxy stops losing chunks, and Ctrl+Alt+W walks for you.** Click **Play**.
+
+### nbidal18-voxyworldgen - the holes
+
+Voxy World Gen's client appends every incoming LOD payload to a queue and, once that queue passes
+8192, throws one away:
+
+```
+INGEST_QUEUE.addLast(payload);
+if (INGEST_QUEUE.size() > 8192) INGEST_QUEUE.pollFirst();
+```
+
+Nothing tells the server, and the server has already recorded that chunk in the player's synced set
+- so it never sends it again. **That chunk is a permanent hole.** It discards the *oldest* entry,
+which during a backfill is the batch sent first: the chunks nearest the player. Holes appear
+underfoot rather than at the horizon.
+
+This is not an edge case. The client ingests 96 sections a tick, about 1920 a second, while a
+backfill at a 256-chunk radius is 262,144 chunks. The queue holds roughly thirty seconds of that,
+so it overruns within the first minute, every time. Dropping is how the client survives; the defect
+is that dropping is silent and final. It is also why deleting a Voxy folder only helped for a
+while - reconnecting forces a backfill, which floods the queue and makes fresh holes.
+
+The fork, in three parts:
+
+- the drop takes the **farthest** payload instead of the oldest, so what is lost is far terrain
+- the dropped chunk is written down
+- once the client has gone three seconds without dropping - it has capacity again - it sends a small
+  `resync` packet, and the server clears those chunks' synced flags
+
+Clearing the flag is exactly what the mod's own `dropSend` does when its *send* queue overflows. The
+server already knew how to recover from a lost chunk; it simply had no way to hear about one lost on
+the client. Batches are capped at 512 positions with a second between them, so asking for what was
+lost cannot itself refill the queue.
+
+**This one runs on the server as well**, because it adds a packet, and it is deployed there with
+this release. A client whose server lacks it degrades quietly - `canSend` is false, nothing is sent,
+and it keeps the half that needs no cooperation.
+
+Existing holes are not repaired by installing it. They clear on the next relog, which forces a full
+backfill - and that backfill will now actually land.
+
+### nbidal18-autopilot - Ctrl+Alt+W
+
+Ctrl+Alt+W holds the forward key down; the back key cancels it.
+
+**It holds the key, not the movement input**, which is why one implementation covers running, boats,
+horses and Immersive Aircraft at once - anything reading a keybind on that key sees it. Driving the
+player's movement input instead would walk the player and leave an aircraft idle.
+
+Both keys are read from `key.forward` and `key.back`, so they are W and S by default and follow a
+rebind rather than breaking on one. Engaging only works in gameplay, so the combination does nothing
+inside a GUI; opening a screen pauses the hold and closing it resumes, so a map can be opened
+mid-flight; leaving the world disengages.
+
+A mod that polls GLFW directly rather than going through a `KeyMapping` would not see this. Nothing
+in this pack does.
+
+---
+
 ## v1.0.41
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

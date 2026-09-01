@@ -58,6 +58,18 @@ $mods = @(
     # with no thread factory, so non-daemon, and schedules a fixed-rate tick that never ends and
     # is never shut down. Second of the two threads that stopped the client exiting.
     @{ Name = 'nbidal18-mousewheelie'; Generator = $null; Builder = 'build_mousewheelie.py' },
+    # Ctrl+Alt+W holds the forward key down until the back key cancels it. First-party content
+    # rather than a fork - it patches nothing, so it has no target to be named for. It holds the
+    # key and not the movement input, which is what makes it work for boats, horses and Immersive
+    # Aircraft rather than only for walking.
+    @{ Name = 'nbidal18-autopilot'; Generator = $null; Builder = 'build_autopilot.py' },
+    # Voxy World Gen's client silently discards incoming LOD payloads when its ingest queue
+    # overruns, while the server has already recorded them as delivered - a permanent hole, and not
+    # a rare one: the client takes 96 sections a tick and any backfill overruns the queue within a
+    # minute. This drops the farthest payload instead of the nearest, remembers it, and asks the
+    # server to resend once the client has caught up. **It runs on the server too** - it adds a
+    # packet - so it needs -AddMods on the release that publishes it.
+    @{ Name = 'nbidal18-voxyworldgen'; Generator = $null; Builder = 'build_voxyworldgen.py' },
 
     # nbidal18-travelersbackpack is deliberately NOT built. Its source stays under `custom mods\`
     # because the work is sound and will be picked up again, but a uniform tint is not what
