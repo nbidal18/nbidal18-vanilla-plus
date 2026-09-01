@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.36",
+    "packVersion":  "1.0.37",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -339,7 +339,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "e90b7a484c5571bdf45ae956140f2a4607193a69a5e69ea7194cd04b8c46f05e"
+                                    "sha256":  "fa7b05266eb66ef02f41eabf030b42acb7fedef43cf3144abb1e46f3be7c169d"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -825,7 +825,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "e90b7a484c5571bdf45ae956140f2a4607193a69a5e69ea7194cd04b8c46f05e"
+                      "sha256":  "fa7b05266eb66ef02f41eabf030b42acb7fedef43cf3144abb1e46f3be7c169d"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1640,8 +1640,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.36+26.2-fabric.jar",
-                      "sha256":  "cde45659105e1ad68203cda62eed7d1d738845cf37eae45ff2b09ffcfe01a942"
+                      "path":  "mods/nbidal18-integrity-1.0.37+26.2-fabric.jar",
+                      "sha256":  "ff7cc631646b751bdd9370e2461548b9f7492e82214b65d2bef4921c728acf01"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1881,7 +1881,7 @@
                   },
                   {
                       "path":  "resourcepacks/nbidal18-Immersive-Interfaces-26.2.zip",
-                      "sha256":  "b7d587b9f00b6f123c1f22d850f1be796c212f1ff6a2be56eb213477f0eedff5"
+                      "sha256":  "cf2b8ed6f99bc6ca7b4f0dc45b160088df0628be0c6dea5fd9b278fe43e74b69"
                   },
                   {
                       "path":  "resourcepacks/nbidal18-Immersive-Interfaces-JEI-1.0.zip",

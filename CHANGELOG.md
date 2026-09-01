@@ -5,6 +5,48 @@ build that was not published.
 
 ---
 
+## v1.0.37
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-01 | see below | `a61f7fdb6274` | `c514e2bfcfcd` | 283 | 133 |
+
+**Selection highlights, in the pack's colours.** Three textures. Click **Play**.
+
+Immersive Interfaces marked the selected hotbar slot and the hovered container slot with metal corner
+brackets. Both are now a soft highlight in the pack's own wood tone:
+
+- **`hud/hotbar_selection.png`** - vanilla's box, tinted, and thinned from a **4-pixel border to 2**
+- **`container/slot_highlight_front.png`** and **`_back.png`** - vanilla's soft overlay, tinted
+
+**The colour is measured, not chosen.** Sampled from the pack's own `slot.png`, averaging the
+mid-tone wood and skipping the dark outlines and the rivets, which gives **#B38C58**. The highlight is
+that lifted about 30% to **#E8B672**, so it reads as a highlight sitting on the wood rather than
+disappearing into it.
+
+The pack's `slot_highlight_front.png.mcmeta` is dropped: its highlight was 24x48 with two animation
+frames and vanilla's is a static 24x24, so the mcmeta would point an animation at frames that no
+longer exist. The container highlight no longer pulses.
+
+### The pack is reproducible now
+
+`scripts\Build-ImmersiveInterfaces.ps1` rebuilds the fork from the published Modrinth release plus an
+overlay kept in `5. modpack source\custom packs\`. Until now it had been assembled by hand across an
+evening, and two of the ways that went wrong are worth keeping in one place:
+
+- **v1.0.33 built it from the author's GitHub `main`, which is not a complete pack** - it is missing
+  every `lang/*.json`, and in this pack those are not translations. The container art is drawn as
+  glyphs and the language files map each container to its art.
+- **The first zip was written with backslash entry paths**, which is what Windows PowerShell's
+  `ZipFile.CreateFromDirectory` produces. Minecraft opened the pack, found no assets, and applied
+  nothing - indistinguishable from a broken pack.
+
+The script refuses to produce either: it writes forward slashes explicitly and then verifies the
+result has no backslash paths, has `pack.mcmeta`, both 26.2 shaders, and at least 100 language files.
+It reproduces this release's pack with **zero content differences**, entry for entry.
+
+---
+
 ## v1.0.36
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
