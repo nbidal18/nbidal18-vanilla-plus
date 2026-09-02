@@ -316,6 +316,14 @@ public final class Nbidal18PackwizSync {
      * hanging over the ocean. The server's own record is cleared in the same pass; clearing only one
      * side leaves the two disagreeing about what exists.
      *
+     * <p>v1.0.55 sweeps for a fifth, and this one is a reset rather than a fix. Four releases of
+     * changing how far terrain is paced ended with the pacing rolled back to its v1.0.52 form, and a
+     * store filled during those four releases holds whatever those versions did or did not deliver.
+     * Clearing it means the next reading is of the rolled-back build alone, rather than of the
+     * rolled-back build plus a store nobody can account for. The server's generation cache is
+     * cleared in the same pass, for the reason v1.0.30 gives: clearing one side leaves the two
+     * disagreeing about what exists.
+     *
      * <p>v1.0.43 sweeps for a fourth: the caches are worth rebuilding now that rebuilding them
      * works. The v1.0.30 sweep was suspected of never having run, because a player holding its
      * marker still had a holed world. It had run - the marker was there and the directory had been
@@ -323,7 +331,7 @@ public final class Nbidal18PackwizSync {
      * incoming chunks on the floor and never asking for them again. That is fixed in v1.0.42, so a
      * sweep now refills cleanly, which a sweep before it could not.
      */
-    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1043";
+    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1055";
 
     private final Path minecraftRoot;
     private final Path stateRoot;

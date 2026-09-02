@@ -5,6 +5,48 @@ build that was not published.
 
 ---
 
+## v1.0.55
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-02 | see below | `779a090075a1` | `b77a4b97568e` | 295 | 142 |
+
+**Far-terrain handling is rolled back to how it worked in v1.0.51, and every stored copy of far
+terrain is cleared on both sides.** Click **Play**. Expect the world to fill in from nothing.
+
+### Rolled back
+
+v1.0.52 through v1.0.54 changed how the server decides when to slow far terrain down: first a
+tighter byte threshold, then a speed limit steered by ping, then a fix for that speed limit having
+made things worse. The end state was no better than where it started, and along the way one release
+was actively harmful.
+
+The mod is now **byte-for-byte the build v1.0.52 shipped** - not a rewrite that resembles it, the
+same jar - so what happens next is attributable to a known quantity rather than to four releases of
+changes nobody can hold in their head at once.
+
+### Everything cached is cleared
+
+Both sides, in one pass:
+
+- **Your client's far-terrain store**, along with Xaero's map tiles. Waypoints are kept
+- **The server's generation cache**
+
+Clearing one side without the other leaves the two disagreeing about what exists, which is why they
+go together.
+
+**So the world will rebuild from nothing**, and the first session after this is the heaviest load
+far terrain can produce - more than anything measured while tuning it. That is the reset, not a
+fault. Judge it on the second session.
+
+### What is still not fixed, and is not this
+
+A ring of empty terrain between your render distance and where far terrain resumes is **a separate
+problem and predates all of this**. Chunks that already exist on disk but are not loaded fall
+between the mod's two delivery paths: nothing needs generating there, so the generator skips them,
+and the backfill will not load a chunk to send it. Flying through the ring loads them and fills it
+permanently. A proper fix is written up but deliberately not attempted in this release.
+
 ## v1.0.54
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
