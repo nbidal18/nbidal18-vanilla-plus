@@ -5,6 +5,82 @@ build that was not published.
 
 ---
 
+## v1.0.44
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-02 | see below | `6eedc62bc1f4` | `d32d043d8cfa` | 291 | 138 |
+
+**A glider, an autopilot, and a way to see what Voxy is doing.** Click **Play**.
+
+### /voxysync - is it Voxy, or is it your connection?
+
+Three releases were spent guessing at that question. This answers it.
+
+- `/voxysync` - print the state once
+- `/voxysync show` / `hide` - the same numbers as a live overlay
+- `/voxysync here` - re-request the 81 chunks around you
+
+All client-side, so **no permissions and no operator** - the person who needs them is the one having
+trouble, not the one running the server.
+
+The top line is a verdict: **healthy**, **OVERWHELMED** (your client cannot ingest as fast as the
+server sends - turning Voxy down helps, your connection is not the problem), or **connection**
+(Voxy is coping; no pack setting will help). Below it: chunks received a second, chunks dropped a
+second, the ingest backlog against its 8192 ceiling, how many are waiting to be re-asked for, and
+your ping.
+
+It blames Voxy first when both look bad, because backlog and drops are measured here and certain,
+while ping is the server's own estimate and moves around.
+
+`here` is the one that answers a hole. If it fills in, the data path works and something lost that
+chunk. If it does not, the server is not sending it at all - never generated, out of range, or lost
+before it reached the queue - which is a different problem entirely.
+
+It is a HUD element rather than an F3 module because BetterF3 discards every modded F3 entry, as
+v1.0.39 found out the hard way.
+
+### Reliable Gliders
+
+One item, `reliable_gliders:glider` - crafted from phantom membrane, leather and sticks, repaired
+with phantom membrane, and it rises on updrafts over fire, campfires, lava and magma.
+
+Paragliders was asked for first. Its 26.2 build is **NeoForge only** - the last Fabric release is
+for Minecraft 1.20.1 - so it cannot go in this pack without a full port. Reliable Gliders is the
+Fabric-native equivalent, and it happens to be exactly what was wanted: no stamina wheel, no heart
+containers, no vessels. There was nothing to turn off.
+
+### nbidal18-autopilot
+
+**Ctrl+Alt+W** holds the forward key down; the back key cancels it.
+
+It holds the **key**, not the movement input, so one implementation covers running, boats, horses and
+Immersive Aircraft - anything reading a keybind on that key sees it. Both keys come from
+`key.forward` and `key.back`, so they are W and S by default and follow a rebind.
+
+It keeps going while a screen is open, because this pack ships InvMove precisely so you can move
+through an inventory - stopping there would cancel out the mod that makes it work. Only *engaging* is
+refused from a screen, so Ctrl+Alt+W typed into chat does nothing.
+
+### Settings that were one person's preference
+
+Both are player-class - published once and then yours - so both carry a token to reach instances
+that already have the file.
+
+- **Eclipse shader**: the pack now ships the full tuning rather than a single line, and
+  `SELECT_BOX=true` turns **block outlines back on**. Off is a preference, and one that costs a
+  player the only cue for which block they are about to break.
+- **Auto HUD**: the **crosshair is no longer hidden**. Auto HUD already fades it with the rest of the
+  HUD; hiding it outright left players aiming at nothing whenever the HUD went idle.
+
+### Voxy's generation radius goes back to 512
+
+v1.0.41 halved it to 256 and slowed updates to five seconds, both aimed at a player whose game kept
+stuttering. Neither was the cause - his MTU was, and then a stale server-side generation cache was.
+The radius is restored; the five-second flush stays, because it has been fine throughout.
+
+---
+
 ## v1.0.43
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

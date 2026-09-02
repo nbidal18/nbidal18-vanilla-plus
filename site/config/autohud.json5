@@ -137,7 +137,7 @@
 				"minecraft:trident"
 			],
 			"minimumAlpha": 0.0,
-			"alwaysHidden": true,
+			"alwaysHidden": false,
 			"onChange": true,
 			"maximumAlpha": 1.0,
 			"dynamic": true

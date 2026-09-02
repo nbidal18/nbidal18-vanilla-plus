@@ -18,11 +18,11 @@ hash = "55779c27c60b8b920acbc19f63987064beb9fd8887d79e8fa7bac80c5be77137"
 
 [[files]]
 file = "config/autohud.json5"
-hash = "d954976cca7faa29db88894517863098c237debf838e7fd725642e9030e3f238"
+hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "c268e34eabc608faf26a7ad3960b3827ce8947c74ce75eb1c9ee39e872a4d48d"
+hash = "3158547b068ef71e312bd479a719352e316bbeeda143321b96af5397ba8dcc68"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -321,6 +321,10 @@ file = "config/punchy/triggerable-keybindings.json"
 hash = "9148991f4ec6e759cf2b45ea60f02650959b8a3f6ed5b16522ed5ed63cfcf3ea"
 
 [[files]]
+file = "config/reliable_gliders.json"
+hash = "8f03e1ec1be20bac84080dd27f699c03121a12a65538b333a3a9e5e06de03b0c"
+
+[[files]]
 file = "config/servercore/config.yml"
 hash = "384271d5f0a964d713586d3ce648c0d172e82fbe281f12281b49aeac48b5f5bd"
 
@@ -466,7 +470,7 @@ hash = "4177e2f8165d220f607c554e20b316f195cf31336fa7c3000e295e3033e37dde"
 
 [[files]]
 file = "config/voxyworldgenv2.json"
-hash = "732b6f897a9b1f13b6486e990f292daf0e014827396571d09b7724352fd5d4fc"
+hash = "0f9a3ed6f2e3cd164041217e85722a1d95f8f896ac41dcd50f47b72ef47d72a9"
 
 [[files]]
 file = "config/whitenoise-client.toml"
@@ -829,8 +833,8 @@ file = "mods/nbidal18-autohud-9.0-beta.3+26.2-fabric.jar"
 hash = "eb6973d3e60f81deebd3dabd60846a6ffceb3df86ddac2e1020df0947789e5fb"
 
 [[files]]
-file = "mods/nbidal18-autopilot-1.0.0+26.2-fabric.jar"
-hash = "47a8a1887461550686676d110d751ca5c673cf7994aec5164a9a4563923ed09c"
+file = "mods/nbidal18-autopilot-1.1.0+26.2-fabric.jar"
+hash = "08ea146890e45341d5bc791b49b85649724b72a09003b02ca099ee0fd0fd1fb6"
 
 [[files]]
 file = "mods/nbidal18-betterfishing-1.0.0+26.2-fabric.jar"
@@ -857,8 +861,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.43+26.2-fabric.jar"
-hash = "0aa722f44964eaffb98764e383ae74e29edc5d2ae48331d16d975690e2ce5111"
+file = "mods/nbidal18-integrity-1.0.44+26.2-fabric.jar"
+hash = "1ca2b2a55772773c2708b66976d5ff369e86335074ee8c80b2f586498858cfba"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -885,8 +889,8 @@ file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
 hash = "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
 
 [[files]]
-file = "mods/nbidal18-voxyworldgen-1.1.0+26.2-fabric.jar"
-hash = "bcc164f4bfe6594b1a38c3fc93c4117e93afe4e00bffa411164faea04688654c"
+file = "mods/nbidal18-voxyworldgen-1.2.0+26.2-fabric.jar"
+hash = "1fb8725865b8e1dbcc591c892ba856aeeefbbb0cff0e673b08e71a896a509750"
 
 [[files]]
 file = "mods/nbidal18-xaerominimap-1.0.0+26.2-fabric.jar"
@@ -919,6 +923,10 @@ hash = "18620e4542c04afc52e86a09284203100a11745a8e9c063e10f469f13a8d508c"
 [[files]]
 file = "mods/reeses-sodium-options-fabric-2.2.3+mc26.2.jar"
 hash = "49b68a887f5691b805efbe73c4e6e622cda5c322431ef68f81c8953de4041911"
+
+[[files]]
+file = "mods/reliable_gliders-fabric-26.2-1.3.3.jar"
+hash = "c7ca6015abbe133ae69bc356cb9d0df94049a6e2eded29738dabe60858261566"
 
 [[files]]
 file = "mods/servercore-fabric-1.5.19+26.2.jar"
@@ -1050,7 +1058,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "bcea182a18598c351374ef0ee142470f5d3520712c66906af2cc3b28501e3ae9"
+hash = "31456d499e9a991f0c2e0fae89af0d5643394df6c2e073aa158e34d2970fdcf4"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -1146,7 +1154,7 @@ hash = "180ba7d2ed4f3d1935be1c2ac3f69bdcc42e7ac0b6f919b4b53d48ac1752c18d"
 
 [[files]]
 file = "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt"
-hash = "ce45f3807046d82a6abefc3a55023eca0825f6e5e48d566ca20c375bbd030133"
+hash = "1ec285686eccedf6c76da0f4384ab2c4e1d57d75f6dd1cda173a253c17b3329e"
 
 [[files]]
 file = "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip"

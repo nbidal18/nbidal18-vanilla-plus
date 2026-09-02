@@ -456,6 +456,11 @@
       "reason": "Client keybind wiring."
     },
     {
+      "match": "config/reliable_gliders.json",
+      "class": "gameplay",
+      "reason": "How far and how fast the glider carries you - updraft strength and height are movement, and the server reads its own copy, so a client editing these would fly differently from what the server allows. equip_to_chestplate decides whether the glider takes an armour slot, which is the whole cost of carrying it."
+    },
+    {
       "match": "config/servercore/config.yml",
       "class": "support",
       "reason": "Tick and chunk performance tuning."
@@ -748,6 +753,7 @@
     "config/punchy/merged_animation_selection.json",
     "config/punchy/punchy_config.json",
     "config/punchy/triggerable-keybindings.json",
+    "config/reliable_gliders.json",
     "config/servercore/config.yml",
     "config/skinlayers.json",
     "config/smooth_steps.json",

@@ -188,6 +188,36 @@ public final class Nbidal18PackwizSync {
             // it is enforced when the element is drawn rather than when it is revealed.
             new PlayerFileSeed("config/autohud.json5", ':', "autohud-mount-health-v1016", List.of(
                     new SeedRow(List.of("elements", "minecraft:mount_health_bar"), "alwaysHidden", "true"))),
+            // The crosshair stops being hidden. It was a personal preference that reached everybody:
+            // Auto HUD fades the crosshair with the rest of the HUD, and hiding it outright leaves
+            // players aiming at nothing whenever the HUD is idle. A separate token from the mount
+            // health bar above, because that one has already fired on every instance and a seed
+            // never runs twice under the same token.
+            new PlayerFileSeed("config/autohud.json5", ':', "autohud-crosshair-v1044", List.of(
+                    new SeedRow(List.of("elements", "minecraft:crosshair"), "alwaysHidden", "false"))),
+            // The Eclipse shader's settings, as the owner tuned them, pushed onto instances that
+            // already have the file. Shader settings are player-class - published once and then
+            // theirs - so without a seed only a fresh install would ever see this tuning, and every
+            // existing player would keep the single SELECT_BOX=false line the pack shipped before.
+            //
+            // SELECT_BOX is the block outline, and it is on now: off is a preference, and one that
+            // costs a player the only cue for which block they are about to break.
+            //
+            // Every row restated rather than only the changed one. A seed sets rows it names and
+            // leaves the rest, so naming only SELECT_BOX would leave an existing instance with the
+            // outline on and none of the tuning around it.
+            new PlayerFileSeed("shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt", '=',
+                    "eclipse-tuning-v1044", List.of(
+                            SeedRow.of("BorderFogIntensity", "1.0"),
+                            SeedRow.of("CloudLayer0_height", "350.0"),
+                            SeedRow.of("CloudLayer1_height", "500.0"),
+                            SeedRow.of("LPV_COLORED_CANDLES", "true"),
+                            SeedRow.of("LPV_SATURATION", "75"),
+                            SeedRow.of("MOTION_BLUR", "true"),
+                            SeedRow.of("MOTION_BLUR_STRENGTH", "2.0"),
+                            SeedRow.of("SELECT_BOX", "true"),
+                            SeedRow.of("VIGNETTE", "true"),
+                            SeedRow.of("VIGNETTE_STRENGTH", "0.7"))),
             // Voxy off by default: its far terrain is the single heaviest thing in the pack on a weak
             // machine.
             //

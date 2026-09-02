@@ -1,6 +1,6 @@
 {
   "enabled": true,
-  "generationRadius": 256,
+  "generationRadius": 512,
   "update_interval": 100,
   "maxQueueSize": 20000,
   "maxActiveTasks": 6,
