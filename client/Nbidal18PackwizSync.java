@@ -547,7 +547,16 @@ public final class Nbidal18PackwizSync {
                 .build();
         HttpRequest request = HttpRequest.newBuilder(URI.create(manifestUrl))
                 .timeout(Duration.ofSeconds(30))
-                .header("User-Agent", "nbidal18-vanilla-plus/1.0.0")
+                // No version. This used to say 1.0.0 on every release, which made it the one place
+                // in this line that spelled a version out instead of reading PACK-VERSION.txt - and
+                // it had been wrong since v1.0.1.
+                //
+                // It is not stamped at build time either, which was the obvious fix. This request
+                // is what fetches the manifest, so the only version available here is the updater's
+                // own, and stamping it would rebuild these jars on every release: they are published
+                // files, so Test-Release would see them change every time and never skip a test
+                // again. A true header on a request nobody reads is not worth the test tiering.
+                .header("User-Agent", "nbidal18-vanilla-plus")
                 .GET()
                 .build();
         HttpResponse<byte[]> response = client.send(

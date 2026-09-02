@@ -7,14 +7,14 @@
     floor the pack stands on and the Weskerson packs are the detail on top. Three things had to
     change before it could be shipped, and all three are done here rather than by hand:
 
-    **1. Three categories are dropped**, because a pack already owns them and does them better:
+    **1. Models another pack already ships are dropped**, so torches stay Weskerson's and lanterns
+    and chains stay Better Lanterns'. The set is read out of those two packs at build time rather
+    than written down here, because written down here it was wrong three times over - see the note
+    above `$dropNames` for what each wrong word cost.
 
-        torches and lighting     Weskerson Torches, Better Lanterns
-        panes, bars and chains   Better Lanterns
-        storage and workstations Weskerson 3D Items
-
-    Everything else is kept, including flowers, mushrooms and bamboo - those overlap too, but this
-    pack sits ABOVE Weskerson in the order, so it wins them deliberately.
+    Everything else is kept, including flowers, mushrooms, bamboo and the potted plants - those
+    overlap Weskerson's 3D Items, but this pack sits ABOVE it in the order, so it wins them
+    deliberately, and that pack is left out of the measurement for exactly that reason.
 
     Blockstates and item definitions are dropped alongside the models they name. A blockstate
     pointing at a model that is no longer in the pack is a missing-model error on every placement.
@@ -62,16 +62,53 @@ if (-not (Test-Path -LiteralPath $base -PathType Leaf)) { throw "No upstream pac
 $mcJar = Join-Path $env:APPDATA 'PrismLauncher\libraries\com\mojang\minecraft\26.2\minecraft-26.2-client.jar'
 if (-not (Test-Path -LiteralPath $mcJar)) { throw "No Minecraft 26.2 client jar at $mcJar" }
 
-# Names whose models, blockstates and item definitions are all dropped. Anchored on the file name
-# only, never the full path, so `chest` cannot match a folder somewhere above it.
-$dropPatterns = @(
-    'torch', 'lantern', 'candle', 'campfire', 'end_rod', 'glow_',                       # lighting
-    'pane', 'iron_bars', 'chain',                                                        # panes and bars
-    'barrel', 'chest', 'furnace', 'smoker', 'blast_', 'anvil', 'grindstone',             # storage and
-    'stonecutter', 'composter', 'cauldron', 'brewing', 'enchanting', 'lectern',          # workstations
-    'loom', 'smithing', 'cartography', 'fletching'
-)
-$dropRegex = '(' + ($dropPatterns -join '|') + ')'
+# What gets dropped is measured, not listed. Drop exactly the block model names that Better Lanterns
+# or Weskerson's Torches already ship, so those two keep the categories they do better and Actually
+# 3D supplies everything else.
+#
+# It used to be a list of words matched as substrings, and that list was wrong in three places -
+# each one a category dropped against a pack that did not actually cover it:
+#
+#   'torch'    also caught torchflower, potted_torchflower and both torchflower crop stages. A
+#              plant, deleted by a lighting rule, in a pack shipped to win plants.
+#   'lantern'  also caught jack_o_lantern and sea_lantern, which nothing else here replaces.
+#   the storage group  matched 66 block models against Weskerson's 3D Items, which ships no block
+#              model for any of it - its cauldron and brewing stand are held-item models
+#              (item/cauldron_hand and friends). Every placed barrel, furnace, smoker, blast furnace,
+#              lectern, stonecutter, loom, composter, cauldron and brewing stand went flat in v1.0.46
+#              and nothing drew them. Iron bars went the same way against Better Lanterns, which
+#              ships chains and no bars.
+#
+# Weskerson's 3D Items is deliberately not consulted. It does ship block models - twenty potted
+# plants, sugar cane, a flower pot - and those are the ones Actually 3D is meant to win.
+$packsDir = Join-Path $ReleaseRoot '3. modpack\client\resourcepacks'
+$dropNames = New-Object Collections.Generic.HashSet[string]
+foreach ($pattern in @('Better Lanterns*.zip', 'nbidal18-Weskersons-Torches-*.zip')) {
+    $rivals = @(Get-ChildItem -LiteralPath $packsDir -Filter $pattern -File)
+    # A pack that owns a category this build drops cannot go missing quietly. Without it the drop
+    # silently becomes a no-op and Actually 3D starts winning torches, which is a visible change
+    # nobody asked for.
+    if (-not $rivals.Count) { throw "No resource pack matching '$pattern' in $packsDir" }
+    foreach ($rival in $rivals) {
+        $rz = [IO.Compression.ZipFile]::OpenRead($rival.FullName)
+        try {
+            foreach ($e in $rz.Entries) {
+                # Leaf name only, at any depth. Better Lanterns files its models in per-block
+                # subfolders - models/block/lantern/lantern.json, models/block/chain/iron_chain.json
+                # - so an anchored path match found none of them, and the first run of this rule
+                # silently dropped nothing but the torches.
+                if ($e.FullName -match '^assets/minecraft/models/block/(?:[a-z0-9_]+/)*([a-z0-9_]+)\.json$') {
+                    [void] $dropNames.Add($Matches[1])
+                }
+            }
+        }
+        finally { $rz.Dispose() }
+    }
+}
+# Parents of the torch models above, left behind by name alone. Nothing kept references them once
+# the torches are gone.
+foreach ($orphan in @('template_torch', 'template_torch_wall')) { [void] $dropNames.Add($orphan) }
+Write-Host ("rivals    {0} model name(s) already covered by another pack" -f $dropNames.Count)
 
 Write-Host ("base      {0} ({1:N0} B)" -f (Split-Path $base -Leaf), (Get-Item -LiteralPath $base).Length)
 
@@ -116,7 +153,7 @@ foreach ($name in $entries.Keys) {
     # Category drops: models, blockstates and item definitions alike.
     if ($name -match '^assets/minecraft/(models/(block|item)|blockstates|items)/([a-z0-9_/]+)\.json$') {
         $leaf = ($Matches[3] -split '/')[-1]
-        if ($leaf -match $dropRegex) { $dropped['category']++; continue }
+        if ($dropNames.Contains($leaf)) { $dropped['category']++; continue }
     }
     $kept[$name] = $entries[$name]
 }
@@ -242,9 +279,12 @@ try {
         throw ("{0} blockstate(s) point at models this build dropped, e.g. {1} - drop the blockstate too" -f `
                 $missing.Count, (($missing | Select-Object -Unique -First 5) -join ', '))
     }
-    $blocks = @($check.Entries | Where-Object { $_.FullName -like 'assets/minecraft/models/block/*' }).Count
+    # Count .json only. Upstream ships 200 .rpo files beside its models - optimiser residue, inert
+    # to Minecraft, and counted as models here until v1.0.47, which put the reported figure 66 above
+    # the truth and made a real 66-model loss look like a gain.
+    $blocks = @($check.Entries | Where-Object { $_.FullName -like 'assets/minecraft/models/block/*.json' }).Count
     Write-Host ("verified  {0} block models, {1} blockstates, every model reference resolves" -f `
-            $blocks, @($check.Entries | Where-Object { $_.FullName -like 'assets/minecraft/blockstates/*' }).Count)
+            $blocks, @($check.Entries | Where-Object { $_.FullName -like 'assets/minecraft/blockstates/*.json' }).Count)
 }
 finally { $check.Dispose() }
 

@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.46",
+    "packVersion":  "1.0.47",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -341,7 +341,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "89a757c00043d2cc0c81c0d0a7b80c6600f20cbf96c4c932063371c8f5a936e9"
+                                    "sha256":  "51879180e1e32112d211cceccc20785c282ff34976e58ff1fd0f5a7facec0e90"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -839,7 +839,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "89a757c00043d2cc0c81c0d0a7b80c6600f20cbf96c4c932063371c8f5a936e9"
+                      "sha256":  "51879180e1e32112d211cceccc20785c282ff34976e58ff1fd0f5a7facec0e90"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1678,8 +1678,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.46+26.2-fabric.jar",
-                      "sha256":  "1c6c4719290137e9356c335521ab6cffae03f76638e230f72ddcb5eef6dcac82"
+                      "path":  "mods/nbidal18-integrity-1.0.47+26.2-fabric.jar",
+                      "sha256":  "034c7756bf863d4ced8dad20687a05c2b076aa3554ade8f5e735362002f1c188"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1879,7 +1879,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "c4a27015d0749e2b511b8144312a012e52915d23c7b6de789c3a0c6f6ec05b4b"
+                      "sha256":  "c56a817518aded7ddd4763e3dcbe157ace95108021ee3dd5d49b8126395c401b"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",
@@ -1931,7 +1931,7 @@
                   },
                   {
                       "path":  "resourcepacks/nbidal18-Actually-3D-26.2.zip",
-                      "sha256":  "51bfdef3426ceab318032dd96f5ee5fb92041e407ef23cda87c4cbfb99b66bdf"
+                      "sha256":  "be0b64ba1aea81677121b112bb7a4bbc82a3510d1f5378cadc992d23e447b4d5"
                   },
                   {
                       "path":  "resourcepacks/nbidal18-Immersive-Interfaces-26.2.zip",
@@ -1951,7 +1951,7 @@
                   },
                   {
                       "path":  "resourcepacks/nbidal18-Weskersons-3D-Items-2.5.zip",
-                      "sha256":  "b721994fdf7b0451683c2fe28a45b291331762738e4265171759e6674c8b799c"
+                      "sha256":  "6a5add0f537dbbb770188248374a13723e2841d15beab307c31d3d66f37fca2c"
                   },
                   {
                       "path":  "resourcepacks/nbidal18-Weskersons-Torches-1.02.zip",

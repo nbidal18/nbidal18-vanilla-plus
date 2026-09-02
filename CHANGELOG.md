@@ -5,6 +5,61 @@ build that was not published.
 
 ---
 
+## v1.0.47
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-02 | see below | `13fc7fde6682` | `f1597bac0304` | 292 | 139 |
+
+**Placed blocks that went flat in v1.0.46 are three-dimensional again.** Click **Play**. Nothing
+else to do.
+
+### v1.0.46 dropped 49 models it did not need to
+
+The table in the v1.0.46 entry above says storage and workstations were dropped because Weskerson's
+3D Items covers them. **That was wrong.** Weskerson's 3D Items ships no block model for any of it —
+its chests and cauldrons are *held-item* models, drawn in your hand and nowhere else. So every
+placed barrel, furnace, blast furnace, smoker, lectern, stonecutter, loom, composter, grindstone,
+brewing stand, cauldron, enchanting table and smithing, cartography and fletching table rendered
+flat for one release, and nothing was drawing them.
+
+The same mistake took **iron bars**, dropped against Better Lanterns, which ships chains and no
+bars — and, because the rule matched substrings of file names, **torchflower**, **potted
+torchflower**, both **torchflower crop stages**, the **jack o'lantern** and the **sea lantern**: a
+plant and two light-emitting blocks deleted by a rule about torches.
+
+49 models restored. Torches still belong to Weskerson and lanterns and chains to Better Lanterns —
+those overlaps are real.
+
+**The fork no longer decides this from a written list.** It reads the model names out of Better
+Lanterns and Weskerson's Torches at build time and drops exactly those. Weskerson's 3D Items is
+deliberately left out of that measurement: it *does* ship block models, but they are the twenty
+potted plants, and plants are what Actually 3D is meant to win.
+
+### The compass needle no longer sticks
+
+A compass is a flipbook of 32 pictures. Weskerson's 3D Items listed only 31 of them for a
+**lodestone** compass, so at one bearing the needle showed the previous picture and appeared to hold
+a beat before catching up. Ordinary compasses were always complete. Fixed.
+
+This is **not** the compass that went invisible in v1.0.45 — that cleared on a resource reload and
+has not come back.
+
+### Weskerson's 3D Items is 790 KB smaller
+
+Its fork is now built by a script instead of by hand, and that script drops the 1,639 macOS metadata
+files the pack ships. Nothing that renders changed. The same script re-applies the removal of the
+pack's **core shaders**, which was done by hand in v1.0.32 and written down nowhere — they are the
+same shaders that blanked every inventory slot in v1.0.6, so re-downloading the pack without that
+step would bring the bug straight back.
+
+### Under the hood
+
+The updater no longer claims to be version 1.0.0 in its download header. It had said so since
+v1.0.1 and was the last place in this pack that stated a version instead of reading it.
+
+---
+
 ## v1.0.46
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
