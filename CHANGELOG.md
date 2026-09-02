@@ -5,6 +5,54 @@ build that was not published.
 
 ---
 
+## v1.0.53
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-02 | see below | `9da344bd3fbc` | `b975e91cf1f6` | 295 | 142 |
+
+**Far terrain is now sent at a speed each connection can actually carry, instead of being stopped
+once it is already too late.** Click **Play**. On a fast connection nothing changes.
+
+### What was wrong with the old approach
+
+Since v1.0.48 the server held far terrain back whenever a player's outbound socket buffer started
+backing up. That ended the disconnections, but it never made a thin connection comfortable - and
+three readings from a real player showed why:
+
+```
+receiving 248 chunk/s   ping 643 ms   server: nothing wrong
+receiving 228 chunk/s   ping 546 ms   server: nothing wrong
+receiving  82 chunk/s   ping 643 ms   holding back, 2423 held
+```
+
+**In the two worst frames the server did not think anything was wrong.** That buffer only fills once
+the connection is *already* blocked - after the queue has built up in the player's own router and
+their provider's network, where nothing on our side can see it. It reports a problem that formed
+seconds ago.
+
+Tightening it proved the point: across three releases the threshold went 64 KB, 16 KB, 4 KB, and the
+ping went **484 ms, then 546, then 643**. The wrong direction. The lever was not connected to the
+thing it was supposed to move.
+
+### What happens now
+
+The server gives each player a **speed limit in chunks per second**, and adjusts it from the ping
+that player is actually experiencing. Over 100 ms and the limit halves immediately. Under, it grows
+back. So instead of noticing a full pipe, it stops overfilling one.
+
+A new connection starts slow and doubles every few seconds while the ping holds, so a healthy player
+reaches full speed in about twenty seconds and a thin line reveals itself long before then. After the
+first back-off, growth becomes gentle rather than doubling, so it settles near the line's real
+capacity instead of bouncing over it. This also replaces the fixed 90-second window from v1.0.49 -
+earning the rate is the same idea without a magic duration.
+
+**Nothing is lost when a chunk is held back.** It is marked undelivered and the backfill sends it
+again once there is room, exactly as before.
+
+The old buffer check is kept as a backstop - it costs nothing and covers the moments before a ping
+has caught up - but it is no longer in charge.
+
 ## v1.0.52
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
