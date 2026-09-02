@@ -5,6 +5,44 @@ build that was not published.
 
 ---
 
+## v1.0.54
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-02 | see below | `b77a4b97568e` | `9da344bd3fbc` | 295 | 142 |
+
+**Fixes a bug that made far terrain worse the harder the server tried to help.** Click **Play**.
+
+### What v1.0.53 actually did
+
+Holding a chunk back was supposed to mean "not now, send it later". It also, silently, meant
+**"forget this player ever had it"** - including chunks already sitting on their disk. The backfill
+then sent them again.
+
+While holding back was rare that cost nothing. v1.0.53 added a real speed limit, so it became
+constant, and the server started un-sending terrain faster than it could deliver it: the same chunks
+going round and round, **total traffic rising** exactly when it was supposed to fall.
+
+For the player it was meant to help, that was worse than doing nothing. Chunks arriving at a
+fraction of the old rate and a connection so congested he could not open a chest or load the ground
+under his feet.
+
+### The fix
+
+The pack now holds chunks back through a path that changes nothing else. A chunk the player already
+has stays delivered and is never re-sent; one they do not have stays pending, and the backfill
+delivers it at its own steady rate.
+
+**That backfill is the floor under all of this**: even a player paced right down still receives far
+terrain, just slowly. It was always there - v1.0.53 was fighting it rather than leaning on it.
+
+### Honest note
+
+This is the fourth release in a row touching how far terrain is paced, and the third that did not do
+what was intended. The first two tuned a threshold that turned out not to be connected to the
+problem; this one was actively harmful. The mechanism is now right, and **the speed limit itself has
+not been retuned** - that comes after seeing real numbers rather than before.
+
 ## v1.0.53
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
