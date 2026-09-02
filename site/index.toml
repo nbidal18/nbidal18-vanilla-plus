@@ -22,7 +22,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "e9b55d50764b09172ca14f34710599dfb26269663054c3dc9b54430577565f71"
+hash = "89a757c00043d2cc0c81c0d0a7b80c6600f20cbf96c4c932063371c8f5a936e9"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -861,8 +861,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.45+26.2-fabric.jar"
-hash = "8822aa1ad2d6e77fe77f2a419b8b7d9dac41bdac1ff8a3498f34e76873d2bc0e"
+file = "mods/nbidal18-integrity-1.0.46+26.2-fabric.jar"
+hash = "1c6c4719290137e9356c335521ab6cffae03f76638e230f72ddcb5eef6dcac82"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -1062,7 +1062,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "31456d499e9a991f0c2e0fae89af0d5643394df6c2e073aa158e34d2970fdcf4"
+hash = "c4a27015d0749e2b511b8144312a012e52915d23c7b6de789c3a0c6f6ec05b4b"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -1113,6 +1113,10 @@ file = "resourcepacks/Theone's Eating Animation Pack v1.0.zip"
 hash = "5d1f2ea9b8af9cd931796c09f2159e119b25db909b0a84269b42fb3c9f55893d"
 
 [[files]]
+file = "resourcepacks/nbidal18-Actually-3D-26.2.zip"
+hash = "51bfdef3426ceab318032dd96f5ee5fb92041e407ef23cda87c4cbfb99b66bdf"
+
+[[files]]
 file = "resourcepacks/nbidal18-Immersive-Interfaces-26.2.zip"
 hash = "cf2b8ed6f99bc6ca7b4f0dc45b160088df0628be0c6dea5fd9b278fe43e74b69"
 
@@ -1131,10 +1135,6 @@ hash = "41801267719b6863cc2ee7637cd397579d0e90b45dc41ac44355bbae18f4b856"
 [[files]]
 file = "resourcepacks/nbidal18-Weskersons-3D-Items-2.5.zip"
 hash = "b721994fdf7b0451683c2fe28a45b291331762738e4265171759e6674c8b799c"
-
-[[files]]
-file = "resourcepacks/nbidal18-Weskersons-Nature-1.02.zip"
-hash = "22f2f242329ffdc6b1ecc03d997683e939bcf8761ed6a4aa84487fc0fa4fe6f3"
 
 [[files]]
 file = "resourcepacks/nbidal18-Weskersons-Torches-1.02.zip"

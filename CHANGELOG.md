@@ -5,6 +5,55 @@ build that was not published.
 
 ---
 
+## v1.0.46
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-02 | see below | `f1597bac0304` | `bbcd2c415455` | 292 | 139 |
+
+**Actually 3D is back, block-only.** Click **Play**. Your resource-pack order is updated for you.
+
+Doors, beds, ores, rails, crops, redstone, bookshelves, ladders and amethyst are three-dimensional
+again. Actually 3D covers **878 models** where every other 3D pack here covers a few dozen, so it is
+the floor and the Weskerson packs are the detail on top.
+
+### What was kept, and what was not
+
+Three categories are **dropped**, because a pack already here does them better:
+
+| Dropped | Kept by |
+| --- | --- |
+| Torches and lighting | Weskerson Torches, Better Lanterns |
+| Panes, bars and chains | Better Lanterns |
+| Storage and workstations | Weskerson 3D Items |
+
+Flowers, mushrooms and bamboo overlap too, and those are **kept deliberately** - the fork sits
+*above* the Weskerson packs, so it wins them. **Weskerson Nature is removed** as a result: its entire
+overlap with Actually 3D was those three categories, so underneath it, it would have drawn nothing.
+
+### Items are 3D in the hand and flat in the inventory
+
+The pack ships 114 three-dimensional item models but only 53 definitions saying "flat in the GUI, 3D
+everywhere else", so the rest would have been 3D in the inventory too. The fork generates the
+missing half: 23 flat `_gui` models from the vanilla item texture, plus a `display_context` select
+sending `gui` to them. The 53 with no vanilla sprite - buttons, amethyst clusters, things that render
+from a block model rather than an icon - have their 3D item model dropped instead, so vanilla draws
+them.
+
+### Repacked for 26.2
+
+Upstream declares `max_format: 84` and a `supported_formats` block, which 26.2 rejects outright;
+26.2 is format 88. `pack.mcmeta` is rewritten. This is the same override Immersive Interfaces needed
+and carries the same risk: a 26.1 pack is being told it is a 26.2 pack, so a model format change
+between the two would show up in game rather than in the build.
+
+`farm_and_charm` and `holdmyitems` assets are dropped - they serve mods this pack does not run.
+
+`scripts\Build-Actually3D.ps1` does all of it, and refuses if a blockstate is left pointing at a
+model the category filter removed.
+
+---
+
 ## v1.0.45
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

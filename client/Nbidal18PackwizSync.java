@@ -247,7 +247,27 @@ public final class Nbidal18PackwizSync {
                     SeedRow.of("resourcePacks",
                             "[\"vanilla\",\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/nbidal18-Weskersons-3D-Items-2.5.zip\",\"file/nbidal18-Weskersons-3D-Food-1.0.zip\",\"file/nbidal18-Weskersons-Nature-1.02.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/Theone's Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-26.2.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"),
                     SeedRow.of("incompatibleResourcePacks",
-                            "[\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/nbidal18-Weskersons-Nature-1.02.zip\",\"file/nbidal18-Weskersons-3D-Food-1.0.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\"]"))));
+                            "[\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/nbidal18-Weskersons-Nature-1.02.zip\",\"file/nbidal18-Weskersons-3D-Food-1.0.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\"]"))),
+            // v1.0.46: Actually 3D arrives and Weskerson Nature leaves.
+            //
+            // Actually 3D covers 878 models where every other 3D pack here covers a few dozen,
+            // so it is the floor and the Weskerson packs are the detail on top. It sits ABOVE
+            // them deliberately: the three categories they both cover - flowers, mushrooms and
+            // bamboo - were wanted from Actually 3D. The categories Weskerson does better are
+            // not in the fork at all, so priority cannot cost them anything.
+            //
+            // Weskerson Nature is removed. Its whole overlap with Actually 3D was those same
+            // three categories, so underneath it, it would draw nothing.
+            //
+            // Both rows restated in full, as always: a seed sets a row rather than editing it,
+            // and Minecraft drops a pack from resourcePacks unless it is also named in
+            // incompatibleResourcePacks when its declared format is out of range. v1.0.31
+            // seeded only the first row and five of its six new packs switched themselves off.
+            new PlayerFileSeed("options.txt", ':', "resourcepacks-v1046", List.of(
+                    SeedRow.of("resourcePacks",
+                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/nbidal18-Weskersons-3D-Items-2.5.zip\",\"file/nbidal18-Weskersons-3D-Food-1.0.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/nbidal18-Actually-3D-26.2.zip\",\"file/Theone's Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-26.2.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"),
+                    SeedRow.of("incompatibleResourcePacks",
+                            "[\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/nbidal18-Weskersons-3D-Food-1.0.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\"]"))));
 
         /**
      * Empty on purpose, and it must stay that way until a mod is actually retired from THIS
