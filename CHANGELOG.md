@@ -5,6 +5,44 @@ build that was not published.
 
 ---
 
+## v1.0.52
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-02 | see below | `b975e91cf1f6` | `bc10d8b8466a` | 295 | 142 |
+
+**Carrying a block no longer leaves your armour swinging, and the sync overlay stops appearing when
+nothing is wrong.** Click **Play**.
+
+### Armour kept animating while carrying
+
+v1.0.49 stopped Fresh Animations drawing over Carry On's two-handed pose. It only got half the
+player: the body froze and **worn armour carried on moving**, which looks worse than not posing at
+all.
+
+The instruction we gave EMF was "pause this player's animation", and EMF acts on that in exactly one
+place - the model root. Armour is drawn by its own root and never saw it.
+
+It is now told to use the **vanilla model** for a carrying player instead, which covers the whole
+player rather than one part of it. That is also the more honest instruction: Carry On's pose *is* a
+vanilla pose, so there was nothing of Fresh Animations worth keeping mid-carry.
+
+### The overlay appeared when everything was fine
+
+v1.0.51 made the sync overlay show itself while the stream was being paced. But pacing is the system
+working, not a fault - a real player sat paced and completely healthy at 67 ms - so it appeared on
+every join and said nothing was wrong. A warning that fires when nothing is wrong stops being read.
+
+**The rule is now simply: the overlay appears when something on it is not green.** Paced and fast
+stays quiet. Paced and slow, dropping chunks, or a stream filling your connection puts it up.
+
+The bar for a green ping also drops from 150 ms to **100 ms**, because by 150 you can already feel
+it - and it is the same number the overlay colours itself by, so "it came up on its own" and
+"something on it is not green" cannot disagree.
+
+`/voxysync show` and `hide` are unchanged, and hiding still takes effect the moment everything reads
+green.
+
 ## v1.0.51
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
