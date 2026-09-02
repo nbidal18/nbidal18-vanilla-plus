@@ -233,9 +233,19 @@ try {
     $wantText = [regex]::Replace($freshText, '(?m)^motd=.*$', { $plan.motd })
     # Same treatment for any named key edits. Applied to the freshly-read copy, not the staged one,
     # so the server's own shutdown rewrite is preserved and only the keys we named are changed.
+    # Enumerated through ForEach-Object rather than reading .Name off the collection directly.
+    # ConvertFrom-Json turns an empty `properties: {}` into a PSCustomObject with no properties, and
+    # under StrictMode `.PSObject.Properties.Name` on that throws "The property 'Name' cannot be
+    # found on this object" - so v1.0.49, which set a property, deployed fine and v1.0.50, which set
+    # none, failed. It failed safely, before the first byte was sent, but it failed with the server
+    # already stopped and players waiting.
     $planned = @()
-    if ($plan.PSObject.Properties.Name -contains 'properties' -and $plan.properties) {
-        foreach ($key in $plan.properties.PSObject.Properties.Name) {
+    $planProperties = @()
+    if ($plan.PSObject.Properties.Name -contains 'properties' -and $null -ne $plan.properties) {
+        $planProperties = @($plan.properties.PSObject.Properties | ForEach-Object { $_.Name })
+    }
+    if ($planProperties.Count) {
+        foreach ($key in $planProperties) {
             $line = "$key=" + $plan.properties.$key
             if ($wantText -notmatch ("(?m)^" + [regex]::Escape($key) + "=")) {
                 throw "server.properties no longer has key '$key' - nothing was sent"
