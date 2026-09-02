@@ -5,6 +5,65 @@ build that was not published.
 
 ---
 
+## v1.0.49
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-02 | see below | `70ed3c107d6f` | `5948c00e262c` | 294 | 141 |
+
+**Carried blocks are held in two hands, AFK players get a cinematic, and the far-terrain readout
+finally tells you the truth.** Click **Play**.
+
+### Carry On's animation is no longer drawn over
+
+Picking a block up puts you in Carry On's two-handed pose, and Entity Model Features was drawing the
+Fresh Animations pose straight over it - so the block appeared to float beside a normal idle
+animation. While you are carrying, EMF now stands aside.
+
+Solved once before in the 1.21.1 pack. That version pushed a pause into EMF every tick and took it
+back out again, and needed a ledger to avoid leaving a player's animations stuck if they
+disconnected mid-carry. EMF 26.2 lets a mod register a condition and be *asked* instead, so nothing
+is applied and nothing has to be undone - the stuck-animation case cannot happen.
+
+### AFK Cinematics
+
+Go idle and the camera takes over. Client-side only, no configuration. The server's idle kick moves
+from **5 minutes to 15** to suit it.
+
+### The far-terrain readout was blaming your connection for its own load
+
+`/voxysync show` had no way of knowing the server had started pacing far terrain to fit a
+connection - v1.0.48 added the pacing and told the client nothing. So it went on guessing from ping,
+and from the receiving end *"your connection is struggling"* and *"the server is holding back so it
+does not"* look identical. It showed a red alarm and advised turning Voxy off while the system was
+working exactly as intended.
+
+The server now says so directly, and the overlay reports it in green with a count of how much has
+been held back. Nothing to act on - it is the pacing doing its job.
+
+### Pacing is stricter when it matters
+
+A real session showed the danger is the **first minute**, not steady play: a player joined at a
+4888 ms ping and, with nothing changed, was at 86 ms after three minutes and 67 ms after four,
+still pulling ~290 chunks a second. What used to disconnect him was the opening burst, when the
+whole backlog of terrain around him goes out at once.
+
+So the margin now sits where the risk is. For the first 90 seconds the queue is held four times
+tighter than afterwards. **The only effect is that the world fills in a little more slowly right
+after joining.**
+
+### Under the hood
+
+`server.properties` can now be changed through the deployment scripts instead of by hand. Until this
+release the MOTD was the only key they could touch, so setting anything else meant editing the live
+file over SFTP with no backup, no hash check and no record of what it used to say - while every
+other deployed byte in this pack goes through a reviewed, verified plan. It refuses to create a key
+that does not already exist, because a typo would otherwise sit in the file being silently ignored.
+
+The packaging script also only ever checked a `main` entrypoint, so the first client-only
+first-party mod made it fail with a raw `KeyError` instead of the clear message that check exists to
+give.
+
 ## v1.0.48
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

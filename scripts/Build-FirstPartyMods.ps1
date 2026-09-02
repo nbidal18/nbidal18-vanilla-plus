@@ -68,6 +68,12 @@ $mods = @(
     # mod exposes GlidingState.isGliding(Player) as public static API. **Runs on the server too**,
     # so it needs -AddMods on the release that publishes it.
     @{ Name = 'nbidal18-reliablegliders'; Generator = $null; Builder = 'build_reliablegliders.py' },
+    # Carry On poses a carrying player with two hands, and EMF draws the Fresh Animations Player
+    # Extended pose straight over the top of it, so the block appears to float. This registers a
+    # pause condition with EMF - asking to be asked - rather than pushing a pause in and taking it
+    # back out, which is what the 1.21.1 equivalent did and why that one needed a ledger to avoid
+    # leaving a disconnected player's animations stuck. Client only.
+    @{ Name = 'nbidal18-carryon'; Generator = $null; Builder = 'build_carryon.py' },
     # Voxy World Gen's client silently discards incoming LOD payloads when its ingest queue
     # overruns, while the server has already recorded them as delivered - a permanent hole, and not
     # a rare one: the client takes 96 sections a tick and any backfill overruns the queue within a

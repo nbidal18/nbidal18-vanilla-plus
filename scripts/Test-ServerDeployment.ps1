@@ -49,6 +49,11 @@
 param(
     [string[]] $AddMods = @(),
     [string[]] $Config = @(),
+    # server.properties keys to set, as key=value. The key must already exist; this never creates
+    # one. Use it instead of editing the live file over SFTP, so the change is planned, backed up
+    # and hash-verified like everything else that reaches the server.
+    #   -SetProperty 'player-idle-timeout=15'
+    [string[]] $SetProperty = @(),
     # The local mirror to stage into. Defaults to the one Sync-ServerMirror keeps, which is the
     # server's own state as of the last pull - so the plan is computed against what is really
     # installed, not against a guess. Point it elsewhere to rehearse: a plan staged anywhere but the
@@ -202,11 +207,39 @@ $wantMotd = "motd=v$version - @nbidal18 on Discord"
 $propsText = [IO.File]::ReadAllText($propsPath)
 $motdNow = ([regex]::Match($propsText, '(?m)^motd=.*$')).Value
 
+# Named server.properties edits, beyond the motd this has always rewritten.
+#
+# Until v1.0.49 the motd was the ONLY key this could touch, so changing anything else - the idle
+# timeout, a view distance - meant editing the live file by hand over SFTP: no backup taken by the
+# tooling, no hash check, no record of what it used to say. Every other deployed byte in this pack
+# goes through a plan that is reviewed, backed up and verified, and there was no reason for
+# server.properties to be the exception.
+#
+# A key must already exist. Creating one silently is how a typo becomes a setting that looks applied
+# and does nothing - `player-idle-timout=15` would sit in the file forever being ignored.
+$propertyEdits = [ordered]@{}
+foreach ($pair in $SetProperty) {
+    if ($pair -notmatch '^([a-z][a-z0-9.\-]*)=(.*)$') {
+        throw "Not a server.properties assignment: '$pair'. Expected key=value."
+    }
+    $key = $Matches[1]
+    $value = $Matches[2]
+    if ($key -eq 'motd') { throw 'The motd is set from the pack version and cannot be overridden here.' }
+    if ($propsText -notmatch ("(?m)^" + [regex]::Escape($key) + "=")) {
+        throw "server.properties has no key '$key'. Refusing to create one - check the spelling against the live file."
+    }
+    $propertyEdits[$key] = $value
+}
+
 Write-Host ''
 Write-Host 'would change:'
 Write-Host ("  policy   {0}" -f $policyLive)
 Write-Host ("  helper   {0}  ->  {1}" -f (($existingHelpers | ForEach-Object { $_.Name }) -join ', '), $helperSource.Name)
 Write-Host ("  motd     {0}  ->  {1}" -f $motdNow, $wantMotd)
+foreach ($key in $propertyEdits.Keys) {
+    $now = ([regex]::Match($propsText, "(?m)^" + [regex]::Escape($key) + "=.*$")).Value
+    Write-Host ("  property {0}  ->  {1}={2}" -f $now, $key, $propertyEdits[$key])
+}
 if ($staleShared.Count) {
     foreach ($jar in $staleShared) { Write-Host ("  jar      {0}" -f $jar.Name) }
 }
@@ -239,7 +272,12 @@ Write-Host ("backup    {0} files -> {1}" -f $toBackUp.Count, $backup)
 foreach ($old in $existingHelpers) {
     if ($old.Name -ne $helperSource.Name) { [IO.File]::Delete($old.FullName) }
 }
-[IO.File]::WriteAllText($propsPath, [regex]::Replace($propsText, '(?m)^motd=.*$', { $wantMotd }))
+$propsWanted = [regex]::Replace($propsText, '(?m)^motd=.*$', { $wantMotd })
+foreach ($key in $propertyEdits.Keys) {
+    $line = "$key=" + $propertyEdits[$key]
+    $propsWanted = [regex]::Replace($propsWanted, "(?m)^" + [regex]::Escape($key) + "=.*$", { $line })
+}
+[IO.File]::WriteAllText($propsPath, $propsWanted)
 foreach ($jar in @($staleShared) + @($added) + @($configFiles)) {
     [IO.File]::WriteAllBytes($jar.Live, [IO.File]::ReadAllBytes($jar.Source))
 }
@@ -308,6 +346,11 @@ $plan = [pscustomobject]@{
     rehearsal    = (-not $isMirror)
     stagedUtc    = (Get-Date).ToUniversalTime().ToString('o')
     motd         = $wantMotd
+    # Carried so Deploy-LiveServer can re-apply them to the copy it re-reads after the shutdown.
+    # The server rewrites server.properties as it stops, so anything staged against the running
+    # copy is already behind by the time the push happens - the motd has always been re-applied
+    # there for exactly this reason, and these have to travel the same way or they vanish.
+    properties   = $propertyEdits
     backup       = $backup
     send         = $send
     remove       = $sendRemove

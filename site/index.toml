@@ -22,7 +22,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "86ddfb1cfccecb83abbf423d011be864c95bb3d8bfe4d75e692fb6a271abbcdc"
+hash = "3196ba90e5a3325f21f7055e9aad6a8a4d808a96dc65e7488df8dee2f7cdac9e"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -625,6 +625,10 @@ file = "mods/Voxy World Gen V2-fabric-26.2-2.4.3.jar"
 hash = "b6ef773fb90af6394d332e6a40b91854dedddbcf0bf3e15d6f357bdac690b1ab"
 
 [[files]]
+file = "mods/afk-cinematics-1.0.5+26.2.jar"
+hash = "2b137af4fd25c1cdd1d9d6513679bd315eb8d01e087d7b8ac2e6f121340824a6"
+
+[[files]]
 file = "mods/almanac-fabric-26.2-1.26.7.3.jar"
 hash = "32ee09cf26d435946370579a1fcc0db758e4eee62346c1d77f0f741daf0d800a"
 
@@ -849,6 +853,10 @@ file = "mods/nbidal18-cameraoverhaul-2.1.1-fabric+mc.26.1-plus.jar"
 hash = "101a59b5a662c920a8ea05c2396e82f546be87f2cc7d698822eccd4821ad8a85"
 
 [[files]]
+file = "mods/nbidal18-carryon-1.0.0+26.2-fabric.jar"
+hash = "1bc1a05b2fdb871cea7e5d13472aa91180448a18475d719cbaf60d346f1872be"
+
+[[files]]
 file = "mods/nbidal18-hardcorerevive-1.12.0+26.2-fabric.jar"
 hash = "fae5e4b909a80f7748fda4bf4f6c7de88eb03b9368f1c02a3281fc80b4836b87"
 
@@ -861,8 +869,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.48+26.2-fabric.jar"
-hash = "a7e84e7ce095d4c3cedaf5d4f7e4aee47d19ec92098c05e492f2f20ad342c5f4"
+file = "mods/nbidal18-integrity-1.0.49+26.2-fabric.jar"
+hash = "327c08ce80b175a873fa9e0bef9ddc5c5895b41b4bfbec3259231e34194f29d5"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -893,8 +901,8 @@ file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
 hash = "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
 
 [[files]]
-file = "mods/nbidal18-voxyworldgen-1.4.0+26.2-fabric.jar"
-hash = "14f8502d3cac8b1dc15f2d268bcc1761b5d319a1b24f0cfed92ae53e05dca68b"
+file = "mods/nbidal18-voxyworldgen-1.5.0+26.2-fabric.jar"
+hash = "6790b5b9ebe6fddd37e3d6b7b3f0a1cf11b660c5c9253bc82c32e691960d33aa"
 
 [[files]]
 file = "mods/nbidal18-xaerominimap-1.0.0+26.2-fabric.jar"

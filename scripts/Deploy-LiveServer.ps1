@@ -231,10 +231,24 @@ try {
     $freshText = [IO.File]::ReadAllText($freshProps)
     $stagedText = [IO.File]::ReadAllText($propsPath)
     $wantText = [regex]::Replace($freshText, '(?m)^motd=.*$', { $plan.motd })
+    # Same treatment for any named key edits. Applied to the freshly-read copy, not the staged one,
+    # so the server's own shutdown rewrite is preserved and only the keys we named are changed.
+    $planned = @()
+    if ($plan.PSObject.Properties.Name -contains 'properties' -and $plan.properties) {
+        foreach ($key in $plan.properties.PSObject.Properties.Name) {
+            $line = "$key=" + $plan.properties.$key
+            if ($wantText -notmatch ("(?m)^" + [regex]::Escape($key) + "=")) {
+                throw "server.properties no longer has key '$key' - nothing was sent"
+            }
+            $wantText = [regex]::Replace($wantText, "(?m)^" + [regex]::Escape($key) + "=.*$", { $line })
+            $planned += $line
+        }
+    }
     if ($wantText -ne $stagedText) {
-        Write-Host 'restage   the server rewrote server.properties on shutdown - re-applying the MOTD to its copy'
+        Write-Host 'restage   the server rewrote server.properties on shutdown - re-applying our edits to its copy'
         [IO.File]::WriteAllText($propsPath, $wantText)
     }
+    foreach ($line in $planned) { Write-Host ("property  {0}" -f $line) }
 
     # server.properties may lose nothing but the motd and the server's own date stamp.
     $keysBefore = @(($freshText -split "`r?`n") | Where-Object { $_ -match '^[a-z][a-z0-9.\-]*=' } | ForEach-Object { ($_ -split '=', 2)[0] })
