@@ -893,8 +893,8 @@ file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
 hash = "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
 
 [[files]]
-file = "mods/nbidal18-voxyworldgen-1.2.0+26.2-fabric.jar"
-hash = "1fb8725865b8e1dbcc591c892ba856aeeefbbb0cff0e673b08e71a896a509750"
+file = "mods/nbidal18-voxyworldgen-1.3.0+26.2-fabric.jar"
+hash = "aaa91052607459ccec820be0ed6be9e6ae8939f4b5d37f25d5cb494af2157ce2"
 
 [[files]]
 file = "mods/nbidal18-xaerominimap-1.0.0+26.2-fabric.jar"

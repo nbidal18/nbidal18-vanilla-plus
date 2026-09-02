@@ -9,14 +9,42 @@ build that was not published.
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
 | --- | --- | --- | --- | --- | --- |
-| 2026-09-02 | see below | `13fc7fde6682` | `f1597bac0304` | 292 | 139 |
+| 2026-09-02 | see below | `cf598509ea4a` | `f1597bac0304` | 292 | 139 |
 
-**Placed blocks that went flat in v1.0.46 are three-dimensional again.** Click **Play**. Nothing
-else to do.
+**Turning Voxy off now actually stops the download, and placed blocks that went flat in v1.0.46 are
+three-dimensional again.** Click **Play**. Nothing else to do.
+
+### Switching Voxy off never stopped the stream
+
+v1.0.42 added a switch: turn Voxy off on your client and the server stops sending far-terrain data,
+so a thin connection is not paying for terrain it is throwing away. **It has never once worked.**
+
+To find out whether Voxy was on, it called Voxy World Gen's helper, which looks the setting up by
+name — `VoxyConfig.isEnabled`. **The Voxy in this pack has no such method.** It has a field called
+`enabled` and a method called `isRenderingEnabled`, and nothing called `isEnabled` at all. So the
+lookup failed on every client, and the helper answers *every* question it cannot resolve with
+"yes, Voxy is on":
+
+```
+if (voxyEnabledMethod == null) return true;   // the method does not exist
+```
+
+The result: every player was announced to the server as "Voxy on" no matter what they set, and kept
+the full stream. On a player with Voxy switched off, `/voxysync show` was reading **286 chunks a
+second arriving on a client rendering none of them** — which is how it was finally caught, four
+releases after it shipped.
+
+This now reads Voxy's own `enabled` field directly, and keeps **three** answers instead of two: on,
+off, and *cannot tell*. Cannot-tell no longer means on — it means say nothing and leave Voxy World
+Gen's own handshake alone. Guessing "on" is the entire bug.
+
+`/voxysync show` gained a line saying what the server was last told, and it says **UNREADABLE** in
+red if the setting cannot be read at all. Without that line this failure has no symptom except a
+stream that will not stop.
 
 ### v1.0.46 dropped 49 models it did not need to
 
-The table in the v1.0.46 entry above says storage and workstations were dropped because Weskerson's
+The table in the v1.0.46 entry below says storage and workstations were dropped because Weskerson's
 3D Items covers them. **That was wrong.** Weskerson's 3D Items ships no block model for any of it —
 its chests and cauldrons are *held-item* models, drawn in your hand and nowhere else. So every
 placed barrel, furnace, blast furnace, smoker, lectern, stonecutter, loom, composter, grindstone,
