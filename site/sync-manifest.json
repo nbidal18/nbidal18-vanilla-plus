@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.44",
+    "packVersion":  "1.0.45",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -341,7 +341,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "3158547b068ef71e312bd479a719352e316bbeeda143321b96af5397ba8dcc68"
+                                    "sha256":  "e9b55d50764b09172ca14f34710599dfb26269663054c3dc9b54430577565f71"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -839,7 +839,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "3158547b068ef71e312bd479a719352e316bbeeda143321b96af5397ba8dcc68"
+                      "sha256":  "e9b55d50764b09172ca14f34710599dfb26269663054c3dc9b54430577565f71"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1650,8 +1650,8 @@
                       "sha256":  "eb6973d3e60f81deebd3dabd60846a6ffceb3df86ddac2e1020df0947789e5fb"
                   },
                   {
-                      "path":  "mods/nbidal18-autopilot-1.1.0+26.2-fabric.jar",
-                      "sha256":  "08ea146890e45341d5bc791b49b85649724b72a09003b02ca099ee0fd0fd1fb6"
+                      "path":  "mods/nbidal18-autopilot-1.2.0+26.2-fabric.jar",
+                      "sha256":  "e491619f6a34bc5ea1c4ed40ef8e6c590667fc5ef0a9088390c356bb79da098d"
                   },
                   {
                       "path":  "mods/nbidal18-betterfishing-1.0.0+26.2-fabric.jar",
@@ -1671,15 +1671,15 @@
                   },
                   {
                       "path":  "mods/nbidal18-immersiveaircraft-1.4.7+26.2-fabric.jar",
-                      "sha256":  "d2fa7a168e6892a5f1f820f4ad8c89a44dafee73db4d9b97329358715b83e9f1"
+                      "sha256":  "22670ea9ee3b724cedd1bb923e282d67b1f6d288f4e09cc542e9a43d0da681f8"
                   },
                   {
                       "path":  "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar",
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.44+26.2-fabric.jar",
-                      "sha256":  "1ca2b2a55772773c2708b66976d5ff369e86335074ee8c80b2f586498858cfba"
+                      "path":  "mods/nbidal18-integrity-1.0.45+26.2-fabric.jar",
+                      "sha256":  "8822aa1ad2d6e77fe77f2a419b8b7d9dac41bdac1ff8a3498f34e76873d2bc0e"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1688,6 +1688,10 @@
                   {
                       "path":  "mods/nbidal18-mousewheelie-1.0.0+26.2-fabric.jar",
                       "sha256":  "a299326c4077e6e50a2cd84b8edef0bef6aee2dc7db1ab0b2c00c4cb3537fa24"
+                  },
+                  {
+                      "path":  "mods/nbidal18-reliablegliders-1.0.0+26.2-fabric.jar",
+                      "sha256":  "6820646eb39a998c4d93d361546e259bf0774c52fe7d8605f8785726e53b93be"
                   },
                   {
                       "path":  "mods/nbidal18-skinoverrides-1.0.0+26.2-fabric.jar",

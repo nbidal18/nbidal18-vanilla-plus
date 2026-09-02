@@ -63,6 +63,11 @@ $mods = @(
     # key and not the movement input, which is what makes it work for boats, horses and Immersive
     # Aircraft rather than only for walking.
     @{ Name = 'nbidal18-autopilot'; Generator = $null; Builder = 'build_autopilot.py' },
+    # Reliable Gliders has no dimension setting, so without this the Nether is the easiest place in
+    # the pack to cross rather than the hardest. Sets a gliding player on fire there. No mixin - the
+    # mod exposes GlidingState.isGliding(Player) as public static API. **Runs on the server too**,
+    # so it needs -AddMods on the release that publishes it.
+    @{ Name = 'nbidal18-reliablegliders'; Generator = $null; Builder = 'build_reliablegliders.py' },
     # Voxy World Gen's client silently discards incoming LOD payloads when its ingest queue
     # overruns, while the server has already recorded them as delivered - a permanent hole, and not
     # a rare one: the client takes 96 sections a tick and any backfill overruns the queue within a

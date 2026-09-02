@@ -5,6 +5,47 @@ build that was not published.
 
 ---
 
+## v1.0.45
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-02 | see below | `bbcd2c415455` | `6eedc62bc1f4` | 292 | 139 |
+
+**Aircraft and gliders burn in the Nether.** Click **Play**.
+
+### The Nether stops being the easy dimension
+
+Flying made the Nether the easiest place in the pack to cross rather than the hardest. Now anything
+you fly there catches fire.
+
+- **Immersive Aircraft** - `VehicleEntity.tick()` ignites in the Nether. `VehicleEntity` is not
+  fire-immune and takes damage through `hurtServer`, so an aircraft left up there genuinely burns
+  down rather than only looking like it is on fire
+- **Reliable Gliders** - `nbidal18-reliablegliders`, a new first-party artefact, sets a gliding
+  player alight in the Nether
+
+**Fire rather than a refusal, deliberately.** Immersive Aircraft has a `validDimensions` setting, but
+it is checked in `interact()` and nowhere else - it refuses to let you *board* in a dimension, so an
+aircraft flown in through a portal keeps working. Fire costs you the longer you stay up, still allows
+a deliberate hop across a gap, and destroys the vehicle if you try to cross the dimension in it.
+
+The burn is topped up each tick rather than set once, so it stops shortly after you leave and water
+puts it out as normal.
+
+Both run server-side - setting something alight is the server's call - and both are deployed there
+with this release.
+
+### The autopilot no longer stops when you type
+
+Ctrl+Alt+W now needs a grabbed cursor to engage, and so does the back key to cancel. Reading the raw
+keyboard could not tell a keypress from a keystroke, so typing "stone" into a JEI search ended the
+flight on the **s**.
+
+The cost: the back key does not cancel from inside an inventory either, even though InvMove lets you
+keep moving there. Close the screen and press it.
+
+---
+
 ## v1.0.44
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

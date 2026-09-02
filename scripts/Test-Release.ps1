@@ -213,7 +213,12 @@ foreach ($name in $run.Keys) {
         'Test-DedicatedServer' { & $script -DriveRoot $mirror -AddMods $AddMods }
         default { & $script }
     }
-    if ($LASTEXITCODE -and $LASTEXITCODE -ne 0) { throw "$name failed" }
+    # $LASTEXITCODE is only set once a native process has run, and every test here is a PowerShell
+    # script - so after the first one it may not exist at all, and StrictMode throws on reading an
+    # undefined variable rather than treating it as null. The tests already throw on failure through
+    # $ErrorActionPreference, so this is a backstop and must not be the thing that fails the run.
+    $exit = if (Test-Path variable:LASTEXITCODE) { $LASTEXITCODE } else { 0 }
+    if ($exit -ne 0) { throw "$name failed with exit code $exit" }
 }
 
 Write-Host ''
