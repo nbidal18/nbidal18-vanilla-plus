@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.49",
+    "packVersion":  "1.0.50",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -341,7 +341,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "3196ba90e5a3325f21f7055e9aad6a8a4d808a96dc65e7488df8dee2f7cdac9e"
+                                    "sha256":  "b13c8e80ead9358c70aa0e54b9fd40a37d1896c5dca603c89410403a7ccad9ba"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -839,7 +839,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "3196ba90e5a3325f21f7055e9aad6a8a4d808a96dc65e7488df8dee2f7cdac9e"
+                      "sha256":  "b13c8e80ead9358c70aa0e54b9fd40a37d1896c5dca603c89410403a7ccad9ba"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1686,8 +1686,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.49+26.2-fabric.jar",
-                      "sha256":  "327c08ce80b175a873fa9e0bef9ddc5c5895b41b4bfbec3259231e34194f29d5"
+                      "path":  "mods/nbidal18-integrity-1.0.50+26.2-fabric.jar",
+                      "sha256":  "997bb7f5232223b28d870f8656969cfa1611d8ad86be48e0ce337c1bfef3be2c"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1708,6 +1708,10 @@
                   {
                       "path":  "mods/nbidal18-soundsbegone-1.0.0+26.2-fabric.jar",
                       "sha256":  "c5f04e5de20c181a83101645e24f2f73e71e42270cf688a3cd5312d24e0c63b0"
+                  },
+                  {
+                      "path":  "mods/nbidal18-sparsestructures-1.0.0+26.2-fabric.jar",
+                      "sha256":  "9df55804984419fe57cf1f656d3660f84221f36d6601ce0fd00abfd146615f75"
                   },
                   {
                       "path":  "mods/nbidal18-tectonic-1.0.0+26.2-fabric.jar",

@@ -5,6 +5,48 @@ build that was not published.
 
 ---
 
+## v1.0.50
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-02 | see below | `5a6d8930d9a8` | `70ed3c107d6f` | 295 | 142 |
+
+**The server can no longer kill itself at boot.** Click **Play**. Nothing changes in game.
+
+### What was happening
+
+Roughly one server start in twenty died before finishing loading, with a message blaming a mod:
+
+```
+Failed to parse incendium:lesser_structures from pack incendium
+Caused by: NullPointerException: Cannot read field "right" because "l" is null
+    at java.util.TreeMap.rotateRight
+    at java.util.TreeSet.add
+    at StructureSetsSet.addStructureSet
+```
+
+**Incendium was innocent**, and so is every other mod that message has ever named. Sparse Structures
+keeps a list of every structure set it sees, in an ordinary list that cannot cope with being written
+to by more than one thread at once - and 26.2 loads registries on four threads in parallel. The list
+tangles itself, the next write falls off the end of it, and the server dies. The mod named in the
+error is simply whichever one was being written at that instant, so a different boot blames a
+different mod.
+
+That is the expensive part: the log sends you off to read somebody else's worldgen code. A restart
+always fixed it, because nothing was actually damaged - it lost a coin toss and won the next one.
+
+### The fix
+
+Writes to that list now happen one at a time.
+
+**Nothing else changes.** That list exists only to feed a debug command that prints structure set
+names; nothing about structure spacing, generation or placement ever reads it. There is no
+behaviour to get wrong in either direction.
+
+Confirmed by reproduction rather than by reasoning: driving the real method from eight threads fails
+on the first attempt with the same stack. It is rare on a real server only because the loader pushes
+a few hundred entries through four threads and usually gets away with it.
+
 ## v1.0.49
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

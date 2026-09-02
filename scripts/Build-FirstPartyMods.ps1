@@ -81,6 +81,14 @@ $mods = @(
     # server to resend once the client has caught up. **It runs on the server too** - it adds a
     # packet - so it needs -AddMods on the release that publishes it.
     @{ Name = 'nbidal18-voxyworldgen'; Generator = $null; Builder = 'build_voxyworldgen.py' },
+    # Sparse Structures records every structure set in one static TreeSet, filled from 26.2's
+    # PARALLEL registry loader. A TreeSet cannot take concurrent writes: the tree corrupts and the
+    # next insert throws, killing the server at boot with a NullPointerException naming whichever
+    # mod was mid-insert - Incendium, in the one observed crash, which is innocent. Reproduced from
+    # eight threads against the real class; fails on the first round. This serialises the writes.
+    # The list only feeds a debug dump command, so there is no gameplay behaviour either way.
+    # **Runs on the server too** - it is a server boot crash - so it needs -AddMods to deploy.
+    @{ Name = 'nbidal18-sparsestructures'; Generator = $null; Builder = 'build_sparsestructures.py' },
 
     # nbidal18-travelersbackpack is deliberately NOT built. Its source stays under `custom mods\`
     # because the work is sound and will be picked up again, but a uniform tint is not what
