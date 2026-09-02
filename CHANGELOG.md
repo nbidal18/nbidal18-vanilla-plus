@@ -5,6 +5,34 @@ build that was not published.
 
 ---
 
+## v1.0.51
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-02 | see below | `bc10d8b8466a` | `5a6d8930d9a8` | 295 | 142 |
+
+**The far-terrain readout now appears on its own when there is something to see.** Click **Play**.
+
+`/voxysync show` and `/voxysync hide` still work and your choice is remembered. On top of that, the
+overlay puts itself on screen whenever the far-terrain stream is **being paced to fit your
+connection**, **dropping chunks**, or **filling your connection** - and stays up until that clears,
+even if you have hidden it.
+
+Those are the moments the game looks broken and the readout is the only thing that explains it.
+Rather than a player wondering why the world is filling in slowly just after joining, they get told
+that the server is pacing it on purpose and it will settle.
+
+`/voxysync hide` during one of those says so instead of silently doing nothing, and takes effect the
+moment the sync is healthy again.
+
+### One state deliberately left out
+
+**A slow connection with nothing arriving does not force the overlay up.** That is the single
+verdict meaning the problem is not this pack's - a high ping with no far-terrain traffic to blame -
+and unlike the other three it does not clear on its own. An overlay nobody can dismiss, about
+something the pack neither caused nor can fix, would just be nagging. It still shows for anyone who
+asks for it with `/voxysync show`.
+
 ## v1.0.50
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
