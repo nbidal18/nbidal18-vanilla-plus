@@ -247,10 +247,16 @@ finally {
     if (Test-Path -LiteralPath $jijRoot) { Remove-Item -LiteralPath $jijRoot -Recurse -Force -ErrorAction SilentlyContinue }
 }
 
-# ---------------------------------------------------------------- retire superseded helper jars
-# The integrity helper carries the pack version in its file name, so building a new one leaves the
-# old one beside it. Two helpers in mods\ is not a warning at runtime, it is a second mod claiming
-# the same id, and the loader picks one.
+# ---------------------------------------------------------------- retire superseded jars
+# Every first-party jar carries a version in its file name, so building a new one leaves the old one
+# beside it. Two jars in mods\ is not a warning at runtime, it is a second mod claiming the same id,
+# and the loader picks one.
+#
+# This covered only the integrity helper until v1.0.48, because the helper is the one whose version
+# moves every release. That was the wrong reason to single it out: any first-party mod leaves the
+# same wreckage the moment its own version is bumped, and voxyworldgen did it twice in one day -
+# 1.2.0 beside 1.3.0, then 1.3.0 beside 1.4.0. Both were caught by eye. The second one would have
+# shipped a client that could not start.
 foreach ($stale in Get-ChildItem -LiteralPath $releaseMods -Filter 'nbidal18-integrity-*.jar') {
     if ($stale.Name -notlike "*-$version+*") {
         [IO.File]::Delete($stale.FullName)
@@ -259,6 +265,19 @@ foreach ($stale in Get-ChildItem -LiteralPath $releaseMods -Filter 'nbidal18-int
 }
 $helpers = @(Get-ChildItem -LiteralPath $releaseMods -Filter 'nbidal18-integrity-*.jar')
 if ($helpers.Count -ne 1) { throw "Expected one integrity helper, found $($helpers.Count)" }
+
+# The rest carry their own versions, which move on their own schedule, so the survivor is the one
+# this run just wrote rather than the one matching the pack version. Scoped to the exact mod name
+# each time - nothing outside `<mod>-*.jar` is ever a candidate.
+foreach ($mod in $mods) {
+    $siblings = @(Get-ChildItem -LiteralPath $releaseMods -Filter ("{0}-*.jar" -f $mod.Name) -File |
+            Sort-Object LastWriteTimeUtc -Descending)
+    if ($siblings.Count -lt 2) { continue }
+    foreach ($stale in $siblings[1..($siblings.Count - 1)]) {
+        [IO.File]::Delete($stale.FullName)
+        Write-Host ("retired   {0}  (superseded by {1})" -f $stale.Name, $siblings[0].Name)
+    }
+}
 
 Write-Host ''
 Write-Host ("OK        {0} first-party mod(s) built into v{1}." -f $mods.Count, $version)

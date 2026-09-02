@@ -5,6 +5,72 @@ build that was not published.
 
 ---
 
+## v1.0.48
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-02 | see below | `5948c00e262c` | `cf598509ea4a` | 292 | 139 |
+
+**The far-terrain stream no longer sends faster than your connection can take.** Click **Play**.
+
+### What was happening
+
+A player was being disconnected with *Timed out* about a minute into every session — **fifteen
+sessions across three days, not one longer than 60 seconds**, while another player on the same
+server played for 98 minutes at a stretch. It read exactly like a bad connection at his end. It was
+not.
+
+`/voxysync show` on that player, mid-session:
+
+```
+receiving  232 chunk/s      data flowing fine
+dropping   0 chunk/s        nothing being lost
+ping       4888 ms          five second round trip
+```
+
+**Five seconds of latency with zero loss is not a slow line, it is a full queue.** TCP does not
+drop what it cannot deliver, it queues it — so a stream sent faster than the link can carry does not
+show up as missing chunks, it shows up as everything else waiting in line behind it. The server's
+keep-alive was stuck in that queue, the reply came back too late, and the server dropped him.
+
+The server sends far terrain two ways. The backfill is throttled to about 20 chunks a second. The
+path that fires as terrain generates is **not throttled at all**, and with a generation radius of
+512 a moving player pulls 200-300 a second down it. On a connection that can absorb 40, the surplus
+became his ping.
+
+### What changed
+
+Each player now receives far terrain **only as fast as their own connection is draining it**. Before
+sending, the server checks whether that player's outbound buffer is backing up; if it is, they are
+skipped for that chunk and the existing backfill delivers it once the buffer clears. Nothing is
+lost — the chunk is marked undelivered, which is a path the mod already relies on.
+
+The result is that a slow connection gets far terrain more slowly instead of drowning, and **a fast
+one is not affected at all** — the check never trips if the buffer never backs up.
+
+The signal is the outbound buffer rather than the ping, because the ping is only recalculated when a
+keep-alive comes back every 15 seconds. It reports the jam long after it forms.
+
+### `/voxysync` was pointing at the wrong culprit
+
+It had three verdicts, and high-ping-but-nothing-dropping was reported as *"the connection is the
+problem, and no pack setting will fix it"* — which is precisely backwards when the pack is what is
+filling the connection. That message sent a real person off to blame their internet provider.
+
+There is now a fourth verdict that separates the two cases: **chunks arriving and ping high** means
+the stream is saturating the link and turning Voxy off will clear it, while **nothing arriving and
+ping high** is genuinely the connection. Only the second one is out of our hands.
+
+### Under the hood
+
+The build now retires a superseded first-party jar for **every** mod, not just the integrity helper.
+It only ever covered the helper because that is the one whose version moves every release — but any
+first-party mod leaves the same wreckage when its own version is bumped, and this one did it twice
+in a day. Two jars claiming one mod id is not a warning at startup, it is a client that will not
+start, and both times it was caught by eye rather than by a check.
+
+---
+
 ## v1.0.47
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
