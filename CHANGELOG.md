@@ -5,6 +5,63 @@ build that was not published.
 
 ---
 
+## v1.0.56
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-03 | see below | `3cb8f5f74a44` | `779a090075a1` | 295 | 142 |
+
+**Beds stop rendering as a purple-and-black square, and far terrain goes back to how its own
+developers wrote it.** Click **Play**. Far terrain rebuilds from nothing.
+
+### Beds were broken, and so were two other models
+
+Every bed drew as the missing-texture placeholder in your hand. All sixteen share one parent model,
+`template_bed`, and our Actually 3D fork **deleted it**.
+
+The fork drops a 3D item model when nothing guards it and vanilla has no flat sprite to fall back
+on. `template_bed` is a shared parent rather than a real item, so it had neither - and nothing
+checked whether other models still pointed at it. It has been broken since Actually 3D was added in
+v1.0.46.
+
+Two more models named textures that do not exist anywhere - leftovers of a mod's assets we removed -
+and drew the same placeholder. Those are dropped so vanilla draws them instead.
+
+**The build now refuses to finish if any model's parent or texture does not resolve**, in the pack
+or in vanilla. It already refused on a dangling blockstate; it should have had the same rule for
+models pointing at models, and this shipped for ten releases while the build reported success.
+
+### Far terrain is stock again
+
+The add-on that paced far terrain is **removed**. Six releases changed how it worked and the
+readings from the one player it was built for got worse across three of them; at the end nobody
+could say which of its parts helped.
+
+**Voxy and Voxy World Gen were never modified** - both jars are byte-identical to the developers',
+verified against Modrinth's own hashes - so there was nothing to restore, only ours to take away.
+
+**One piece stays**, because it is the only part that was demonstrably working: switching Voxy off in
+game still stops the server sending far terrain. That is now the whole of it - about 4 KB, client
+side only, no longer installed on the server at all.
+
+Everything else is archived with a full audit of what worked, what did not, and the measurements
+behind both, so it can be picked up rather than rediscovered.
+
+### Stored far terrain is cleared, again
+
+Your client's store and Xaero's map tiles go on next launch, waypoints kept; the server's generation
+cache is removed in the same deploy. Everything cached was built under rules that no longer apply.
+
+**So it rebuilds from nothing, and the first session is the heaviest load far terrain can produce.**
+Defaults are unchanged: Voxy ships **off**, at 32 chunks if you switch it on.
+
+### Still not fixed
+
+The ring of missing far terrain between your render distance and where it resumes. Four explanations
+were proposed and all four were wrong - the last falsified by the observation that terrain beyond the
+ring is also pre-existing and works fine. Nobody has yet checked the one thing that would narrow it:
+**whether the ring moves with the player or stays put in the world.**
+
 ## v1.0.55
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

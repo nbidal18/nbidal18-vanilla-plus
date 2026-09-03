@@ -22,7 +22,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "47d1552ed7968f211ebdb76b24f8bd8c2ae8b3a151db77ea1111b106938c5877"
+hash = "4c74695167d19076b34f833a4281163516500abaae23cab921efe5e4b402c049"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -869,8 +869,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.55+26.2-fabric.jar"
-hash = "7a3ae168cab34c180c8793c091f43cf677be92e55404368ffe8fcaa66c65c79d"
+file = "mods/nbidal18-integrity-1.0.56+26.2-fabric.jar"
+hash = "c00b347cd4384e890ff7941a652ceb958025b58cea6ce7f735996babe2c99501"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -905,8 +905,8 @@ file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
 hash = "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
 
 [[files]]
-file = "mods/nbidal18-voxyworldgen-1.7.0+26.2-fabric.jar"
-hash = "94ecb1a016fe80040f6397b89e4348e30b5c395f4ba11edd43f10d7800d6f7af"
+file = "mods/nbidal18-voxyworldgen-2.0.0+26.2-fabric.jar"
+hash = "c08a7ba2143ff05dc550fe751eccfc38cf36be895e0fbba5c75ded3bf9c44fe7"
 
 [[files]]
 file = "mods/nbidal18-xaerominimap-1.0.0+26.2-fabric.jar"
@@ -1074,7 +1074,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "40dc7b69182a5a6629bedf55f19b93a0342bd1ccdc9b69369c89320f51dd1b5c"
+hash = "6034e35c08e25c48097e5f4e7b8d4510f1fba1394778e5a64d77aba68b955ccc"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -1126,7 +1126,7 @@ hash = "5d1f2ea9b8af9cd931796c09f2159e119b25db909b0a84269b42fb3c9f55893d"
 
 [[files]]
 file = "resourcepacks/nbidal18-Actually-3D-26.2.zip"
-hash = "be0b64ba1aea81677121b112bb7a4bbc82a3510d1f5378cadc992d23e447b4d5"
+hash = "4624dd801b2b7b56b01b92727d24ca08c4a2914f226853a16a8294231d664aed"
 
 [[files]]
 file = "resourcepacks/nbidal18-Immersive-Interfaces-26.2.zip"

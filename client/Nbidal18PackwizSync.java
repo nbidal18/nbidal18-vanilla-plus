@@ -316,6 +316,11 @@ public final class Nbidal18PackwizSync {
      * hanging over the ocean. The server's own record is cleared in the same pass; clearing only one
      * side leaves the two disagreeing about what exists.
      *
+     * <p>v1.0.56 sweeps for a sixth. The add-on that paced far terrain is gone and Voxy World Gen
+     * runs stock again, so every store filled while it was installed was filled under rules that no
+     * longer apply. Clearing both sides means the next reading describes the stock mod rather than
+     * the residue of six releases of ours.
+     *
      * <p>v1.0.55 sweeps for a fifth, and this one is a reset rather than a fix. Four releases of
      * changing how far terrain is paced ended with the pacing rolled back to its v1.0.52 form, and a
      * store filled during those four releases holds whatever those versions did or did not deliver.
@@ -331,7 +336,7 @@ public final class Nbidal18PackwizSync {
      * incoming chunks on the floor and never asking for them again. That is fixed in v1.0.42, so a
      * sweep now refills cleanly, which a sweep before it could not.
      */
-    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1055";
+    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1056";
 
     private final Path minecraftRoot;
     private final Path stateRoot;

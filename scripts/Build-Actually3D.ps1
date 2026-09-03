@@ -214,6 +214,67 @@ foreach ($name in @($kept.Keys)) {
 Write-Host ("items     {0} guarded by the pack, {1} guards generated, {2} dropped with no sprite" -f `
         $guarded.Count, $generated, $droppedItemModels)
 
+# ---------------------------------------------------------------- close the reference graph
+#
+# **A model may only be dropped if nothing kept still points at it.** The item pass above drops a 3D
+# item model that has no definition guarding it and no vanilla sprite to fall back on - and it made
+# no distinction between a real item and a shared parent. `item/template_bed` is a parent, not an
+# item, so it had neither, so it was dropped - and all sixteen beds declare it as their parent. A
+# model whose parent is missing draws as the purple-and-black placeholder, which is what shipped in
+# v1.0.46 and stayed until v1.0.56.
+#
+# The pack already refuses to ship a blockstate pointing at a model it removed. This is the same
+# rule for models pointing at models, and it should have existed at the same time.
+#
+# Restoring runs to a fixed point: a restored parent may itself declare a parent.
+$restored = 0
+for ($pass = 0; $pass -lt 10; $pass++) {
+    $needed = New-Object Collections.Generic.HashSet[string]
+    foreach ($name in @($kept.Keys)) {
+        if ($name -notmatch '^assets/minecraft/models/.+\.json$') { continue }
+        $json = [Text.Encoding]::UTF8.GetString($kept[$name])
+        $parent = [regex]::Match($json, '"parent"\s*:\s*"(?:minecraft:)?([a-z0-9_/]+)"')
+        if (-not $parent.Success) { continue }
+        $path = 'assets/minecraft/models/' + $parent.Groups[1].Value + '.json'
+        if (-not $kept.Contains($path) -and $entries.Contains($path)) { [void] $needed.Add($path) }
+    }
+    if (-not $needed.Count) { break }
+    foreach ($path in $needed) { $kept[$path] = $entries[$path]; $restored++ }
+}
+Write-Host ("parents   {0} model(s) restored because something kept still points at them" -f $restored)
+
+# A model whose textures do not resolve draws the placeholder just as loudly. These are leftovers of
+# the foreign assets dropped above - farm_and_charm's strawberries, and a sword blade - whose models
+# stayed behind when their textures went.
+$vanillaTextures = New-Object Collections.Generic.HashSet[string]
+$mc2 = [IO.Compression.ZipFile]::OpenRead($mcJar)
+try {
+    foreach ($e in $mc2.Entries) {
+        if ($e.FullName -match '^assets/minecraft/textures/(.+)\.png$') { [void] $vanillaTextures.Add($Matches[1]) }
+    }
+}
+finally { $mc2.Dispose() }
+$packTextures = New-Object Collections.Generic.HashSet[string]
+foreach ($name in $kept.Keys) {
+    if ($name -match '^assets/minecraft/textures/(.+)\.png$') { [void] $packTextures.Add($Matches[1]) }
+}
+$droppedForTexture = 0
+foreach ($name in @($kept.Keys)) {
+    if ($name -notmatch '^assets/minecraft/models/.+\.json$') { continue }
+    $json = [Text.Encoding]::UTF8.GetString($kept[$name])
+    # Only inside the "textures" object. Scanning every string in the file matched "parent" values
+    # too - which name models, not textures - and the first run of this check dropped 630 models
+    # because of it, taking the bookshelves and every ore with them.
+    $block = [regex]::Match($json, '"textures"\s*:\s*\{(?<body>[^}]*)\}')
+    if (-not $block.Success) { continue }
+    foreach ($m in [regex]::Matches($block.Groups['body'].Value, ':\s*"(?<tex>[^"#][^"]*)"')) {
+        $texture = $m.Groups['tex'].Value -replace '^minecraft:', ''
+        if ($packTextures.Contains($texture) -or $vanillaTextures.Contains($texture)) { continue }
+        $kept.Remove($name); $droppedForTexture++; break
+    }
+}
+Write-Host ("textures  {0} model(s) dropped for naming a texture nothing provides" -f $droppedForTexture)
+
 # ---------------------------------------------------------------- 26.2 metadata
 $mcmeta = @"
 {
@@ -282,6 +343,52 @@ try {
     # Count .json only. Upstream ships 200 .rpo files beside its models - optimiser residue, inert
     # to Minecraft, and counted as models here until v1.0.47, which put the reported figure 66 above
     # the truth and made a real 66-model loss look like a gain.
+    # Every parent and every texture must resolve, in this pack or in vanilla. The passes above are
+    # supposed to guarantee it; this is the check that says so out loud, because the build reported
+    # success for ten releases while shipping sixteen beds whose parent it had deleted.
+    $shipped = New-Object Collections.Generic.HashSet[string]
+    $shippedTex = New-Object Collections.Generic.HashSet[string]
+    foreach ($e in $check.Entries) {
+        if ($e.FullName -match '^assets/minecraft/models/(.+)\.json$') { [void] $shipped.Add($Matches[1]) }
+        if ($e.FullName -match '^assets/minecraft/textures/(.+)\.png$') { [void] $shippedTex.Add($Matches[1]) }
+    }
+    $vanillaModels = New-Object Collections.Generic.HashSet[string]
+    $mc3 = [IO.Compression.ZipFile]::OpenRead($mcJar)
+    try {
+        foreach ($e in $mc3.Entries) {
+            if ($e.FullName -match '^assets/minecraft/models/(.+)\.json$') { [void] $vanillaModels.Add($Matches[1]) }
+        }
+    }
+    finally { $mc3.Dispose() }
+
+    $unresolved = New-Object Collections.Generic.List[string]
+    foreach ($e in $check.Entries) {
+        if ($e.FullName -notmatch '^assets/minecraft/models/.+\.json$') { continue }
+        $reader = New-Object IO.StreamReader($e.Open())
+        $json = $reader.ReadToEnd(); $reader.Dispose()
+        $parent = [regex]::Match($json, '"parent"\s*:\s*"(?:minecraft:)?([a-z0-9_/]+)"')
+        if ($parent.Success) {
+            $ref = $parent.Groups[1].Value
+            if (-not $shipped.Contains($ref) -and -not $vanillaModels.Contains($ref)) {
+                $unresolved.Add(("{0} -> parent {1}" -f $e.FullName, $ref))
+            }
+        }
+        $block = [regex]::Match($json, '"textures"\s*:\s*\{(?<body>[^}]*)\}')
+        if ($block.Success) {
+            foreach ($m in [regex]::Matches($block.Groups['body'].Value, ':\s*"(?<tex>[^"#][^"]*)"')) {
+                $ref = $m.Groups['tex'].Value -replace '^minecraft:', ''
+                if (-not $shippedTex.Contains($ref) -and -not $vanillaTextures.Contains($ref)) {
+                    $unresolved.Add(("{0} -> texture {1}" -f $e.FullName, $ref))
+                }
+            }
+        }
+    }
+    if ($unresolved.Count) {
+        throw ("{0} unresolved model reference(s), which render as the missing-texture placeholder: {1}" -f `
+                $unresolved.Count, (($unresolved | Select-Object -First 5) -join '; '))
+    }
+    Write-Host ("resolved  every parent and texture resolves in this pack or in vanilla")
+
     $blocks = @($check.Entries | Where-Object { $_.FullName -like 'assets/minecraft/models/block/*.json' }).Count
     Write-Host ("verified  {0} block models, {1} blockstates, every model reference resolves" -f `
             $blocks, @($check.Entries | Where-Object { $_.FullName -like 'assets/minecraft/blockstates/*.json' }).Count)

@@ -75,7 +75,16 @@ $lines.Add('option confirm off')
 $encoded = $Session.Replace('%', '%25').Replace('+', '%2B').Replace(' ', '%20')
 # WinSCP prints a hint suggesting an inline sftp:// URL instead of a saved site. That is exactly
 # what this avoids: the URL carries the password, the site name does not.
-$lines.Add("open `"$encoded`"")
+# Override the site's local directory at open time, not after.
+#
+# WinSCP saves whichever local folder the GUI was last pointed at INTO the site, and re-enters it
+# while connecting. Browse somewhere in the GUI, delete that folder later, and every scripted run
+# then aborts during open with "Error changing directory ... System Error. Code: 2" - long after the
+# act that caused it and nowhere near this file. An `lcd` afterwards is too late; the failure
+# happens before any command runs. Nothing here depends on the local working directory, since every
+# path below is absolute.
+$localDir = [IO.Path]::GetTempPath().TrimEnd([char]92)
+$lines.Add("open `"$encoded`" -rawsettings LocalDirectory=`"$localDir`"")
 
 if ($Pull) {
     if (-not (Test-Path -LiteralPath $MirrorRoot)) { New-Item -ItemType Directory -Path $MirrorRoot | Out-Null }
@@ -160,7 +169,11 @@ try {
     # ignore that is telling it the session does not exist.
     & $winscp /script=$scriptFile
     if ($LASTEXITCODE -ne 0) {
-        throw "WinSCP exited $LASTEXITCODE. Check the session name matches one saved in the WinSCP GUI."
+        # Deliberately does not name a cause. This used to assert the session name was wrong, and
+        # spent a deploy window sending everyone to check a name that was correct - the actual
+        # failure was a stale local directory saved into the site. WinSCP's own output is printed
+        # above; read that rather than this line.
+        throw "WinSCP exited $LASTEXITCODE - see its output above for the reason."
     }
 }
 finally {
