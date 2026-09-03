@@ -5,6 +5,40 @@ build that was not published.
 
 ---
 
+## v1.0.58
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-03 | see below | `f5c407825975` | `82dbf3d7b7d4` | 295 | 142 |
+
+**Ingots are properly flat in the inventory, and beds look like vanilla's again.** Click **Play**.
+
+### v1.0.57 said it fixed the ingots. It did not
+
+The definition was right - the inventory was pointed at a flat model. **The artwork was wrong.**
+
+Actually 3D replaces **33 vanilla item sprites** with its own, deliberately three-dimensional
+looking. A texture named `item/iron_ingot` resolves against every installed pack, not against
+vanilla - so the flat model was drawing the pack's 3D artwork on a flat surface, and an ingot still
+looked three-dimensional.
+
+Each generated flat model now carries **vanilla's own image**, copied in under a private name that no
+pack can replace. Deleting the pack's versions instead would have fixed six of them and broken
+others: its `gold_ingot` image is also what gold nuggets are drawn with.
+
+### And the beds were never even looked at
+
+The build decided an item was three-dimensional by looking for geometry **in that item's own file**.
+`black_bed.json` has none - it is four lines naming a colour and inheriting everything from a shared
+bed model. So all sixteen beds fell through both branches and were never considered.
+
+It now follows the inheritance chain. Beds have no flat sprite in vanilla to fall back on - vanilla
+builds them from the bed's head and foot - so **the pack now steps aside and lets vanilla draw them**,
+which is what they looked like before Actually 3D was added.
+
+Iron, gold, copper and diamond blocks are still three-dimensional in the inventory. **So are
+vanilla's** - a block item is drawn as a block - so those are correct as they stand.
+
 ## v1.0.57
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

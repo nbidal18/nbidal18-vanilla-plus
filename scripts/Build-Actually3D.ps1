@@ -114,11 +114,17 @@ Write-Host ("base      {0} ({1:N0} B)" -f (Split-Path $base -Leaf), (Get-Item -L
 
 # ---------------------------------------------------------------- what vanilla can draw flat
 $vanillaItemTextures = New-Object Collections.Generic.HashSet[string]
+$vanillaTextureBytes = @{}
 $mc = [IO.Compression.ZipFile]::OpenRead($mcJar)
 try {
     foreach ($e in $mc.Entries) {
         if ($e.FullName -match '^assets/minecraft/textures/item/([a-z0-9_]+)\.png$') {
             [void] $vanillaItemTextures.Add($Matches[1])
+            # Kept, not just counted: a generated flat model ships vanilla's own artwork under a
+            # private name so no pack can shadow it.
+            $buffer = New-Object IO.MemoryStream
+            $e.Open().CopyTo($buffer)
+            $vanillaTextureBytes[$Matches[1]] = $buffer.ToArray()
         }
     }
 }
@@ -240,7 +246,11 @@ foreach ($name in @($kept.Keys)) {
     $item = $Matches[1]
     if ($item.EndsWith('_gui')) { continue }
     $json = [Text.Encoding]::UTF8.GetString($kept[$name])
-    if ($json -notmatch '"elements"') { continue }        # already flat, nothing to guard
+    # Follow the parent chain, do not just look for "elements" in this file. `black_bed.json` has no
+    # elements of its own - it is four lines naming a texture and inheriting from `item/template_bed`,
+    # which has them. A literal match skipped all sixteen beds entirely, so they never reached either
+    # branch below and stayed 3D in the inventory through v1.0.57.
+    if (Test-ModelIsFlat "item/$item") { continue }
     # NOT "does a definition exist" - "does that definition actually send the GUI to a flat model".
     #
     # Those are different, and treating them as the same shipped 3D ingots in the inventory from
@@ -251,9 +261,14 @@ foreach ($name in @($kept.Keys)) {
     if ($guarded.Contains($item) -and (Test-GuiIsFlat $item)) { continue }
 
     if (-not $vanillaItemTextures.Contains($item)) {
-        # No sprite to fall back to - this renders from a block model in vanilla, so let vanilla do
-        # it rather than invent a flat model that would draw a missing texture.
+        # No sprite to fall back to. Vanilla draws these from block models - a bed is a composite of
+        # its head and foot, an iron block is a cube - so hand the item back to vanilla entirely.
+        #
+        # **The definition goes too, not just the model.** Leaving the pack's own definition behind
+        # left it pointing at a model that had been removed, or at a 3D one: sixteen beds rendered
+        # three-dimensionally in the inventory through v1.0.57 because only the model was dropped.
         $kept.Remove($name)
+        $kept.Remove("assets/minecraft/items/$item.json")
         $droppedItemModels++
         continue
     }
@@ -261,7 +276,20 @@ foreach ($name in @($kept.Keys)) {
     # `_flat_gui`, not `_gui`: the pack already uses `_gui` for models of its own, and some of them
     # are three-dimensional. Writing ours under that name would overwrite theirs.
     $flatName = "${item}_flat_gui"
-    $guiModel = "{`n  `"parent`": `"minecraft:item/generated`",`n  `"textures`": {`n    `"layer0`": `"minecraft:item/$item`"`n  }`n}`n"
+
+    # **Carry vanilla's own PNG in under a private name, rather than pointing at `item/<name>`.**
+    #
+    # A texture reference resolves against the whole resource stack, not against vanilla - and this
+    # pack replaces 33 vanilla item sprites with its own, deliberately 3D-looking ones. So a flat
+    # model pointing at `item/iron_ingot` drew the pack's 3D-looking artwork on a flat quad, and the
+    # ingots still looked three-dimensional in the inventory after v1.0.57 supposedly fixed them.
+    #
+    # Copying vanilla's file in under a name nothing else uses makes the flat model immune to what
+    # any pack shadows. Deleting the pack's replacement instead would work for six of them and break
+    # the rest: `gold_ingot.png` is also what `item/gold_nugget` draws with.
+    $vanillaTexturePath = "assets/minecraft/textures/item/$item.png"
+    $kept["assets/minecraft/textures/item/$flatName.png"] = $vanillaTextureBytes[$item]
+    $guiModel = "{`n  `"parent`": `"minecraft:item/generated`",`n  `"textures`": {`n    `"layer0`": `"minecraft:item/$flatName`"`n  }`n}`n"
     $kept["assets/minecraft/models/item/$flatName.json"] = [Text.Encoding]::UTF8.GetBytes($guiModel)
 
     $definition = @"
