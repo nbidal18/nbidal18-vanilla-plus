@@ -5,6 +5,41 @@ build that was not published.
 
 ---
 
+## v1.0.57
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-03 | see below | `82dbf3d7b7d4` | `3cb8f5f74a44` | 295 | 142 |
+
+**Ingots and a handful of other items stop being three-dimensional in your inventory.** Click
+**Play**.
+
+### What was wrong
+
+Items are meant to be 3D in your hand and flat in the inventory. Seven were 3D in both:
+**iron, gold and copper ingots**, plus the **amethyst shard**, **firework star**, **sugar** and
+**wind charge**.
+
+The build decided an item was already handled by asking *"does the pack ship a definition for it"*.
+That is not the same question as *"does that definition send the inventory to a flat model"*, and the
+difference is exactly where these fell through:
+
+- The **ingots** have a definition, but it selects on the item's **custom name** - nothing to do with
+  where it is being drawn - so the inventory got the 3D model.
+- The other four ship models the pack itself names `<item>_gui`, and **those are 3D as well**. The
+  name collides with the one the build generates for flat models, which is how they were misread as
+  already correct.
+
+It now resolves what each definition actually draws in the inventory, follows that model's parent
+chain to see whether it is a sprite or geometry, and only skips items that genuinely end up flat.
+Generated models are named `_flat_gui` so they cannot collide with the pack's own.
+
+### Beds and metal blocks are left alone
+
+They are still 3D in the inventory, and that is correct: **vanilla draws them that way too.** There
+is no flat sprite for a bed or an iron block to fall back on - making them flat would mean inventing
+artwork that does not exist.
+
 ## v1.0.56
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

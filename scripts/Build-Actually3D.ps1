@@ -160,6 +160,73 @@ foreach ($name in $entries.Keys) {
 Write-Host ("dropped   {0} by category, {1} foreign, {2} junk" -f `
         $dropped['category'], $dropped['foreign'], $dropped['junk'])
 
+# ---------------------------------------------------------------- is the GUI already flat?
+#
+# Walks an item definition to whatever it draws in the GUI, then follows that model's parent chain
+# to decide whether it is a sprite or geometry. Both halves are needed: a definition can route the
+# GUI to a model that looks innocent and inherits from one with elements.
+function Get-GuiModelRef([object] $node, [int] $depth = 0) {
+    if ($null -eq $node -or $depth -gt 8) { return $null }
+    $type = ("" + $node.type) -replace '^minecraft:', ''
+    switch ($type) {
+        'model' { return $node.model }
+        'select' {
+            $property = ("" + $node.property) -replace '^minecraft:', ''
+            if ($property -eq 'display_context') {
+                foreach ($case in @($node.cases)) {
+                    $when = $case.when
+                    if ($when -eq 'gui' -or (@($when) -contains 'gui')) {
+                        return Get-GuiModelRef $case.model ($depth + 1)
+                    }
+                }
+                return Get-GuiModelRef $node.fallback ($depth + 1)
+            }
+            # Any other property - custom_name, a component, anything: the GUI takes whichever
+            # branch the item happens to match, so the fallback is the honest answer. This is the
+            # case that let the ingots through.
+            if ($node.fallback) { return Get-GuiModelRef $node.fallback ($depth + 1) }
+            return Get-GuiModelRef (@($node.cases)[0].model) ($depth + 1)
+        }
+        'range_dispatch' {
+            if ($node.fallback) { return Get-GuiModelRef $node.fallback ($depth + 1) }
+            return Get-GuiModelRef (@($node.entries)[0].model) ($depth + 1)
+        }
+        'condition' {
+            if ($node.on_true) { return Get-GuiModelRef $node.on_true ($depth + 1) }
+            return Get-GuiModelRef $node.on_false ($depth + 1)
+        }
+    }
+    return $null
+}
+
+$FLAT_PARENTS = @('item/generated', 'item/handheld', 'item/handheld_rod', 'item/handheld_mace')
+
+function Test-ModelIsFlat([string] $ref, [int] $depth = 0) {
+    if (-not $ref -or $depth -gt 8) { return $true }
+    $ref = $ref -replace '^minecraft:', ''
+    $path = "assets/minecraft/models/$ref.json"
+    $bytes = $null
+    if ($kept.Contains($path)) { $bytes = $kept[$path] }
+    elseif ($entries.Contains($path)) { $bytes = $entries[$path] }
+    if ($null -eq $bytes) { return $true }   # vanilla's own model: vanilla draws it correctly
+    $json = [Text.Encoding]::UTF8.GetString($bytes)
+    if ($json -match '"elements"') { return $false }
+    $parent = [regex]::Match($json, '"parent"\s*:\s*"(?:minecraft:)?([a-z0-9_/]+)"')
+    if (-not $parent.Success) { return $true }
+    if ($FLAT_PARENTS -contains $parent.Groups[1].Value) { return $true }
+    return Test-ModelIsFlat $parent.Groups[1].Value ($depth + 1)
+}
+
+function Test-GuiIsFlat([string] $item) {
+    $path = "assets/minecraft/items/$item.json"
+    if (-not $kept.Contains($path)) { return $false }
+    try { $definition = [Text.Encoding]::UTF8.GetString($kept[$path]) | ConvertFrom-Json }
+    catch { return $false }
+    $ref = Get-GuiModelRef $definition.model
+    if (-not $ref) { return $false }
+    return Test-ModelIsFlat $ref
+}
+
 # ---------------------------------------------------------------- items: 3D in hand, flat in GUI
 $guarded = New-Object Collections.Generic.HashSet[string]
 foreach ($name in $kept.Keys) {
@@ -174,7 +241,14 @@ foreach ($name in @($kept.Keys)) {
     if ($item.EndsWith('_gui')) { continue }
     $json = [Text.Encoding]::UTF8.GetString($kept[$name])
     if ($json -notmatch '"elements"') { continue }        # already flat, nothing to guard
-    if ($guarded.Contains($item)) { continue }            # the pack guards this one itself
+    # NOT "does a definition exist" - "does that definition actually send the GUI to a flat model".
+    #
+    # Those are different, and treating them as the same shipped 3D ingots in the inventory from
+    # v1.0.46. The pack's iron_ingot definition selects on `custom_name`, which has nothing to do
+    # with display context, so the GUI got the 3D model; the check saw a definition and skipped it.
+    # Four more - amethyst_shard, firework_star, sugar, wind_charge - ship the pack's own models
+    # named `<item>_gui`, and those are 3D too, which is also why that suffix cannot be reused here.
+    if ($guarded.Contains($item) -and (Test-GuiIsFlat $item)) { continue }
 
     if (-not $vanillaItemTextures.Contains($item)) {
         # No sprite to fall back to - this renders from a block model in vanilla, so let vanilla do
@@ -184,8 +258,11 @@ foreach ($name in @($kept.Keys)) {
         continue
     }
 
+    # `_flat_gui`, not `_gui`: the pack already uses `_gui` for models of its own, and some of them
+    # are three-dimensional. Writing ours under that name would overwrite theirs.
+    $flatName = "${item}_flat_gui"
     $guiModel = "{`n  `"parent`": `"minecraft:item/generated`",`n  `"textures`": {`n    `"layer0`": `"minecraft:item/$item`"`n  }`n}`n"
-    $kept["assets/minecraft/models/item/${item}_gui.json"] = [Text.Encoding]::UTF8.GetBytes($guiModel)
+    $kept["assets/minecraft/models/item/$flatName.json"] = [Text.Encoding]::UTF8.GetBytes($guiModel)
 
     $definition = @"
 {
@@ -197,7 +274,7 @@ foreach ($name in @($kept.Keys)) {
         "when": "gui",
         "model": {
           "type": "minecraft:model",
-          "model": "minecraft:item/${item}_gui"
+          "model": "minecraft:item/$flatName"
         }
       }
     ],

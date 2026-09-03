@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.56",
+    "packVersion":  "1.0.57",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -341,7 +341,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "4c74695167d19076b34f833a4281163516500abaae23cab921efe5e4b402c049"
+                                    "sha256":  "c2b92d2d0db0e4d3bf2a5024b819451c1a8d68775622e8225596e836dfec3c02"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -839,7 +839,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "4c74695167d19076b34f833a4281163516500abaae23cab921efe5e4b402c049"
+                      "sha256":  "c2b92d2d0db0e4d3bf2a5024b819451c1a8d68775622e8225596e836dfec3c02"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1686,8 +1686,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.56+26.2-fabric.jar",
-                      "sha256":  "c00b347cd4384e890ff7941a652ceb958025b58cea6ce7f735996babe2c99501"
+                      "path":  "mods/nbidal18-integrity-1.0.57+26.2-fabric.jar",
+                      "sha256":  "f893a99e39049ff1142b2c574550bee83d7876edb7395583d769c362fb35e272"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1943,7 +1943,7 @@
                   },
                   {
                       "path":  "resourcepacks/nbidal18-Actually-3D-26.2.zip",
-                      "sha256":  "4624dd801b2b7b56b01b92727d24ca08c4a2914f226853a16a8294231d664aed"
+                      "sha256":  "6bf536d2ec8319ae8056f0909d7f5b967450a630bc01e674d374ef36a810fa6c"
                   },
                   {
                       "path":  "resourcepacks/nbidal18-Immersive-Interfaces-26.2.zip",
