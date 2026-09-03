@@ -316,6 +316,14 @@ public final class Nbidal18PackwizSync {
      * hanging over the ocean. The server's own record is cleared in the same pass; clearing only one
      * side leaves the two disagreeing about what exists.
      *
+     * <p>v1.0.60 sweeps for a seventh, at the owner's request rather than for a fault. v1.0.59 put
+     * far terrain under a new pacing and delivery layer (nbidal18-voxyworldgen 3.0.0), and its
+     * client-side ledger of received chunks lives inside {@code .voxy} so that the two are always
+     * wiped together. The stores filled under stock were not wrong - the new layer re-streams
+     * everything on a first join anyway - but a clean sheet means the first readings of the new
+     * layer describe only it. The server's generation record is removed in the same pass, as in
+     * v1.0.30 and v1.0.55.
+     *
      * <p>v1.0.56 sweeps for a sixth. The add-on that paced far terrain is gone and Voxy World Gen
      * runs stock again, so every store filled while it was installed was filled under rules that no
      * longer apply. Clearing both sides means the next reading describes the stock mod rather than
@@ -336,7 +344,7 @@ public final class Nbidal18PackwizSync {
      * incoming chunks on the floor and never asking for them again. That is fixed in v1.0.42, so a
      * sweep now refills cleanly, which a sweep before it could not.
      */
-    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1056";
+    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1060";
 
     private final Path minecraftRoot;
     private final Path stateRoot;

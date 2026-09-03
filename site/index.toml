@@ -22,7 +22,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "83cde40838d381480ae71d7501e41cd962f90cd74ff6c28b317a4ced64cdd50e"
+hash = "423705b9397a4bd94bb12523c25aa1e395a52cb36647debb4be9113965544a54"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -869,8 +869,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.59+26.2-fabric.jar"
-hash = "111251f9cbdf53100459e54ebe49163aca4a904e5e31ecd484eafd129be2d068"
+file = "mods/nbidal18-integrity-1.0.60+26.2-fabric.jar"
+hash = "3b57bfee2fba145a9f62bac5013dc7647c2267b6bde720d9c59df6be0717ae35"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -1074,7 +1074,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "6034e35c08e25c48097e5f4e7b8d4510f1fba1394778e5a64d77aba68b955ccc"
+hash = "2bb0d505d86ea7b17f44c4e9cf9684e293d3c1e82577ec2f6f227e75563d7366"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"

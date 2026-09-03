@@ -5,6 +5,37 @@ build that was not published.
 
 ---
 
+## v1.0.60
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-03 | see below | `0721583a860a` | `41da87f307e8` | 295 | 142 |
+
+**A clean sheet for far terrain.** Click **Play**. The first launch clears Voxy's store and Xaero's
+map tiles, waypoints kept, so give it a minute; the world then fills in from nothing.
+
+### Why
+
+v1.0.59 put far terrain under a new pacing and delivery layer. The stores every client built under
+stock were not wrong, and the new layer would have re-streamed everything on a first join anyway -
+but the owner would rather the first readings of the new layer describe only it, with no old files
+in the picture. So both sides start empty:
+
+- **your client's store**, and with it the new ledger of what you have received, which lives inside
+  the same folder so the two can never disagree;
+- **the server's generation record**, removed while the server was down, with a backup taken first.
+
+Nothing else changes. The mod is the one v1.0.59 shipped.
+
+### What the first session looks like
+
+The server re-generates the area around each player nearest-first - loading the chunks that exist
+from disk, not making new terrain - and streams as it goes, paced to your connection. That first
+session is the heaviest load the new layer will ever carry. Judge it on the second. `/voxysync show`
+tells you what it is doing.
+
+---
+
 ## v1.0.59
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
