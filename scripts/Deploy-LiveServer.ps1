@@ -136,6 +136,13 @@ Write-Host ("will send: {0} file(s), {1} shared jar(s) refreshed, {2} new jar(s)
         @($plan.send).Count, $plan.staleShared, $plan.addedJars)
 foreach ($f in $plan.send) { Write-Host ("  send     {0}" -f $f.rel) }
 foreach ($r in @($plan.remove)) { Write-Host ("  remove   {0}" -f $r) }
+# Absent from a plan staged before v1.0.61, and under StrictMode a missing property throws rather
+# than reading as empty.
+$afterBackup = @()
+if ($plan.PSObject.Properties.Name -contains 'removeAfterBackup' -and $null -ne $plan.removeAfterBackup) {
+    $afterBackup = @($plan.removeAfterBackup)
+}
+foreach ($r in $afterBackup) { Write-Host ("  delete   {0}  (after a fresh backup)" -f $r) }
 Write-Host ("  motd     {0}" -f $plan.motd)
 Write-Host ("  backup   {0}" -f $plan.backup)
 
@@ -268,6 +275,19 @@ try {
 }
 finally { Remove-Item -LiteralPath $fresh -Recurse -Force -ErrorAction SilentlyContinue }
 
+# ---------------------------------------------------------------- what is about to be deleted
+# Fetched now, after the shutdown, because the server writes its Voxy generation record as it
+# stops - the copy Test-ServerDeployment took while it was up is already behind. This one is the
+# rollback point, so it has to exist and be non-empty before anything is removed.
+foreach ($rel in $afterBackup) {
+    $dest = Join-Path $plan.backup (Split-Path $rel -Leaf)
+    & $syncScript -Get ($rel -replace '\\', '/') -To $dest -Session $Session -MirrorRoot $DriveRoot | Out-Null
+    if (-not (Test-Path -LiteralPath $dest -PathType Leaf) -or (Get-Item -LiteralPath $dest).Length -eq 0) {
+        throw "Could not back up $rel after the shutdown - nothing was sent and nothing was deleted"
+    }
+    Write-Host ("backup    {0} ({1} bytes) -> {2}" -f $rel, (Get-Item -LiteralPath $dest).Length, $plan.backup)
+}
+
 # ---------------------------------------------------------------- nothing may travel that changed
 # Staging and sending are separate runs now, so the plan's hashes are re-checked here rather than
 # trusted. server.properties is exempt: it was just rebuilt from what the server held seconds ago,
@@ -293,7 +313,7 @@ Write-Host ''
 if (Test-ServerUp) { throw 'The server came back up while this was checking. Nothing was sent. Stop it and re-run.' }
 Write-Host 'server    still down immediately before the first remote write'
 
-& $syncScript -Push -Files $sendFiles -Remove @($plan.remove) -Session $Session -MirrorRoot $DriveRoot | Out-Null
+& $syncScript -Push -Files $sendFiles -Remove (@($plan.remove) + $afterBackup) -Session $Session -MirrorRoot $DriveRoot | Out-Null
 
 # ---------------------------------------------------------------- prove it landed
 $readback = Join-Path $env:TEMP ('nbidal18-deploy-verify-' + [Guid]::NewGuid())
@@ -313,8 +333,26 @@ try {
 finally { Remove-Item -LiteralPath $readback -Recurse -Force -ErrorAction SilentlyContinue }
 if ($remoteBad.Count) { throw ('Deployed but did not verify on the server: ' + ($remoteBad -join '; ')) }
 
+# A deletion is proved the only way SFTP allows: a fetch that fails. Sync-ServerMirror throws when
+# WinSCP cannot get the file, which here is the answer wanted.
+$stillThere = @()
+$probe = Join-Path $env:TEMP ('nbidal18-deploy-probe-' + [Guid]::NewGuid())
+New-Item -ItemType Directory -Force -Path $probe | Out-Null
+try {
+    foreach ($rel in $afterBackup) {
+        $to = Join-Path $probe ($rel -replace '[\\/]', '_')
+        $gone = $false
+        try { & $syncScript -Get ($rel -replace '\\', '/') -To $to -Session $Session -MirrorRoot $DriveRoot *> $null }
+        catch { $gone = $true }
+        if (-not $gone -and (Test-Path -LiteralPath $to)) { $stillThere += $rel }
+        Write-Host ("{0}  {1}" -f $(if ($gone -or -not (Test-Path -LiteralPath $to)) { 'DELETED  ' } else { 'STILL THERE' }), $rel)
+    }
+}
+finally { Remove-Item -LiteralPath $probe -Recurse -Force -ErrorAction SilentlyContinue }
+if ($stillThere.Count) { throw ('Deployed, but these were not deleted from the server: ' + ($stillThere -join '; ')) }
+
 # The plan is consumed. Leaving it would let a second run re-send a release that is already out,
 # against a mirror that no longer matches it.
 Remove-Item -LiteralPath $planPath -Force
 Write-Host ''
-Write-Host ("OK        {0} file(s) on the server and verified by hash, {1} removed. Start it." -f $sendFiles.Count, @($plan.remove).Count)
+Write-Host ("OK        {0} file(s) on the server and verified by hash, {1} jar(s) removed, {2} file(s) deleted after backup. Start it." -f $sendFiles.Count, @($plan.remove).Count, $afterBackup.Count)

@@ -54,6 +54,15 @@ param(
     # and hash-verified like everything else that reaches the server.
     #   -SetProperty 'player-idle-timeout=15'
     [string[]] $SetProperty = @(),
+    # Files to delete from the server outside mods\ and config\, relative to the server root - the
+    # world's Voxy generation record is what this was written for:
+    #   -RemoveServerFiles 'world/voxy_gen_minecraft_dimension _ minecraft_overworld.bin'
+    # Each is fetched now, while the server is up, so a wrong name fails here and not mid-deploy;
+    # Deploy-LiveServer fetches it again after the shutdown, because the server rewrites the record
+    # as it stops, and deletes it only once that copy is in the backup. v1.0.30, v1.0.55, v1.0.56
+    # and v1.0.60 all did this by hand over SFTP, which is the one step of a release that had no
+    # script, no plan and no verified backup.
+    [string[]] $RemoveServerFiles = @(),
     # The local mirror to stage into. Defaults to the one Sync-ServerMirror keeps, which is the
     # server's own state as of the last pull - so the plan is computed against what is really
     # installed, not against a guess. Point it elsewhere to rehearse: a plan staged anywhere but the
@@ -249,6 +258,7 @@ else {
 foreach ($jar in $added) { Write-Host ("  new jar  {0}" -f $jar.Name) }
 foreach ($cfg in $configFiles) { Write-Host ("  config   {0}" -f $cfg.Name) }
 foreach ($old in $superseded) { Write-Host ("  retire   {0}" -f $old.Name) }
+foreach ($rel in $RemoveServerFiles) { Write-Host ("  delete   {0}  (after a fresh backup at deploy time)" -f $rel) }
 Write-Host ("           {0} server-only jars untouched, {1} client-only jars not considered" -f $serverOnly, $clientOnly)
 
 # ---------------------------------------------------------------- back up, and prove the backup
@@ -265,6 +275,26 @@ foreach ($p in $toBackUp) {
     }
 }
 Write-Host ("backup    {0} files -> {1}" -f $toBackUp.Count, $backup)
+
+# A file to delete has to exist to be deleted, and proving that with the server still up costs a
+# small fetch here rather than a failed deploy with the server already down. This copy is labelled
+# pre-shutdown because it is not the rollback point: the server rewrites its generation record as
+# it stops, and Deploy-LiveServer takes the real backup after that.
+foreach ($rel in $RemoveServerFiles) {
+    if ($rel -match '^(mods|config)[\\/]' -or $rel -match '\.\.') {
+        throw "-RemoveServerFiles is for files outside mods\ and config\, with no '..' in the path: $rel"
+    }
+    if (-not $isMirror) {
+        Write-Host ("delete    {0}  (rehearsal - not fetched)" -f $rel)
+        continue
+    }
+    $copy = Join-Path $backup ('pre-shutdown-' + (Split-Path $rel -Leaf))
+    & $syncScript -Get ($rel -replace '\\', '/') -To $copy -Session $Session -MirrorRoot $DriveRoot | Out-Null
+    if (-not (Test-Path -LiteralPath $copy -PathType Leaf)) {
+        throw "Could not fetch $rel from the server - it is not there to delete, or the name is wrong"
+    }
+    Write-Host ("delete    {0}  ({1} bytes on the server now; pre-shutdown copy in the backup)" -f $rel, (Get-Item -LiteralPath $copy).Length)
+}
 
 # ---------------------------------------------------------------- stage
 [IO.File]::WriteAllBytes($policyLive, [IO.File]::ReadAllBytes($policySource))
@@ -354,6 +384,8 @@ $plan = [pscustomobject]@{
     backup       = $backup
     send         = $send
     remove       = $sendRemove
+    # Deleted only after Deploy-LiveServer has fetched a post-shutdown copy into the backup.
+    removeAfterBackup = @($RemoveServerFiles)
     sharedJars   = $shared.Count
     staleShared  = $staleShared.Count
     addedJars    = $added.Count
@@ -363,7 +395,7 @@ $planPath = Join-Path $DriveRoot '.nbidal18-deploy-plan.json'
 
 Write-Host ''
 if ($isMirror) {
-    Write-Host ("OK        {0} file(s) staged and verified, {1} to remove. Plan written to {2}" -f $send.Count, $sendRemove.Count, (Split-Path $planPath -Leaf))
+    Write-Host ("OK        {0} file(s) staged and verified, {1} jar(s) to remove, {2} file(s) to delete after backup. Plan written to {3}" -f $send.Count, $sendRemove.Count, @($RemoveServerFiles).Count, (Split-Path $planPath -Leaf))
     Write-Host '          Nothing has reached the server. Push and wait for Pages, then:'
     Write-Host '          scripts\Deploy-LiveServer.ps1 -Apply -WaitForShutdown 900'
 }

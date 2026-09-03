@@ -94,6 +94,18 @@ try {
     # does not, and a broken recipe or a dangling advancement fails at worldgen and nowhere else.
     # Overlaying only the helper meant this tested the previous release's datapacks.
     $releaseMods = Join-Path $release '3. modpack\client\mods'
+    # A first-party jar the release no longer ships is retired by the deploy (Test-ServerDeployment's
+    # rule), so it must not boot here either: two jars claiming one mod id is a loader error, not a
+    # warning, and this test would fail a release that is fine. Scoped to nbidal18-* like the deploy;
+    # a server-only jar that is not ours is never a candidate. Found when nbidal18-voxyworldgen went
+    # 3.0.0 to 3.1.0 - the first rename of a server-side first-party jar since this check was written.
+    $releaseJarNames = @{}
+    foreach ($jar in @(Get-ChildItem -LiteralPath $releaseMods -Filter *.jar -File)) { $releaseJarNames[$jar.Name] = $true }
+    foreach ($live in @(Get-ChildItem -LiteralPath (Join-Path $testRoot 'mods') -Filter 'nbidal18-*.jar' -File)) {
+        if ($live.Name -like 'nbidal18-integrity-*.jar' -or $releaseJarNames.ContainsKey($live.Name)) { continue }
+        [IO.File]::Delete($live.FullName)
+        Write-Host ("retired   {0} (superseded; the deploy removes it)" -f $live.Name)
+    }
     $refreshed = 0
     foreach ($live in @(Get-ChildItem -LiteralPath (Join-Path $testRoot 'mods') -Filter *.jar -File)) {
         if ($live.Name -like 'nbidal18-integrity-*.jar') { continue }

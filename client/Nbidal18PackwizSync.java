@@ -316,6 +316,13 @@ public final class Nbidal18PackwizSync {
      * hanging over the ocean. The server's own record is cleared in the same pass; clearing only one
      * side leaves the two disagreeing about what exists.
      *
+     * <p>v1.0.61 sweeps for an eighth, again at the owner's request. nbidal18-voxyworldgen 3.1.0
+     * changes what the ledger inside {@code .voxy} means - a chunk is recorded once Voxy has stored
+     * it, not once it was handed over - and a ledger written under the old rule can hold chunks
+     * Voxy discarded at a logout. Rather than carry those entries into the reading of the new
+     * rule, both stores start empty; the server's generation record is deleted in the same deploy,
+     * through the deployment plan this time rather than by hand.
+     *
      * <p>v1.0.60 sweeps for a seventh, at the owner's request rather than for a fault. v1.0.59 put
      * far terrain under a new pacing and delivery layer (nbidal18-voxyworldgen 3.0.0), and its
      * client-side ledger of received chunks lives inside {@code .voxy} so that the two are always
@@ -344,7 +351,7 @@ public final class Nbidal18PackwizSync {
      * incoming chunks on the floor and never asking for them again. That is fixed in v1.0.42, so a
      * sweep now refills cleanly, which a sweep before it could not.
      */
-    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1060";
+    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1061";
 
     private final Path minecraftRoot;
     private final Path stateRoot;

@@ -5,6 +5,76 @@ build that was not published.
 
 ---
 
+## v1.0.61
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-03 | see below | `162539710eea` | `0721583a860a` | 295 | 142 |
+
+**Far terrain remembers only what Voxy actually kept, the readout shows the sweep working, and both
+stores start from nothing once more.** Click **Play**. The first launch clears Voxy's store and
+Xaero's map tiles, waypoints kept, so give it a minute; the world then fills in from nothing.
+
+### The fault this fixes
+
+Your client keeps a record of the far terrain it has received, and tells the server at join so
+nothing is sent twice. v1.0.60 wrote a chunk into that record the moment it was handed to Voxy.
+Voxy queues what it is handed and converts it on its own threads - and when it shuts down, at every
+logout, `/voxy reload` or turning Voxy off, it throws that queue away unconverted. Whatever was still
+queued at your logout was written down as held and discarded, and the server never sent it again
+because the record said you had it. On a client whose Voxy runs on one thread, that is a band of
+missing terrain at wherever the delivery frontier stood when you logged out: fixed in the world,
+never filled by the server, filled only where you fly.
+
+**The record is now written when Voxy inserts a chunk into its store**, section by section, not when
+the chunk is handed over. Anything Voxy refuses or discards is simply never recorded, and streams
+again next time.
+
+### What else changed
+
+- **`/voxysync` reads the right things.** `repeats` is gone: it counted the second half of any chunk
+  larger than one packet and read as half of everything. In its place, `already had` counts chunks
+  the server sent that your record had already reported holding - the one number that says the
+  dedupe has stopped working - with the server's own `skipped N already held` beside it. New lines:
+  `voxy queue` (Voxy's internal backlog, and hand-overs it had nowhere to put) and `loaded N from
+  disk` with both load caps, which is the proof the sweep is reaching terrain that had unloaded.
+  `delivered by sweep` now counts a chunk whichever path sent it; it read zero for exactly the work
+  the sweep exists to do.
+- **`/voxyflow <player>`** on the server, for operators: any player's readout, same lines in the same
+  order as their overlay, from the server's own state and the figures their client now sends on
+  every acknowledgement. It works for a client that has stopped answering, which is the one worth
+  reading.
+- **`/voxysync refresh`** forgets one dimension on both sides instead of every dimension on the
+  server, and says how long the re-stream will take at your current rate. Judged after a minute it
+  looked like nothing happened; at 135 chunk/s, 118,000 chunks is a quarter of an hour.
+- **`/voxysync here [radius]`** takes a radius up to 32 chunks, so a hole can be probed from outside
+  it rather than by standing in it.
+- **A join no longer opens with a burst of chunks you already hold.** The server waits up to five
+  seconds for your record to arrive before sending anything for a dimension.
+- Two smaller defects found in passing: a block update the server was too far behind to send now
+  lets the sweep resend the whole chunk (before, the chunk stayed marked held and the update was
+  lost), and a failure inside one delivery batch can no longer strand the rest of the batch.
+
+### Clean sheet
+
+Both stores start empty, at the owner's request: a record written under the old rule can hold
+chunks Voxy never kept, and the first reading of the new rule should describe only it. Your client's
+store and its record go on the next launch; the server's generation record was removed in the same
+deploy - through the deployment plan this time, with a backup taken after the shutdown, rather than
+by hand over SFTP as in v1.0.30, v1.0.55, v1.0.56 and v1.0.60.
+
+### Tested before publishing
+
+The window controller is untouched and its simulation still passes. Client launch, dedicated-server
+boot with the new jar, the updater's sweep against planted markers from every previous wipe, and
+the deployment plan all pass. **What it needs from you and your friend:** `/voxysync show` on both
+clients through a full first session and a relog. `already had` should sit at 0 after the first
+seconds, `voxy queue` should read small and never `refused`, `loaded N from disk` should climb while
+`sweep has more` is up, and the second join should re-stream nothing. If a band appears again, run
+`/voxyflow <name>` from the console before anything else and paste it.
+
+---
+
 ## v1.0.60
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

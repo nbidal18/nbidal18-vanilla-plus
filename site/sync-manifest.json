@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.60",
+    "packVersion":  "1.0.61",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -341,7 +341,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "423705b9397a4bd94bb12523c25aa1e395a52cb36647debb4be9113965544a54"
+                                    "sha256":  "ecac1f4d0c0dafc89ed386aae35ae4ab15db953e8e0b2e9402a27582e90c0333"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -839,7 +839,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "423705b9397a4bd94bb12523c25aa1e395a52cb36647debb4be9113965544a54"
+                      "sha256":  "ecac1f4d0c0dafc89ed386aae35ae4ab15db953e8e0b2e9402a27582e90c0333"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1686,8 +1686,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.60+26.2-fabric.jar",
-                      "sha256":  "3b57bfee2fba145a9f62bac5013dc7647c2267b6bde720d9c59df6be0717ae35"
+                      "path":  "mods/nbidal18-integrity-1.0.61+26.2-fabric.jar",
+                      "sha256":  "5f4e1c74dfa801e58c884021fbedfaead8e5c2f209e670b04e857b874451a043"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1722,8 +1722,8 @@
                       "sha256":  "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
                   },
                   {
-                      "path":  "mods/nbidal18-voxyworldgen-3.0.0+26.2-fabric.jar",
-                      "sha256":  "ab18e96fba9154a8fcf5a961410bdf0e8e163c2065cf3b135d339df25f32a97a"
+                      "path":  "mods/nbidal18-voxyworldgen-3.1.0+26.2-fabric.jar",
+                      "sha256":  "f1fbcf660c2c49175c1ac6c533cf69945e93004a38106eed7de00ae94e0e19e7"
                   },
                   {
                       "path":  "mods/nbidal18-xaerominimap-1.0.0+26.2-fabric.jar",
@@ -1891,7 +1891,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "2bb0d505d86ea7b17f44c4e9cf9684e293d3c1e82577ec2f6f227e75563d7366"
+                      "sha256":  "2a6d09e317c5742a96aa50f472bab3db5d2120ced67e44e6fcdf69595bd362fb"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",

@@ -166,7 +166,7 @@ try {
     # token no instance has seen or this fails.
     $stateDir = Join-Path $minecraft '.nbidal18-packwiz'
     New-Item -ItemType Directory -Path $stateDir -Force | Out-Null
-    foreach ($old in @('retired-files-v1020')) {
+    foreach ($old in @('retired-files-v1020', 'retired-files-v1060')) {
         [IO.File]::WriteAllText((Join-Path $stateDir ("applied-" + $old)), $old)
     }
 
