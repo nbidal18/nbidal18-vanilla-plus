@@ -74,12 +74,14 @@ $mods = @(
     # back out, which is what the 1.21.1 equivalent did and why that one needed a ledger to avoid
     # leaving a disconnected player's animations stuck. Client only.
     @{ Name = 'nbidal18-carryon'; Generator = $null; Builder = 'build_carryon.py' },
-    # Voxy World Gen's client silently discards incoming LOD payloads when its ingest queue
-    # overruns, while the server has already recorded them as delivered - a permanent hole, and not
-    # a rare one: the client takes 96 sections a tick and any backfill overruns the queue within a
-    # minute. This drops the farthest payload instead of the nearest, remembers it, and asks the
-    # server to resend once the client has caught up. **It runs on the server too** - it adds a
-    # packet - so it needs -AddMods on the release that publishes it.
+    # Paces Voxy World Gen's far-terrain stream to what each player's connection and client can
+    # take - bytes in flight under a window steered by measured queueing delay, acknowledged by the
+    # client every tick - and delivers everything it holds back, loading a chunk from disk when it
+    # has unloaded. That last part is what the v1.0.48-55 attempts lacked and why their hold-backs
+    # left a ring of missing terrain. Also the client-side ledger, the resync of dropped chunks, the
+    # Voxy off-switch and /voxysync. **It runs on the server too** - it adds packets and the sweep
+    # is server-side - so it needs -AddMods on the release that publishes it. Its control law can
+    # be exercised without a game: scripts\Test-FlowController.ps1.
     @{ Name = 'nbidal18-voxyworldgen'; Generator = $null; Builder = 'build_voxyworldgen.py' },
     # Sparse Structures records every structure set in one static TreeSet, filled from 26.2's
     # PARALLEL registry loader. A TreeSet cannot take concurrent writes: the tree corrupts and the

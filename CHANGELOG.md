@@ -5,6 +5,60 @@ build that was not published.
 
 ---
 
+## v1.0.59
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-03 | see below | `41da87f307e8` | `f5c407825975` | 295 | 142 |
+
+**Far terrain is paced to what your connection and your client can actually take, and nothing it
+holds back is ever lost.** Click **Play**. Nothing is cleared; your stored far terrain stays.
+
+### What was wrong
+
+Two things, both in the live pack:
+
+- **A thin connection drowned.** The stream that fires as terrain generates is unthrottled. A link
+  that cannot carry it does not lose packets - it queues them, in your router and your provider - and
+  everything else waits behind them until the keep-alive comes back too late and you are *Timed out*.
+- **A dropped chunk was a hole.** Your client throws payloads away once its queue passes 8192, while
+  the server has already recorded them as delivered. Holes that fill only when flown over.
+
+### What changed
+
+`nbidal18-voxyworldgen` 3.0.0, on the server and on every client:
+
+- **Every send is gated.** The server keeps the bytes in flight to you under a window that follows the
+  queueing delay it measures from marks your client acknowledges every tick - fresh every 50 ms,
+  where vanilla's ping updates every fifteen seconds. Queueing rises, the window shrinks; it stays
+  low, the window grows. A deep client queue pauses the stream outright.
+- **Held-back chunks are delivered, not forgotten.** A sweep sends them nearest-first at that pace and
+  **loads a chunk from disk if it has unloaded** - which is the part the v1.0.48-55 attempts lacked,
+  and exactly why they left a ring of missing terrain: the mod's own backfill cannot load a chunk and
+  retries the same unloaded ones for ever.
+- **Rejoining re-streams nothing.** Your client records what it has taken, in `.voxy` next to its
+  store, and tells the server at join. Wipe `.voxy` and everything streams again, without a ring.
+- **Dropped chunks are asked for again**, and the server can now actually get them back.
+- **`/voxysync` is back**: `show`, `hide`, `here`, and a new `refresh` that forgets everything received
+  for the current dimension. The overlay appears on command only. When the server is holding back it
+  says so, and why - link delay or your client's queue - instead of guessing.
+
+Switching Voxy off still stops the stream. Chunks the mod used to send twice - once on load, once
+after generation - are sent once.
+
+### Tested before publishing
+
+The control law runs against modelled links without a game (`scripts\Test-FlowController.ps1`),
+which is how a 90-second base-delay memory was found to pin the window to the floor on a link whose
+base delay rises in the evening, and shortened to 60 before anyone had to feel it. Client launch,
+dedicated-server boot with the jar, the updater, and the deployment plan all pass.
+
+**What it needs from you and your friend**: `/voxysync show`. Dropping should stay at 0 and the ping
+flat while his side reads *paced by the server (link delay)*. Then a `.voxy` wipe and rejoin: terrain
+fills nearest-first with no ring, and the next join re-streams nothing.
+
+---
+
 ## v1.0.58
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
