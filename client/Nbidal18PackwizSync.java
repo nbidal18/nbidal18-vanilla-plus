@@ -267,7 +267,22 @@ public final class Nbidal18PackwizSync {
                     SeedRow.of("resourcePacks",
                             "[\"vanilla\",\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/nbidal18-Weskersons-3D-Items-2.5.zip\",\"file/nbidal18-Weskersons-3D-Food-1.0.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/nbidal18-Actually-3D-26.2.zip\",\"file/Theone's Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-26.2.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"),
                     SeedRow.of("incompatibleResourcePacks",
-                            "[\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/nbidal18-Weskersons-3D-Food-1.0.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\"]"))));
+                            "[\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/nbidal18-Weskersons-3D-Food-1.0.zip\",\"file/nbidal18-Weskersons-Torches-1.02.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\"]"))),
+            // v1.0.62: the four 3D packs - Actually 3D, Weskerson's 3D Items, 3D Food and Torches -
+            // become one, nbidal18-3D, built by Build-3DPack.ps1 and placed at the TOP of the file
+            // packs. Top, because it carries a generated definition for every item whose inventory
+            // look would otherwise differ from vanilla's, and a definition only wins from above the
+            // packs it corrects (Theone's Eating Animation Pack defines food items too). It declares
+            // format 88, so it needs no incompatibleResourcePacks entry; the two Weskerson packs that
+            // did are gone from that row with it.
+            //
+            // Both rows restated in full, as always: a seed sets a row rather than editing it, and
+            // every earlier token has already fired on every instance.
+            new PlayerFileSeed("options.txt", ':', "resourcepacks-v1062", List.of(
+                    SeedRow.of("resourcePacks",
+                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/Theone's Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-26.2.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-3D-1.0.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"),
+                    SeedRow.of("incompatibleResourcePacks",
+                            "[\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\"]"))));
 
         /**
      * Empty on purpose, and it must stay that way until a mod is actually retired from THIS

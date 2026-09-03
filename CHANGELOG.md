@@ -5,6 +5,49 @@ build that was not published.
 
 ---
 
+## v1.0.62
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-03 | see below | `d9b3b47773a5` | `162539710eea` | 292 | 142 |
+
+**One 3D resource pack instead of four, and every item now follows one rule: 3D in your hand, on
+the ground and in item frames; exactly vanilla in any inventory.** Click **Play**. Nothing to clear.
+
+### What was wrong
+
+Actually 3D, Weskerson's 3D Items, 3D Food and Torches were four separate packs, each with its own
+idea of where an item is 3D. Measured against vanilla, the inventory look of 254 items differed
+without anyone having decided it: every ore, planks and copper block drew Actually 3D's version of
+the cube, all sixteen beds drew its bed, tools drew its three-dimensional-looking sprites, and
+Weskerson's food lay flat on the ground and in item frames. Two of Weskerson's hanging signs pointed
+at a model no pack ships and drew the purple placeholder in hand.
+
+### What changed
+
+The four packs are merged at build time into **`nbidal18-3D`**, the one 3D pack this modpack
+maintains, and the rule is enforced by measurement rather than by lists: every item definition in
+the game is resolved through the real pack order down to what it draws, and wherever the inventory
+would not look exactly like vanilla's, the pack sends the inventory to a copy of vanilla's own
+model and textures. Wherever a 3D item was flat on the ground or in a frame, it is 3D there now,
+sized from its own model. The build re-measures the finished pack and refuses to ship one that
+breaks the rule. A `SOURCES.md` inside names the four authors; none of the artwork is ours.
+
+- **Beds** show vanilla's own small 3D bed in the inventory, because vanilla 26.2 has no flat bed
+  sprite at all. In hand and placed they are Actually 3D's.
+- **Compass, recovery compass and clock** keep Weskerson's flat picture on the ground and in frames:
+  their 3D hand model is an animated dial that a static transform cannot follow.
+- Your pack list is updated on the next launch. The four old packs are removed by the updater.
+
+### Tested before publishing
+
+The build's own re-measurement: inventory identical to vanilla for every one of 1,542 items, 1,178
+items 3D in hand, no missing model or texture. Client launch, updater sync and dedicated-server boot
+pass. **What it needs from you:** open a chest and your inventory and look; hold a few things; drop
+them; put them in a frame. Beds, tools, ores, potions and food are the ones that changed most.
+
+---
+
 ## v1.0.61
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
