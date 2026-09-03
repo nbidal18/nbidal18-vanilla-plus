@@ -91,6 +91,13 @@ $mods = @(
     # The list only feeds a debug dump command, so there is no gameplay behaviour either way.
     # **Runs on the server too** - it is a server boot crash - so it needs -AddMods to deploy.
     @{ Name = 'nbidal18-sparsestructures'; Generator = $null; Builder = 'build_sparsestructures.py' },
+    # A passenger who logs out of an aircraft comes back in mid-air: vanilla saves a ride only for
+    # its sole passenger. Remembers the ridden entity by UUID (never the entity - two copies would
+    # rebuild the plane twice, cargo included), puts the player back aboard or on the first solid
+    # block or water below, and counts a moving or airborne vehicle as activity so the idle kick
+    # stops causing the logout. Port of the 1.21.1 pack's nbidal18-safe-rejoin. **Runs on the
+    # server** - that is where it does anything - so it needs -AddMods to deploy.
+    @{ Name = 'nbidal18-saferejoin'; Generator = $null; Builder = 'build_saferejoin.py' },
 
     # nbidal18-travelersbackpack is deliberately NOT built. Its source stays under `custom mods\`
     # because the work is sound and will be picked up again, but a uniform tint is not what

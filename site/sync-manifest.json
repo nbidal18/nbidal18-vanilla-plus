@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.62",
+    "packVersion":  "1.0.63",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -341,7 +341,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "93b56caf20ef536648ff5a2e8618dfe2d03a671c46e9aef08e0f8a01ff281859"
+                                    "sha256":  "237a3a3e84a49878643ef7c734a14491807e0c888c5f4983b64b4c48ec57ffa5"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -839,7 +839,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "93b56caf20ef536648ff5a2e8618dfe2d03a671c46e9aef08e0f8a01ff281859"
+                      "sha256":  "237a3a3e84a49878643ef7c734a14491807e0c888c5f4983b64b4c48ec57ffa5"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1675,7 +1675,7 @@
                   },
                   {
                       "path":  "mods/nbidal18-hardcorerevive-1.12.0+26.2-fabric.jar",
-                      "sha256":  "fae5e4b909a80f7748fda4bf4f6c7de88eb03b9368f1c02a3281fc80b4836b87"
+                      "sha256":  "883908a0d20cd755d314588e022b89d4e36350d2abbdb8615068244efd1e0c72"
                   },
                   {
                       "path":  "mods/nbidal18-immersiveaircraft-1.4.7+26.2-fabric.jar",
@@ -1686,8 +1686,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.62+26.2-fabric.jar",
-                      "sha256":  "23c05250d1521eaaba604edfc8f4ada3c6dec4b878e2250d891af6b60a10548a"
+                      "path":  "mods/nbidal18-integrity-1.0.63+26.2-fabric.jar",
+                      "sha256":  "bc95f2de0ded296fab7eb2c7837819238fb03eb0fb4552b8a44609239c1d1ab9"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1700,6 +1700,10 @@
                   {
                       "path":  "mods/nbidal18-reliablegliders-1.0.0+26.2-fabric.jar",
                       "sha256":  "6820646eb39a998c4d93d361546e259bf0774c52fe7d8605f8785726e53b93be"
+                  },
+                  {
+                      "path":  "mods/nbidal18-saferejoin-1.0.0+26.2-fabric.jar",
+                      "sha256":  "7d7410a91a3b9a1299f3d61b9234c0e2aaeec083d94f9d31288f5da264ccc4d0"
                   },
                   {
                       "path":  "mods/nbidal18-skinoverrides-1.0.0+26.2-fabric.jar",
@@ -1722,8 +1726,8 @@
                       "sha256":  "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
                   },
                   {
-                      "path":  "mods/nbidal18-voxyworldgen-3.1.0+26.2-fabric.jar",
-                      "sha256":  "f1fbcf660c2c49175c1ac6c533cf69945e93004a38106eed7de00ae94e0e19e7"
+                      "path":  "mods/nbidal18-voxyworldgen-3.2.0+26.2-fabric.jar",
+                      "sha256":  "0e77d7af5b2bc8649b12dec6a594a5ecea818f18937a51c2066b1888180f4b2f"
                   },
                   {
                       "path":  "mods/nbidal18-xaerominimap-1.0.0+26.2-fabric.jar",
@@ -1891,7 +1895,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "471c3e078078eebbfcd88be21c48d2a4742da7b8fc10b48c106083063165794f"
+                      "sha256":  "ce661585b58925b279e99534c4e71b323af363e8d5d98c7be01eb5ca5dba7b95"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",
@@ -1942,8 +1946,8 @@
                       "sha256":  "5d1f2ea9b8af9cd931796c09f2159e119b25db909b0a84269b42fb3c9f55893d"
                   },
                   {
-                      "path":  "resourcepacks/nbidal18-3D-1.0.zip",
-                      "sha256":  "565f3169b7cf04d32a803f5fa0df6b2beb0818db62d75533b7eb4e3ab9282f7d"
+                      "path":  "resourcepacks/nbidal18-3D-1.1.zip",
+                      "sha256":  "0f748a7b22e37091b72e6ffaafbc072ea884f8847a87812aadfb8ea5e6c19912"
                   },
                   {
                       "path":  "resourcepacks/nbidal18-Immersive-Interfaces-26.2.zip",

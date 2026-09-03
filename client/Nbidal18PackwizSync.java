@@ -278,9 +278,13 @@ public final class Nbidal18PackwizSync {
             //
             // Both rows restated in full, as always: a seed sets a row rather than editing it, and
             // every earlier token has already fired on every instance.
-            new PlayerFileSeed("options.txt", ':', "resourcepacks-v1062", List.of(
+            //
+            // v1.0.63: the 3D pack is 1.1 - Weskerson's fishing rod dropped, enchanted tools drawn
+            // as plain ones. A changed artefact gets a new name rather than new bytes under the old
+            // one, so the row is restated with it; packwiz removes the 1.0 zip on its own.
+            new PlayerFileSeed("options.txt", ':', "resourcepacks-v1063", List.of(
                     SeedRow.of("resourcePacks",
-                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/Theone's Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-26.2.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-3D-1.0.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"),
+                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/Theone's Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-26.2.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-3D-1.1.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"),
                     SeedRow.of("incompatibleResourcePacks",
                             "[\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\"]"))));
 
@@ -365,8 +369,13 @@ public final class Nbidal18PackwizSync {
      * deleted - and the store had simply refilled just as holed, because Voxy World Gen was dropping
      * incoming chunks on the floor and never asking for them again. That is fixed in v1.0.42, so a
      * sweep now refills cleanly, which a sweep before it could not.
+     *
+     * <p>v1.0.63 sweeps again, at the owner's request, so the first reading of the nearest-first
+     * order rule and the generator readout describes only them: the server's generation record is
+     * removed in the same deploy, and a client ledger that might claim chunks its Voxy store no
+     * longer holds goes with the store.
      */
-    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1061";
+    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1063";
 
     private final Path minecraftRoot;
     private final Path stateRoot;

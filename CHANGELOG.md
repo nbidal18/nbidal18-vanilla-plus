@@ -5,6 +5,74 @@ build that was not published.
 
 ---
 
+## v1.0.63
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-04 | see below | `edd141f766b6` | `d9b3b47773a5` | 293 | 143 |
+
+**Far terrain arrives nearest-first and the readout can now say when the server is not generating;
+the Soul Charm revives again; a passenger who logs out of a plane comes back safely; enchanted tools
+look like plain ones and the fishing rod is vanilla.** Click **Play**. The first launch clears Voxy's
+store and Xaero's map tiles once more, waypoints kept, and the world fills in from nothing.
+
+### The ring, and why it formed
+
+Terrain reaches a client by two routes at very different speeds. A chunk the server has never seen
+is generated and sent the moment it exists. A chunk it already generated for anyone is never
+generated again and can only reach a second player through the sweep, which was capped at about 16
+chunks a second. So around another player's old route the recorded band trickled in while everything
+beyond it, being new, appeared at once: a filled far band with an empty one inside it, in the same
+place for everyone. Measured on 2026-09-03 from the server's record against the owner's client ledger.
+
+- **Nearest-first.** While the sweep still owes a player terrain, a fresh chunk farther out than the
+  sweep has reached is held for the sweep instead of sent ahead of it. Whatever is missing is now at
+  the outer edge, not a hole. Only chunks the generator has recorded are held this way.
+- **Four times the sweep.** 32 loads per player and 96 in all, from 8 and 24.
+- **The generator's own state** is on the status packet: paused by tick time, tasks active of six,
+  chunks left in radius, rate. Voxy World Gen stops generating outright when the tick averages 75 ms,
+  and until now nothing could see it - a player sat at a visible edge of terrain at 0 chunk/s with
+  every line green. The headline now reads *the server is NOT generating* and says why.
+
+### Soul Charm
+
+A dropped charm did nothing for a ghost. The item's `Revive` marker is one of its default components,
+and 26.2 does not save a default on the dropped item, so the datapack's detection never matched. It
+now also looks for the charm by its item id. `tag <player> add Revive` from the console still works.
+
+### Safe rejoin
+
+Vanilla saves a ride only for its sole passenger, so the second person in a plane who logged out came
+back at their last coordinates, in the air. The server now remembers the vehicle by id and puts the
+player back aboard on rejoin, or on the first solid block or water surface below with no fall damage.
+A moving or airborne vehicle also counts as activity, so the idle kick no longer fires mid-flight.
+
+### The 3D pack, 1.1
+
+Weskerson's fishing rod - gripped at its butt, stood on end on the ground, red-and-pink when enchanted -
+is dropped whole, so the rod is vanilla in hand, on the ground and in frames. Every enchantment branch
+in an item definition is collapsed, so an enchanted carrot on a stick, flint and steel, shears or
+warped fungus on a stick looks exactly like a plain one, which is what shipping No Enchant Glint
+already asked for. Your pack list is updated on the next launch.
+
+### Clean sheet
+
+Both stores start empty again, at the owner's request: the first reading of the order rule should
+describe only it, and a client ledger that might claim chunks its Voxy store no longer holds goes
+with the store. The server's generation record was removed in the same deploy, through the plan,
+with a backup after the shutdown.
+
+### Tested before publishing
+
+Updater sync, client launch and dedicated-server boot pass; the dedicated boot again with both new
+jars named passes. The window controller's simulation is unchanged and passes. The 3D build's own
+re-measurement: 1,177 items 3D in hand, inventory identical to vanilla for every item, no missing
+reference. **What it needs from you and your friends:** `/voxysync show` through a first session -
+the `generator` line and `behind sweep` count are new; fly out and confirm terrain fills nearest-first
+with no ring; drop a charm next to a ghost; log a passenger out of a plane over water and rejoin.
+
+---
+
 ## v1.0.62
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
