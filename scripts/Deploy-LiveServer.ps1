@@ -350,6 +350,9 @@ try {
 }
 finally { Remove-Item -LiteralPath $probe -Recurse -Force -ErrorAction SilentlyContinue }
 if ($stillThere.Count) { throw ('Deployed, but these were not deleted from the server: ' + ($stillThere -join '; ')) }
+# The probe's expected failure leaves WinSCP's non-zero exit code behind, and a caller reading
+# $LASTEXITCODE would take a deploy that finished for one that did not. v1.0.61's deploy did.
+$global:LASTEXITCODE = 0
 
 # The plan is consumed. Leaving it would let a second run re-send a release that is already out,
 # against a mirror that no longer matches it.
