@@ -22,7 +22,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "f6f35dded6998768e53e3464403e856dc582304b7d44d3b5b51490bd7d667248"
+hash = "5eeefc1487442fdabf5f946ddac3d3db912c7aecac09d20ebd4231f2003282bd"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -470,7 +470,7 @@ hash = "4177e2f8165d220f607c554e20b316f195cf31336fa7c3000e295e3033e37dde"
 
 [[files]]
 file = "config/voxyworldgenv2.json"
-hash = "0f9a3ed6f2e3cd164041217e85722a1d95f8f896ac41dcd50f47b72ef47d72a9"
+hash = "031ccf159125335412dac47483d728ce210466e621395b498ca1915548cb3884"
 
 [[files]]
 file = "config/whitenoise-client.toml"
@@ -869,8 +869,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.68+26.2-fabric.jar"
-hash = "3dc37b73bac06be8f527e8691b430fd3230dfe60398a45d986e58320f98bb95a"
+file = "mods/nbidal18-integrity-1.0.69+26.2-fabric.jar"
+hash = "ba6ddbc5380c5da6fbf5ba08534568c7b334caf8092e0d24f1ad4e6130f74c5a"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -1082,7 +1082,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "ce661585b58925b279e99534c4e71b323af363e8d5d98c7be01eb5ca5dba7b95"
+hash = "4406aeac597b7f02f53d6e56d84a19a13fbc5936ba4b928b986502568c02bf57"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -1133,8 +1133,8 @@ file = "resourcepacks/Theone's Eating Animation Pack v1.0.zip"
 hash = "5d1f2ea9b8af9cd931796c09f2159e119b25db909b0a84269b42fb3c9f55893d"
 
 [[files]]
-file = "resourcepacks/nbidal18-3D-1.1.zip"
-hash = "0f748a7b22e37091b72e6ffaafbc072ea884f8847a87812aadfb8ea5e6c19912"
+file = "resourcepacks/nbidal18-3D-1.2.zip"
+hash = "1a5c03cfebbfbd34a48e2373b14df28e610c34fbd9dda9da2bb50e9032bf6f8a"
 
 [[files]]
 file = "resourcepacks/nbidal18-Immersive-Interfaces-26.2.zip"

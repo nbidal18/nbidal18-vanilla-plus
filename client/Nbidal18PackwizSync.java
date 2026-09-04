@@ -282,9 +282,12 @@ public final class Nbidal18PackwizSync {
             // v1.0.63: the 3D pack is 1.1 - Weskerson's fishing rod dropped, enchanted tools drawn
             // as plain ones. A changed artefact gets a new name rather than new bytes under the old
             // one, so the row is restated with it; packwiz removes the 1.0 zip on its own.
-            new PlayerFileSeed("options.txt", ':', "resourcepacks-v1063", List.of(
+            //
+            // v1.0.69: the 3D pack is 1.2 - beds drawn as the flat 1.11 sprite in the inventory,
+            // the one deliberate exception to the inventory-is-vanilla rule. Row restated again.
+            new PlayerFileSeed("options.txt", ':', "resourcepacks-v1069", List.of(
                     SeedRow.of("resourcePacks",
-                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/Theone's Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-26.2.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-3D-1.1.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"),
+                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/Theone's Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-26.2.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-3D-1.2.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"),
                     SeedRow.of("incompatibleResourcePacks",
                             "[\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\"]"))));
 

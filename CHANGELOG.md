@@ -5,6 +5,45 @@ build that was not published.
 
 ---
 
+## v1.0.69
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-04 | see below | `b89f6657095c` | `480fbec8e27f` | 294 | 144 |
+
+**Flat bed icons, and the server generates far terrain twice as wide.** Click **Play**. Nothing to clear.
+
+### The generator cap
+
+One number. Voxy World Gen's `maxActiveTasks` goes from 6 to 12 in `config/voxyworldgenv2.json`, on
+the server and in the client copy it is taken from. It is the ceiling on how many chunks the
+generator has in progress at once; the mod scales it down by itself when the tick slows and pauses
+outright past a 75 ms average, so the ceiling is the most it may use, not what it always uses.
+Decided by the owner on 2026-09-04 after the week's profiles showed the server tick at 5-7 ms with
+the generator running at 6, and fresh land arriving at 50-70 chunks a second. The client copy is
+classified `support`, so the updater sets it on every client and nothing is enforced at login.
+
+### Flat bed icons
+
+The inventory draws beds as the flat sprite of 1.11 and earlier instead of the small 3D model,
+in all sixteen colours. 3D pack 1.2. Minecraft only ever drew that sprite in red (1.11.2's
+`textures/items/bed.png`; 1.12 brought coloured beds and the 3D inventory model together, so there
+never was a flat icon of the other fifteen). The build takes the red one and recolours its blanket
+to each bed's own 26.2 colour, sampled from the bed textures, keeping the original shading. Hand,
+ground and item frames still show the 3D bed. This is the one deliberate exception to the pack's
+"exactly vanilla in any inventory" rule and the verifier now names it as such rather than failing.
+The resource-pack row in `options.txt` is restated by seed `resourcepacks-v1069` so the 1.2 zip is
+in the list; packwiz removes 1.1.
+
+### Tested before publishing
+
+Updater sync, client launch and dedicated-server boot pass.
+**What it needs from you:** open the inventory with a bed in it, any colour: flat sprite there, 3D bed in
+the hand and on the ground. Then `/voxysync` in fresh land: the generator line should show up to 12 tasks
+and a higher chunk rate than before, with the tick readout in `/spark tps` still green.
+
+---
+
 ## v1.0.68
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
