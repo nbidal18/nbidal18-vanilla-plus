@@ -5,6 +5,52 @@ build that was not published.
 
 ---
 
+## v1.0.64
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-04 | see below | `08b8fac54699` | `edd141f766b6` | 293 | 143 |
+
+**Far terrain follows you after a death, not your corpse; ghosts generate nothing and stay put.**
+Click **Play**. Nothing to clear.
+
+### The corpse
+
+Found by the owner an hour after v1.0.63 went live: he died for a Soul Charm test, flew off, and
+watched the far terrain keep growing around the spot where he had died while nothing at all grew
+around him. Vanilla replaces the player object on respawn; Voxy World Gen's tracker kept the old
+one, whose position was frozen at the corpse, and every generation task worked for it until the next
+relog. A straight strip of vanilla-loaded chunks under the real player was all he got. That is also
+where some of the previous night's "zero chunks a second" went: Abdo had died twice in that run.
+The instance is now swapped the moment a player respawns.
+
+### Ghosts
+
+- A Hardcore Revive ghost - a spectator with no lives - no longer drives far-terrain generation
+  and is not swept for. It keeps what its client has; revival resumes everything.
+- A ghost cannot change dimension, and cannot go more than 100 blocks from where it rose on x or
+  z. Any height. Ghosts already could not pass through terrain; this is the rest of the owner's rule.
+  The anchor is taken a second after the ghost appears and cleared on revival.
+
+### No more idle kick
+
+`player-idle-timeout` is 0 on the server, at the owner's request: standing still never disconnects
+anyone. Server Pause still idles an empty server. Set through the deployment plan, not by hand.
+
+### Cosmetic
+
+The `generator` line no longer flickers amber at 6 of 6 tasks: the worker hands out six at a time
+and they finish within a few ticks, which is normal. It colours only when it is at its cap with no
+rate at all, which is the stuck case.
+
+### Tested before publishing
+
+Updater sync, client launch and dedicated-server boot pass, plus a second boot with the renamed
+Voxy jar named. **What it needs from you:** die once, relog nothing, and watch the disc follow you;
+then as a ghost try to fly 200 blocks away and through a portal.
+
+---
+
 ## v1.0.63
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
