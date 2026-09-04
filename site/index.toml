@@ -22,7 +22,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "b84450aeaf5ee01587137020759dafd09ba348a6f6e2c525a2e2b647756b17d1"
+hash = "7b6c704fcd927b5f8a18babfa013baf67823a2fd8d777fd146dd1ac47c63ecb5"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -457,6 +457,14 @@ file = "config/transition.json"
 hash = "60420a41571a4658b91babfa2b47d6fefb7c1766eeea969f51ff98ab34c2431c"
 
 [[files]]
+file = "config/treechop-client.toml"
+hash = "71d467c170c878d7e576f38d8d03b35f4959fb997f679ec4418e1478afab37de"
+
+[[files]]
+file = "config/treechop-common.toml"
+hash = "a81ab635f31580649db59716be621b57624a1cd538329a14e451f3a4af2c87f1"
+
+[[files]]
 file = "config/trender.json"
 hash = "0a282f3623f7f9443a1d10b5768865f69e58b74e000dcfb4f40399626b7a6124"
 
@@ -869,10 +877,6 @@ file = "mods/nbidal18-carryon-1.1.0+26.2-fabric.jar"
 hash = "b7114f4ee6880b02e85eb547545b5e976efe28d9445445628596cbc0e4abbe18"
 
 [[files]]
-file = "mods/nbidal18-hardcorerevive-1.12.0+26.2-fabric.jar"
-hash = "de21c84cec88c1e688645bd7d84def2908a5261d9bb240c037d1582b7ff0df5d"
-
-[[files]]
 file = "mods/nbidal18-immersiveaircraft-1.4.7+26.2-fabric.jar"
 hash = "22670ea9ee3b724cedd1bb923e282d67b1f6d288f4e09cc542e9a43d0da681f8"
 
@@ -881,8 +885,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.71+26.2-fabric.jar"
-hash = "106475a1b8a827c31ac97f66e661f91efe63a70a5e717a0f0c4ac9ff552e2a9f"
+file = "mods/nbidal18-integrity-1.0.72+26.2-fabric.jar"
+hash = "07a801a1391e1e5789ebd5a1eed4ea6b1b2b75f927c38098316667e163658fda"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -919,6 +923,10 @@ hash = "9df55804984419fe57cf1f656d3660f84221f36d6601ce0fd00abfd146615f75"
 [[files]]
 file = "mods/nbidal18-tectonic-1.0.0+26.2-fabric.jar"
 hash = "ad7773d915ff1f44aebd38a2167bb4730fde70cbf1f766892f3dbab7d7ec5152"
+
+[[files]]
+file = "mods/nbidal18-treechop-0.19.3+26.2-nbidal18.1-fabric.jar"
+hash = "e14e6a95269a74c5f3e930ea3371c49a8875b453a641b39882d5b7631dc87b19"
 
 [[files]]
 file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
@@ -1094,7 +1102,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "4406aeac597b7f02f53d6e56d84a19a13fbc5936ba4b928b986502568c02bf57"
+hash = "90da3cf771766bd9d8d9e743d2d12cb03f966a151395cdc1966b4d443d0841bf"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"

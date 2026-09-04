@@ -91,6 +91,16 @@
       "reason": "Client-side fishing visuals."
     },
     {
+      "match": "config/treechop-client.toml",
+      "class": "support",
+      "reason": "Client half of TreeChop: the crosshair chop indicator (shipped off, as in 4.5.2) and settings-screen preferences."
+    },
+    {
+      "match": "config/treechop-common.toml",
+      "class": "gameplay",
+      "reason": "Which blocks count as a tree, how many chops fell it, what happens to the leaves. Carries the 4.5.2 additions: stripped logs and wood are choppable, and stripped or oak-wood trunks use the problematic-leaves detector so mixed trunks and broad crowns count as one tree."
+    },
+    {
       "match": "config/betteradvancements.json",
       "class": "support",
       "reason": "Advancement screen."

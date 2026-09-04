@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.71",
+    "packVersion":  "1.0.72",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -31,6 +31,7 @@
                                 "config/asyncparticles/asyncparticles-mixin.properties",
                                 "config/asyncparticles/asyncparticles.json",
                                 "config/better_fishing.properties",
+                                "config/treechop-client.toml",
                                 "config/betteradvancements.json",
                                 "config/betterdays-client.toml",
                                 "config/betterf3.json",
@@ -341,7 +342,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "b84450aeaf5ee01587137020759dafd09ba348a6f6e2c525a2e2b647756b17d1"
+                                    "sha256":  "7b6c704fcd927b5f8a18babfa013baf67823a2fd8d777fd146dd1ac47c63ecb5"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -776,6 +777,14 @@
                                     "sha256":  "60420a41571a4658b91babfa2b47d6fefb7c1766eeea969f51ff98ab34c2431c"
                                 },
                                 {
+                                    "path":  "config/treechop-client.toml",
+                                    "sha256":  "71d467c170c878d7e576f38d8d03b35f4959fb997f679ec4418e1478afab37de"
+                                },
+                                {
+                                    "path":  "config/treechop-common.toml",
+                                    "sha256":  "a81ab635f31580649db59716be621b57624a1cd538329a14e451f3a4af2c87f1"
+                                },
+                                {
                                     "path":  "config/trender.json",
                                     "sha256":  "0a282f3623f7f9443a1d10b5768865f69e58b74e000dcfb4f40399626b7a6124"
                                 },
@@ -839,7 +848,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "b84450aeaf5ee01587137020759dafd09ba348a6f6e2c525a2e2b647756b17d1"
+                      "sha256":  "7b6c704fcd927b5f8a18babfa013baf67823a2fd8d777fd146dd1ac47c63ecb5"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1274,6 +1283,14 @@
                       "sha256":  "60420a41571a4658b91babfa2b47d6fefb7c1766eeea969f51ff98ab34c2431c"
                   },
                   {
+                      "path":  "config/treechop-client.toml",
+                      "sha256":  "71d467c170c878d7e576f38d8d03b35f4959fb997f679ec4418e1478afab37de"
+                  },
+                  {
+                      "path":  "config/treechop-common.toml",
+                      "sha256":  "a81ab635f31580649db59716be621b57624a1cd538329a14e451f3a4af2c87f1"
+                  },
+                  {
                       "path":  "config/trender.json",
                       "sha256":  "0a282f3623f7f9443a1d10b5768865f69e58b74e000dcfb4f40399626b7a6124"
                   },
@@ -1686,10 +1703,6 @@
                       "sha256":  "b7114f4ee6880b02e85eb547545b5e976efe28d9445445628596cbc0e4abbe18"
                   },
                   {
-                      "path":  "mods/nbidal18-hardcorerevive-1.12.0+26.2-fabric.jar",
-                      "sha256":  "de21c84cec88c1e688645bd7d84def2908a5261d9bb240c037d1582b7ff0df5d"
-                  },
-                  {
                       "path":  "mods/nbidal18-immersiveaircraft-1.4.7+26.2-fabric.jar",
                       "sha256":  "22670ea9ee3b724cedd1bb923e282d67b1f6d288f4e09cc542e9a43d0da681f8"
                   },
@@ -1698,8 +1711,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.71+26.2-fabric.jar",
-                      "sha256":  "106475a1b8a827c31ac97f66e661f91efe63a70a5e717a0f0c4ac9ff552e2a9f"
+                      "path":  "mods/nbidal18-integrity-1.0.72+26.2-fabric.jar",
+                      "sha256":  "07a801a1391e1e5789ebd5a1eed4ea6b1b2b75f927c38098316667e163658fda"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1736,6 +1749,10 @@
                   {
                       "path":  "mods/nbidal18-tectonic-1.0.0+26.2-fabric.jar",
                       "sha256":  "ad7773d915ff1f44aebd38a2167bb4730fde70cbf1f766892f3dbab7d7ec5152"
+                  },
+                  {
+                      "path":  "mods/nbidal18-treechop-0.19.3+26.2-nbidal18.1-fabric.jar",
+                      "sha256":  "e14e6a95269a74c5f3e930ea3371c49a8875b453a641b39882d5b7631dc87b19"
                   },
                   {
                       "path":  "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar",
@@ -1911,7 +1928,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "4406aeac597b7f02f53d6e56d84a19a13fbc5936ba4b928b986502568c02bf57"
+                      "sha256":  "90da3cf771766bd9d8d9e743d2d12cb03f966a151395cdc1966b4d443d0841bf"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",

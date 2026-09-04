@@ -5,6 +5,66 @@ build that was not published.
 
 ---
 
+## v1.0.72
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-05 | see below | `c29ee20cec42` | `ff77f41b7c6a` | 299 | 148 |
+
+**TreeChop is back, and the world is normal survival.** Click **Play**. Nothing to clear.
+
+### HT's TreeChop, ported to 26.2
+
+The 4.5.2 pack's tree feller: chop a tree a few times with an axe and the whole thing comes down,
+with the chopped log shrinking under each blow. Upstream stopped at 1.21.1, so this is a first-party
+port, `nbidal18-treechop`, built from the MIT continuation at polaron-games/treechop that had already
+carried the mod to 1.21.11. The remaining hop to 26.2 touched a dozen areas of the game's API,
+mostly the rewritten GUI drawing, the block model classes, loot-condition registration and Fabric's
+renamed networking and key-binding helpers; every change is listed in the fork's README. Behaviour
+is upstream's, with the two suppressions the 4.5.2 pack applied as a separate mixin jar now folded
+into the source: no break effect for every removed block when a tree falls, and no extra destroy
+effect per chop. The one chop sound stays.
+
+Two things differ from upstream on purpose: the crosshair chop indicator, off by default here, draws
+as a plain sprite instead of inverting the pixels behind it, and the version reads `0.19.3` because
+Fabric Loader cannot parse upstream's `0.19.3a`.
+
+Both sides. Jade and Mod Menu integration are carried; WTHIT and Terraformers hooks are not, as the
+pack has neither.
+
+### Set up as the 4.5.2 pack had it
+
+Found by diffing the 4.5.2 configs against the ones the port writes: the crosshair chop indicator is
+off; stripped logs and stripped wood are choppable; stripped and oak-wood trunks use the detector for
+awkward trees, so mixed trunks and broad crowns count as one tree. Two config files are published,
+`treechop-client.toml` (support) and `treechop-common.toml` (gameplay, on the server too). The
+settings-screen key, N upstream, ships unbound through a one-time seed; the screen is still reachable
+from Mod Menu, and a player who wants the key can bind it. Subtle Effects' per-leaf decay effect,
+which the 4.5.2 pack turned off to go with this, was already off here.
+
+### Hardcore is over
+
+The owner's decision on 2026-09-05: the world goes from hardcore back to normal survival. Death is
+vanilla's again, you respawn. Hardcore Revive+ leaves with it: no lives, no ghosts, no Soul Charm.
+Its own uninstall function was run on the live server before the mod was removed, which revives
+every ghost and clears the mod's scoreboards, teams and tags. Any Soul Charm still in a chest or a
+hand vanishes, since the item no longer exists. Three places changed together: the mod off both
+sides, `hardcore=false` in server.properties, and the world's own flag in `level.dat`, which is what
+the game reads for an existing world. That last edit had no scripted path before: the deploy now
+takes `-SetLevelData`, fetches level.dat after the shutdown (the server rewrites it as it stops),
+keeps that copy in the backup, flips the one byte with `Edit-LevelData.py`, and reads it back.
+The far-terrain pacer's ghost rule is now dormant: without the Lives scoreboard nobody counts as one.
+
+### Tested before publishing
+
+Compiles clean against 26.2. Client launch reaches the title screen with the mod's three mixins
+applied; dedicated server boots with the jar named; updater sync passes; the two configs survive the
+game's own rewrite. The owner play-tested chopping, the narrowing log and the settings screen in the
+throwaway client on 2026-09-05 before the configs were applied.
+**What it needs from you:** fell a tree on the server, and a stripped-log one if you find it.
+
+---
+
 ## v1.0.71
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

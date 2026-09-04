@@ -271,6 +271,27 @@ try {
         }
         Write-Host ("launch    title screen reached, {0} mods loaded" -f $stagedMods)
 
+        # With -QuickPlay the title screen is not the finish line: the run exists to get into a world,
+        # where block models bake, block entities load and HUD hooks run every frame. Wait for the
+        # integrated server to admit the player, then leave it ticking for ten seconds so anything
+        # that only fails in play has a chance to fail here. Added for the TreeChop port (v1.0.72):
+        # its first in-world run was declared a pass at the title screen with the world never entered.
+        if ($QuickPlay) {
+            $enteredWorld = $false
+            while ((Get-Date) -lt $deadline -and -not $client.HasExited) {
+                if ((Read-SharedText $logPath) -match 'joined the game') { $enteredWorld = $true; break }
+                Start-Sleep -Milliseconds 1000
+            }
+            if (-not $enteredWorld) {
+                throw "Quick play never entered '$QuickPlay' within $BootTimeoutSeconds seconds. Log: $logPath"
+            }
+            Start-Sleep -Seconds 10
+            $log = Read-SharedText $logPath
+            $lines = $log -split "`r?`n"
+            $mixinLines = @($lines | Where-Object { $_ -match $mixinFailure })
+            Write-Host ('world     entered {0} and ran for ten seconds' -f $QuickPlay)
+        }
+
         $failures = New-Object Collections.Generic.List[string]
         foreach ($check in $fatalPatterns) {
             $hits = @($lines | Where-Object { $_ -match $check.Pattern } | Select-Object -Unique)

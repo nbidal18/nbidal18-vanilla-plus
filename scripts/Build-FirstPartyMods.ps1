@@ -38,7 +38,7 @@ if (-not (Test-Path -LiteralPath $ReleaseRoot)) { throw "No release folder at $R
 $mods = @(
     @{ Name = 'nbidal18-integrity'; Generator = 'port_integrity.py'; Builder = 'build_integrity.py' },
     @{ Name = 'nbidal18-invmov'; Generator = $null; Builder = 'build_invmov.py' },
-    @{ Name = 'nbidal18-hardcorerevive'; Generator = $null; Builder = 'patch_hcrplus.py' },
+    # nbidal18-hardcorerevive left in v1.0.72: the world went back to normal survival (owner, 2026-09-05).
     @{ Name = 'nbidal18-xaerominimap'; Generator = $null; Builder = 'build_xaerominimap.py' },
     @{ Name = 'nbidal18-xaeroworldmap'; Generator = $null; Builder = 'build_xaeroworldmap.py' },
     @{ Name = 'nbidal18-betterfishing'; Generator = $null; Builder = 'patch_betterfishing.py' },
@@ -112,7 +112,12 @@ $mods = @(
     # next to the vanilla containers rather than matching them. Re-add this line to revive it.
     # Data only - no src\, so no javac. Its builder reads the vanilla loot table out of the game jar
     # and edits it, which is why it needs no classpath either.
-    @{ Name = 'nbidal18-tectonic'; Generator = $null; Builder = 'build_tectonic.py' }
+    @{ Name = 'nbidal18-tectonic'; Generator = $null; Builder = 'build_tectonic.py' },
+    # HT's TreeChop, ported to 26.2 from the MIT continuation at polaron-games/treechop (1.21.11).
+    # 191 upstream files that were never held to this build's -Xlint:all; they compile with the
+    # warnings off (Lint below) rather than being rewritten. Errors still fail the build. Owner's
+    # ask, 2026-09-04: TreeChop's chop-several-times mechanic, which no 26.x mod offers.
+    @{ Name = 'nbidal18-treechop'; Generator = $null; Builder = 'build_treechop.py'; Lint = '-Xlint:none' }
 )
 if ($Only) {
     $mods = @($mods | Where-Object { $Only -contains $_.Name })
@@ -261,7 +266,13 @@ try {
         #
         # One quoted token: PowerShell splits an unquoted -Xlint:all,-classfile,-serial on the
         # commas and javac then sees "-classfile" as a flag of its own, which it rejects.
-        & $javac -encoding UTF-8 '-Xlint:all,-classfile,-serial,-path' -Werror -d $out "@$argFile"
+        # A ported third-party codebase may set Lint on its entry to compile without the pack's
+        # own warning set; -Werror stays, so any warning the chosen set still raises is fatal.
+        $lint = '-Xlint:all,-classfile,-serial,-path'
+        if ($mod.ContainsKey('Lint') -and $mod.Lint) { $lint = $mod.Lint }
+        # -Xmaxerrs: javac stops listing at 100 by default, which for a ported codebase hides the
+        # shape of the work behind the first hundred cascades. Everything is listed.
+        & $javac -encoding UTF-8 $lint -Werror -Xmaxerrs 5000 -d $out "@$argFile"
         if ($LASTEXITCODE -ne 0) { throw "javac failed for $name" }
 
         Push-Location $modRoot

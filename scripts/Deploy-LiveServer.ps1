@@ -143,6 +143,11 @@ if ($plan.PSObject.Properties.Name -contains 'removeAfterBackup' -and $null -ne 
     $afterBackup = @($plan.removeAfterBackup)
 }
 foreach ($r in $afterBackup) { Write-Host ("  delete   {0}  (after a fresh backup)" -f $r) }
+$levelDataEdits = @()
+if ($plan.PSObject.Properties.Name -contains 'levelData' -and $null -ne $plan.levelData) {
+    foreach ($prop in $plan.levelData.PSObject.Properties) { $levelDataEdits += ($prop.Name + '=' + $prop.Value) }
+}
+foreach ($e in $levelDataEdits) { Write-Host ("  leveldat {0}  (edited on the post-shutdown copy, after a backup)" -f $e) }
 Write-Host ("  motd     {0}" -f $plan.motd)
 Write-Host ("  backup   {0}" -f $plan.backup)
 
@@ -288,6 +293,25 @@ foreach ($rel in $afterBackup) {
     Write-Host ("backup    {0} ({1} bytes) -> {2}" -f $rel, (Get-Item -LiteralPath $dest).Length, $plan.backup)
 }
 
+# ---------------------------------------------------------------- level.dat edits, on the post-shutdown copy
+# The server rewrites level.dat as it stops, so the file is fetched only now, kept whole in the
+# backup as the rollback point, edited by Edit-LevelData.py into the mirror, and sent with the rest.
+# It is verified by the same read-back as every other file below.
+$levelDataSend = @()
+if ($levelDataEdits.Count) {
+    $levelBackup = Join-Path $plan.backup 'level.dat'
+    & $syncScript -Get 'world/level.dat' -To $levelBackup -Session $Session -MirrorRoot $DriveRoot | Out-Null
+    if (-not (Test-Path -LiteralPath $levelBackup -PathType Leaf) -or (Get-Item -LiteralPath $levelBackup).Length -eq 0) {
+        throw 'Could not back up world/level.dat after the shutdown - nothing was sent'
+    }
+    $levelLocal = Join-Path $DriveRoot 'world\level.dat'
+    New-Item -ItemType Directory -Force -Path (Split-Path $levelLocal -Parent) | Out-Null
+    $report = & python (Join-Path $PSScriptRoot 'Edit-LevelData.py') $levelBackup $levelLocal @levelDataEdits 2>&1
+    if ($LASTEXITCODE -ne 0) { throw "Edit-LevelData.py refused the edit - nothing was sent: $report" }
+    foreach ($line in @($report)) { Write-Host ('leveldat  ' + $line) }
+    $levelDataSend = @('world\level.dat')
+}
+
 # ---------------------------------------------------------------- nothing may travel that changed
 # Staging and sending are separate runs now, so the plan's hashes are re-checked here rather than
 # trusted. server.properties is exempt: it was just rebuilt from what the server held seconds ago,
@@ -305,6 +329,7 @@ foreach ($f in $plan.send) {
 }
 if ($bad.Count) { throw ('The staged files no longer match the plan: ' + ($bad -join '; ') + ' - re-stage.') }
 Write-Host ("verified  {0} staged file(s) still match the plan" -f $sendFiles.Count)
+$sendFiles += $levelDataSend
 
 # ---------------------------------------------------------------- send it
 Write-Host ''
@@ -358,4 +383,4 @@ $global:LASTEXITCODE = 0
 # against a mirror that no longer matches it.
 Remove-Item -LiteralPath $planPath -Force
 Write-Host ''
-Write-Host ("OK        {0} file(s) on the server and verified by hash, {1} jar(s) removed, {2} file(s) deleted after backup. Start it." -f $sendFiles.Count, @($plan.remove).Count, $afterBackup.Count)
+Write-Host ("OK        {0} file(s) on the server and verified by hash, {1} jar(s) removed, {2} file(s) deleted after backup, {3} level.dat edit(s). Start it." -f $sendFiles.Count, @($plan.remove).Count, $afterBackup.Count, $levelDataEdits.Count)

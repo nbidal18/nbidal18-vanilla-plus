@@ -73,6 +73,14 @@ param(
     # was by hand over SFTP - the one step of a release that had no plan and no backup.
     #   -RemoveMods 'FallingTree-26.2-25.jar'
     [string[]] $RemoveMods = @(),
+    # Values to set in the world's level.dat, as key=value on the Data compound. Written for v1.0.72,
+    # when the world went from hardcore back to survival: `hardcore` lives in level.dat, not in
+    # server.properties, and nothing here could change it without a hand edit over SFTP. Checked
+    # now against a live copy (the key must exist); applied by Deploy-LiveServer to the copy it
+    # fetches after the shutdown, because the server rewrites level.dat as it stops. Edit-LevelData.py
+    # does the NBT work and refuses a key it cannot find or a type it cannot coerce.
+    #   -SetLevelData 'hardcore=false'
+    [string[]] $SetLevelData = @(),
     # The local mirror to stage into. Defaults to the one Sync-ServerMirror keeps, which is the
     # server's own state as of the last pull - so the plan is computed against what is really
     # installed, not against a guess. Point it elsewhere to rehearse: a plan staged anywhere but the
@@ -234,6 +242,31 @@ foreach ($name in $Config) {
     $configFiles += [pscustomobject]@{ Name = $name; Live = $live; Source = $source }
 }
 
+$levelDataEdits = [ordered]@{}
+if ($SetLevelData.Count) {
+    $editor = Join-Path $PSScriptRoot 'Edit-LevelData.py'
+    $probe = Join-Path ([IO.Path]::GetTempPath()) ('nbidal18-leveldata-' + [Guid]::NewGuid())
+    New-Item -ItemType Directory -Force -Path $probe | Out-Null
+    try {
+        $liveCopy = Join-Path $probe 'level.dat'
+        if ($isMirror) {
+            & $syncScript -Get 'world/level.dat' -To $liveCopy -Session $Session -MirrorRoot $DriveRoot | Out-Null
+            if (-not (Test-Path -LiteralPath $liveCopy -PathType Leaf)) { throw 'Could not fetch world/level.dat to check -SetLevelData against' }
+            $probeOut = Join-Path $probe 'level.edited.dat'
+            $report = & python $editor $liveCopy $probeOut @SetLevelData 2>&1
+            if ($LASTEXITCODE -ne 0) { throw "-SetLevelData was refused by Edit-LevelData.py: $report" }
+            foreach ($line in @($report)) { if ($line -match '->') { Write-Host ('  leveldat ' + $line) } }
+        }
+        else { Write-Host '  leveldat (rehearsal - not checked against the server)' }
+    }
+    finally { Remove-Item -LiteralPath $probe -Recurse -Force -ErrorAction SilentlyContinue }
+    foreach ($pair in $SetLevelData) {
+        $key, $value = $pair -split '=', 2
+        if (-not $key -or $null -eq $value) { throw "-SetLevelData takes key=value, not '$pair'" }
+        $levelDataEdits[$key] = $value
+    }
+}
+
 $wantMotd = "motd=v$version - @nbidal18 on Discord"
 $propsText = [IO.File]::ReadAllText($propsPath)
 $motdNow = ([regex]::Match($propsText, '(?m)^motd=.*$')).Value
@@ -282,6 +315,7 @@ foreach ($cfg in $configFiles) { Write-Host ("  config   {0}" -f $cfg.Name) }
 foreach ($old in $superseded) { Write-Host ("  retire   {0}" -f $old.Name) }
 foreach ($jar in $removedMods) { Write-Host ("  remove   {0}  (backed up now, deleted at deploy)" -f $jar.Name) }
 foreach ($rel in $RemoveServerFiles) { Write-Host ("  delete   {0}  (after a fresh backup at deploy time)" -f $rel) }
+foreach ($key in $levelDataEdits.Keys) { Write-Host ("  leveldat {0}={1}  (applied to the post-shutdown copy at deploy time)" -f $key, $levelDataEdits[$key]) }
 Write-Host ("           {0} server-only jars untouched, {1} client-only jars not considered" -f $serverOnly, $clientOnly)
 
 # ---------------------------------------------------------------- back up, and prove the backup
@@ -409,6 +443,8 @@ $plan = [pscustomobject]@{
     remove       = $sendRemove
     # Deleted only after Deploy-LiveServer has fetched a post-shutdown copy into the backup.
     removeAfterBackup = @($RemoveServerFiles)
+    # Applied by Deploy-LiveServer to the level.dat it fetches after the shutdown; see -SetLevelData.
+    levelData    = $levelDataEdits
     sharedJars   = $shared.Count
     staleShared  = $staleShared.Count
     addedJars    = $added.Count
