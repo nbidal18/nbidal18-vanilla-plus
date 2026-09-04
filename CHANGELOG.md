@@ -5,6 +5,48 @@ build that was not published.
 
 ---
 
+## v1.0.65
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-04 | see below | `2651a31aae57` | `08b8fac54699` | 293 | 143 |
+
+**The generator no longer stops for good once a player's whole radius is generated.** Click **Play**.
+Nothing to clear.
+
+### What was wrong
+
+Found this morning with an all-threads profile, taken while the readout said 0 chunks a second with
+776,000 left to make and every line green. Voxy World Gen's search asks for the nearest unfinished
+batch of chunks. Once everything within a player's 512-chunk radius is done, the nearest unfinished
+batch is one on the edge of the circle: complete inside, never asked for outside, so never marked
+finished. The generator picks it, finds nothing to do, drops it and picks it again, on a loop that
+only ends when the search says there is nothing at all. It never does. From then on the server
+generated nothing for anyone, burned one core doing it, and neither a teleport nor a relog helped,
+because the loop never goes back to refresh who and where the players are. Only a restart did.
+
+That is what happened whenever someone stood in a fully generated area: at the boat two nights
+ago, in the old world that was mostly generated, and this morning after an AFK fill of the whole
+radius. The tick-time and task-cap theories in the two previous versions' notes were wrong; the
+readout they added is what made this one findable.
+
+### What changed
+
+The search call is routed through a guard in our Voxy mod. A batch with nothing left to do inside
+the radius is parked and skipped, the search moves on, and it correctly reports "nothing left" when
+that is so. Parked batches are looked at again whenever the player moves two chunks, because moving
+is what brings their outer chunks into range. One mixin, one class, server-side; the client jar
+changes only because it is the same jar.
+
+### Tested before publishing
+
+Updater sync, client launch and dedicated-server boot pass, plus a boot with the renamed jar named.
+**What it needs from you:** the exact thing that broke it. Stand still until the radius fills (the
+readout reads 0 left in radius), then teleport far away: generation must resume around you within
+seconds, with no relog.
+
+---
+
 ## v1.0.64
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
