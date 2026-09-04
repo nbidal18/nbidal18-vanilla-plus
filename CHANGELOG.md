@@ -5,6 +5,30 @@ build that was not published.
 
 ---
 
+## v1.0.71
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-04 | see below | `ff77f41b7c6a` | `ed3b78f0e594` | 297 | 147 |
+
+**FallingTree is gone again.** Click **Play**. Nothing to clear.
+
+v1.0.70 shipped FallingTree in place of HT's TreeChop, on the maintainer's reading that the ask was
+"a tree feller" and TreeChop has no build past 1.21.1. That reading was wrong: the ask was
+TreeChop's mechanic, chopping a tree several times before it comes down, and FallingTree deletes
+the tree on the first break. The owner rejected it within the hour and asked for it out before the
+port. Removed from clients and from the server; nothing else changes. Diagonal Fences, its
+libraries and Jump Over Fences stay.
+
+TreeChop itself comes back as a first-party port of 0.19.3a to 26.2, in its own version.
+
+### Tested before publishing
+
+Updater sync, client launch (147 mods, title screen) and dedicated-server boot pass.
+**What it needs from you:** nothing beyond the relaunch; a tree behaves like vanilla again.
+
+---
+
 ## v1.0.70
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

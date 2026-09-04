@@ -33,6 +33,8 @@
       **-AddMods** names a jar the server does not have yet. Most of the client pack is client-only
       and nothing here can tell which of it is not, so this stays a decision - but one written down
       here rather than dragged across in a file manager afterwards
+      **-RemoveMods** names a third-party jar to take off the server. The mirror image of -AddMods,
+      and named for the same reason
       **-Config** names a config file to take from the release's client copy. Named rather than
       synced, because most config genuinely differs: c2me.toml carries the CPU's own parallelism.
       But nothing deployed config at all until v1.0.29, and two files paid for it - sparsestructures
@@ -63,6 +65,14 @@ param(
     # and v1.0.60 all did this by hand over SFTP, which is the one step of a release that had no
     # script, no plan and no verified backup.
     [string[]] $RemoveServerFiles = @(),
+    # Third-party jars to take off the server, by file name in mods\. Each must be on the server and
+    # must NOT be in the release's mods folder - a jar the release still ships is a shared jar and is
+    # handled by hash, and a first-party jar the release no longer ships is retired on its own. The
+    # live copy goes into the backup before it is listed for removal. Written for v1.0.71, the
+    # first release to withdraw a third-party server mod (FallingTree), when the only way to do it
+    # was by hand over SFTP - the one step of a release that had no plan and no backup.
+    #   -RemoveMods 'FallingTree-26.2-25.jar'
+    [string[]] $RemoveMods = @(),
     # The local mirror to stage into. Defaults to the one Sync-ServerMirror keeps, which is the
     # server's own state as of the last pull - so the plan is computed against what is really
     # installed, not against a guess. Point it elsewhere to rehearse: a plan staged anywhere but the
@@ -193,6 +203,18 @@ foreach ($name in $AddMods) {
     $added += [pscustomobject]@{ Name = $name; Live = $live; Source = $source }
 }
 
+$removedMods = @()
+foreach ($name in $RemoveMods) {
+    if ($name -match '[\\/]' -or $name -notlike '*.jar') { throw "-RemoveMods takes a jar file name in mods\, not a path: $name" }
+    if ($name -like 'nbidal18-*') { throw "-RemoveMods named $name, a first-party jar - those are retired automatically once the release stops shipping them" }
+    if (Test-Path -LiteralPath (Join-Path $releaseMods $name) -PathType Leaf) {
+        throw "-RemoveMods named $name, which the release still ships - remove it from the release first, or it is a shared jar"
+    }
+    $live = Join-Path $modsDir $name
+    if (-not (Test-Path -LiteralPath $live -PathType Leaf)) { throw "-RemoveMods named $name, which the server does not have" }
+    $removedMods += [pscustomobject]@{ Name = $name; Live = $live }
+}
+
 # Unlike -AddMods these may already exist - both files this was written for did - so an existing
 # copy is overwritten rather than refused. One that already matches is dropped from the plan so the
 # report says what will actually change.
@@ -258,6 +280,7 @@ else {
 foreach ($jar in $added) { Write-Host ("  new jar  {0}" -f $jar.Name) }
 foreach ($cfg in $configFiles) { Write-Host ("  config   {0}" -f $cfg.Name) }
 foreach ($old in $superseded) { Write-Host ("  retire   {0}" -f $old.Name) }
+foreach ($jar in $removedMods) { Write-Host ("  remove   {0}  (backed up now, deleted at deploy)" -f $jar.Name) }
 foreach ($rel in $RemoveServerFiles) { Write-Host ("  delete   {0}  (after a fresh backup at deploy time)" -f $rel) }
 Write-Host ("           {0} server-only jars untouched, {1} client-only jars not considered" -f $serverOnly, $clientOnly)
 
@@ -266,7 +289,7 @@ $stamp = (Get-Date -Format 'yyyy-MM-dd') + "-v$version"
 $backup = Join-Path (Join-Path $DriveRoot '.nbidal18-deploy-backups') $stamp
 New-Item -ItemType Directory -Force -Path $backup | Out-Null
 $toBackUp = @($policyLive, $propsPath) + ($existingHelpers | ForEach-Object { $_.FullName }) +
-    ($staleShared | ForEach-Object { $_.Live })
+    ($staleShared | ForEach-Object { $_.Live }) + ($removedMods | ForEach-Object { $_.Live })
 foreach ($p in $toBackUp) {
     $dest = Join-Path $backup (Split-Path $p -Leaf)
     [IO.File]::WriteAllBytes($dest, [IO.File]::ReadAllBytes($p))
@@ -359,7 +382,7 @@ if ($failures.Count) { throw ('Staging did not verify: ' + ($failures -join '; '
 $sendFiles = @('config\nbidal18-integrity.properties', ('mods\' + $helperSource.Name), 'server.properties')
 foreach ($jar in @($staleShared) + @($added)) { $sendFiles += ('mods\' + $jar.Name) }
 foreach ($cfg in $configFiles) { $sendFiles += ('config\' + $cfg.Name) }
-$sendRemove = @($superseded | ForEach-Object { 'mods\' + $_.Name })
+$sendRemove = @($superseded | ForEach-Object { 'mods\' + $_.Name }) + @($removedMods | ForEach-Object { 'mods\' + $_.Name })
 
 $send = @()
 foreach ($rel in $sendFiles) {
