@@ -5,6 +5,57 @@ build that was not published.
 
 ---
 
+## v1.0.70
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-04 | see below | `ed3b78f0e594` | `b89f6657095c` | 298 | 148 |
+
+**Trees fall, fences go diagonal, and you can hop over them.** Click **Play**. Nothing to clear.
+
+Four mods asked for by the owner on 2026-09-04, all at their own defaults; no config is published
+for any of them, so nothing new is enforced at login.
+
+### FallingTree 26.2.0.3 - the tree feller
+
+The 4.5.2 pack felled trees with HT's TreeChop, plus a first-party mixin jar that cancelled its two
+extra break effects, because felling a tree with it sounded like a demolition. TreeChop's last
+build is for 1.21.1 and there is nothing for 26.x, so the feller is FallingTree, which does have a
+26.2 build. It needs no sound fix: it removes the trunk with the quiet form of block removal that
+plays no effect at all (read in its decompiled `removeBlock` calls, not assumed), so the only
+sound is the one log you actually break. Defaults: whole tree at once with any axe, up to 100
+logs, leaves go with it, sneak to fell one log the vanilla way. Both sides.
+
+### Diagonal Fences 26.2.0
+
+Fences, walls and gates connect diagonally. Both sides, because the shapes are collision. Brings
+its two libraries: Puzzles Lib 26.2.3, both sides, and Forge Config API Port 26.2.1, which the server
+already ran for one of its own mods and which now ships to clients too, byte-identical to the
+server's copy.
+
+### Jump Over Fences 1.8.1
+
+A small extra lift when jumping next to a fence, wall or gate, so a fence is no longer a wall to
+you. Client-only: read in the code, the whole thing is a local-player check on the jump key.
+
+### Artifacts: not in this version
+
+Asked for as a declaration bump if that was all it took. It was not. Upstream's newest build is for
+26.1 and three things break on 26.2, found one launch at a time: `Mob.getGoalSelector()` became a
+real method and collides with the mod's accessor of that name (fixable, and was); a mixin targets
+`ItemInHandRenderer.renderArmWithItem`, which 26.2 renamed; and 26.2 sealed `Holder`, which the
+mod's own registry type extends, and that is a rewrite of its registry rather than a patch. Per
+the owner's rule it waits for upstream's 26.2 build. The findings are in the plan so the next
+attempt starts where this one stopped.
+
+### Tested before publishing
+
+Updater sync, client launch (148 mods, title screen) and dedicated-server boot with the four
+server-side jars named all pass.
+**What it needs from you:** fell a tree with an axe; place a fence at 45 degrees; jump next to one.
+
+---
+
 ## v1.0.69
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

@@ -22,7 +22,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "5eeefc1487442fdabf5f946ddac3d3db912c7aecac09d20ebd4231f2003282bd"
+hash = "241836f96fe3681e542d78d7119a98a96399b68d6aad129f27d2973064cb4521"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -525,8 +525,16 @@ file = "mods/CreativeCore_FABRIC_v2.14.16_mc26.2.jar"
 hash = "8bf79bc2940c4272aa954a561831a36cfc70dfe7c26db16f8daf222e39b9ce77"
 
 [[files]]
+file = "mods/DiagonalFences-v26.2.0-mc26.2.x-Fabric.jar"
+hash = "0ea7985fd9d813236489573a877be05a9db550ddbbfcd090dd90b04850b66410"
+
+[[files]]
 file = "mods/EnchantmentDescriptions-fabric-MC26.2-26.2.0.2.jar"
 hash = "4a53b9a5f6510f9cf779875ca4d7877ee624ebc76b50dca8bc03794ba0ee8511"
+
+[[files]]
+file = "mods/FallingTree-26.2-25.jar"
+hash = "abe61a2708f9ba00b063d918be63292e69c62b7743e2fe64fc63ce8877f1c5f2"
 
 [[files]]
 file = "mods/ForgeConfigAPIPort-v26.2.1-mc26.2.x-Fabric.jar"
@@ -583,6 +591,10 @@ hash = "f1f7e37ffc5a56cf7cc9833d8c6b48680340554d72498160df021c6fc354af13"
 [[files]]
 file = "mods/PrickleMC-fabric-MC26.2-26.2.0.3.jar"
 hash = "adb871854e5596a6d10593b13634622801b202b18d0eae694ff3a5a50951dc85"
+
+[[files]]
+file = "mods/PuzzlesLib-v26.2.3-mc26.2.x-Fabric.jar"
+hash = "746d90c6723fccce4fca076e7e87753354abc4670016e1c461120a3306ee9af1"
 
 [[files]]
 file = "mods/ResourcefulConfig-5.0.0.jar"
@@ -789,6 +801,10 @@ file = "mods/jei-26.2-fabric-30.28.0.191.jar"
 hash = "cae11932f56294ece0e7b40781cd7a266276d7330b75ad97070146a40617554b"
 
 [[files]]
+file = "mods/jumpoverfences-fabric-26.2-1.8.1.jar"
+hash = "dfaad11ddb4c5a21bd007bb8a9dffebf173c948ecdf8088a066ac88d7355514c"
+
+[[files]]
 file = "mods/krypton-0.3.1.jar"
 hash = "5ea8901561973d29e51e751469d52d92100f348ab461e1186f67012e93420c48"
 
@@ -869,8 +885,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.69+26.2-fabric.jar"
-hash = "ba6ddbc5380c5da6fbf5ba08534568c7b334caf8092e0d24f1ad4e6130f74c5a"
+file = "mods/nbidal18-integrity-1.0.70+26.2-fabric.jar"
+hash = "15080b2d82a1b4cb1e9aa9490cb4b6de097cb3de0ba4c7986c5b6bbf32e75048"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
