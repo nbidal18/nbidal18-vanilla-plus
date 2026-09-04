@@ -22,7 +22,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "9497b51078b2a70fa269f69e408136e0fca71c0cf7b4309119d26e9a36c80179"
+hash = "437d5e5436b0488affa74221a922a761b5df6dfcf196148e4ff39b7e8acd0bc9"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -869,12 +869,16 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.65+26.2-fabric.jar"
-hash = "a0be6f06f121508c1269276494b8af6f308f01cdc7aaafcbc1240d2ec58e882b"
+file = "mods/nbidal18-integrity-1.0.66+26.2-fabric.jar"
+hash = "671276556008673659ebba9d99e3d8bce6996c3961dfd9d72422eeb6e2237a7e"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
 hash = "ddb25fdd66ee853231d0246eb6d703d6aa7a184a78398f0db52c65eb6fdec7a0"
+
+[[files]]
+file = "mods/nbidal18-iris-1.0.0+26.2-fabric.jar"
+hash = "1abaa2254d53852f50f4e1bc50d26f3df5a8266c0da1eb5388be0bbd7d109c81"
 
 [[files]]
 file = "mods/nbidal18-mousewheelie-1.0.0+26.2-fabric.jar"

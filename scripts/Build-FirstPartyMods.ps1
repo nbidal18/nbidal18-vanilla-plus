@@ -98,6 +98,13 @@ $mods = @(
     # stops causing the logout. Port of the 1.21.1 pack's nbidal18-safe-rejoin. **Runs on the
     # server** - that is where it does anything - so it needs -AddMods to deploy.
     @{ Name = 'nbidal18-saferejoin'; Generator = $null; Builder = 'build_saferejoin.py' },
+    # 26.2 bakes every inventory icon once into a cache texture (GuiItemAtlas) through the ordinary
+    # item pipeline, which under Iris is the shader pipeline; Iris has no hook for that cache, so an
+    # icon baked while a pipeline is being torn down or built comes out blank or as a grey blob and
+    # stays that way until the cache is rebuilt - which a resource reload does not do. Flushes the
+    # cache whenever Iris's pipeline or the block atlas changes, and for a few seconds after, so
+    # every icon is re-baked once the pipeline has settled. Client only.
+    @{ Name = 'nbidal18-iris'; Generator = $null; Builder = 'build_iris.py' },
 
     # nbidal18-travelersbackpack is deliberately NOT built. Its source stays under `custom mods\`
     # because the work is sound and will be picked up again, but a uniform tint is not what

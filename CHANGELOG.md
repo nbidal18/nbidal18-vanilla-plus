@@ -5,6 +5,44 @@ build that was not published.
 
 ---
 
+## v1.0.66
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-04 | see below | `c889778e7300` | `2651a31aae57` | 294 | 144 |
+
+**Inventory icons no longer vanish after a shader toggle.** Click **Play**. Nothing to clear, and
+Mipmap Levels can go back to 4 if you turned it down.
+
+### What was wrong
+
+Since 26.x the game draws every inventory icon once into a cache texture and copies it from there
+on every later frame. That drawing goes through the ordinary item pipeline, which under Iris is the
+shader pipeline, and Iris has no hook on the cache. A shader toggle is a transition of several
+seconds - Iris rebuilds its pipeline, Voxy rebuilds its renderer, the PBR atlases are created - and
+an icon first shown inside that window is baked through a half-built pipeline: blank, or a grey
+blob, and kept that way. That is why the damage looked random, why enchanted items were fine (the
+glint is drawn live), why the clock and compass flickered (only the frames first shown during the
+window were bad), and why a resource reload did not help (it is another such window) while a
+restart did. Reproduced from the owner's client log and read in the decompiled game and Iris.
+
+### What changed
+
+A new first-party mod, `nbidal18-iris`, watches Iris's pipeline and the block atlas every frame.
+When either changes it drops the icon cache, and keeps dropping it for ten seconds, so every icon is
+baked again once the pipeline has settled. Dropping the cache is what the game itself does when it
+runs out of room, so no new drawing path is involved. Client only.
+
+### Tested before publishing
+
+Updater sync, client launch with 144 mods and dedicated-server boot pass. **What it needs from
+you:** shaders on, a full inventory open, toggle shaders off and on a few times, open chests and
+the creative menu straight after. Every icon there, no flicker on the clock and compass, and one
+line in the log each time: *shader pipeline or block atlas changed; the GUI icon cache is flushed
+for the next 10 s*.
+
+---
+
 ## v1.0.65
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
