@@ -1,12 +1,12 @@
 name = "nbidal18 Vanilla+"
-version = "1.0.67"
+version = "1.0.68"
 description = "Minecraft 26.2 vanilla+ modpack with automatic Prism updates"
 pack-format = "packwiz:1.1.0"
 
 [index]
 file = "index.toml"
 hash-format = "sha256"
-hash = "a923953273fd4e484e0e7dbc74cd24b80dfa487b9b4d1b61a98815dea7be75d9"
+hash = "8de5294d1b1d9a759f66eb5890fbad162240de9edea1411cff1cfcaa255fa38b"
 
 [versions]
 fabric = "0.19.3"

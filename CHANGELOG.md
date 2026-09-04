@@ -5,6 +5,44 @@ build that was not published.
 
 ---
 
+## v1.0.68
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-04 | see below | `480fbec8e27f` | `e7e11833a7fc` | 294 | 144 |
+
+**A slow connection can no longer starve itself of far terrain.** Click **Play**. Nothing to clear.
+
+### What was wrong
+
+Found from `/voxyflow yeetnado69` on 2026-09-04 while three players were on: his window had been
+cut to its 64 KB floor early in the session, and at the floor two things locked. The sweep only
+runs with credit for four chunks, and 70 KB was credit for fewer of his payloads, so it never ran;
+and with nothing in flight there were no acknowledgements, and the window only grows on
+acknowledgements. Then the nearest-first rule from v1.0.63 held every fresh chunk behind a sweep
+frontier that the stalled sweep never advanced, so he received nothing at all: 0 chunks a second,
+859 chunks in his ledger since the clean slate, while the player next to him was taking 141 a
+second. A relog reset his window and terrain flowed again; this makes the relog unnecessary.
+
+### What changed
+
+Three guards in the Voxy mod, all only reachable when nothing is in flight:
+
+- The window always admits one payload, whatever its size against the window.
+- The sweep may deliver a single chunk instead of waiting for credit for four.
+- The nearest-first frontier expires five seconds after the last sweep pass, so a sweep that has
+  stopped, for want of credit or of anything to find, holds nothing back.
+
+The window controller itself is untouched and its simulation still passes on every modelled link.
+
+### Tested before publishing
+
+Updater sync, client launch and dedicated-server boot pass, plus a boot with the renamed jar named.
+**What it needs from you:** Abdo's `/voxyflow` an hour into a session: window well above 70 KB,
+`behind sweep` small, chunks arriving.
+
+---
+
 ## v1.0.67
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
