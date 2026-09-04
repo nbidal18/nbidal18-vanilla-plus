@@ -5,6 +5,45 @@ build that was not published.
 
 ---
 
+## v1.0.67
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-04 | see below | `e7e11833a7fc` | `c889778e7300` | 294 | 144 |
+
+**The glider is drawn above the head again.** Click **Play**. Nothing to clear.
+
+### The glider
+
+Reliable Gliders has no glider model on the player at all. It draws the glider as the item in your
+right hand and raises both arms straight up, so the item sits above your head. Fresh Animations,
+driven by Entity Model Features, overrides that arm pose, and the glider hangs off wherever the
+animation left the hand: under and behind the body, as in the screenshot. The fix asks EMF to stand
+aside while a player glides, the same remedy the pack already uses for Carry On's carrying pose.
+Both arms go up, the glider is above the head, and armour poses with the body. Land, and the
+animations return. This half lives on the client; the Nether-fire half of the same mod is unchanged.
+
+### Two small readout changes
+
+- The spin guard added in v1.0.65 now writes one line to the server log the first time it steps
+  over the finished edge of a generated radius, instead of only after 4,096 in one pass, which a
+  finished radius never reaches.
+- The generator line says `left in radius (edge band included, never reads 0)`: the generator
+  counts in 4x4 batches, so a thin band outside the true circle is always included and a finished
+  radius reads a few thousand. That number is not work left undone.
+
+### Not in this release
+
+The 1.12 bed icons the owner remembered do not exist: 1.12's bed item is already the small 3D bed.
+The flat icon is from 1.11 and earlier, red only. Decision pending.
+
+### Tested before publishing
+
+Updater sync, client launch with 144 mods and dedicated-server boot pass, plus a boot with the two
+renamed server-side jars named. **What it needs from you:** glide in third person and look up.
+
+---
+
 ## v1.0.66
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

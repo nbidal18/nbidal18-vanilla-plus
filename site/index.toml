@@ -22,7 +22,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "437d5e5436b0488affa74221a922a761b5df6dfcf196148e4ff39b7e8acd0bc9"
+hash = "9b405f6220ad12200ee44347914dfc18a92880b95caa05ce09c0d90c6453a8a5"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -869,8 +869,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.66+26.2-fabric.jar"
-hash = "671276556008673659ebba9d99e3d8bce6996c3961dfd9d72422eeb6e2237a7e"
+file = "mods/nbidal18-integrity-1.0.67+26.2-fabric.jar"
+hash = "4158e639f02e538068e189efdcaa3df4f8ad684a9928ab0c77e52b6e3d86e098"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -885,8 +885,8 @@ file = "mods/nbidal18-mousewheelie-1.0.0+26.2-fabric.jar"
 hash = "a299326c4077e6e50a2cd84b8edef0bef6aee2dc7db1ab0b2c00c4cb3537fa24"
 
 [[files]]
-file = "mods/nbidal18-reliablegliders-1.0.0+26.2-fabric.jar"
-hash = "6820646eb39a998c4d93d361546e259bf0774c52fe7d8605f8785726e53b93be"
+file = "mods/nbidal18-reliablegliders-1.1.0+26.2-fabric.jar"
+hash = "a77c43e48cddb88030720bbe57dc10d220edbfa023398af3ee1126e1d269c876"
 
 [[files]]
 file = "mods/nbidal18-saferejoin-1.0.0+26.2-fabric.jar"
@@ -913,8 +913,8 @@ file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
 hash = "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
 
 [[files]]
-file = "mods/nbidal18-voxyworldgen-3.3.0+26.2-fabric.jar"
-hash = "3f25f6dd3c5ae5e5f3c0e4b48e557a37079461b3930d16158110dcae4222748c"
+file = "mods/nbidal18-voxyworldgen-3.3.1+26.2-fabric.jar"
+hash = "b6427d3fca477cb18b92403ae420e79c3be52c1626f5ad32f6bd28d542b55632"
 
 [[files]]
 file = "mods/nbidal18-xaerominimap-1.0.0+26.2-fabric.jar"
