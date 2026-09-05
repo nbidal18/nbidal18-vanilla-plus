@@ -1,5 +1,5 @@
 <#
-    Rebuilds nbidal18-3D-1.2.zip: the one 3D resource pack this modpack maintains.
+    Rebuilds nbidal18-3D-1.3.zip: the one 3D resource pack this modpack maintains.
 
       scripts\Build-3DPack.ps1               build it into the current release
       scripts\Build-3DPack.ps1 -CheckOnly    re-measure the pack already in the release

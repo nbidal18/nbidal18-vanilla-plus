@@ -22,7 +22,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "7b6c704fcd927b5f8a18babfa013baf67823a2fd8d777fd146dd1ac47c63ecb5"
+hash = "09a32687dad1dc9f120e8b8074ba4d484731d26f08b7806c8adeba30b98444dd"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -146,7 +146,7 @@ hash = "351554b5d847acfb0dcdd05a93b5b93f27035178bcbde4d5193b4dc5a5a2f11b"
 
 [[files]]
 file = "config/immersive_aircraft.json"
-hash = "2c31cc24f644b7d28b68f5dabe5f66d5b2197309abdb1cca6153d3f26148aeea"
+hash = "18601c3312d9bd3371e9fb29b3e47e5578c1977cb27b661d5fe00b7a545aa32f"
 
 [[files]]
 file = "config/invmove.json"
@@ -885,8 +885,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.72+26.2-fabric.jar"
-hash = "07a801a1391e1e5789ebd5a1eed4ea6b1b2b75f927c38098316667e163658fda"
+file = "mods/nbidal18-integrity-1.0.73+26.2-fabric.jar"
+hash = "0a825991190e86a1cde9ea48bc98edb24815e4f1a46f3a85682c283b501649c8"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -1102,7 +1102,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "90da3cf771766bd9d8d9e743d2d12cb03f966a151395cdc1966b4d443d0841bf"
+hash = "5cc939808f1bc36f7a1a832ac225cdaa9450f49464f791532e766ec06af915e3"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -1153,8 +1153,8 @@ file = "resourcepacks/Theone's Eating Animation Pack v1.0.zip"
 hash = "5d1f2ea9b8af9cd931796c09f2159e119b25db909b0a84269b42fb3c9f55893d"
 
 [[files]]
-file = "resourcepacks/nbidal18-3D-1.2.zip"
-hash = "1a5c03cfebbfbd34a48e2373b14df28e610c34fbd9dda9da2bb50e9032bf6f8a"
+file = "resourcepacks/nbidal18-3D-1.3.zip"
+hash = "b61a9399581112d14111a3667e7c72f9ce179ec24743a334b9bbce53c4cc4aaf"
 
 [[files]]
 file = "resourcepacks/nbidal18-Immersive-Interfaces-26.2.zip"

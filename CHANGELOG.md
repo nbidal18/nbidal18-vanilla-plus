@@ -5,6 +5,69 @@ build that was not published.
 
 ---
 
+## v1.0.73
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-05 | see below | `62bf04018c42` | `c29ee20cec42` | 299 | 148 |
+
+**A damaged plane can be boarded, sorting no longer leaves an item in the cursor, saplings are 3D in the hand, and the inked outlines are gone.** Click **Play**. Nothing to clear.
+
+### Boarding and repair
+
+Reported by the owner: a plane below full health could not be entered. Read in the port's
+`VehicleEntity.interact`: Immersive Aircraft treats any right-click on a damaged vehicle as a repair
+unless `requireShiftForRepair` is on, and the pack shipped it off. It is on now. Plain right-click
+boards at any health; shift + right-click repairs, a little per click, at the usual hunger cost.
+
+The setting lives in `config/immersive_aircraft.json`, which is player-class (published once, then
+the player's), so the master copy alone would reach only fresh installs. A one-time seed sets the
+one key on every instance and leaves the rest of the file alone. The server reads its own copy for
+the actual boarding decision, and that copy is deployed in the same release.
+
+### Plants in the hand
+
+The owner noticed saplings were flat in the hand. They were: Weskerson drew hand models for a few
+plants (poppy, fern, the mushrooms, sugar cane) and every other cross-shaped block stayed vanilla's
+sprite. 3D pack 1.3 gives all forty of them a generated hand model, the block's own cross held
+upright at hand scale: the eight saplings, short and dry grass, the corals and their dead forms,
+kelp, roots, vines, hanging moss, amethyst buds, the eyeblossoms, torchflower, wither rose, the
+bushes. Tinted plants keep vanilla's tint. The inventory stays vanilla's flat sprite, and the
+ground and item-frame contexts get the usual sized wrappers. The pack row in `options.txt` is
+restated by seed `resourcepacks-v1073` for the 1.3 zip; packwiz removes 1.2.
+
+### The outlines
+
+The owner noticed the stick had a thick dark rim, "drawn manga style". Both source packs do that on
+purpose: a second box, slightly larger than the real one, with its corners inverted so it renders
+inside-out, around many of their models. 207 of them. Whether 26.2 draws it heavier than 1.21 did is
+not known; the owner does not want it either way. The build now strips every inverted box that encloses a normal box
+of the same model, 805 of them, and keeps inverted boxes the same size as their twin, which are
+double-sided faces such as the poppy's petals. Stick, bone, blaze rod, tools, potions, bundles and
+the rest lose the rim; nothing loses geometry.
+
+### Sorting, and the item left in the hand
+
+Reported by the owner: after a middle-click sort, sometimes one item stays in the cursor. Read in
+Mouse Wheelie: a sort is done one of two ways. With the mod on the server, the client sends one
+reorder packet and the server applies the whole permutation at once. Without it, the client
+replays the sort as a burst of ordinary slot clicks through the cursor, ten milliseconds apart, and
+a click rejected or landing out of order leaves a stack where the cursor was. Our server never had
+the mod, so every sort took the second path. It could not simply be installed there: the jar
+hard-depends on client-only libraries (Amecs, Coat, two Fabric API modules) that a dedicated server
+skips, so the loader refuses it whole. `nbidal18-mousewheelie` now also builds a server jar out of
+the upstream one, every class passed through, metadata cut to the server side. It lives under
+`4. server\mods`, a new home for server-only first-party jars that the deployment scripts now know,
+and is not published to players. From this release a sort is one packet.
+
+### Tested before publishing
+
+Updater sync (with both seeds), client launch and dedicated-server boot (with the Mouse Wheelie server half named) pass; the pack verifier reports
+1212 items 3D in hand and no breach. **What it needs from you:** middle-click sort a full inventory a few times; hold a stick, then a sapling; damage a plane,
+right-click it, you are in; get out, shift + right-click, it repairs.
+
+---
+
 ## v1.0.72
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

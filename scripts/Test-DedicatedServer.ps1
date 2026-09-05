@@ -94,13 +94,18 @@ try {
     # does not, and a broken recipe or a dangling advancement fails at worldgen and nowhere else.
     # Overlaying only the helper meant this tested the previous release's datapacks.
     $releaseMods = Join-Path $release '3. modpack\client\mods'
+    # Server-only first-party jars, never published to players (v1.0.73, the Mouse Wheelie server half).
+    $releaseServerMods = Join-Path $release '4. server\mods'
     # A first-party jar the release no longer ships is retired by the deploy (Test-ServerDeployment's
     # rule), so it must not boot here either: two jars claiming one mod id is a loader error, not a
     # warning, and this test would fail a release that is fine. Scoped to nbidal18-* like the deploy;
     # a server-only jar that is not ours is never a candidate. Found when nbidal18-voxyworldgen went
     # 3.0.0 to 3.1.0 - the first rename of a server-side first-party jar since this check was written.
     $releaseJarNames = @{}
-    foreach ($jar in @(Get-ChildItem -LiteralPath $releaseMods -Filter *.jar -File)) { $releaseJarNames[$jar.Name] = $true }
+    foreach ($dir in @($releaseMods, $releaseServerMods)) {
+        if (-not (Test-Path -LiteralPath $dir)) { continue }
+        foreach ($jar in @(Get-ChildItem -LiteralPath $dir -Filter *.jar -File)) { $releaseJarNames[$jar.Name] = $true }
+    }
     foreach ($live in @(Get-ChildItem -LiteralPath (Join-Path $testRoot 'mods') -Filter 'nbidal18-*.jar' -File)) {
         if ($live.Name -like 'nbidal18-integrity-*.jar' -or $releaseJarNames.ContainsKey($live.Name)) { continue }
         [IO.File]::Delete($live.FullName)
@@ -110,6 +115,7 @@ try {
     foreach ($live in @(Get-ChildItem -LiteralPath (Join-Path $testRoot 'mods') -Filter *.jar -File)) {
         if ($live.Name -like 'nbidal18-integrity-*.jar') { continue }
         $mirror = Join-Path $releaseMods $live.Name
+        if (-not (Test-Path -LiteralPath $mirror -PathType Leaf)) { $mirror = Join-Path $releaseServerMods $live.Name }
         if (-not (Test-Path -LiteralPath $mirror -PathType Leaf)) { continue }
         if ((Get-FileHash -LiteralPath $live.FullName -Algorithm SHA256).Hash -eq
             (Get-FileHash -LiteralPath $mirror -Algorithm SHA256).Hash) { continue }
@@ -125,6 +131,7 @@ try {
     $addedNames = @()
     foreach ($name in $AddMods) {
         $candidate = Join-Path $releaseMods $name
+        if (-not (Test-Path -LiteralPath $candidate -PathType Leaf)) { $candidate = Join-Path $releaseServerMods $name }
         if (-not (Test-Path -LiteralPath $candidate -PathType Leaf)) {
             throw "-AddMods named $name, which is not in the release's mods folder"
         }

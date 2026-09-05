@@ -272,8 +272,19 @@ try {
         if ($mod.ContainsKey('Lint') -and $mod.Lint) { $lint = $mod.Lint }
         # -Xmaxerrs: javac stops listing at 100 by default, which for a ported codebase hides the
         # shape of the work behind the first hundred cascades. Everything is listed.
-        & $javac -encoding UTF-8 $lint -Werror -Xmaxerrs 5000 -d $out "@$argFile"
-        if ($LASTEXITCODE -ne 0) { throw "javac failed for $name" }
+        # javac writes its notes ("Some input files use or override a deprecated API") to stderr even
+        # on a clean compile, and under $ErrorActionPreference = 'Stop' PowerShell 5.1 turns a native
+        # command's stderr into a terminating error the moment the caller redirects output. That
+        # killed New-Release at the TreeChop build (v1.0.73) while the same command in a console
+        # passed. The exit code is the verdict; stderr is just shown.
+        $previousPreference = $ErrorActionPreference
+        $ErrorActionPreference = 'Continue'
+        try {
+            & $javac -encoding UTF-8 $lint -Werror -Xmaxerrs 5000 -d $out "@$argFile" 2>&1 | ForEach-Object { Write-Host ("javac     " + $_) }
+            $javacExit = $LASTEXITCODE
+        }
+        finally { $ErrorActionPreference = $previousPreference }
+        if ($javacExit -ne 0) { throw "javac failed for $name" }
 
         Push-Location $modRoot
         try {

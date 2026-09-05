@@ -29,7 +29,7 @@
   "dropInventory": true,
   "dropUpgrades": false,
   "regenerateHealthEveryNTicks": 0,
-  "requireShiftForRepair": false,
+  "requireShiftForRepair": true,
   "bombBayEntity": {
     "minecraft:egg": "minecraft:chicken"
   },

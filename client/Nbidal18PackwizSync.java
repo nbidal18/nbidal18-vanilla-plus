@@ -285,15 +285,25 @@ public final class Nbidal18PackwizSync {
             //
             // v1.0.69: the 3D pack is 1.2 - beds drawn as the flat 1.11 sprite in the inventory,
             // the one deliberate exception to the inventory-is-vanilla rule. Row restated again.
+            //
+            // v1.0.73: the 3D pack is 1.3 - every cross-shaped plant no source drew in the hand (saplings,
+            // grass, corals, roots, vines) gets a generated held cross. Row restated again.
             // v1.0.72: TreeChop binds N to its settings screen. The 4.5.2 pack shipped it unbound - N is
             // a key players use for other things, and the screen is reachable from Mod Menu - so the
             // port ships it the same way. Its other two keys (toggle chopping, cycle sneak behaviour)
             // are unbound upstream already.
             new PlayerFileSeed("options.txt", ':', "treechop-key-v1072", List.of(
                     SeedRow.of("key_treechop.key.open_settings_overlay", "key.keyboard.unknown"))),
-            new PlayerFileSeed("options.txt", ':', "resourcepacks-v1069", List.of(
+            // v1.0.73: a damaged aircraft could not be boarded. Immersive Aircraft treats any right-click on
+            // a plane below full health as a repair unless requireShiftForRepair is on; the owner wants
+            // boarding at any health and repair on shift + right-click, which is exactly that switch.
+            // The file is player-class, so the master copy alone never reaches an instance that already
+            // has one; the server reads its own copy, deployed with -Config in the same release.
+            new PlayerFileSeed("config/immersive_aircraft.json", ':', "aircraft-shift-repair-v1073", List.of(
+                    SeedRow.of("requireShiftForRepair", "true"))),
+            new PlayerFileSeed("options.txt", ':', "resourcepacks-v1073", List.of(
                     SeedRow.of("resourcePacks",
-                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/Theone's Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-26.2.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-3D-1.2.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"),
+                            "[\"vanilla\",\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/Theone's Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-26.2.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-3D-1.3.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"),
                     SeedRow.of("incompatibleResourcePacks",
                             "[\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\"]"))));
 

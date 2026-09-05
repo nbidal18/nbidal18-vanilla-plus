@@ -152,6 +152,17 @@ $existingHelpers = @(Get-ChildItem -LiteralPath $modsDir -Filter 'nbidal18-integ
 # version-stamped and handled on its own above - matching it by name here would compare v1.0.10
 # against v1.0.11 and call every release stale.
 $releaseMods = Join-Path $release '3. modpack\client\mods'
+# Server-only first-party jars live here and are never published to players. Added for v1.0.73's
+# Mouse Wheelie server half: a jar the client pack must not carry, but the server must, and that
+# the superseded-jar rule below must not sweep away as 'not in the release'.
+$releaseServerMods = Join-Path $release '4. server\mods'
+function Resolve-ReleaseJar([string] $name) {
+    foreach ($dir in @($releaseMods, $releaseServerMods)) {
+        $p = Join-Path $dir $name
+        if (Test-Path -LiteralPath $p -PathType Leaf) { return $p }
+    }
+    return $null
+}
 
 # Any first-party jar the server holds that this release does not ship is superseded and has to go.
 # Two jars declaring one mod id is not a duplicate the loader tolerates: it picks one, and which one
@@ -165,8 +176,9 @@ $releaseMods = Join-Path $release '3. modpack\client\mods'
 # Scoped to nbidal18-* on purpose. A server jar that is not ours - spark, the whitelist mod - is
 # server-only by definition and must never be swept up by a rule about what the client pack ships.
 $releaseJarNames = @{}
-foreach ($jar in @(Get-ChildItem -LiteralPath $releaseMods -Filter *.jar -File)) {
-    $releaseJarNames[$jar.Name] = $true
+foreach ($dir in @($releaseMods, $releaseServerMods)) {
+    if (-not (Test-Path -LiteralPath $dir)) { continue }
+    foreach ($jar in @(Get-ChildItem -LiteralPath $dir -Filter *.jar -File)) { $releaseJarNames[$jar.Name] = $true }
 }
 $superseded = @(Get-ChildItem -LiteralPath $modsDir -Filter 'nbidal18-*.jar' -File |
         Where-Object { -not $releaseJarNames.ContainsKey($_.Name) })
@@ -174,11 +186,11 @@ $shared = @()
 $serverOnly = 0
 foreach ($live in @(Get-ChildItem -LiteralPath $modsDir -Filter *.jar -File)) {
     if ($live.Name -like 'nbidal18-integrity-*.jar') { continue }
-    $mirror = Join-Path $releaseMods $live.Name
+    $mirror = Resolve-ReleaseJar $live.Name
     # A superseded first-party jar is also absent from the release, but it is being retired rather
     # than left alone, so counting it as "server-only, untouched" would report the opposite of what
     # is about to happen to it.
-    if (-not (Test-Path -LiteralPath $mirror -PathType Leaf)) {
+    if ($null -eq $mirror) {
         if (-not ($superseded | Where-Object { $_.Name -eq $live.Name })) { $serverOnly++ }
         continue
     }
@@ -200,9 +212,9 @@ $clientOnly = @(Get-ChildItem -LiteralPath $releaseMods -Filter *.jar -File).Cou
 # same file, and the answer to "was it deployed?" would depend on which ran last.
 $added = @()
 foreach ($name in $AddMods) {
-    $source = Join-Path $releaseMods $name
-    if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {
-        throw "-AddMods named $name, which is not in the release's mods folder"
+    $source = Resolve-ReleaseJar $name
+    if ($null -eq $source) {
+        throw "-AddMods named $name, which is in neither the release's client mods nor its 4. server\mods"
     }
     $live = Join-Path $modsDir $name
     if (Test-Path -LiteralPath $live -PathType Leaf) {
@@ -215,7 +227,7 @@ $removedMods = @()
 foreach ($name in $RemoveMods) {
     if ($name -match '[\\/]' -or $name -notlike '*.jar') { throw "-RemoveMods takes a jar file name in mods\, not a path: $name" }
     if ($name -like 'nbidal18-*') { throw "-RemoveMods named $name, a first-party jar - those are retired automatically once the release stops shipping them" }
-    if (Test-Path -LiteralPath (Join-Path $releaseMods $name) -PathType Leaf) {
+    if ($null -ne (Resolve-ReleaseJar $name)) {
         throw "-RemoveMods named $name, which the release still ships - remove it from the release first, or it is a shared jar"
     }
     $live = Join-Path $modsDir $name
