@@ -239,11 +239,20 @@ foreach ($name in $RemoveMods) {
 # copy is overwritten rather than refused. One that already matches is dropped from the plan so the
 # report says what will actually change.
 $releaseConfig = Join-Path $release '3. modpack\client\config'
+# Server-only configs live here, the way 4. server\mods holds server-only jars: a file the client
+# never sees - the mod writes its own on each side - but whose server copy the pack decides. Added for
+# v1.0.74's the-block-keeps-ticking.json (leaf-decay catch-up off; it forced synchronous chunk loads
+# on the main thread at every disconnect). The client copy wins when both exist, so a published
+# config is never shadowed by a server-only one of the same name.
+$releaseServerConfig = Join-Path $release '4. server\config'
 $configFiles = @()
 foreach ($name in $Config) {
     $source = Join-Path $releaseConfig $name
     if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {
-        throw "-Config named $name, which the release does not publish under config\"
+        $source = Join-Path $releaseServerConfig $name
+    }
+    if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {
+        throw "-Config named $name, which is in neither the release's published config\ nor its 4. server\config"
     }
     $live = Join-Path $configDir $name
     if ((Test-Path -LiteralPath $live -PathType Leaf) -and

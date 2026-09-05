@@ -206,11 +206,17 @@ public final class Nbidal18PackwizSync {
             // Every row restated rather than only the changed one. A seed sets rows it names and
             // leaves the rest, so naming only SELECT_BOX would leave an existing instance with the
             // outline on and none of the tuning around it.
+            //
+            // The rows here follow the master file, not history. Every instance that exists has
+            // this token's marker, so the values only ever reach a fresh install - where the master
+            // copy has just been written and any row that disagrees with it makes the seed rewrite
+            // the file, with the platform's line endings, and Test-LocalSync then finds an installed
+            // file whose hash is not the manifest's. v1.0.74 raised the clouds and found out.
             new PlayerFileSeed("shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt", '=',
                     "eclipse-tuning-v1044", List.of(
                             SeedRow.of("BorderFogIntensity", "1.0"),
-                            SeedRow.of("CloudLayer0_height", "350.0"),
-                            SeedRow.of("CloudLayer1_height", "500.0"),
+                            SeedRow.of("CloudLayer0_height", "600.0"),
+                            SeedRow.of("CloudLayer1_height", "1500.0"),
                             SeedRow.of("LPV_COLORED_CANDLES", "true"),
                             SeedRow.of("LPV_SATURATION", "75"),
                             SeedRow.of("MOTION_BLUR", "true"),
@@ -218,6 +224,18 @@ public final class Nbidal18PackwizSync {
                             SeedRow.of("SELECT_BOX", "true"),
                             SeedRow.of("VIGNETTE", "true"),
                             SeedRow.of("VIGNETTE_STRENGTH", "0.7"))),
+            // The owner raised the clouds on 2026-09-05 - "they were too low": the small layer
+            // from 350 to 600, the big layer from 500 to 1500, and the cumulonimbus mode from 0 to
+            // 1, all read from the owner's own settings file. Only these three rows, under a new
+            // token: the v1044 seed has fired on every instance and a seed never fires twice under
+            // one token, and the rest of that tuning is the player's now. Both heights are steps the
+            // shader's own slider offers (lib/settings.glsl), and the big layer stays above the
+            // small one, which the shader's help text says it must.
+            new PlayerFileSeed("shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt", '=',
+                    "eclipse-clouds-v1074", List.of(
+                            SeedRow.of("CloudLayer0_height", "600.0"),
+                            SeedRow.of("CloudLayer1_height", "1500.0"),
+                            SeedRow.of("CUMULONIMBUS", "1"))),
             // Voxy off by default: its far terrain is the single heaviest thing in the pack on a weak
             // machine.
             //

@@ -1,6 +1,7 @@
 BorderFogIntensity=1.0
-CloudLayer0_height=350.0
-CloudLayer1_height=500.0
+CUMULONIMBUS=1
+CloudLayer0_height=600.0
+CloudLayer1_height=1500.0
 LPV_COLORED_CANDLES=true
 LPV_SATURATION=75
 MOTION_BLUR=true

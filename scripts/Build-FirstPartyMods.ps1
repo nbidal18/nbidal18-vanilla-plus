@@ -180,8 +180,12 @@ $jijRoot = Join-Path ([IO.Path]::GetTempPath()) 'nbidal18-jij'
 if (Test-Path -LiteralPath $jijRoot) { Remove-Item -LiteralPath $jijRoot -Recurse -Force }
 New-Item -ItemType Directory -Path $jijRoot | Out-Null
 $nested = 0
+# Fabric Loader nests MixinExtras (com.llamalad7.mixinextras) the same way the mods nest their
+# libraries, and a mixin using @Local needs it at compile time. v1.0.74 was the first to.
+$nestingHosts = @(Get-ChildItem -LiteralPath $releaseMods -Filter *.jar)
+$nestingHosts += @($classpath | Where-Object { (Split-Path $_ -Leaf) -like 'fabric-loader-*.jar' } | ForEach-Object { Get-Item -LiteralPath $_ })
 try {
-    foreach ($jar in Get-ChildItem -LiteralPath $releaseMods -Filter *.jar) {
+    foreach ($jar in $nestingHosts) {
         $archive = [IO.Compression.ZipFile]::OpenRead($jar.FullName)
         try {
             foreach ($entry in $archive.Entries) {

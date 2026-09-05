@@ -224,7 +224,11 @@ try {
         if (-not (Test-Path -LiteralPath $local -PathType Leaf)) { $missing++; continue }
         $expected = if ($normalized.ContainsKey($entry.path)) { $normalized[$entry.path] } else { $entry.sha256 }
         $actual = if ($normalized.ContainsKey($entry.path)) { Get-NormalizedSha $local } else { Get-Sha $local }
-        if ($actual -ne $expected) { $wrong++ }
+        if ($actual -ne $expected) {
+            $wrong++
+            # Name it. A count alone sent v1.0.74's build hunting through 299 files for the one.
+            Write-Host ("mismatch  {0}: manifest {1}, installed {2}" -f $entry.path, $expected.Substring(0, 12), $actual.Substring(0, 12))
+        }
     }
     Assert ($missing -eq 0) "$missing managed files were not installed"
     Assert ($wrong -eq 0) "$wrong installed files do not match the hash the manifest records"

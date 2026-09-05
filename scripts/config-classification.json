@@ -426,6 +426,11 @@
       "reason": "Mod list screen."
     },
     {
+      "match": "config/VinURLConfig.json5",
+      "class": "player",
+      "reason": "VinURL's custom music discs. Published (v1.0.74) so a fresh install starts with youtube.com and soundcloud.com on the URL whitelist instead of asking every player to press Y once per domain, which is what 4.5.2 shipped too. Player class because the mod writes the player's own whitelist additions into this file; player class still delivers it once to instances that already have one, so existing players get the two domains and lose any they added themselves, once. Startup updates stay on: yt-dlp has to chase YouTube. The executables (yt-dlp, ffmpeg, ffprobe, deno - 230 MB) are not shipped; the mod downloads and updates them itself."
+    },
+    {
       "match": "config/mousewheelie.hjson",
       "class": "support",
       "reason": "Inventory scrolling."

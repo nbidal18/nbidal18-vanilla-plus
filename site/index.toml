@@ -5,6 +5,10 @@ file = "config/MouseTweaks.cfg"
 hash = "4069ce1a439d8c37453c1b1e9f2037e0942674c7e48723a39b37eab245792ad4"
 
 [[files]]
+file = "config/VinURLConfig.json5"
+hash = "fd175c77cc37fe5981ab51ae782096710d08fb91a6c3cd97f9f988124ad25216"
+
+[[files]]
 file = "config/almanac-nbtFix.json5"
 hash = "f6d57ad1094c0c35ec20b9a60f86a7bbd7570844c6cf5180d8ffca5d6a9b2eae"
 
@@ -22,7 +26,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "09a32687dad1dc9f120e8b8074ba4d484731d26f08b7806c8adeba30b98444dd"
+hash = "a74c1cbbaaf195b3e16d333251111472a684b77e19ade6f09a5c9993329d254e"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -878,15 +882,15 @@ hash = "b7114f4ee6880b02e85eb547545b5e976efe28d9445445628596cbc0e4abbe18"
 
 [[files]]
 file = "mods/nbidal18-immersiveaircraft-1.4.7+26.2-fabric.jar"
-hash = "22670ea9ee3b724cedd1bb923e282d67b1f6d288f4e09cc542e9a43d0da681f8"
+hash = "85e621b877120b3a38072a73ab42ef8bdac71208383d9b327fbbfc3e240bcabb"
 
 [[files]]
 file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.73+26.2-fabric.jar"
-hash = "0a825991190e86a1cde9ea48bc98edb24815e4f1a46f3a85682c283b501649c8"
+file = "mods/nbidal18-integrity-1.0.74+26.2-fabric.jar"
+hash = "f05062375dcfd3d938ece7053ff307701450370d57f0750168a5fd1bbe3168c4"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -897,8 +901,8 @@ file = "mods/nbidal18-iris-1.0.0+26.2-fabric.jar"
 hash = "1abaa2254d53852f50f4e1bc50d26f3df5a8266c0da1eb5388be0bbd7d109c81"
 
 [[files]]
-file = "mods/nbidal18-mousewheelie-1.0.0+26.2-fabric.jar"
-hash = "a299326c4077e6e50a2cd84b8edef0bef6aee2dc7db1ab0b2c00c4cb3537fa24"
+file = "mods/nbidal18-mousewheelie-1.0.1+26.2-fabric.jar"
+hash = "8c2f86174608eba5a1120e6c882ee8ae056d9e22dc2e1425fdbe69325af7e9e2"
 
 [[files]]
 file = "mods/nbidal18-reliablegliders-1.1.0+26.2-fabric.jar"
@@ -1102,7 +1106,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "5cc939808f1bc36f7a1a832ac225cdaa9450f49464f791532e766ec06af915e3"
+hash = "8fc4d6f2206aa752840f0185235437f4d70133d68013b3fffff6f053a75008fd"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -1186,7 +1190,7 @@ hash = "180ba7d2ed4f3d1935be1c2ac3f69bdcc42e7ac0b6f919b4b53d48ac1752c18d"
 
 [[files]]
 file = "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt"
-hash = "1ec285686eccedf6c76da0f4384ab2c4e1d57d75f6dd1cda173a253c17b3329e"
+hash = "11b85cadb6a2cb96eddf92748b9a3fc41295ba4d96dfcb8f32b30fc24447901a"
 
 [[files]]
 file = "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip"

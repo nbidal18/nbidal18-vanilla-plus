@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.73",
+    "packVersion":  "1.0.74",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -16,6 +16,7 @@
                                 "config/fzzy_config/keybinds.toml",
                                 "config/immersive_aircraft.json",
                                 "config/iris.properties",
+                                "config/VinURLConfig.json5",
                                 "config/nbidal18-vanillarefresh.json",
                                 "config/sodium-fingerprint.json",
                                 "config/sodium-options.json",
@@ -132,6 +133,7 @@
                          "config/fzzy_config/keybinds.toml",
                          "config/immersive_aircraft.json",
                          "config/iris.properties",
+                         "config/VinURLConfig.json5",
                          "config/nbidal18-vanillarefresh.json",
                          "config/sodium-fingerprint.json",
                          "config/sodium-options.json",
@@ -325,6 +327,10 @@
                                     "sha256":  "4069ce1a439d8c37453c1b1e9f2037e0942674c7e48723a39b37eab245792ad4"
                                 },
                                 {
+                                    "path":  "config/VinURLConfig.json5",
+                                    "sha256":  "fd175c77cc37fe5981ab51ae782096710d08fb91a6c3cd97f9f988124ad25216"
+                                },
+                                {
                                     "path":  "config/almanac-nbtFix.json5",
                                     "sha256":  "f6d57ad1094c0c35ec20b9a60f86a7bbd7570844c6cf5180d8ffca5d6a9b2eae"
                                 },
@@ -342,7 +348,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "09a32687dad1dc9f120e8b8074ba4d484731d26f08b7806c8adeba30b98444dd"
+                                    "sha256":  "a74c1cbbaaf195b3e16d333251111472a684b77e19ade6f09a5c9993329d254e"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -831,6 +837,10 @@
                       "sha256":  "4069ce1a439d8c37453c1b1e9f2037e0942674c7e48723a39b37eab245792ad4"
                   },
                   {
+                      "path":  "config/VinURLConfig.json5",
+                      "sha256":  "fd175c77cc37fe5981ab51ae782096710d08fb91a6c3cd97f9f988124ad25216"
+                  },
+                  {
                       "path":  "config/almanac-nbtFix.json5",
                       "sha256":  "f6d57ad1094c0c35ec20b9a60f86a7bbd7570844c6cf5180d8ffca5d6a9b2eae"
                   },
@@ -848,7 +858,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "09a32687dad1dc9f120e8b8074ba4d484731d26f08b7806c8adeba30b98444dd"
+                      "sha256":  "a74c1cbbaaf195b3e16d333251111472a684b77e19ade6f09a5c9993329d254e"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1704,15 +1714,15 @@
                   },
                   {
                       "path":  "mods/nbidal18-immersiveaircraft-1.4.7+26.2-fabric.jar",
-                      "sha256":  "22670ea9ee3b724cedd1bb923e282d67b1f6d288f4e09cc542e9a43d0da681f8"
+                      "sha256":  "85e621b877120b3a38072a73ab42ef8bdac71208383d9b327fbbfc3e240bcabb"
                   },
                   {
                       "path":  "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar",
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.73+26.2-fabric.jar",
-                      "sha256":  "0a825991190e86a1cde9ea48bc98edb24815e4f1a46f3a85682c283b501649c8"
+                      "path":  "mods/nbidal18-integrity-1.0.74+26.2-fabric.jar",
+                      "sha256":  "f05062375dcfd3d938ece7053ff307701450370d57f0750168a5fd1bbe3168c4"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1723,8 +1733,8 @@
                       "sha256":  "1abaa2254d53852f50f4e1bc50d26f3df5a8266c0da1eb5388be0bbd7d109c81"
                   },
                   {
-                      "path":  "mods/nbidal18-mousewheelie-1.0.0+26.2-fabric.jar",
-                      "sha256":  "a299326c4077e6e50a2cd84b8edef0bef6aee2dc7db1ab0b2c00c4cb3537fa24"
+                      "path":  "mods/nbidal18-mousewheelie-1.0.1+26.2-fabric.jar",
+                      "sha256":  "8c2f86174608eba5a1120e6c882ee8ae056d9e22dc2e1425fdbe69325af7e9e2"
                   },
                   {
                       "path":  "mods/nbidal18-reliablegliders-1.1.0+26.2-fabric.jar",
@@ -1928,7 +1938,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "5cc939808f1bc36f7a1a832ac225cdaa9450f49464f791532e766ec06af915e3"
+                      "sha256":  "8fc4d6f2206aa752840f0185235437f4d70133d68013b3fffff6f053a75008fd"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",
@@ -2012,7 +2022,7 @@
                   },
                   {
                       "path":  "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",
-                      "sha256":  "1ec285686eccedf6c76da0f4384ab2c4e1d57d75f6dd1cda173a253c17b3329e"
+                      "sha256":  "11b85cadb6a2cb96eddf92748b9a3fc41295ba4d96dfcb8f32b30fc24447901a"
                   },
                   {
                       "path":  "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip",

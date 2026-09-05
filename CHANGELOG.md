@@ -5,6 +5,91 @@ build that was not published.
 
 ---
 
+## v1.0.74
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-05 | see below | `f5c8fc332097` | `62bf04018c42` | 300 | 148 |
+
+**Sorting no longer leaves a stack in the cursor; leaving an aircraft lands you beside it; shift +
+right-click on an occupied plane puts its passengers off before it repairs anything; the clouds fly
+higher; the server no longer stalls when someone leaves; YouTube discs need no whitelisting.** Click
+**Play**. Nothing to clear.
+
+### The stack in the cursor, for real this time
+
+v1.0.73 said a sort was one packet now. The reorder is; the pass before it never was. Reported by the
+owner twice the same day, with screenshots: one empty slot in the sorted chest, the stack that
+belongs there held in the hand. Read in Mouse Wheelie's `InventorySorter.combineStacks`, upstream
+1.16.3 and its June 2026 head alike: before reordering, the sort tops partial stacks up into each
+other through the cursor with plain clicks, on both sort paths. It picks a partial stack up, drops it
+onto matching stacks, and if a remainder is left it queues a click to put it back - held to be sent as
+the prefix of the *next* partial stack's clicks. For the last partial stack there is no next, the loop
+ends, and that click is dropped. The remainder stays in the cursor; the sort's model believes it went
+home, so the slot comes out empty. It only bites when the last partial stack merged has a leftover,
+which is why it was "sometimes".
+
+`nbidal18-mousewheelie` 1.0.1 adds a second mixin that flushes the pending click when the pass
+returns. The add-on now also loads the sorter at startup and refuses to start if the mixin did not
+apply, so the client launch test proves it rather than a player's first sort. The server half from
+v1.0.73 stays as it is; it was loaded and working.
+
+### Shift + right-click on a plane
+
+Owner's ask: shift + right-click should first make everyone aboard leave the plane, and only repair
+it when it is empty. Upstream had no way to get a passenger out from outside. The fork (`nbidal18.3`)
+puts one check ahead of the repair in `VehicleEntity.interact`: shift + right-click from outside an
+occupied aircraft ejects its passengers on the server and stops there. An empty damaged plane repairs
+as before; a plain right-click boards at any health (v1.0.73). Server-side logic, so the server's copy
+is refreshed in the same deploy.
+
+### Leaving an aircraft
+
+Reported by the owner: getting off the airship puts you on top of it, or sometimes in the air so you
+fall. Read in the fork: upstream tested one landing spot - beside the right side of the hull, at the
+hull's height and one block under - built with integer casts that pick the wrong block column at
+negative coordinates, and fell back to vanilla's default for everything else, which is the top of the
+bounding box. The fork now searches around the aircraft: the usual side then the other three, from
+just outside the hull to two blocks further out, a one-block step up to a two-block drop, water not
+counted as a floor, first spot your body fits wins. On top only when nothing around the aircraft is
+solid.
+
+### Higher clouds
+
+The owner raised the Eclipse shader's clouds - "they were too low": the small layer from 350 to 600, the
+big layer from 500 to 1500, and the cumulonimbus mode from 0 to 1, read from the owner's own settings
+file. Shader settings are the player's after first install, so seed `eclipse-clouds-v1074` sets those
+three rows on every instance and leaves the rest of the file alone; the master copy carries them for
+fresh installs.
+
+### The two-second stall when a player leaves
+
+Two spark profiles of the main thread, decoded offline, put a name on every "Can't keep up" the server
+has logged: a boot, the first join after it, or a player leaving. The leaving one is The Block Keeps
+Ticking's leaf-decay catch-up reading neighbours in chunks that are no longer loaded and loading them
+synchronously, 2.6 seconds in the minute of the owner's drop. Its server config now has leaves off,
+the least valuable thing it simulates and the only one that blocks. Server-only configs get a home,
+`4. server\config`, the way server-only jars got one in v1.0.73, and `-Config` reads it. The first-join
+stall is Voxy World Gen loading its cache on the main thread; that one waits for the Voxy cleanup.
+
+### VinURL
+
+The owner asked whether YouTube links work in the custom discs. They do - the mod fetches yt-dlp, ffmpeg,
+ffprobe and deno itself and keeps yt-dlp updated - but every player was asked to press Y to whitelist
+each domain, because the pack shipped no VinURL config at all. 4.5.2 shipped one with YouTube and
+SoundCloud already allowed; so does this release, as a player-owned file. It is delivered once to
+existing instances too, so a whitelist a player built by hand is replaced by those two domains, once.
+
+### Tested before publishing
+
+Updater sync (300 files, 109 player-class), client launch (147 mods, sorter mixin proven applied at
+startup) and dedicated-server boot with the new aircraft jar pass; the Block Keeps Ticking change is a
+boolean in a JSON the mod reads at start and was not boot-tested separately. **What it needs from you:** sort a chest full of partial stacks a
+few times; get off the airship on flat ground, on a slope and over water; shift + right-click a plane
+with someone in it.
+
+---
+
 ## v1.0.73
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
