@@ -247,8 +247,14 @@ $releaseConfig = Join-Path $release '3. modpack\client\config'
 $releaseServerConfig = Join-Path $release '4. server\config'
 $configFiles = @()
 foreach ($name in $Config) {
+    # 'server:' prefix: take the 4. server\config copy even though a published client copy of the
+    # same name exists. For a file that is player-class on the client - never re-delivered, never
+    # enforced - but whose server copy is what the game actually reads (v1.0.75: Vanilla Refresh's
+    # soul, off on the server, seeded off on clients).
+    $serverOnly = $name.StartsWith('server:')
+    if ($serverOnly) { $name = $name.Substring(7) }
     $source = Join-Path $releaseConfig $name
-    if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {
+    if ($serverOnly -or -not (Test-Path -LiteralPath $source -PathType Leaf)) {
         $source = Join-Path $releaseServerConfig $name
     }
     if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {

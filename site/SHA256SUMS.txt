@@ -2,7 +2,7 @@ f6d57ad1094c0c35ec20b9a60f86a7bbd7570844c6cf5180d8ffca5d6a9b2eae  config/almanac
 55779c27c60b8b920acbc19f63987064beb9fd8887d79e8fa7bac80c5be77137  config/asyncparticles/asyncparticles.json
 7ef39a4ae264fb6dee30ebf6ebf7b31242dd56e5824b8e7018e4f513b3d991bc  config/asyncparticles/asyncparticles-mixin.properties
 7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3  config/autohud.json5
-a74c1cbbaaf195b3e16d333251111472a684b77e19ade6f09a5c9993329d254e  config/bcc-common.toml
+1edbb8d5d943c26786f5875c068b8c5616f110fd9bf1ef4bd597d32e731a5f08  config/bcc-common.toml
 e8ffbb1ac12403a3527d4a8e49eec78e4e2703a46406c403f13d37555ef87bed  config/better_fishing.properties
 c81c89e9534c83ecef3206b6c7d311c7695a396c23080b15abeedeabbd7064d5  config/betteradvancements.json
 730b13a15e01a03825fc40477758799ed8801c783d9cf829867c43c1b08f7ad9  config/betterdays-client.toml
@@ -32,6 +32,7 @@ cb9d4d481a63cddaf7e90a3e3f8c5bb134cd0be8f1401b1f808c55bf0ab4572f  config/falling
 26ac5810c9b5dc5c1968827357f0a58c58ac2b6f7b082630960228e16585062f  config/fzzy_config/keybinds.toml
 103317c4c1c5ae1421946c921428cbfbd9b2a17ee37115d9778d0b22e3b64e19  config/fzzy_config/search.toml
 5670885d277274a734abdd065cd55f9c43a770b473353a420686d450b6259ef4  config/gnetum.json
+de6cfe61115b625004dba1c0f2a422e85e714625be162568e8e3a3950382ddb9  config/gravestones.json
 351554b5d847acfb0dcdd05a93b5b93f27035178bcbde4d5193b4dc5a5a2f11b  config/immediatelyfast.json
 18601c3312d9bd3371e9fb29b3e47e5578c1977cb27b661d5fe00b7a545aa32f  config/immersive_aircraft.json
 7b98a6bf611bd12ca97ffb221856a06c3786a6b97a0344823e685cad968c8e26  config/invmove.json
@@ -125,7 +126,7 @@ c63f1c6695fde5530e0f1d6794e36e739f6dca96094e354914f15288b01e9f92  config/wover/c
 aaa7e59dcb1d159a9cb921079d0f5409d2465c58ddb3c8a78d349897f944b943  config/xaero/world-map/profiles/default.cfg
 121b93764159be6fb7dab523b29a844e2bb78400ce8c48f52135a097e9b0006e  config/yacl.json5
 869457ea7a5f78803c7003b694cba54a95c9176b3632f327f7a74a99a62ea454  config/zfastnoise.mixin.toml
-ef5b36bddeba093b5a8e1cb93480e7290df8d9d9f3bc3dd6eb1c1eafb86698e3  index.toml
+8fdc13ec277432aaa0ceef1e28d2642fa1a3db3683b2fd606986b3717c6b00aa  index.toml
 f729f017976e1c9f8fbc50358b980bd8b8a522a09829bda2a5e2fd3d60fcfaa0  mods/AccurateBlockPlacement-Reborn-1.4.6+mc-26.1-26.2.jar
 2b137af4fd25c1cdd1d9d6513679bd315eb8d01e087d7b8ac2e6f121340824a6  mods/afk-cinematics-1.0.5+26.2.jar
 32ee09cf26d435946370579a1fcc0db758e4eee62346c1d77f0f741daf0d800a  mods/almanac-fabric-26.2-1.26.7.3.jar
@@ -172,6 +173,7 @@ db941c6c53a0353d8b7d07f1755315d8fe39d08a75cbd3b1516b258c130d0177  mods/fallingle
 1b4b17fc4150481447201152604688c74726d6631c9a626dd21f2c5e2b3df1ac  mods/ForgeConfigAPIPort-v26.2.1-mc26.2.x-Fabric.jar
 bbd4bbab6f381e123db5031ed051a9ad2d1a5ad4fb6ccf64d983ba416745e551  mods/fzzy_config-0.7.6+26.2.jar
 954a20ceb6fd0cc7d9acac4940f5e44869869bd72ef6139cfe1a51ca23c2700c  mods/Gnetum-4.5.4+26.2-fabric.jar
+b0951d36fd93d13f337027063f7ba123db5bbe15e310ef0863656e615e8727cd  mods/gravestones-1.4.2+26.2+A.jar
 251cb8643cb572c1848262792c0b3edbdcb8427288f7fbf0a786ddd3ef91ccb1  mods/hideexperimentalwarning-26.2.0-1.2.jar
 5eafbc57d60b0d4439f1c365348b7b02f516f4e9df22199da817bd50ca55fa01  mods/imfast-FABRIC-26.2-1.0.3.jar
 c5ed022ebce7f46606cbd20a0a725787627f5ce486da5a602c9cda496f1aeb69  mods/ImmediatelyFast-Fabric-1.16.4+26.2.jar
@@ -204,12 +206,14 @@ e491619f6a34bc5ea1c4ed40ef8e6c590667fc5ef0a9088390c356bb79da098d  mods/nbidal18-
 101a59b5a662c920a8ea05c2396e82f546be87f2cc7d698822eccd4821ad8a85  mods/nbidal18-cameraoverhaul-2.1.1-fabric+mc.26.1-plus.jar
 b7114f4ee6880b02e85eb547545b5e976efe28d9445445628596cbc0e4abbe18  mods/nbidal18-carryon-1.1.0+26.2-fabric.jar
 85e621b877120b3a38072a73ab42ef8bdac71208383d9b327fbbfc3e240bcabb  mods/nbidal18-immersiveaircraft-1.4.7+26.2-fabric.jar
+8ab55c6f085c5272249f8ffa921a1698e54e1dc9ab7184a8df3eb60abdaaabaa  mods/nbidal18-immersivepaintings-1.0.0+26.2-fabric.jar
 819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b  mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar
-f05062375dcfd3d938ece7053ff307701450370d57f0750168a5fd1bbe3168c4  mods/nbidal18-integrity-1.0.74+26.2-fabric.jar
+7dc47b51a3e5f735d530a341e68f62a2ba4284ac3ef407091e52e1d610a3229b  mods/nbidal18-integrity-1.0.75+26.2-fabric.jar
 ddb25fdd66ee853231d0246eb6d703d6aa7a184a78398f0db52c65eb6fdec7a0  mods/nbidal18-invmov-1.0.1+26.2-fabric.jar
 1abaa2254d53852f50f4e1bc50d26f3df5a8266c0da1eb5388be0bbd7d109c81  mods/nbidal18-iris-1.0.0+26.2-fabric.jar
 84b7cfd23caa5c4c978f1e0a2cd464a59b6b7d17d2cfaa6ce0e9c887c03e2e26  mods/nbidal18-JEI-30.28.0.191+26.2-fabric.jar
 8c2f86174608eba5a1120e6c882ee8ae056d9e22dc2e1425fdbe69325af7e9e2  mods/nbidal18-mousewheelie-1.0.1+26.2-fabric.jar
+d2db12699fd76389473394c85ff418ca1ebfdb315a7eae77f01cedd16924aaa8  mods/nbidal18-realisticdeathvisuals-1.0.2+26.2-fabric.jar
 a77c43e48cddb88030720bbe57dc10d220edbfa023398af3ee1126e1d269c876  mods/nbidal18-reliablegliders-1.1.0+26.2-fabric.jar
 7d7410a91a3b9a1299f3d61b9234c0e2aaeec083d94f9d31288f5da264ccc4d0  mods/nbidal18-saferejoin-1.0.0+26.2-fabric.jar
 7336d8dace6b4b0700c2da59cdb562a11776bcdcb6a8380dbe1f9c98a8d68c17  mods/nbidal18-skinoverrides-1.0.0+26.2-fabric.jar
@@ -218,7 +222,7 @@ c5f04e5de20c181a83101645e24f2f73e71e42270cf688a3cd5312d24e0c63b0  mods/nbidal18-
 ad7773d915ff1f44aebd38a2167bb4730fde70cbf1f766892f3dbab7d7ec5152  mods/nbidal18-tectonic-1.0.0+26.2-fabric.jar
 e14e6a95269a74c5f3e930ea3371c49a8875b453a641b39882d5b7631dc87b19  mods/nbidal18-treechop-0.19.3+26.2-nbidal18.1-fabric.jar
 581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17  mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar
-1e470c9c0047f3776a7993b7e2694a6ec8854d838f2826667f157a3fc5acefd9  mods/nbidal18-voxyworldgen-3.4.0+26.2-fabric.jar
+bc96f3c63235e3e4f97a9132ba554cfa226668a9311712c7450547663a122f8a  mods/nbidal18-voxyworldgen-3.4.1+26.2-fabric.jar
 e82f26bf0f705dd2c3a3ab53a633812ae7ac60cc07c46171e2496a9a3a07e1a6  mods/nbidal18-xaerominimap-1.0.0+26.2-fabric.jar
 9ebbd685b4fecba0ed0800440068a79f823c3436bffecea0a604aee0baab946a  mods/nbidal18-xaeroworldmap-1.0.0+26.2-fabric.jar
 8533f2a27ce9cfed184859f4fa33c48a29fd91830a5a2d922a8a6e34be7770f3  mods/notenoughanimations-fabric-1.12.4-mc26.2.jar
@@ -226,6 +230,7 @@ e82f26bf0f705dd2c3a3ab53a633812ae7ac60cc07c46171e2496a9a3a07e1a6  mods/nbidal18-
 c774b8049b5477e6100514db64bd6de70201d1e3d05e7eb5fd9cfce723a1801d  mods/owo-lib-0.13.1+26.2.jar
 c2ca2b5c397a0c198a32e7af68d2d0a011bc2c7baeae5cffd3996efd65c5069e  mods/placeholder-api-3.1.0-beta.1+26.2.jar
 97af3288dd39643bf3607bf9ff5c3293022793559236586a6783fe71dd66e6bd  mods/PlayerAnimationLibMerged-1.2.6+mc.26.2.jar
+8740f3698563f35ade639a3e98eda22537e259f339abb629803b358d30e55ccd  mods/pneumonocore-1.3.1+26.2+A.jar
 f1f7e37ffc5a56cf7cc9833d8c6b48680340554d72498160df021c6fc354af13  mods/PresenceFootsteps-1.13.3+26.2.jar
 adb871854e5596a6d10593b13634622801b202b18d0eae694ff3a5a50951dc85  mods/PrickleMC-fabric-MC26.2-26.2.0.3.jar
 ed63e4531048e66e5651b369805e764860fe91081b340409c7ae476df55df20f  mods/punchy-2.7d-fabric-26.2.jar
@@ -274,10 +279,10 @@ e042ec2011d1613eaf9e7fc3e27179f31b1a1be704b4271d035589a69914b8a1  mods/worldweav
 92f9719121e0e7dd0c286720f987af2ef82ece8786c55ca70f40a6cf02076267  mods/xaeroworldmap-fabric-26.2-1.45.0.jar
 829396c3b3e7d1801ae0e9e2921d0454c5a3078afdb6c6dda6b3d1819dfa0e3f  mods/yet_another_config_lib_v3-3.9.6+26.2-fabric.jar
 cdbed999df58da95c39a1e0c10811f7bc8c9aadc5696a1efda1624bd30104046  mods/zfastnoise-1.0.40+26.2.jar
-7eff1193f558c04da1fc6050b1e07d184d6b577207b2f857c12b6fc22535efe1  nbidal18-client.zip
+cdfcf0f0988f96f6422935b2890ea74a60b3e7c37b1ceb74ad3fb71840359d30  nbidal18-client.zip
 9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa  nbidal18-packwiz-sync.next.jar
-8fc4d6f2206aa752840f0185235437f4d70133d68013b3fffff6f053a75008fd  nbidal18-packwiz-updater.next.jar
-c8d712b20b57de727b2c565e8ece22005aae7fe40b877cd43be94162877333fb  pack.toml
+7b62fd74d73ed485274369260afd0e82f6ded8a5d1427f545b6132c3bdf03eee  nbidal18-packwiz-updater.next.jar
+e2a3773a2da1793ce72b0bc069536f3325f0bfc4cfc43c9a948ab0488db2bcde  pack.toml
 c9f646908d340d84773948a9a7d98bc1dae250d35e1016dc6e2b8459760b5598  packwiz-installer.next.jar
 a8fbb24dc604278e97f4688e82d3d91a318b98efc08d5dbfcbcbcab6443d116c  packwiz-installer-bootstrap.next.jar
 48f695f86304c1b76a23905b266c7eb50c5273c47c041b2c128e0001390ab441  prism/mmc-pack.json
@@ -301,4 +306,4 @@ eb756f80d1a460c5cad6eceae89a4dff6d5b0b1a4b0493f4dcb1433cfd5d5dc3  shaderpacks/nb
 21694795b410bef9b5b34c10af835d33d19cdbef05cb264996057e9aa665f6fb  shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt
 180ba7d2ed4f3d1935be1c2ac3f69bdcc42e7ac0b6f919b4b53d48ac1752c18d  shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip
 11b85cadb6a2cb96eddf92748b9a3fc41295ba4d96dfcb8f32b30fc24447901a  shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt
-f5c8fc3320974c552c2fc831495cc5360dda086c8ba9dc0299a9c13f300bfe31  sync-manifest.json
+021c7bd1b75a205be4600fb0039e88927cf28d8d1e611176e5e0aa6fdc5a3e46  sync-manifest.json

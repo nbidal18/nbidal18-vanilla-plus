@@ -217,6 +217,20 @@ try {
     $localAllowed = @{}
     foreach ($path in $manifest.localAllowed) { $localAllowed[$path] = $true }
 
+    # A player-class file that a declared seed changed on this fresh install legitimately differs
+    # from the published copy: the master must not carry the seeded value (changing it would
+    # re-deliver the file over every player's own copy - v1.0.74's shader settings), so the seed
+    # is the only place the value lives. The updater records which file each seed edited in its
+    # marker; those paths are allowed to differ, and only those.
+    $seeded = @{}
+    $stateRoot = Join-Path $minecraft '.nbidal18-packwiz'
+    if (Test-Path -LiteralPath $stateRoot) {
+        foreach ($marker in Get-ChildItem -LiteralPath $stateRoot -Filter 'applied-*' -File) {
+            $lines = @([IO.File]::ReadAllLines($marker.FullName))
+            if ($lines.Count -ge 3 -and $lines[2] -eq 'changed') { $seeded[$lines[1]] = $lines[0] }
+        }
+    }
+
     # installs
     $missing = 0; $wrong = 0
     foreach ($entry in $manifest.files) {
@@ -224,6 +238,10 @@ try {
         if (-not (Test-Path -LiteralPath $local -PathType Leaf)) { $missing++; continue }
         $expected = if ($normalized.ContainsKey($entry.path)) { $normalized[$entry.path] } else { $entry.sha256 }
         $actual = if ($normalized.ContainsKey($entry.path)) { Get-NormalizedSha $local } else { Get-Sha $local }
+        if ($actual -ne $expected -and $localAllowed.ContainsKey($entry.path) -and $seeded.ContainsKey($entry.path)) {
+            Write-Host ("seeded    {0} differs from the published copy by design (seed {1})" -f $entry.path, $seeded[$entry.path])
+            continue
+        }
         if ($actual -ne $expected) {
             $wrong++
             # Name it. A count alone sent v1.0.74's build hunting through 299 files for the one.

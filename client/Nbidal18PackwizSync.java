@@ -231,6 +231,14 @@ public final class Nbidal18PackwizSync {
             // one token, and the rest of that tuning is the player's now. Both heights are steps the
             // shader's own slider offers (lib/settings.glsl), and the big layer stays above the
             // small one, which the shader's help text says it must.
+            // Vanilla Refresh's soul - the marker it leaves at the death spot holding 80 % of the XP
+            // and, under keepInventory, the hotbar - is off from v1.0.75: the owner wants nothing but
+            // the grave touching a death. The server's own copy is what the game reads (deployed
+            // with -Config server:...); this keeps the client's Mod Menu screen honest and covers
+            // singleplayer. One nested row; the file is JSON, so it is edited in place, never
+            // created, and the player's other choices stay theirs.
+            new PlayerFileSeed("config/nbidal18-vanillarefresh.json", ':', "vanillarefresh-soul-v1075", List.of(
+                    new SeedRow(List.of("settings"), "soul", "0"))),
             new PlayerFileSeed("shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt", '=',
                     "eclipse-clouds-v1074", List.of(
                             SeedRow.of("CloudLayer0_height", "600.0"),
@@ -1118,7 +1126,7 @@ public final class Nbidal18PackwizSync {
             // Still mark it: the rows already say what we wanted, and leaving the marker off would
             // re-check them on every launch forever.
             Files.createDirectories(stateRoot);
-            Files.writeString(marker, seed.token() + System.lineSeparator(), StandardCharsets.UTF_8);
+            writeSeedMarker(marker, seed, false);
             return false;
         }
 
@@ -1139,8 +1147,22 @@ public final class Nbidal18PackwizSync {
         }
 
         Files.createDirectories(stateRoot);
-        Files.writeString(marker, seed.token() + System.lineSeparator(), StandardCharsets.UTF_8);
+        writeSeedMarker(marker, seed, true);
         return true;
+    }
+
+    /**
+     * The marker records the token, the file the seed named and whether it actually changed it.
+     * Test-LocalSync reads the last two: a player-class file that a seed changed on a fresh install
+     * is allowed to differ from the published copy, because the published copy must not carry the
+     * seeded value (changing it would re-deliver the file over every player's own edits), so the
+     * seed is the only place that value lives. Older markers held the token alone; the reader
+     * treats a marker without a third line as "unchanged".
+     */
+    private static void writeSeedMarker(Path marker, PlayerFileSeed seed, boolean changed) throws IOException {
+        Files.writeString(marker, seed.token() + System.lineSeparator()
+                + seed.relativePath() + System.lineSeparator()
+                + (changed ? "changed" : "unchanged") + System.lineSeparator(), StandardCharsets.UTF_8);
     }
 
     /**

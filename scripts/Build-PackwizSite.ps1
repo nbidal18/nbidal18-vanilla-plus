@@ -11,7 +11,13 @@
 #>
 [CmdletBinding()]
 param(
-    [switch] $SkipInstallerJars
+    [switch] $SkipInstallerJars,
+    # A player-class file whose published bytes may change this release. Changing them re-delivers
+    # the file to every instance - packwiz downloads whatever hash moved, and "preserved" only holds
+    # while the published copy stands still - which wipes the player's own edits. v1.0.74 did that
+    # to every player's Eclipse shader settings by editing the master to carry the new cloud heights
+    # the seed already carried. So the build refuses unless the path is named here on purpose.
+    [string[]] $RedeliverPlayerFile = @()
 )
 
 $ErrorActionPreference = 'Stop'
@@ -207,6 +213,38 @@ foreach ($entry in $entriesList) {
     if ($entry -like 'config/*') {
         $normalizedTextFiles.Add([ordered]@{ path = $entry; sha256 = Get-NormalizedTextSha256 $full })
     }
+}
+
+# ---------------------------------------------------------------- player files must stand still
+#
+# The last published manifest is the committed one - one publish per commit - so it is read from
+# git rather than from site\, which this script has already wiped. A preserved file whose bytes
+# moved is about to be re-delivered on top of every player's copy; the only legitimate way to
+# change one of these on existing instances is a seed, which writes the rows it names and nothing
+# else. A file that is new to the pack is delivered once by design and is not a change.
+$repo = Split-Path -Parent $PSScriptRoot
+$previousJson = & git -C $repo show HEAD:site/sync-manifest.json 2>$null
+if ($LASTEXITCODE -eq 0 -and $previousJson) {
+    $previous = @{}
+    foreach ($entry in (($previousJson -join "`n") | ConvertFrom-Json).files) { $previous[$entry.path] = $entry.sha256 }
+    $preservedLookup = @{}
+    foreach ($p in $preserved) { $preservedLookup[$p] = $true }
+    $redelivered = @()
+    foreach ($entry in $manifestFiles) {
+        if (-not $preservedLookup.ContainsKey($entry.path)) { continue }
+        if (-not $previous.ContainsKey($entry.path)) { continue }
+        if ($previous[$entry.path] -ne $entry.sha256 -and $RedeliverPlayerFile -notcontains $entry.path) {
+            $redelivered += $entry.path
+        }
+    }
+    if ($redelivered.Count) {
+        throw ("These player-class files changed since the last publish and would be re-delivered over every " +
+            "player's own copy: " + ($redelivered -join ', ') + ". Restore the master, and seed the rows that " +
+            "must change; or, if replacing every player's file is the intent, pass -RedeliverPlayerFile for each.")
+    }
+}
+else {
+    Write-Host 'preserve  no committed manifest to compare against; player-file re-delivery not checked'
 }
 
 $manifest = [ordered]@{

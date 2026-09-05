@@ -12,7 +12,11 @@
     "             restores the published copy, so content stays deterministic without ever",
     "             producing a lockout.",
     "  player   - genuinely player-owned or machine-specific. Published once, preserved forever,",
-    "             never checked. Adding one here means we can no longer update that file.",
+    "             never checked. Adding one here means we can no longer update that file:",
+    "             its master must never change after first publish, because packwiz re-downloads",
+    "             any file whose hash moved and that replaces every player's own copy (v1.0.74 did",
+    "             it to the Eclipse shader settings). Change rows on existing instances with a seed",
+    "             in Nbidal18PackwizSync; the build refuses a changed player file otherwise.",
     "",
     "Longest matching prefix wins. A rule ending in / matches a directory subtree.",
     "Files outside config/ are enforced unless listed explicitly.",
@@ -424,6 +428,11 @@
       "match": "config/modmenu.json",
       "class": "support",
       "reason": "Mod list screen."
+    },
+    {
+      "match": "config/gravestones.json",
+      "class": "support",
+      "reason": "Pneumono's Gravestones (v1.0.75), configured as in 4.5.2: graves decay with deaths and with time (576,000 ticks), no experience stored, no skeletons, no graves in creative or under keepInventory, no chat broadcasts. Support rather than gameplay because the server's copy is the one the mod reads and syncs to clients (PneumonoCore ConfigSyncS2CPayload); the client copy decides nothing on this server, and the mod rewrites its file in its own layout, so enforcing it by hash would only risk a lockout. The server gets the same file through -Config."
     },
     {
       "match": "config/VinURLConfig.json5",

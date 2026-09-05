@@ -26,7 +26,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "a74c1cbbaaf195b3e16d333251111472a684b77e19ade6f09a5c9993329d254e"
+hash = "1edbb8d5d943c26786f5875c068b8c5616f110fd9bf1ef4bd597d32e731a5f08"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -143,6 +143,10 @@ hash = "103317c4c1c5ae1421946c921428cbfbd9b2a17ee37115d9778d0b22e3b64e19"
 [[files]]
 file = "config/gnetum.json"
 hash = "5670885d277274a734abdd065cd55f9c43a770b473353a420686d450b6259ef4"
+
+[[files]]
+file = "config/gravestones.json"
+hash = "de6cfe61115b625004dba1c0f2a422e85e714625be162568e8e3a3950382ddb9"
 
 [[files]]
 file = "config/immediatelyfast.json"
@@ -785,6 +789,10 @@ file = "mods/fzzy_config-0.7.6+26.2.jar"
 hash = "bbd4bbab6f381e123db5031ed051a9ad2d1a5ad4fb6ccf64d983ba416745e551"
 
 [[files]]
+file = "mods/gravestones-1.4.2+26.2+A.jar"
+hash = "b0951d36fd93d13f337027063f7ba123db5bbe15e310ef0863656e615e8727cd"
+
+[[files]]
 file = "mods/hideexperimentalwarning-26.2.0-1.2.jar"
 hash = "251cb8643cb572c1848262792c0b3edbdcb8427288f7fbf0a786ddd3ef91ccb1"
 
@@ -885,12 +893,16 @@ file = "mods/nbidal18-immersiveaircraft-1.4.7+26.2-fabric.jar"
 hash = "85e621b877120b3a38072a73ab42ef8bdac71208383d9b327fbbfc3e240bcabb"
 
 [[files]]
+file = "mods/nbidal18-immersivepaintings-1.0.0+26.2-fabric.jar"
+hash = "8ab55c6f085c5272249f8ffa921a1698e54e1dc9ab7184a8df3eb60abdaaabaa"
+
+[[files]]
 file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.74+26.2-fabric.jar"
-hash = "f05062375dcfd3d938ece7053ff307701450370d57f0750168a5fd1bbe3168c4"
+file = "mods/nbidal18-integrity-1.0.75+26.2-fabric.jar"
+hash = "7dc47b51a3e5f735d530a341e68f62a2ba4284ac3ef407091e52e1d610a3229b"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -903,6 +915,10 @@ hash = "1abaa2254d53852f50f4e1bc50d26f3df5a8266c0da1eb5388be0bbd7d109c81"
 [[files]]
 file = "mods/nbidal18-mousewheelie-1.0.1+26.2-fabric.jar"
 hash = "8c2f86174608eba5a1120e6c882ee8ae056d9e22dc2e1425fdbe69325af7e9e2"
+
+[[files]]
+file = "mods/nbidal18-realisticdeathvisuals-1.0.2+26.2-fabric.jar"
+hash = "d2db12699fd76389473394c85ff418ca1ebfdb315a7eae77f01cedd16924aaa8"
 
 [[files]]
 file = "mods/nbidal18-reliablegliders-1.1.0+26.2-fabric.jar"
@@ -937,8 +953,8 @@ file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
 hash = "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
 
 [[files]]
-file = "mods/nbidal18-voxyworldgen-3.4.0+26.2-fabric.jar"
-hash = "1e470c9c0047f3776a7993b7e2694a6ec8854d838f2826667f157a3fc5acefd9"
+file = "mods/nbidal18-voxyworldgen-3.4.1+26.2-fabric.jar"
+hash = "bc96f3c63235e3e4f97a9132ba554cfa226668a9311712c7450547663a122f8a"
 
 [[files]]
 file = "mods/nbidal18-xaerominimap-1.0.0+26.2-fabric.jar"
@@ -959,6 +975,10 @@ hash = "c774b8049b5477e6100514db64bd6de70201d1e3d05e7eb5fd9cfce723a1801d"
 [[files]]
 file = "mods/placeholder-api-3.1.0-beta.1+26.2.jar"
 hash = "c2ca2b5c397a0c198a32e7af68d2d0a011bc2c7baeae5cffd3996efd65c5069e"
+
+[[files]]
+file = "mods/pneumonocore-1.3.1+26.2+A.jar"
+hash = "8740f3698563f35ade639a3e98eda22537e259f339abb629803b358d30e55ccd"
 
 [[files]]
 file = "mods/punchy-2.7d-fabric-26.2.jar"
@@ -1106,7 +1126,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "8fc4d6f2206aa752840f0185235437f4d70133d68013b3fffff6f053a75008fd"
+hash = "7b62fd74d73ed485274369260afd0e82f6ded8a5d1427f545b6132c3bdf03eee"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"

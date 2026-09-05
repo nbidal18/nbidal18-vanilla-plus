@@ -16,7 +16,11 @@
     cover the client ZIP, which is added after staging.
 #>
 [CmdletBinding()]
-param()
+param(
+    # Passed through to Build-PackwizSite: a player-class file that is meant to be re-delivered over
+    # every player's copy this release. Without it the build refuses a changed player file.
+    [string[]] $RedeliverPlayerFile = @()
+)
 
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
@@ -50,7 +54,7 @@ $site = Join-Path $repo 'site'
 Write-Host "== 1/4 updater jars"
 & (Join-Path $PSScriptRoot 'Build-Updater.ps1')
 Write-Host "`n== 2/4 pack content"
-& (Join-Path $PSScriptRoot 'Build-PackwizSite.ps1')
+& (Join-Path $PSScriptRoot 'Build-PackwizSite.ps1') -RedeliverPlayerFile $RedeliverPlayerFile
 Write-Host "`n== 3/4 client shell"
 & (Join-Path $PSScriptRoot 'Build-ClientShell.ps1') | Select-Object -First 1
 

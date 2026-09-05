@@ -5,6 +5,63 @@ build that was not published.
 
 ---
 
+## v1.0.75
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-06 | see below | `021c7bd1b75a` | `f5c8fc332097` | 305 | 152 |
+
+**Death is the 4.5.2 way again: the screen goes black, a grave holds your things, and nothing else
+touches them. The game exits cleanly after a session.** Click **Play**. Nothing to clear.
+
+### Blackout on death
+
+Realistic Death Visuals, back from 4.5.2. Upstream stops at 1.21.11 and never published source, so
+this is the pack's own reconstruction ported to 26.2's screen API: a 50 ms white flash, ten seconds
+of black, then the respawn and a two-second fade back in. Esc does nothing during it. Client only,
+Apache-2.0, licence in the jar.
+
+### Graves
+
+Pneumono's Gravestones 1.4.2 with PneumonoCore 1.3.1, on the server and every client. Configured as
+in 4.5.2: a grave holds your inventory at the death spot, decays with further deaths and with time
+(eight hours), stores no experience, spawns no skeletons, none in creative or under keepInventory,
+no chat broadcasts. Traveler's Backpack still places itself as a block at the death spot, separate
+from the grave.
+
+### Nothing else at the death spot
+
+Vanilla Refresh's *soul* - the marker it left holding 80 % of your experience, and the hotbar under
+keepInventory - is off, read in the mod's own death routine rather than its labels. Off on the
+server, where it counts, through the new server-only config folder; and seeded off on every client
+so the settings screen tells the truth. Its gravestone and item handling were already off.
+
+### The exit "crash"
+
+Closing the game after a session on the server ended in a crash report and Prism's console. The
+thread dump named it: Immersive Paintings builds two thread pools at class load with the default
+factory and never shuts them down, so the process could not exit and Minecraft's shutdown watchdog
+killed it fifteen seconds later. `nbidal18-immersivepaintings` gives both pools daemon threads. Same
+fix as Mouse Wheelie's and Skin Overrides' before it.
+
+### Also in this release
+
+- The far-terrain generator's "reached the edge of its generated radius" line is limited to once a
+  minute (it printed every few seconds under a flying player). `nbidal18-voxyworldgen` 3.4.1.
+- The build refuses to change a player-class file's published bytes, because that re-delivers it
+  over every player's own copy - which is what v1.0.74 did to everyone's shader settings by
+  editing the master alongside the cloud seed. Rows on existing instances change by seed only.
+- `-Config` accepts `server:<file>` to deploy a server-only variant of a file the client also has.
+
+### Tested before publishing
+
+Updater sync (with the soul seed), client launch (all three new mixin sets applied) and
+dedicated-server boot with Gravestones, PneumonoCore and the new far-terrain jar pass. **What it
+needs from you:** die once - black screen for ten seconds, then a grave where you fell, right-click
+it, everything back, no soul marker; quit the game after a session - no console.
+
+---
+
 ## v1.0.74
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

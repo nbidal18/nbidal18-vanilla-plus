@@ -58,6 +58,14 @@ $mods = @(
     # with no thread factory, so non-daemon, and schedules a fixed-rate tick that never ends and
     # is never shut down. Second of the two threads that stopped the client exiting.
     @{ Name = 'nbidal18-mousewheelie'; Generator = $null; Builder = 'build_mousewheelie.py' },
+    # Immersive Paintings' ClientPaintingManager and its painting screen each build a fixed thread
+    # pool in <clinit> with no factory and never shut it down. Third of the threads that kept the
+    # client from exiting (2026-09-05 thread dump: pool-12-thread-1/2). Daemon factory instead.
+    @{ Name = 'nbidal18-immersivepaintings'; Generator = $null; Builder = 'build_immersivepaintings.py' },
+    # Realistic Death Visuals: the death screen as a flash, ten seconds of black, respawn and a
+    # fade. Upstream stops at 1.21.11 and published no source; this is the pack's own Apache-2.0
+    # reconstruction, carried from 4.5.2 and ported to 26.2's screen API. Client only.
+    @{ Name = 'nbidal18-realisticdeathvisuals'; Generator = $null; Builder = 'build_realisticdeathvisuals.py' },
     # Ctrl+Alt+W holds the forward key down until the back key cancels it. First-party content
     # rather than a fork - it patches nothing, so it has no target to be named for. It holds the
     # key and not the movement input, which is what makes it work for boats, horses and Immersive
