@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.78",
+    "packVersion":  "1.0.79",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -349,7 +349,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "78582b2a70bb6874531045002751b9ec3188f2c291e96a99fdc5ec558b562d4b"
+                                    "sha256":  "515aa8f396e631746622bd1c33060480ecbfd0d52c898a18418e8557be2d1307"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -863,7 +863,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "78582b2a70bb6874531045002751b9ec3188f2c291e96a99fdc5ec558b562d4b"
+                      "sha256":  "515aa8f396e631746622bd1c33060480ecbfd0d52c898a18418e8557be2d1307"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1738,8 +1738,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.78+26.2-fabric.jar",
-                      "sha256":  "93c323988b05d2606ac70f705da97013d9d8db8281e16906448b80e6870b2e08"
+                      "path":  "mods/nbidal18-integrity-1.0.79+26.2-fabric.jar",
+                      "sha256":  "c67ddc8b6d729518444fbf2669af304b91e001f20e30f5879a9af4cc286ae59d"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1774,8 +1774,8 @@
                       "sha256":  "7336d8dace6b4b0700c2da59cdb562a11776bcdcb6a8380dbe1f9c98a8d68c17"
                   },
                   {
-                      "path":  "mods/nbidal18-soundphysics-1.1.0+26.2-fabric.jar",
-                      "sha256":  "10a048f794b71649c76ac068dd423769ca171f7bda2e0b70d29b6fa663c56e6d"
+                      "path":  "mods/nbidal18-soundphysics-1.2.0+26.2-fabric.jar",
+                      "sha256":  "bc273586ee64d11cbeec8cab3455243e07fdf03839f347d767f9510a4b6603cf"
                   },
                   {
                       "path":  "mods/nbidal18-soundsbegone-1.0.0+26.2-fabric.jar",

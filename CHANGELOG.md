@@ -5,6 +5,31 @@ build that was not published.
 
 ---
 
+## v1.0.79
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-06 | see below | `3263840c0756` | `ecd12bdd30d3` | 307 | 154 |
+
+**Sound follows the air.** Click **Play**. Nothing to clear. Client only; the server is untouched.
+
+### The way round, searched rather than guessed
+
+v1.0.78's detours did not help in a real house: read from the owner's log, a furnished room still
+muffled the jukebox by three blocks' worth almost everywhere, because random detour points mostly
+land inside floors, walls and furniture. Now, when the straight rays are mostly blocked, the pack
+searches the connected air from the jukebox to your ears and charges the sound for how much longer
+that route is than the straight line. A table adds a block or two, a doorway a few, a corridor more,
+and a sealed room finds no route and stays sealed.
+
+### Tested before publishing
+
+Updater sync and client launch pass. Heard for the first time on the live server, by the owner's
+choice. **What it needs from you:** the same room, with things between you and the jukebox, and
+occlusion logging on for a minute.
+
+---
+
 ## v1.0.78
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
