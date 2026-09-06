@@ -70,6 +70,10 @@ $mods = @(
     # and VinURL's alike, instead of vanilla's 64-block reach. A second consumer on the sound
     # channel sets OpenAL's reference and max distance after vanilla's own. Client only.
     @{ Name = 'nbidal18-jukebox'; Generator = $null; Builder = 'build_jukebox.py' },
+    # Sound Physics muffles a sound by its single least-blocked ray, so one gap among nine means no
+    # muffling and a record on the floor above jumps between "clear" and "through the floor" from
+    # one step to the next. Blends the nine rays by the energy they let through. Client only.
+    @{ Name = 'nbidal18-soundphysics'; Generator = $null; Builder = 'build_soundphysics.py' },
     # Ctrl+Alt+W holds the forward key down until the back key cancels it. First-party content
     # rather than a fork - it patches nothing, so it has no target to be named for. It holds the
     # key and not the movement input, which is what makes it work for boats, horses and Immersive

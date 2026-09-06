@@ -5,6 +5,45 @@ build that was not published.
 
 ---
 
+## v1.0.77
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-06 | see below | `c017bffcc6b9` | `fe358434515e` | 307 | 154 |
+
+**Sound through walls no longer jumps from muffled to clear in one step, and a looping jukebox loops
+a VinURL disc too.** Click **Play**. Nothing to clear. The server gets the new jukebox jar.
+
+### One gap among nine
+
+Reported by the owner on the live server, with a jukebox on the floor above: one step sideways and the
+record went from muffled to nearly clear, or the other way. Read in Sound Physics's code: it casts nine
+rays from a sound to you and keeps the least blocked, so a single ray through a gap means no muffling
+at all, none means full muffling, and there is nothing between; it also skips eight of the nine when
+the first is clear. Every sound in the pack is judged that way, and only a long one lets you walk
+around and hear the step. `nbidal18-soundphysics`, a new client-only mod named for what it changes,
+blends the nine rays by the energy each lets through instead: one gap among nine lets a ninth of the
+sound out, growing as you move and more rays find it. Nine clear rays are still clear, nine blocked
+still blocked.
+
+### Loop, for custom discs
+
+Reported by the owner on the live server: Loop did not restart the disc when it ended. Read in
+VinURL's jar: a VinURL disc's vanilla song is a silent one-hour placeholder, and the real audio is a
+sound VinURL starts on its own when the disc goes in, so "the song ended" reached the server an hour
+late. Now the client says when the record it was hearing from a looping jukebox has ended, and the
+server restarts the disc the way an insert does, so VinURL starts it again. Vanilla discs loop as
+before.
+
+### Tested before publishing
+
+Updater sync, client launch and a dedicated-server boot with the new jukebox jar pass. Heard by the
+owner in a held client before publishing: the floor-above jukebox slides instead of switching, and a
+looping VinURL disc starts again when its track ends. **What it needs from you:** nothing beyond
+clicking Play.
+
+---
+
 ## v1.0.76
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
