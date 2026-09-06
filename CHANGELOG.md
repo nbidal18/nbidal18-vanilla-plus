@@ -5,6 +5,31 @@ build that was not published.
 
 ---
 
+## v1.0.82
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-06 | see below | `7a1a0fea98cf` | `8a041cbeb430` | 307 | 154 |
+
+**Short custom discs loop.** Click **Play**. Nothing to clear. The server gets the new jukebox jar.
+
+### The five-second guard
+
+Reported by the owner: a looping VinURL disc still did not restart. Read from a log for the first
+time, in a singleplayer test where both sides write one file: his clip is about five seconds long,
+and the server threw away every "it ended" report that came within five seconds of the start, a
+guard meant for VinURL's habit of starting its sound before the file has downloaded and dropping it
+a moment later. Now the client only reports a record it actually heard for a second and a half,
+which is what tells a download hiccup from an ending, and the server's guard is one second. Every
+step of the loop is logged, so the next report about it comes with evidence.
+
+### Tested before publishing
+
+Updater sync, client launch and a dedicated-server boot with the new jukebox jar pass. Heard looping
+by the owner in a held client before publishing.
+
+---
+
 ## v1.0.81
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
