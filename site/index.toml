@@ -26,7 +26,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "515aa8f396e631746622bd1c33060480ecbfd0d52c898a18418e8557be2d1307"
+hash = "cd11b1e0e4c184c26ce425c2c24cd1b5c25a2483276c7c8867395eefb27df574"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -901,8 +901,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.79+26.2-fabric.jar"
-hash = "c67ddc8b6d729518444fbf2669af304b91e001f20e30f5879a9af4cc286ae59d"
+file = "mods/nbidal18-integrity-1.0.80+26.2-fabric.jar"
+hash = "c7edb4b27e7a1ca981637b4f8cde3d989b11679cc1d1e9315b49727884f980e2"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar"
@@ -937,8 +937,8 @@ file = "mods/nbidal18-skinoverrides-1.0.0+26.2-fabric.jar"
 hash = "7336d8dace6b4b0700c2da59cdb562a11776bcdcb6a8380dbe1f9c98a8d68c17"
 
 [[files]]
-file = "mods/nbidal18-soundphysics-1.2.0+26.2-fabric.jar"
-hash = "bc273586ee64d11cbeec8cab3455243e07fdf03839f347d767f9510a4b6603cf"
+file = "mods/nbidal18-soundphysics-1.3.0+26.2-fabric.jar"
+hash = "a9e3de9174d22aecd83fb0e405323490ffae4bc5090d78e9249394d331807f96"
 
 [[files]]
 file = "mods/nbidal18-soundsbegone-1.0.0+26.2-fabric.jar"

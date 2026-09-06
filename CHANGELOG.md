@@ -5,6 +5,33 @@ build that was not published.
 
 ---
 
+## v1.0.80
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-06 | see below | `acc1b55608c8` | `3263840c0756` | 307 | 154 |
+
+**The village frame-rate collapse is fixed.** Click **Play**. Nothing to clear. Client only; the
+server is untouched.
+
+### Records only
+
+v1.0.79 could take a village to 2 FPS. Read in Sound Physics's code: the setting v1.0.76 turned on
+so records get physics makes it re-evaluate every playing sound every five ticks on its sound
+thread, and the game waits on that thread whenever a new sound starts. With the air-route search in
+every evaluation, a village that starts sounds constantly stalled the game. Now only records are
+re-evaluated, which is what the setting was turned on for, and everything the pack changed about
+muffling since v1.0.77, the blended rays, the detours and the air route, applies to records only.
+Every other sound is back to exactly what Sound Physics does on its own. The air-route search is also aimed at the listener now, so it resolves a room in a few
+hundred cells.
+
+### Tested before publishing
+
+Updater sync and client launch pass. **What it needs from you:** the village again, with a jukebox
+playing nearby, and the frame rate you had before this week.
+
+---
+
 ## v1.0.79
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
