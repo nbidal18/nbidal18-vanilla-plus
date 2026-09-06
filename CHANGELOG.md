@@ -5,6 +5,38 @@ build that was not published.
 
 ---
 
+## v1.0.81
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-06 | see below | `8a041cbeb430` | `acc1b55608c8` | 307 | 154 |
+
+**A jukebox you come back to is playing.** Click **Play**. Nothing to clear. The server gets the new
+jukebox jar.
+
+### Coming back
+
+Reported by the owner: walk away from a looping jukebox, come back, silence. Read in vanilla: a
+jukebox tells clients it started exactly once, at the moment it starts, and only those within 64
+blocks; the server keeps playing, but a player who was away, or too far when the loop restarted, is
+never told. Now the server notices a player within 64 blocks who has not been told about the current
+song and starts it for them, VinURL discs included. It starts from the beginning for that player,
+since a disc's stream cannot be joined mid-song, so two people can be at different points of the same
+song.
+
+### Also in this release
+
+- You can walk with the jukebox menu open, as with the aircraft one. Done the way the aircraft
+  and backpack screens are done, in the pack's InvMove bridge, because InvMove's own per-screen
+  file is never consulted for it.
+
+### Tested before publishing
+
+Updater sync, client launch and a dedicated-server boot with the new jukebox jar pass. **What it needs
+from you:** walk away from a looping jukebox, far enough that it goes silent, and come back.
+
+---
+
 ## v1.0.80
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
