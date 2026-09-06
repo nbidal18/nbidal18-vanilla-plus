@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.75",
+    "packVersion":  "1.0.76",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -349,7 +349,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.toml",
-                                    "sha256":  "1edbb8d5d943c26786f5875c068b8c5616f110fd9bf1ef4bd597d32e731a5f08"
+                                    "sha256":  "6845aaaf5a55fe1306f91ee222f50206ab47109c45a5dea6e1439c13fb0c0063"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -863,7 +863,7 @@
                   },
                   {
                       "path":  "config/bcc-common.toml",
-                      "sha256":  "1edbb8d5d943c26786f5875c068b8c5616f110fd9bf1ef4bd597d32e731a5f08"
+                      "sha256":  "6845aaaf5a55fe1306f91ee222f50206ab47109c45a5dea6e1439c13fb0c0063"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1738,8 +1738,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.75+26.2-fabric.jar",
-                      "sha256":  "7dc47b51a3e5f735d530a341e68f62a2ba4284ac3ef407091e52e1d610a3229b"
+                      "path":  "mods/nbidal18-integrity-1.0.76+26.2-fabric.jar",
+                      "sha256":  "b663bfb33c6b0fb8fa50f3c7024008de60e9c50c7f98bf853ad4a5328cf104af"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.1+26.2-fabric.jar",
@@ -1748,6 +1748,10 @@
                   {
                       "path":  "mods/nbidal18-iris-1.0.0+26.2-fabric.jar",
                       "sha256":  "1abaa2254d53852f50f4e1bc50d26f3df5a8266c0da1eb5388be0bbd7d109c81"
+                  },
+                  {
+                      "path":  "mods/nbidal18-jukebox-2.0.0+26.2-fabric.jar",
+                      "sha256":  "164a05f5432a2bc8226964254ec1d3b0a3484ab8a756b21ed890d9130b848f83"
                   },
                   {
                       "path":  "mods/nbidal18-mousewheelie-1.0.1+26.2-fabric.jar",
@@ -1963,7 +1967,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "7b62fd74d73ed485274369260afd0e82f6ded8a5d1427f545b6132c3bdf03eee"
+                      "sha256":  "b84cd7e821d4d48ae3a779a054268eac7b809bf1eaa5af702110031ea256f5a2"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",

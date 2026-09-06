@@ -5,6 +5,64 @@ build that was not published.
 
 ---
 
+## v1.0.76
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-06 | see below | `fe358434515e` | `021c7bd1b75a` | 306 | 153 |
+
+**Right-clicking a jukebox opens its menu: a disc slot, a volume slider everyone hears, pause and
+loop. A record fades with distance the way a sound should, and Sound Physics now muffles and echoes
+it like everything else.** Click **Play**. Nothing to clear. The server gets the jukebox mod too.
+
+### The jukebox menu
+
+Asked by the owner: set a jukebox's volume so it changes for everyone, not in the client's settings,
+plus pause and loop, from a screen that opens on right-click instead of inserting the disc. Checked
+on Modrinth for 26.2 Fabric: nothing sets a per-jukebox volume, Jukebox GUI has pause but no volume
+or loop, Jukebox Looping loops everything with no toggle. Built into `nbidal18-jukebox`, now a
+both-sides mod. The screen is laid out like the aircraft inventory: the jukebox's own disc slot on
+the left (a disc dropped in starts, one taken out stops), a vertical volume slider in the middle,
+Pause and Loop with a status line on the right. Volume, loop and paused are saved on the jukebox
+itself and sent to every player nearby. The slider is a decibel curve, a quarter of it about half as
+loud, because a straight multiplier was inaudible until 40 percent. Pause freezes the song on the
+server's clock and in every listener's ears, so it resumes where it stopped. Sneak + right-click
+with a disc still inserts it straight in, as before.
+
+### How far a record carries
+
+Reported by the owner: a jukebox still sounded nearly full twenty blocks away, then the first cut at
+a fix ended in a cliff at 22 to 26 blocks. Read in the 26.2 code: vanilla plays a disc at volume 4
+and hears a sound out to 16 blocks per unit, so a disc carried 64 blocks; VinURL's set no volume and
+were gone by 16; and OpenAL's own distance models can only fade in a straight line of amplitude,
+which the ear hears as a cliff. So the model is switched off for records and the pack sets a
+record's gain from your distance every tick: from the jukebox itself, falling as the square of the
+remaining distance, gone by 26 blocks at full volume and sooner at lower volume, down to about 8
+blocks at 10 percent. Vanilla discs and VinURL's behave the same.
+
+### Under Sound Physics
+
+Sound Physics skipped the whole records category unless its "update moving sounds" setting is on,
+read in its own code, which is why a jukebox in a closed room sounded like plain block distance
+while everything else muffled and echoed. The pack seeds that setting on for every player (one row,
+your other Sound Physics settings untouched). With it, a record is re-evaluated every quarter second
+from where you stand. Two things came with that: its redirect made a record behind a wall with two
+gaps flip ear to ear every quarter second, so the record's apparent position now glides instead of
+jumping; and a record's sound sits a hair off the block centre so no ray runs along a block edge.
+One thing did not change: at the corner of a boxed-in jukebox the path crosses two blocks instead of
+one, and Sound Physics's counting makes two oak planks leave 0.25 percent of the highs where one
+leaves 5 percent. That is how it treats every sound in the pack; the owner chose to keep it.
+
+### Tested before publishing
+
+Updater sync with the new seed, client launch and a throwaway dedicated server with the jukebox jar
+added all pass; the screen registration, the block, block-entity, song-player and sound-engine mixins
+all load at startup. Tested in a held client for an hour and a half: menu, slider, pause, loop,
+range, the plank box, the two-gap wall, a VinURL disc. **What it needs from you:** a second player
+next to you while you move the slider, to hear it change for them too.
+
+---
+
 ## v1.0.75
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

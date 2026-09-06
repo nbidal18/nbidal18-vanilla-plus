@@ -66,6 +66,10 @@ $mods = @(
     # fade. Upstream stops at 1.21.11 and published no source; this is the pack's own Apache-2.0
     # reconstruction, carried from 4.5.2 and ported to 26.2's screen API. Client only.
     @{ Name = 'nbidal18-realisticdeathvisuals'; Generator = $null; Builder = 'build_realisticdeathvisuals.py' },
+    # Records are heard at full volume to ten blocks and not at all from twenty-six, vanilla discs
+    # and VinURL's alike, instead of vanilla's 64-block reach. A second consumer on the sound
+    # channel sets OpenAL's reference and max distance after vanilla's own. Client only.
+    @{ Name = 'nbidal18-jukebox'; Generator = $null; Builder = 'build_jukebox.py' },
     # Ctrl+Alt+W holds the forward key down until the back key cancels it. First-party content
     # rather than a fork - it patches nothing, so it has no target to be named for. It holds the
     # key and not the movement input, which is what makes it work for boats, horses and Immersive

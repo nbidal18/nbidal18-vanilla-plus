@@ -239,6 +239,11 @@ public final class Nbidal18PackwizSync {
             // created, and the player's other choices stay theirs.
             new PlayerFileSeed("config/nbidal18-vanillarefresh.json", ':', "vanillarefresh-soul-v1075", List.of(
                     new SeedRow(List.of("settings"), "soul", "0"))),
+            // v1.0.76: Sound Physics skips the whole records category unless this is on (read in its
+            // processSound), so a jukebox had no occlusion and no reverb. One row, seeded, because the
+            // file is preserved for the player and a changed master would replace every copy.
+            new PlayerFileSeed("config/sound_physics_remastered/soundphysics.properties", '=', "soundphysics-records-v1076", List.of(
+                    SeedRow.of("update_moving_sounds", "true"))),
             new PlayerFileSeed("shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt", '=',
                     "eclipse-clouds-v1074", List.of(
                             SeedRow.of("CloudLayer0_height", "600.0"),
