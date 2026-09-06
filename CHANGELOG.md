@@ -5,6 +5,34 @@ build that was not published.
 
 ---
 
+## v1.0.78
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-06 | see below | `ecd12bdd30d3` | `c017bffcc6b9` | 307 | 154 |
+
+**Sound goes round things.** Click **Play**. Nothing to clear. Client only; the server is untouched.
+
+### Round the table
+
+Reported by the owner on the live server: in the same room as a jukebox, the volume changed a lot
+depending on how many blocks stood between him and it. Read in Sound Physics's code: its muffling is
+the straight line from the sound to your ears, and although its bounced rays can give some of a
+blocked sound back, they are capped at a fifth of the highs however open the way round is. So a table
+in the way cost most of the treble, and the room could do nothing about it. `nbidal18-soundphysics`
+now also casts paths that go round: two-segment routes through points near the middle of the line,
+each worth less the longer the way round is. A clear detour that adds a block or two carries most of
+the sound; one that adds six carries little; a sealed room still seals.
+
+### Tested before publishing
+
+Updater sync and client launch pass. The owner could not reproduce his room in a test client, so
+this one is heard for the first time on the live server, by his choice: it is client only and a
+retune is a version away. **What it needs from you:** the same room again, with things between you
+and the jukebox, and Sound Physics's occlusion logging on for a minute so the figures can be read.
+
+---
+
 ## v1.0.77
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
