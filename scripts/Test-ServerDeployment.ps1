@@ -245,16 +245,23 @@ $releaseConfig = Join-Path $release '3. modpack\client\config'
 # on the main thread at every disconnect). The client copy wins when both exist, so a published
 # config is never shadowed by a server-only one of the same name.
 $releaseServerConfig = Join-Path $release '4. server\config'
+# Better Compatibility Checker's file carries the pack version and is compared client against
+# server at every join, so the server's copy has to move with every release the way the policy
+# and the helper do. Routine, not optional: it is added to whatever -Config named. (BCC 26.2 reads
+# config/bcc-common.json only; the bcc-common.toml still on the server is dead and harmless.)
+$Config = @('bcc-common.json') + @($Config | Where-Object { $_ -ne 'bcc-common.json' })
 $configFiles = @()
 foreach ($name in $Config) {
     # 'server:' prefix: take the 4. server\config copy even though a published client copy of the
     # same name exists. For a file that is player-class on the client - never re-delivered, never
     # enforced - but whose server copy is what the game actually reads (v1.0.75: Vanilla Refresh's
     # soul, off on the server, seeded off on clients).
-    $serverOnly = $name.StartsWith('server:')
-    if ($serverOnly) { $name = $name.Substring(7) }
+    # Not $serverOnly: that is the count of server-only jars the summary prints, and reusing the
+    # name here made the summary say 'False server-only jars' whenever a config was staged.
+    $fromServerCopy = $name.StartsWith('server:')
+    if ($fromServerCopy) { $name = $name.Substring(7) }
     $source = Join-Path $releaseConfig $name
-    if ($serverOnly -or -not (Test-Path -LiteralPath $source -PathType Leaf)) {
+    if ($fromServerCopy -or -not (Test-Path -LiteralPath $source -PathType Leaf)) {
         $source = Join-Path $releaseServerConfig $name
     }
     if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {

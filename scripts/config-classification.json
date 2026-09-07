@@ -85,9 +85,9 @@
       "reason": "HUD preference; shipped as a one-time default."
     },
     {
-      "match": "config/bcc-common.toml",
+      "match": "config/bcc-common.json",
       "class": "gameplay",
-      "reason": "Declares this pack's name and version to Better Compatibility Checker. If a player can edit it, they can claim to be on any version, and the mismatch marker means nothing."
+      "reason": "Declares this pack's name and version to Better Compatibility Checker (26.2 reads only this JSON; the TOML it read on 1.21.1 is dead). If a player can edit it, they can claim to be on any version, and the mismatch marker means nothing. BCC writes the file only when it is missing, so the published bytes stand."
     },
     {
       "match": "config/better_fishing.properties",

@@ -107,14 +107,14 @@ foreach ($path in $clientWas.Keys) {
 $byArea = @{ mods = @(); config = @(); resourcepacks = @(); shaderpacks = @(); other = @() }
 $routine = @()
 foreach ($path in $changed) {
-    # The integrity helper is regenerated and renamed on every single release, and bcc-common.toml
+    # The integrity helper is regenerated and renamed on every single release, and bcc-common.json
     # carries the version string - so both differ every time, by construction rather than because
     # anybody changed anything. Counting them as changes would mean "a mod changed" was always true
     # and this script would never skip a thing, which is the same as not having it.
     #
     # They are not skipped as tests, only as *evidence*: a smoke start still runs on every release,
     # and Build-Release already refuses if the helper's version disagrees with the pack's.
-    if ($path -like 'mods/nbidal18-integrity-*.jar' -or $path -eq 'config/bcc-common.toml') {
+    if ($path -like 'mods/nbidal18-integrity-*.jar' -or $path -eq 'config/bcc-common.json') {
         $routine += $path
         continue
     }

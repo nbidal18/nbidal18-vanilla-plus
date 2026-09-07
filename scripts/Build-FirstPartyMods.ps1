@@ -114,6 +114,12 @@ $mods = @(
     # stops causing the logout. Port of the 1.21.1 pack's nbidal18-safe-rejoin. **Runs on the
     # server** - that is where it does anything - so it needs -AddMods to deploy.
     @{ Name = 'nbidal18-saferejoin'; Generator = $null; Builder = 'build_saferejoin.py' },
+    # The End stays sealed until the owner opens it from the console (/theend open), so the server
+    # goes in together as an event. Refuses the End portal's destination before vanilla builds the
+    # platform, and any other teleport of a player into the End. Named for its target, vanilla's
+    # End. **Runs on the dedicated server** - inert on a client and in singleplayer - so it needs
+    # -AddMods to deploy.
+    @{ Name = 'nbidal18-theend'; Generator = $null; Builder = 'build_theend.py' },
     # 26.2 bakes every inventory icon once into a cache texture (GuiItemAtlas) through the ordinary
     # item pipeline, which under Iris is the shader pipeline; Iris has no hook for that cache, so an
     # icon baked while a pipeline is being torn down or built comes out blank or as a grey blob and

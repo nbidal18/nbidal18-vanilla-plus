@@ -5,6 +5,50 @@ build that was not published.
 
 ---
 
+## v1.0.83
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-08 | see below | `23d3effcda1c` | `7a1a0fea98cf` | 308 | 155 |
+
+**The End is sealed until we open it together; sorting a chest no longer stuffs things into a
+backpack lying in it; the server list shows the pack version instead of CHANGE_ME.** Click **Play**.
+Nothing to clear. The server gets a new mod and the version file.
+
+### The End is sealed
+
+Asked by the owner: the End is to be done as an event, all together. Until then a lit End portal
+does nothing - you can still find the stronghold and place the eyes, but stepping in leaves you
+where you are with a note on screen saying why. The End is never even generated while it is
+sealed. The owner opens it from the console when the day comes, with `/theend open`, and everyone
+online is told; `/theend close` seals it again afterwards. The way home and the End's gateways are
+untouched, and singleplayer worlds are not affected.
+
+### The backpack in the chest
+
+Reported by the owner: sort a chest with a Traveler's Backpack in it and a slot's worth of items
+vanished each time; they were inside the backpack. Read in Traveler's Backpack: a stack clicked
+onto the backpack item goes into it, the way a bundle takes items, and a sort is nothing but clicks
+that move stacks across slots. The pack's Mouse Wheelie add-on now leaves any slot holding a
+backpack or a bundle out of the sort entirely: it stays where it is and everything else sorts round
+it.
+
+### CHANGE_ME
+
+Reported by the owner: Better Compatibility Checker showed "CHANGE_ME CHANGE_ME" for both server
+and client. Read in the mod: on 26.2 it reads a JSON file and nothing else, and the pack had been
+shipping and version-bumping the TOML the 1.21.1 build read, which this one never opened. The JSON
+is now the file the pack ships, hash-checked at login like the old one, bumped by the release cut,
+and sent to the server with every release.
+
+### Tested before publishing
+
+Updater sync, client launch and a throwaway dedicated server pass. **What it needs from you:** a
+chest with a backpack and some loose stacks in it, sorted twice; and, once the server is up,
+`/theend` from the console should say sealed, and a lit End portal should refuse you.
+
+---
+
 ## v1.0.82
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

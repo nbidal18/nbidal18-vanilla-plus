@@ -25,8 +25,8 @@ file = "config/autohud.json5"
 hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
-file = "config/bcc-common.toml"
-hash = "6ba297adadaad3c3a2f9f58ae02d252cc4b5893118cf3faa456e99929a5c546d"
+file = "config/bcc-common.json"
+hash = "e90eea85238b32be94b25093fe29633372644877884b757b927dd2ce09ce9f89"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -901,8 +901,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.82+26.2-fabric.jar"
-hash = "4ec73525d82e0dec86713d0627a57aa924d57824dad9d58aeabbd0ec8035d33e"
+file = "mods/nbidal18-integrity-1.0.83+26.2-fabric.jar"
+hash = "e52fd2712446df69990538de024d1cdeb9aa80515e938264a556637e35f7739e"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar"
@@ -917,8 +917,8 @@ file = "mods/nbidal18-jukebox-2.0.3+26.2-fabric.jar"
 hash = "d2c00e2dea8c49defcaa62722cde68284de9c587bed1db0a451671c21deee547"
 
 [[files]]
-file = "mods/nbidal18-mousewheelie-1.0.1+26.2-fabric.jar"
-hash = "8c2f86174608eba5a1120e6c882ee8ae056d9e22dc2e1425fdbe69325af7e9e2"
+file = "mods/nbidal18-mousewheelie-1.0.2+26.2-fabric.jar"
+hash = "2a04aee8041ad20c6be3e1256ebcb5776a4e257cac00f07bfc920d5798f7156b"
 
 [[files]]
 file = "mods/nbidal18-realisticdeathvisuals-1.0.2+26.2-fabric.jar"
@@ -951,6 +951,10 @@ hash = "9df55804984419fe57cf1f656d3660f84221f36d6601ce0fd00abfd146615f75"
 [[files]]
 file = "mods/nbidal18-tectonic-1.0.0+26.2-fabric.jar"
 hash = "ad7773d915ff1f44aebd38a2167bb4730fde70cbf1f766892f3dbab7d7ec5152"
+
+[[files]]
+file = "mods/nbidal18-theend-1.0.0+26.2-fabric.jar"
+hash = "785f792dc924001facba484739ab25317f19b708e7ff10190900401a543bf4db"
 
 [[files]]
 file = "mods/nbidal18-treechop-0.19.3+26.2-nbidal18.1-fabric.jar"

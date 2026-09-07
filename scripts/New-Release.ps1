@@ -75,13 +75,19 @@ Write-Host ("copied    {0} files, {1} MB" -f $b.Count, [math]::Round($b.Sum / 1M
 # ---------------------------------------------------------------- the version, in all of its places
 [IO.File]::WriteAllText($versionFile, "$Version`n", (New-Object Text.UTF8Encoding($false)))
 
-$bcc = Join-Path $to '3. modpack\client\config\bcc-common.toml'
+# Better Compatibility Checker 26.2 reads config\bcc-common.json and nothing else (its Config class
+# names that one file; the bcc-common.toml the 1.21.1 build read was carried here by mistake and
+# every client and the server showed CHANGE_ME until v1.0.84). The file is kept in BCC's own
+# format - LF, two-space indent, no trailing newline - because it is hash-enforced at login and BCC
+# only writes it when it is missing, so the published bytes stand. The version is the one field
+# that changes here; everything else is left byte for byte.
+$bcc = Join-Path $to '3. modpack\client\config\bcc-common.json'
 $text = [IO.File]::ReadAllText($bcc)
-$expected = 'modpackVersion = "v{0}"' -f $current
-if ($text -notmatch [regex]::Escape($expected)) { throw "bcc-common.toml does not say $expected" }
-[IO.File]::WriteAllText($bcc, $text.Replace($expected, ('modpackVersion = "v{0}"' -f $Version)),
+$expected = '"value": "v{0}"' -f $current
+if (([regex]::Matches($text, [regex]::Escape($expected))).Count -ne 1) { throw "bcc-common.json does not say $expected exactly once" }
+[IO.File]::WriteAllText($bcc, $text.Replace($expected, ('"value": "v{0}"' -f $Version)),
     (New-Object Text.UTF8Encoding($false)))
-Write-Host ("version   PACK-VERSION.txt and bcc-common.toml -> {0}" -f $Version)
+Write-Host ("version   PACK-VERSION.txt and bcc-common.json -> {0}" -f $Version)
 
 # ---------------------------------------------------------------- the first-party mods
 # Delegated rather than inlined: a first-party mod has to be rebuildable inside the release you are
