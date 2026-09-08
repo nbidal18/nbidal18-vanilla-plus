@@ -5,6 +5,50 @@ build that was not published.
 
 ---
 
+## v1.0.84
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-08 | see below | `41ea1ca396e6` | `23d3effcda1c` | 314 | 158 |
+
+**The visuals release: per-biome sky and fog colour, layered moving clouds, and wakes on the
+water.** Click **Play**. Nothing to clear. Client only; the server gets the usual version files.
+
+### Atmospherics
+
+Fog, sky, haze and star colours now change per biome, with smooth transitions between them, on
+the mod's own defaults. The colours are published with the pack and checked at login like the
+gameplay configs, so everyone sees the same sky and nobody edits it. Its editor key, B, is unbound because
+Traveler's Backpack already uses B, and the first-launch "press B" hint is off. Read in the mod: it
+would otherwise also rewrite the cloud distance in options.txt on first run; that switch is
+published as already done.
+
+### Better Clouds
+
+Vanilla's flat cloud sheet is replaced by layered clouds that drift with the wind, on one published
+configuration so every player sees the same sky. This one is restored at every launch rather than
+checked at login: read in the mod, it rewrites its own file on a graphics card that lacks a feature
+it wants, and checking it would refuse those machines at every login. It needs YetAnotherConfigLib,
+which comes in as a library. Read in both mods: Better Clouds takes over cloud drawing entirely, so Atmospherics' own
+cloud colouring never runs; its fog, sky, haze and stars do.
+
+### Wakes
+
+Boats, players, mobs and items leave wakes and splashes in water. Shipped on the mod's defaults and
+checked at login; read in the mod, only its own settings screen ever writes the file. No shader
+handling: whether a second wake shows under Eclipse is the thing to look at.
+
+### Tested before publishing
+
+Updater sync and client launch pass, and all four new config files come back byte-identical after
+the title screen; nothing on the server changes beyond the version files, so no server boot was
+needed. **What it needs from you:** a boat on water with shaders off, then with Eclipse on; a walk
+across two biomes to see the fog change; the clouds at day and night; and, after a session,
+`Test-ConfigStability.ps1` against your instance, because Atmospherics' file carries state it may
+rewrite.
+
+---
+
 ## v1.0.83
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

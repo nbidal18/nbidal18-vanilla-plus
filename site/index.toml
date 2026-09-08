@@ -13,6 +13,10 @@ file = "config/almanac-nbtFix.json5"
 hash = "f6d57ad1094c0c35ec20b9a60f86a7bbd7570844c6cf5180d8ffca5d6a9b2eae"
 
 [[files]]
+file = "config/ambientfog/biome_fog.json"
+hash = "5f30e4ba6e6ddcd90bd93230ec293d5e521755d52b108bf4afb3201aac601d47"
+
+[[files]]
 file = "config/asyncparticles/asyncparticles-mixin.properties"
 hash = "7ef39a4ae264fb6dee30ebf6ebf7b31242dd56e5824b8e7018e4f513b3d991bc"
 
@@ -26,7 +30,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.json"
-hash = "e90eea85238b32be94b25093fe29633372644877884b757b927dd2ce09ce9f89"
+hash = "43cf48fac6afc179352950f200861fb4d25b4a06be648d67add43e5ba30e8b9b"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -35,6 +39,10 @@ hash = "e8ffbb1ac12403a3527d4a8e49eec78e4e2703a46406c403f13d37555ef87bed"
 [[files]]
 file = "config/betteradvancements.json"
 hash = "c81c89e9534c83ecef3206b6c7d311c7695a396c23080b15abeedeabbd7064d5"
+
+[[files]]
+file = "config/betterclouds-v1.json"
+hash = "0ebcdcd05e7bc9d932841075e58f03a331a48de17fc50f6fcfb34b249fa1da40"
 
 [[files]]
 file = "config/betterdays-client.toml"
@@ -489,6 +497,10 @@ file = "config/voxyworldgenv2.json"
 hash = "031ccf159125335412dac47483d728ce210466e621395b498ca1915548cb3884"
 
 [[files]]
+file = "config/wakes.json"
+hash = "c7aadae0d05facba05131e8d7260c864a76cbf2ed34e7504b223641e1d8770a9"
+
+[[files]]
 file = "config/whitenoise-client.toml"
 hash = "00c6e34f0adbb41db954d296fd7c55dc3412463a38038dc836626433dd7f6d92"
 
@@ -669,12 +681,20 @@ file = "mods/architectury-fabric-21.0.7.jar"
 hash = "0f57afbd3dcddd0b7304c22d712ccf5437e2c41270ec08bd2d8c4e1df0a6d627"
 
 [[files]]
+file = "mods/atmospherics-2.6.6-mc-26.2.jar"
+hash = "778054e43290a2c40bb7743b4f7cc2c5a737df240117a4862df9cbaa429c3172"
+
+[[files]]
 file = "mods/autohud-9.0-beta.3+26.2-fabric.jar"
 hash = "5187752710768c0323e615ef112083e89aef8f6a24cdf15d155d70eae6fb47d9"
 
 [[files]]
 file = "mods/bclib-26.201.2.jar"
 hash = "797bb8dbde0c28265d08cc31581587e2c6eb2f344a20cde1654fb819cda1193d"
+
+[[files]]
+file = "mods/better-clouds-1.14.3+26.2-fabric.jar"
+hash = "0173f51cbaeb6cd68672be0f54c8c4d2ec3e079a75fda1bd5ae45af1bc8df5f4"
 
 [[files]]
 file = "mods/better-compatability-checker-fabric-26.2.0.1.jar"
@@ -901,8 +921,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.83+26.2-fabric.jar"
-hash = "e52fd2712446df69990538de024d1cdeb9aa80515e938264a556637e35f7739e"
+file = "mods/nbidal18-integrity-1.0.84+26.2-fabric.jar"
+hash = "7f85f0053f5b4af3f16e8c8ceacd7064c43de8f4d0d914ee711fdf73132970b7"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar"
@@ -1113,6 +1133,10 @@ file = "mods/voxy-0.2.18-beta.jar"
 hash = "dd9e10d2110879f07c1ce9bdf1945f3470b32e83977f094005ee8c642e8128d5"
 
 [[files]]
+file = "mods/wakes-0.7.1+26.2.jar"
+hash = "116acf23f467aa847d4d78b7d2ba677e2680e3df8b72fd6867eb3463586b1063"
+
+[[files]]
 file = "mods/worldweaver-26.201.2.jar"
 hash = "e042ec2011d1613eaf9e7fc3e27179f31b1a1be704b4271d035589a69914b8a1"
 
@@ -1138,7 +1162,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "b84cd7e821d4d48ae3a779a054268eac7b809bf1eaa5af702110031ea256f5a2"
+hash = "749c7d72458bf3a16764e9095efecebcb46e03f9470c8e8226a1d38407f56bb9"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"

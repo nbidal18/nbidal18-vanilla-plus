@@ -325,6 +325,13 @@ public final class Nbidal18PackwizSync {
             // are unbound upstream already.
             new PlayerFileSeed("options.txt", ':', "treechop-key-v1072", List.of(
                     SeedRow.of("key_treechop.key.open_settings_overlay", "key.keyboard.unknown"))),
+            // v1.0.84: Atmospherics binds B to its per-biome colour editor - the same B Traveler's Backpack
+            // opens the backpack with - and the owner wants the pack's colours on their defaults, not
+            // edited per player. Unbound, the same way TreeChop's screen key is; the editor stays
+            // reachable from Mod Menu, and its config is support-class, so an edit is undone at the next
+            // launch anyway. Key name read from the jar: key.atmospherics.open.
+            new PlayerFileSeed("options.txt", ':', "atmospherics-key-v1084", List.of(
+                    SeedRow.of("key_key.atmospherics.open", "key.keyboard.unknown"))),
             // v1.0.73: a damaged aircraft could not be boarded. Immersive Aircraft treats any right-click on
             // a plane below full health as a repair unless requireShiftForRepair is on; the owner wants
             // boarding at any health and repair on shift + right-click, which is exactly that switch.

@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.83",
+    "packVersion":  "1.0.84",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -126,6 +126,7 @@
                                 "config/trender.json",
                                 "config/voxyworldgenv2.json",
                                 "config/whitenoise-client.toml",
+                                "config/betterclouds-v1.json",
                                 "config/yacl.json5",
                                 "config/zfastnoise.mixin.toml"
                             ],
@@ -336,6 +337,10 @@
                                     "sha256":  "f6d57ad1094c0c35ec20b9a60f86a7bbd7570844c6cf5180d8ffca5d6a9b2eae"
                                 },
                                 {
+                                    "path":  "config/ambientfog/biome_fog.json",
+                                    "sha256":  "5f30e4ba6e6ddcd90bd93230ec293d5e521755d52b108bf4afb3201aac601d47"
+                                },
+                                {
                                     "path":  "config/asyncparticles/asyncparticles-mixin.properties",
                                     "sha256":  "23e2d21c795ef89169e563afec3bc93b30000ee4deac990d5cdb66b1b692acbe"
                                 },
@@ -349,7 +354,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.json",
-                                    "sha256":  "e90eea85238b32be94b25093fe29633372644877884b757b927dd2ce09ce9f89"
+                                    "sha256":  "43cf48fac6afc179352950f200861fb4d25b4a06be648d67add43e5ba30e8b9b"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -358,6 +363,10 @@
                                 {
                                     "path":  "config/betteradvancements.json",
                                     "sha256":  "c81c89e9534c83ecef3206b6c7d311c7695a396c23080b15abeedeabbd7064d5"
+                                },
+                                {
+                                    "path":  "config/betterclouds-v1.json",
+                                    "sha256":  "0ebcdcd05e7bc9d932841075e58f03a331a48de17fc50f6fcfb34b249fa1da40"
                                 },
                                 {
                                     "path":  "config/betterdays-client.toml",
@@ -812,6 +821,10 @@
                                     "sha256":  "031ccf159125335412dac47483d728ce210466e621395b498ca1915548cb3884"
                                 },
                                 {
+                                    "path":  "config/wakes.json",
+                                    "sha256":  "c7aadae0d05facba05131e8d7260c864a76cbf2ed34e7504b223641e1d8770a9"
+                                },
+                                {
                                     "path":  "config/whitenoise-client.toml",
                                     "sha256":  "86061aeaa531953c4bbdd96610bca2c54d41c5cba9c8b91e67ce77b340071c1e"
                                 },
@@ -850,6 +863,10 @@
                       "sha256":  "f6d57ad1094c0c35ec20b9a60f86a7bbd7570844c6cf5180d8ffca5d6a9b2eae"
                   },
                   {
+                      "path":  "config/ambientfog/biome_fog.json",
+                      "sha256":  "5f30e4ba6e6ddcd90bd93230ec293d5e521755d52b108bf4afb3201aac601d47"
+                  },
+                  {
                       "path":  "config/asyncparticles/asyncparticles-mixin.properties",
                       "sha256":  "7ef39a4ae264fb6dee30ebf6ebf7b31242dd56e5824b8e7018e4f513b3d991bc"
                   },
@@ -863,7 +880,7 @@
                   },
                   {
                       "path":  "config/bcc-common.json",
-                      "sha256":  "e90eea85238b32be94b25093fe29633372644877884b757b927dd2ce09ce9f89"
+                      "sha256":  "43cf48fac6afc179352950f200861fb4d25b4a06be648d67add43e5ba30e8b9b"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -872,6 +889,10 @@
                   {
                       "path":  "config/betteradvancements.json",
                       "sha256":  "c81c89e9534c83ecef3206b6c7d311c7695a396c23080b15abeedeabbd7064d5"
+                  },
+                  {
+                      "path":  "config/betterclouds-v1.json",
+                      "sha256":  "0ebcdcd05e7bc9d932841075e58f03a331a48de17fc50f6fcfb34b249fa1da40"
                   },
                   {
                       "path":  "config/betterdays-client.toml",
@@ -1326,6 +1347,10 @@
                       "sha256":  "031ccf159125335412dac47483d728ce210466e621395b498ca1915548cb3884"
                   },
                   {
+                      "path":  "config/wakes.json",
+                      "sha256":  "c7aadae0d05facba05131e8d7260c864a76cbf2ed34e7504b223641e1d8770a9"
+                  },
+                  {
                       "path":  "config/whitenoise-client.toml",
                       "sha256":  "00c6e34f0adbb41db954d296fd7c55dc3412463a38038dc836626433dd7f6d92"
                   },
@@ -1506,12 +1531,20 @@
                       "sha256":  "0f57afbd3dcddd0b7304c22d712ccf5437e2c41270ec08bd2d8c4e1df0a6d627"
                   },
                   {
+                      "path":  "mods/atmospherics-2.6.6-mc-26.2.jar",
+                      "sha256":  "778054e43290a2c40bb7743b4f7cc2c5a737df240117a4862df9cbaa429c3172"
+                  },
+                  {
                       "path":  "mods/autohud-9.0-beta.3+26.2-fabric.jar",
                       "sha256":  "5187752710768c0323e615ef112083e89aef8f6a24cdf15d155d70eae6fb47d9"
                   },
                   {
                       "path":  "mods/bclib-26.201.2.jar",
                       "sha256":  "797bb8dbde0c28265d08cc31581587e2c6eb2f344a20cde1654fb819cda1193d"
+                  },
+                  {
+                      "path":  "mods/better-clouds-1.14.3+26.2-fabric.jar",
+                      "sha256":  "0173f51cbaeb6cd68672be0f54c8c4d2ec3e079a75fda1bd5ae45af1bc8df5f4"
                   },
                   {
                       "path":  "mods/better-compatability-checker-fabric-26.2.0.1.jar",
@@ -1738,8 +1771,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.83+26.2-fabric.jar",
-                      "sha256":  "e52fd2712446df69990538de024d1cdeb9aa80515e938264a556637e35f7739e"
+                      "path":  "mods/nbidal18-integrity-1.0.84+26.2-fabric.jar",
+                      "sha256":  "7f85f0053f5b4af3f16e8c8ceacd7064c43de8f4d0d914ee711fdf73132970b7"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar",
@@ -1950,6 +1983,10 @@
                       "sha256":  "dd9e10d2110879f07c1ce9bdf1945f3470b32e83977f094005ee8c642e8128d5"
                   },
                   {
+                      "path":  "mods/wakes-0.7.1+26.2.jar",
+                      "sha256":  "116acf23f467aa847d4d78b7d2ba677e2680e3df8b72fd6867eb3463586b1063"
+                  },
+                  {
                       "path":  "mods/worldweaver-26.201.2.jar",
                       "sha256":  "e042ec2011d1613eaf9e7fc3e27179f31b1a1be704b4271d035589a69914b8a1"
                   },
@@ -1975,7 +2012,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "b84cd7e821d4d48ae3a779a054268eac7b809bf1eaa5af702110031ea256f5a2"
+                      "sha256":  "749c7d72458bf3a16764e9095efecebcb46e03f9470c8e8226a1d38407f56bb9"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",

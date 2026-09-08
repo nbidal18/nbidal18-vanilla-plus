@@ -690,6 +690,21 @@
       "reason": "Map preferences - zoom, colours, waypoint scale. The eight settings that would turn the map into an information cheat are pinned individually by property rules instead, so the player keeps every honest preference."
     },
     {
+      "match": "config/ambientfog/",
+      "class": "gameplay",
+      "reason": "Atmospherics (v1.0.84): per-biome fog, sky, haze and star colours. Owner: players do not get to configure these, so hash-enforced. Read in the jar for whether the mod rewrites the file on its own, which would make enforcement a false alarm: it saves at client init (byte-identical, measured after a title screen), and otherwise only from its editor screens and three one-time flag flips - the first-world hint, the resource-pack preset prompt, and the Sodium cloud-distance write into options.txt. The published copy has firstWorldHintShown and sodiumCloudDistanceAutoSet already true and ships no pack with a preset, so none of the three ever fires. Its editor key B is unbound by seed atmospherics-key-v1084 (B is also Traveler's Backpack's key). Still owed: Test-ConfigStability against a played instance, the only check that sees a rewrite after a world join."
+    },
+    {
+      "match": "config/betterclouds-v1.json",
+      "class": "support",
+      "reason": "Better Clouds (v1.0.84): the cloud shape, density, speed and renderer settings, published once so every player sees the same sky. The owner wanted these enforced too, and this one cannot be: read in the jar, its OpenGL Buffer constructor saves the config when the GPU lacks persistent buffers (flipping usePersistentBuffers), and loadWithFailureBackup saves on a failed load - machine-dependent rewrites that would refuse a weak machine at every login. So support: the updater restores the published copy at launch, which still undoes any player edit, and a machine that needs the fallback keeps working."
+    },
+    {
+      "match": "config/wakes.json",
+      "class": "gameplay",
+      "reason": "Wakes (v1.0.84): wake and splash simulation settings, published on the mod defaults. Owner: not player-configurable, so hash-enforced. Read in the jar: the only writes are from its own config screen (slider applyValue, colour-picker reset) - nothing rewrites the file on its own, so enforcement cannot false-alarm."
+    },
+    {
       "match": "config/yacl.json5",
       "class": "support",
       "reason": "Config GUI library."
@@ -812,6 +827,7 @@
     "config/voxy-config.json",
     "config/voxyworldgenv2.json",
     "config/whitenoise-client.toml",
+    "config/ambientfog/biome_fog.json",
     "config/yacl.json5",
     "config/zfastnoise.mixin.toml"
   ],
