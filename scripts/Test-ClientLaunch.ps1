@@ -128,15 +128,7 @@ if ($classpath.Count -eq 0) { throw 'The classpath resolved to nothing.' }
 $fatalPatterns = @(
     @{ Name = 'core shader incompatible with the pipeline'
         Pattern = 'shader program does not use sampler'
-        Note = 'a resource pack is overriding shaders/core for a different game version (v1.0.6)'
-        # Wakes (v1.0.84) ships one GUI shader, gui_hsv.fsh, the colour picker in its own config
-        # screen. It is built on a vanilla GUI pipeline that declares Sampler0 and never reads it,
-        # so vanilla logs this exact warning once at startup. Read in the jar: that fragment shader
-        # is the only file under assets/wakes/shaders, nothing under shaders/core is overridden,
-        # and the v1.0.6 fault this pattern exists for - a pack replacing core shaders for another
-        # game version - is not what this is. Not reported upstream. The check stays live for
-        # every other program.
-        Except = 'wakes:pipeline/gui_hsv' }
+        Note = 'a resource pack is overriding shaders/core for a different game version (v1.0.6)' }
     @{ Name = 'model with unresolved textures'
         Pattern = 'Missing texture references in model'
         Note = 'a resource pack ships models whose texture variables are undefined (v1.0.7)'

@@ -1,0 +1,9 @@
+# Whether if wandering traders should be able to trade Display Delight items
+# default: true
+wanderingVillagerTrades = true
+# Whether if creative tab items should be registered
+# default: true
+creativeTabItems = true
+# Whether if unnecessary logging be disabled
+# default: true
+disableDebugLog = true

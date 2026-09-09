@@ -120,6 +120,11 @@ $mods = @(
     # End. **Runs on the dedicated server** - inert on a client and in singleplayer - so it needs
     # -AddMods to deploy.
     @{ Name = 'nbidal18-theend'; Generator = $null; Builder = 'build_theend.py' },
+    # /strike <players>: a real lightning bolt on each named player - flash, thunder, the player and
+    # the ground on fire - that hurts nobody and strikes nobody else. Vanilla's bolt has no damage
+    # setting in 26.2 and its visual-only flag drops the fire too, so two wraps on bolts carrying the
+    # command's tag. First-party content, no target. **Runs on the server** - needs -AddMods.
+    @{ Name = 'nbidal18-strike'; Generator = $null; Builder = 'build_strike.py' },
     # 26.2 bakes every inventory icon once into a cache texture (GuiItemAtlas) through the ordinary
     # item pipeline, which under Iris is the shader pipeline; Iris has no hook for that cache, so an
     # icon baked while a pipeline is being torn down or built comes out blank or as a grey blob and

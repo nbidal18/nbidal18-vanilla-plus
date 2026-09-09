@@ -5,6 +5,59 @@ build that was not published.
 
 ---
 
+## v1.0.85
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-09 | see below | `404914dd6e5a` | `41ea1ca396e6` | 316 | 160 |
+
+**The v1.0.84 visual mods are gone again; Farmer's Delight arrives with two add-ons; the debug
+screen no longer leaks coordinates; and there is a new console command, `/strike`.** Click **Play**.
+Nothing to clear; the updater removes the three visual mods and their settings files by itself. The
+server gets five new mods, two config files and the usual version files.
+
+### Atmospherics, Better Clouds and Wakes removed
+
+The owner played v1.0.84 and did not like them. All three are out and the pack looks as it did in
+v1.0.83. The config library Better Clouds used stays, because AutoHUD, Bridging Mod and Sounds
+needed it all along. The one thing that stays behind on an
+instance that ran v1.0.84 is an unbound key row for Atmospherics' editor in the options file; it
+refers to a key that no longer exists and does nothing.
+
+### Farmer's Delight, More Delight, Display Delight
+
+Asked by the owner. Farmer's Delight Refabricated brings the cooking pot, cutting board, skillet, new
+crops and the meals; More Delight adds more of them; Display Delight lets food be placed as plates
+and stacks in the world, and wandering traders can sell them. All three run on both sides, on the
+mods' own defaults, and the two files that decide recipes, world generation and trades are checked
+at login and deployed to the server with the release. New villages will grow the new crops and have
+compost heaps; existing ones stay as they are.
+
+### The debug screen leaked coordinates
+
+Reported by the owner: F3 and then F6 opens vanilla's own debug-options screen in this version, and
+from there a player could switch on the coordinates and biome lines the pack's F3 layout hides. Read
+in the game: every one of those lines, the options screen, and the F3 shortcuts that copy your
+position are gated on the server's `reduced_debug_info` rule, and the pack's F3 mod honours the same
+rule in all of its own modules. The rule was off; the owner set it from the console on 2026-09-09, so none of it
+can be switched on any more, whatever the client does with its keys. Nothing in this release for it;
+it is a server setting, recorded in the server document.
+
+### /strike
+
+Asked by the owner: a lightning bolt on a named player that sets them on fire but does no damage.
+Vanilla cannot: its bolt hurts everything within three blocks and its only switch removes the fire
+along with the damage. A new first-party mod adds `/strike <players>` for the console: a real bolt at
+the player's feet, flash and thunder, the player and the ground on fire, nobody hurt and nobody else
+struck, so a villager beside the victim stays a villager. Natural lightning is untouched.
+
+### Tested before publishing
+
+Updater sync and client launch pass, and a throwaway dedicated server boots with the new jar. **What
+it needs from you:** `/strike <name>` from the console on someone standing on grass.
+
+---
+
 ## v1.0.84
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

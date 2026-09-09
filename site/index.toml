@@ -13,10 +13,6 @@ file = "config/almanac-nbtFix.json5"
 hash = "f6d57ad1094c0c35ec20b9a60f86a7bbd7570844c6cf5180d8ffca5d6a9b2eae"
 
 [[files]]
-file = "config/ambientfog/biome_fog.json"
-hash = "5f30e4ba6e6ddcd90bd93230ec293d5e521755d52b108bf4afb3201aac601d47"
-
-[[files]]
 file = "config/asyncparticles/asyncparticles-mixin.properties"
 hash = "7ef39a4ae264fb6dee30ebf6ebf7b31242dd56e5824b8e7018e4f513b3d991bc"
 
@@ -30,7 +26,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.json"
-hash = "43cf48fac6afc179352950f200861fb4d25b4a06be648d67add43e5ba30e8b9b"
+hash = "bb08e7ba361bac39bab894a4e9ca2547f59844084568d9928e0986cc731e4e40"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -39,10 +35,6 @@ hash = "e8ffbb1ac12403a3527d4a8e49eec78e4e2703a46406c403f13d37555ef87bed"
 [[files]]
 file = "config/betteradvancements.json"
 hash = "c81c89e9534c83ecef3206b6c7d311c7695a396c23080b15abeedeabbd7064d5"
-
-[[files]]
-file = "config/betterclouds-v1.json"
-hash = "0ebcdcd05e7bc9d932841075e58f03a331a48de17fc50f6fcfb34b249fa1da40"
 
 [[files]]
 file = "config/betterdays-client.toml"
@@ -109,6 +101,10 @@ file = "config/cursors_extended.json"
 hash = "684d15fba80c0c698e6ff03204242e4cac3aa15ca295ca141e30b1a50d2ddd5d"
 
 [[files]]
+file = "config/displaydelight.toml"
+hash = "7d879392476701fdaf1f99dbf11b9742e66633d7a235525b97597a16c556b022"
+
+[[files]]
 file = "config/emf_compat.json"
 hash = "6cf273cc8acf37b68944b938c66b5dea4be72efb77d1ec8a1269ea4a3a3cf5f0"
 
@@ -135,6 +131,14 @@ hash = "a5ba22e63061c1fb67f0f895f17681351eaeccc225faef966c29ee630593275e"
 [[files]]
 file = "config/fallingleaves2.json"
 hash = "cb9d4d481a63cddaf7e90a3e3f8c5bb134cd0be8f1401b1f808c55bf0ab4572f"
+
+[[files]]
+file = "config/farmersdelight-client.json"
+hash = "bc7d65ca1c81b0316131863b10385e8790e57fdd4f3ec53bc1fc53fce489fe53"
+
+[[files]]
+file = "config/farmersdelight-common.json"
+hash = "2b30d437183d307fdda8e3053a12f9be4434a90f383e5facd08af34fb05d35ba"
 
 [[files]]
 file = "config/ferritecore.mixin.properties"
@@ -497,10 +501,6 @@ file = "config/voxyworldgenv2.json"
 hash = "031ccf159125335412dac47483d728ce210466e621395b498ca1915548cb3884"
 
 [[files]]
-file = "config/wakes.json"
-hash = "c7aadae0d05facba05131e8d7260c864a76cbf2ed34e7504b223641e1d8770a9"
-
-[[files]]
 file = "config/whitenoise-client.toml"
 hash = "00c6e34f0adbb41db954d296fd7c55dc3412463a38038dc836626433dd7f6d92"
 
@@ -559,6 +559,10 @@ hash = "0ea7985fd9d813236489573a877be05a9db550ddbbfcd090dd90b04850b66410"
 [[files]]
 file = "mods/EnchantmentDescriptions-fabric-MC26.2-26.2.0.2.jar"
 hash = "4a53b9a5f6510f9cf779875ca4d7877ee624ebc76b50dca8bc03794ba0ee8511"
+
+[[files]]
+file = "mods/FarmersDelight-26.2-3.6.21+refabricated.jar"
+hash = "8b04d0956d4bb1aafe44010c92cb10f1e7c4a8a08c4a487884a095621fe61355"
 
 [[files]]
 file = "mods/ForgeConfigAPIPort-v26.2.1-mc26.2.x-Fabric.jar"
@@ -681,20 +685,12 @@ file = "mods/architectury-fabric-21.0.7.jar"
 hash = "0f57afbd3dcddd0b7304c22d712ccf5437e2c41270ec08bd2d8c4e1df0a6d627"
 
 [[files]]
-file = "mods/atmospherics-2.6.6-mc-26.2.jar"
-hash = "778054e43290a2c40bb7743b4f7cc2c5a737df240117a4862df9cbaa429c3172"
-
-[[files]]
 file = "mods/autohud-9.0-beta.3+26.2-fabric.jar"
 hash = "5187752710768c0323e615ef112083e89aef8f6a24cdf15d155d70eae6fb47d9"
 
 [[files]]
 file = "mods/bclib-26.201.2.jar"
 hash = "797bb8dbde0c28265d08cc31581587e2c6eb2f344a20cde1654fb819cda1193d"
-
-[[files]]
-file = "mods/better-clouds-1.14.3+26.2-fabric.jar"
-hash = "0173f51cbaeb6cd68672be0f54c8c4d2ec3e079a75fda1bd5ae45af1bc8df5f4"
 
 [[files]]
 file = "mods/better-compatability-checker-fabric-26.2.0.1.jar"
@@ -763,6 +759,14 @@ hash = "568da42a87eab96f26df08be6aee3cc227064addae70a4711101545393fd80dd"
 [[files]]
 file = "mods/cursors_extended-fabric-4.1.7+26.2.jar"
 hash = "f9d6b558a3ad1277898089f0bffc36f5dfee8dff2f6588284600169e6c85d2c1"
+
+[[files]]
+file = "mods/delightlib-26.06.23-26.2-fabric.jar"
+hash = "4cce6ddd8e28e60b2e3058073c3aab9baaedd1524eea6ee89fa94de19e220a16"
+
+[[files]]
+file = "mods/display-delight-1.8.4-mc26.2.jar"
+hash = "0dfdaf83d1c34c2e95ff997d75b9010e92b689c7bc522d07ee57a2ae4c17f7fa"
 
 [[files]]
 file = "mods/emf_compat_core-1.1.2.jar"
@@ -873,6 +877,10 @@ file = "mods/modmenu-20.0.1.jar"
 hash = "81bfbca06012c57c74949072f2ffaad06360badee4d00dc59bfaeac80dd24bd8"
 
 [[files]]
+file = "mods/moredelight-26.06.23-26.2-fabric.jar"
+hash = "79635680e0435d4947bc2d5141b7240f65a4866a9c1d0b22d81761405adc4401"
+
+[[files]]
 file = "mods/mouse-wheelie-1.16.3+mc26.2.jar"
 hash = "4e1ecf04a033d9150208bf90383a65288ac9fca00f383dbf1a43fa1690eb9f5d"
 
@@ -921,8 +929,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.84+26.2-fabric.jar"
-hash = "7f85f0053f5b4af3f16e8c8ceacd7064c43de8f4d0d914ee711fdf73132970b7"
+file = "mods/nbidal18-integrity-1.0.85+26.2-fabric.jar"
+hash = "21fb237653cb7eae3c0f106c33ac820dcc6849990aa1fe4422c36e9509c7c4d9"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar"
@@ -967,6 +975,10 @@ hash = "c5f04e5de20c181a83101645e24f2f73e71e42270cf688a3cd5312d24e0c63b0"
 [[files]]
 file = "mods/nbidal18-sparsestructures-1.0.0+26.2-fabric.jar"
 hash = "9df55804984419fe57cf1f656d3660f84221f36d6601ce0fd00abfd146615f75"
+
+[[files]]
+file = "mods/nbidal18-strike-1.0.0+26.2-fabric.jar"
+hash = "b59c21391aa14c445f44dba5a24b18e34f6fb9b72abe135bb9767f20d10152a0"
 
 [[files]]
 file = "mods/nbidal18-tectonic-1.0.0+26.2-fabric.jar"
@@ -1133,10 +1145,6 @@ file = "mods/voxy-0.2.18-beta.jar"
 hash = "dd9e10d2110879f07c1ce9bdf1945f3470b32e83977f094005ee8c642e8128d5"
 
 [[files]]
-file = "mods/wakes-0.7.1+26.2.jar"
-hash = "116acf23f467aa847d4d78b7d2ba677e2680e3df8b72fd6867eb3463586b1063"
-
-[[files]]
 file = "mods/worldweaver-26.201.2.jar"
 hash = "e042ec2011d1613eaf9e7fc3e27179f31b1a1be704b4271d035589a69914b8a1"
 
@@ -1162,7 +1170,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "749c7d72458bf3a16764e9095efecebcb46e03f9470c8e8226a1d38407f56bb9"
+hash = "b84cd7e821d4d48ae3a779a054268eac7b809bf1eaa5af702110031ea256f5a2"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
