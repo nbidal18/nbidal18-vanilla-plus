@@ -26,7 +26,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.json"
-hash = "bb08e7ba361bac39bab894a4e9ca2547f59844084568d9928e0986cc731e4e40"
+hash = "3c138aededc1abad83f540e5469ec3771bcedfa6ea00972765c107b1772f2e2a"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -99,10 +99,6 @@ hash = "5f08d0878d7f89c6b4c947a49dce368d7738255d44fecf9aad59ec6ae8a4fcef"
 [[files]]
 file = "config/cursors_extended.json"
 hash = "684d15fba80c0c698e6ff03204242e4cac3aa15ca295ca141e30b1a50d2ddd5d"
-
-[[files]]
-file = "config/displaydelight.toml"
-hash = "7d879392476701fdaf1f99dbf11b9742e66633d7a235525b97597a16c556b022"
 
 [[files]]
 file = "config/emf_compat.json"
@@ -753,6 +749,10 @@ file = "mods/continuity-3.0.1+26.2.jar"
 hash = "2094a52b98e247f664ef2ecdbb41d7dcad7779cc7a8fb87f0ed8a4f8196c0446"
 
 [[files]]
+file = "mods/controlify-3.5.0+mc26.2-universal.jar"
+hash = "710a7a8cc21ebfaddd29f6a15da1b6cf3d8de4098269a2534d06ac65ba8fa186"
+
+[[files]]
 file = "mods/cristellib-fabric-26.2-3.1.11.jar"
 hash = "568da42a87eab96f26df08be6aee3cc227064addae70a4711101545393fd80dd"
 
@@ -763,10 +763,6 @@ hash = "f9d6b558a3ad1277898089f0bffc36f5dfee8dff2f6588284600169e6c85d2c1"
 [[files]]
 file = "mods/delightlib-26.06.23-26.2-fabric.jar"
 hash = "4cce6ddd8e28e60b2e3058073c3aab9baaedd1524eea6ee89fa94de19e220a16"
-
-[[files]]
-file = "mods/display-delight-1.8.4-mc26.2.jar"
-hash = "0dfdaf83d1c34c2e95ff997d75b9010e92b689c7bc522d07ee57a2ae4c17f7fa"
 
 [[files]]
 file = "mods/emf_compat_core-1.1.2.jar"
@@ -901,6 +897,10 @@ file = "mods/nbidal18-autopilot-1.2.0+26.2-fabric.jar"
 hash = "e491619f6a34bc5ea1c4ed40ef8e6c590667fc5ef0a9088390c356bb79da098d"
 
 [[files]]
+file = "mods/nbidal18-betterend-1.0.0+26.2-fabric.jar"
+hash = "9e959f3e25fde970684a2ca09a19fa73496cb429ebe61de124ce074fd42c02c4"
+
+[[files]]
 file = "mods/nbidal18-betterfishing-1.0.0+26.2-fabric.jar"
 hash = "9f40acd1782e0ff9b9c910ca7f253d770daec0984ec03ac01b4cc9ae30baad13"
 
@@ -917,8 +917,16 @@ file = "mods/nbidal18-carryon-1.1.0+26.2-fabric.jar"
 hash = "b7114f4ee6880b02e85eb547545b5e976efe28d9445445628596cbc0e4abbe18"
 
 [[files]]
+file = "mods/nbidal18-farmersdelight-1.0.0+26.2-fabric.jar"
+hash = "3c1d0e9a5e01915c087717d3679443881b67bbfcae148b67d65f16832c37d35c"
+
+[[files]]
 file = "mods/nbidal18-immersiveaircraft-1.4.7+26.2-fabric.jar"
 hash = "85e621b877120b3a38072a73ab42ef8bdac71208383d9b327fbbfc3e240bcabb"
+
+[[files]]
+file = "mods/nbidal18-immersivemachinery-0.2.0+26.2-fabric.jar"
+hash = "e0d618632889e8a3cec85fe9249147b7dad0a2cc27dfa58aa182d024cff4e5f5"
 
 [[files]]
 file = "mods/nbidal18-immersivepaintings-1.0.0+26.2-fabric.jar"
@@ -929,8 +937,8 @@ file = "mods/nbidal18-immersivethunder-1.2.2+26.2-fabric.jar"
 hash = "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.85+26.2-fabric.jar"
-hash = "21fb237653cb7eae3c0f106c33ac820dcc6849990aa1fe4422c36e9509c7c4d9"
+file = "mods/nbidal18-integrity-1.0.86+26.2-fabric.jar"
+hash = "e1cfb9b60f6eb6e3d15b4e77d5d160f062995d41cc85f09b9443c47c0c749fdb"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar"
@@ -941,8 +949,8 @@ file = "mods/nbidal18-iris-1.0.0+26.2-fabric.jar"
 hash = "1abaa2254d53852f50f4e1bc50d26f3df5a8266c0da1eb5388be0bbd7d109c81"
 
 [[files]]
-file = "mods/nbidal18-jukebox-2.0.3+26.2-fabric.jar"
-hash = "d2c00e2dea8c49defcaa62722cde68284de9c587bed1db0a451671c21deee547"
+file = "mods/nbidal18-jukebox-2.0.4+26.2-fabric.jar"
+hash = "74f800f257d43ed7905b8ec48f8bb575010ef9254f4a7b87c4f47453679f1967"
 
 [[files]]
 file = "mods/nbidal18-mousewheelie-1.0.2+26.2-fabric.jar"
@@ -999,6 +1007,10 @@ hash = "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
 [[files]]
 file = "mods/nbidal18-voxyworldgen-3.4.1+26.2-fabric.jar"
 hash = "bc96f3c63235e3e4f97a9132ba554cfa226668a9311712c7450547663a122f8a"
+
+[[files]]
+file = "mods/nbidal18-xaerolib-1.0.0+26.2-fabric.jar"
+hash = "eba60fd0603c901683a9341d6c20bd2cc19158354ee4c888761ed1169224dc76"
 
 [[files]]
 file = "mods/nbidal18-xaerominimap-1.0.0+26.2-fabric.jar"

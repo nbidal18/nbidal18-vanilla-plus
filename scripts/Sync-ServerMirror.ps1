@@ -145,6 +145,27 @@ if ($Get) {
 
 if ($Push) {
     if (-not $Files -and -not $Remove) { throw 'Push needs -Files or -Remove: reviewed paths, relative to the mirror root.' }
+    # A file inside a folder the server does not have yet (v1.0.86: config/controlify/server.json,
+    # a mod's own folder that it only creates on its first boot) needs that folder made first, and
+    # WinSCP's `put` does not make it. Its `mkdir` fails on a folder that already exists and a
+    # failed line aborts the whole batch, so each parent is looked up on the server first, with a
+    # listing of its own parent, and only a missing one gets a mkdir line ahead of the puts. The
+    # roots the server always has (mods, config, world) are never touched.
+    $ensured = New-Object System.Collections.Generic.HashSet[string]
+    foreach ($rel in $Files) {
+        $parts = @($rel.Replace([IO.Path]::DirectorySeparatorChar, [char]47).Split([char]47))
+        for ($depth = 2; $depth -lt $parts.Count; $depth++) {
+            $dir = ($parts[0..($depth - 1)] -join '/')
+            if (-not $ensured.Add($dir)) { continue }
+            $parentOf = ($parts[0..($depth - 2)] -join '/')
+            $leaf = $parts[$depth - 1]
+            $listing = & $PSCommandPath -List $parentOf -Session $Session -RemoteRoot $RemoteRoot 2>&1 | Out-String
+            $present = ($listing -split "`n") | Where-Object { $_ -match ('^d\S+\s+.*\s' + [regex]::Escape($leaf) + '\s*$') }
+            if ($present) { continue }
+            $lines.Add("mkdir `"$RemoteRoot$dir`"")
+            Write-Host ("mkdir     {0} (absent on the server)" -f $dir)
+        }
+    }
     foreach ($rel in $Files) {
         $local = Join-Path $MirrorRoot $rel
         if (-not (Test-Path -LiteralPath $local -PathType Leaf)) { throw "Not in the mirror: $local" }

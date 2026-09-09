@@ -140,6 +140,27 @@ $mods = @(
     # Data only - no src\, so no javac. Its builder reads the vanilla loot table out of the game jar
     # and edits it, which is why it needs no classpath either.
     @{ Name = 'nbidal18-tectonic'; Generator = $null; Builder = 'build_tectonic.py' },
+    # Data only, like Tectonic's. Better End's Resonance hammer enchantment (3x3x3 at I, 5x5x5 at II,
+    # one swing's durability, no config) is taken off the table: its definition is read out of the
+    # Better End jar and republished supporting no item, so no table, villager or loot roll can offer
+    # it. Decided 2026-09-09 alongside Immersive Machinery's drill. **Runs on the server too** (the
+    # server owns enchanting and loot) - needs -AddMods.
+    # Data only, like Tectonic's. Better End's Resonance hammer enchantment (3x3x3 at I, 5x5x5 at II,
+    # one swing's durability, no config) is taken off the table: its definition is read out of the
+    # Better End jar and republished supporting no item, so no table, villager or loot roll can offer
+    # it. Decided 2026-09-09 alongside Immersive Machinery's drill, and shipped in the same release
+    # (v1.0.86). **Runs on the server too** (the server owns enchanting and loot) - needs -AddMods.
+    @{ Name = 'nbidal18-betterend'; Generator = $null; Builder = 'build_betterend.py' },
+    # Data only. Fifteen Farmer's Delight recipes that give a vanilla item a non-vanilla route
+    # (paper from tree bark, lead from straw, bread from dough, ...) and their unlock advancements
+    # are overridden with a load condition that is never true, so Fabric's loader drops them. The
+    # list is checked against the jar at build time. **Runs on the server too** - needs -AddMods.
+    @{ Name = 'nbidal18-farmersdelight'; Generator = $null; Builder = 'build_farmersdelight.py' },
+    # Every Xaero option the pack pins (minimap off, coordinates and cave mode hidden, teleport
+    # denied) reads as its pin for the whole session, so the mods' own settings screens cannot
+    # flip them until the updater repairs the file. One mixin at Xaero Lib's Config.get; the pin
+    # list is generated from config-classification.json's propertyRules. Client only.
+    @{ Name = 'nbidal18-xaerolib'; Generator = $null; Builder = 'build_xaerolib.py' },
     # HT's TreeChop, ported to 26.2 from the MIT continuation at polaron-games/treechop (1.21.11).
     # 191 upstream files that were never held to this build's -Xlint:all; they compile with the
     # warnings off (Lint below) rather than being rewritten. Errors still fail the build. Owner's

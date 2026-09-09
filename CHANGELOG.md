@@ -5,6 +5,81 @@ build that was not published.
 
 ---
 
+## v1.0.86
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-09 | see below | `ab5282b3e6ce` | `404914dd6e5a` | 319 | 164 |
+
+**Immersive Machinery, ported to 26.2 with its own engine gates; the Resonance hammer enchantment is
+gone; controller support; Xaero's settings can no longer show what the pack hides; a jukebox with
+no disc is silent; Farmer's Delight loses its vanilla shortcuts; Display Delight removed.** Click
+**Play**. Nothing to clear. The server gets four new mods, one updated, and loses one.
+
+### Immersive Machinery
+
+Asked by the owner. The Immersive Aircraft companion - a bamboo bee that ferries items between the
+containers you mark, a redstone sheep that harvests the crops around it and walks home when full, a
+copper fin submarine whose pilot breathes and sees under water, and a tunnel digger that drills a
+3x3 ahead of itself. Upstream stopped at 1.21.1, so like the aircraft mod it is a source port, built
+on the pack's aircraft port. Its recipes follow the aircraft's engine gates, decided with the owner:
+the bee and the sheep need an eco engine, the tunnel digger a nether engine, and the copper fin a
+nether engine and a conduit, because a submarine that never runs out of air has to be hard to
+build. The netherite drill takes the netherite upgrade template like every other netherite
+upgrade.
+
+### Resonance is gone
+
+Decided by the owner next to the drill: Better End's Resonance enchantment (a hammer that breaks a
+3x3x3, then a 5x5x5) can no longer be rolled by any table, villager or loot chest. The one hammer
+that already carries it is swapped by hand for a drill.
+
+### Controlify
+
+Asked by the owner. Full controller support through SDL3, with the natives inside the jar for
+Windows, Linux and macOS, so nothing is downloaded at first run. Its settings are the player's own,
+generated per machine, and are not published. Reach-around placement is off on every client
+unless a player turns it on, and the server carries the mod so that its policies are the server's
+to set in a later release.
+
+### Xaero's settings are locked for the session
+
+Found alongside the F3 leak: the pack hides the minimap, coordinates, cave maps and map teleport by
+pinning rows in Xaero's files, and the updater repairs those rows at every launch, but Xaero's own
+settings screens could switch them back on for the rest of a session. A new first-party artefact for
+the library both Xaero mods share makes every pinned option read as its pin, whatever the screen was
+told. The pin list is generated from the same table the updater uses, so the two cannot disagree.
+
+### The jukebox: an empty slot means silence
+
+Reported by the owner: a disc put in and taken out fast enough could leave the jukebox playing with
+nothing in it. The rule is now re-asserted every tick, on the server for the song and on every
+client for the sound, so a jukebox with no disc plays nothing.
+
+### Farmer's Delight without the shortcuts
+
+Decided by the owner: fifteen Farmer's Delight recipes made a vanilla item by a route vanilla does
+not have - paper from tree bark, a lead or packed mud from straw, scaffolding, paintings and books
+from canvas, milk buckets and cake from milk bottles, cake from slices, bread from dough in a
+furnace, and pumpkins, pies and seeds from slices. They are gone, from the recipe book, from JEI and
+from the server. The mod's own kitchen is untouched: crates, knives, the cooking pot and its soups
+all stay.
+
+### Display Delight removed
+
+The owner's decision the morning after it shipped. Food placed as plates with it disappears with
+the mod.
+
+### Tested before publishing
+
+Updater sync, client launch and a throwaway dedicated server with the new jars pass. **What it
+needs from you:** a controller plugged in at the title screen; Xaero's minimap settings turned on
+from Mod Menu and nothing appearing; a disc in and straight out of a jukebox; three tree bark in a
+crafting grid making nothing; a bamboo bee placed, its menu opened, and a tunnel digger with a
+drill mining ahead of itself; an enchanting table on a hammer never offering Resonance.
+
+---
+
 ## v1.0.85
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

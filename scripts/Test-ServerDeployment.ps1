@@ -400,6 +400,10 @@ foreach ($key in $propertyEdits.Keys) {
 }
 [IO.File]::WriteAllText($propsPath, $propsWanted)
 foreach ($jar in @($staleShared) + @($added) + @($configFiles)) {
+    # A config inside a folder the mirror does not have yet (v1.0.86: config\controlify\server.json,
+    # a folder the mod only creates on its first boot) needs the folder made here; on the server
+    # Sync-ServerMirror makes it at push time.
+    [IO.Directory]::CreateDirectory((Split-Path -Parent $jar.Live)) | Out-Null
     [IO.File]::WriteAllBytes($jar.Live, [IO.File]::ReadAllBytes($jar.Source))
 }
 

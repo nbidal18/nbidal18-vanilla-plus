@@ -690,11 +690,6 @@
       "reason": "Map preferences - zoom, colours, waypoint scale. The eight settings that would turn the map into an information cheat are pinned individually by property rules instead, so the player keeps every honest preference."
     },
     {
-      "match": "config/displaydelight.toml",
-      "class": "gameplay",
-      "reason": "Display Delight (v1.0.85): wandering-trader trades for its food blocks and the creative tab. Both sides read it; the server copy is deployed with -Config in the same release. Published in the exact form the mod wrote it."
-    },
-    {
       "match": "config/farmersdelight-client.json",
       "class": "support",
       "reason": "Farmer's Delight Refabricated (v1.0.85): the nourishment and comfort HUD overlays and the food-effect tooltip. Rendering and UI only, so support."
