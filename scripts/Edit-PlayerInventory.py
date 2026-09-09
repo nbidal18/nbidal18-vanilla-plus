@@ -1,12 +1,14 @@
 """Swap one stack in a player's inventory for another item, and optionally add more, offline.
 
     python Edit-PlayerInventory.py <player.dat in> <player.dat out> <remove id> <replace-with id> [extra id ...]
+    python Edit-PlayerInventory.py <player.dat in> <player.dat out> - - <extra id> [extra id ...]
 
 The player file is `world/players/data/<offline uuid>.dat` on the 26.2 layout (there is no
 `playerdata/` folder any more). The stack whose item id is <remove id> - there must be exactly
 one in the main inventory - is replaced in the same slot by one <replace-with id>, and each
-<extra id> becomes one more plain stack in the lowest free main-inventory slot (0-35). Ender chest,
-armour, offhand and backpack contents are read only to find free slots and are never written.
+<extra id> becomes one more plain stack in the lowest free main-inventory slot (0-35). With `- -`
+in place of the two ids nothing is removed and the extras are only added. Ender chest, armour,
+offhand and backpack contents are read only to find free slots and are never written.
 
 Byte-splice, not a round trip: the replaced element's bytes and the Inventory list's length are
 the only bytes that change; everything else in the decompressed NBT is copied through as it was,
@@ -110,11 +112,16 @@ assert inv_header, 'no Inventory list in this file'
 hdr, et, n, list_end = inv_header
 assert et == 10 and n == len(spans)
 
-hits = [s for s in spans if isinstance(s[2], dict) and s[2].get('id') == remove_id]
-assert len(hits) == 1, 'expected exactly one %s in Inventory, found %d' % (remove_id, len(hits))
-start, end, old = hits[0]
-slot = old['Slot']
-print('removing  slot %d %s components=%s' % (slot, old['id'], old.get('components')))
+if remove_id == '-':
+    assert replace_id == '-' and extra_ids, 'add-only mode is "- -" followed by at least one item id'
+    start = end = list_end   # an empty splice at the end of the list: nothing replaced
+    slot = None
+else:
+    hits = [s for s in spans if isinstance(s[2], dict) and s[2].get('id') == remove_id]
+    assert len(hits) == 1, 'expected exactly one %s in Inventory, found %d' % (remove_id, len(hits))
+    start, end, old = hits[0]
+    slot = old['Slot']
+    print('removing  slot %d %s components=%s' % (slot, old['id'], old.get('components')))
 
 used = {s[2]['Slot'] for s in spans}
 free = [i for i in range(36) if i not in used]
@@ -137,8 +144,10 @@ def stack(slot, item):
     return tag_byte('Slot', slot) + tag_str('id', item) + tag_int('count', 1) + b'\x00'
 
 
-replacement = stack(slot, replace_id)
-print('giving    slot %d %s x1' % (slot, replace_id))
+replacement = b''
+if slot is not None:
+    replacement = stack(slot, replace_id)
+    print('giving    slot %d %s x1' % (slot, replace_id))
 appended = b''
 for item, s in zip(extra_ids, free):
     appended += stack(s, item)
