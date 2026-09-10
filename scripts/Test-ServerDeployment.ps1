@@ -301,9 +301,14 @@ if ($SetLevelData.Count) {
     }
 }
 
-$wantMotd = "motd=v$version - @nbidal18 on Discord"
 $propsText = [IO.File]::ReadAllText($propsPath)
 $motdNow = ([regex]::Match($propsText, '(?m)^motd=.*$')).Value
+# The version is what this rewrites; a label a server carries after it ("v1.0.87 Hardcore - ...",
+# the second machine since 2026-09-10) is kept, so one script serves both servers.
+$wantMotd = "motd=v$version - @nbidal18 on Discord"
+if ($motdNow -match '^motd=v[0-9.]+( .+?)? - @nbidal18 on Discord$' -and $Matches[1]) {
+    $wantMotd = "motd=v$version$($Matches[1]) - @nbidal18 on Discord"
+}
 
 # Named server.properties edits, beyond the motd this has always rewritten.
 #

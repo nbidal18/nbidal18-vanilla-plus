@@ -69,7 +69,12 @@ param(
     # Seconds to wait for the server to go down, instead of refusing the moment it answers. Start
     # this with the server still up and stop it from the panel when the script says it is waiting;
     # the push then goes out within seconds of the port closing.
-    [int] $WaitForShutdown = 0
+    [int] $WaitForShutdown = 0,
+    # host:port of the server being deployed to, for the shutdown pings. SERVER.txt names the
+    # Vanilla+ server and is the default; the hardcore server (2026-09-10, a second machine on a
+    # different node) is deployed with -Session, -DriveRoot and this all pointing at it - see
+    # server.md, "The hardcore server".
+    [string] $ServerAddress
 )
 
 $ErrorActionPreference = 'Stop'
@@ -82,7 +87,7 @@ if (-not (Test-Path -LiteralPath $release)) { throw "No release folder at $relea
 
 $serverFile = Join-Path $repo 'SERVER.txt'
 if (-not (Test-Path -LiteralPath $serverFile)) { throw "No SERVER.txt at $serverFile" }
-$address = (Get-Content -LiteralPath $serverFile -Raw).Trim()
+$address = if ($ServerAddress) { $ServerAddress.Trim() } else { (Get-Content -LiteralPath $serverFile -Raw).Trim() }
 $serverHost, $serverPort = $address -split ':', 2
 $serverPort = [int] $serverPort
 
