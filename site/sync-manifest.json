@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.86",
+    "packVersion":  "1.0.87",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -350,7 +350,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.json",
-                                    "sha256":  "3c138aededc1abad83f540e5469ec3771bcedfa6ea00972765c107b1772f2e2a"
+                                    "sha256":  "a4cf3d91b1d121eb83dd9586c27d2fe2fdaacae56aba486a4568f25a31ad413c"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -872,7 +872,7 @@
                   },
                   {
                       "path":  "config/bcc-common.json",
-                      "sha256":  "3c138aededc1abad83f540e5469ec3771bcedfa6ea00972765c107b1772f2e2a"
+                      "sha256":  "a4cf3d91b1d121eb83dd9586c27d2fe2fdaacae56aba486a4568f25a31ad413c"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1767,6 +1767,10 @@
                       "sha256":  "3c1d0e9a5e01915c087717d3679443881b67bbfcae148b67d65f16832c37d35c"
                   },
                   {
+                      "path":  "mods/nbidal18-hardcorerevive-1.12.0+26.2-fabric.jar",
+                      "sha256":  "2cb8b1e719c14364b99cd99c67491fd3cd6542200b16f6b7419cd8bf0f43521c"
+                  },
+                  {
                       "path":  "mods/nbidal18-immersiveaircraft-1.4.7+26.2-fabric.jar",
                       "sha256":  "85e621b877120b3a38072a73ab42ef8bdac71208383d9b327fbbfc3e240bcabb"
                   },
@@ -1783,8 +1787,8 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.86+26.2-fabric.jar",
-                      "sha256":  "e1cfb9b60f6eb6e3d15b4e77d5d160f062995d41cc85f09b9443c47c0c749fdb"
+                      "path":  "mods/nbidal18-integrity-1.0.87+26.2-fabric.jar",
+                      "sha256":  "4959ea4d9476def490f67d27e87dd712fbe56f4bdd6dba92160dbc3a4380f026"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar",
@@ -1851,20 +1855,20 @@
                       "sha256":  "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
                   },
                   {
-                      "path":  "mods/nbidal18-voxyworldgen-3.4.1+26.2-fabric.jar",
-                      "sha256":  "bc96f3c63235e3e4f97a9132ba554cfa226668a9311712c7450547663a122f8a"
+                      "path":  "mods/nbidal18-voxyworldgen-3.5.0+26.2-fabric.jar",
+                      "sha256":  "d94c6223350a75d2825b45872bb08e7e3c6a0e0cf134755aa256215d3e07030f"
                   },
                   {
                       "path":  "mods/nbidal18-xaerolib-1.0.0+26.2-fabric.jar",
                       "sha256":  "eba60fd0603c901683a9341d6c20bd2cc19158354ee4c888761ed1169224dc76"
                   },
                   {
-                      "path":  "mods/nbidal18-xaerominimap-1.0.0+26.2-fabric.jar",
-                      "sha256":  "e82f26bf0f705dd2c3a3ab53a633812ae7ac60cc07c46171e2496a9a3a07e1a6"
+                      "path":  "mods/nbidal18-xaerominimap-1.1.0+26.2-fabric.jar",
+                      "sha256":  "7323649a970c3311a01ae0c0dad8bb5de1afdcf07a033c4ee02d42eeebcab27e"
                   },
                   {
-                      "path":  "mods/nbidal18-xaeroworldmap-1.0.0+26.2-fabric.jar",
-                      "sha256":  "9ebbd685b4fecba0ed0800440068a79f823c3436bffecea0a604aee0baab946a"
+                      "path":  "mods/nbidal18-xaeroworldmap-1.1.0+26.2-fabric.jar",
+                      "sha256":  "4024316a307348e28c73400bd68a4d8ef1a3e8f0d294d9f9cc5a7cedcae280c3"
                   },
                   {
                       "path":  "mods/notenoughanimations-fabric-1.12.4-mc26.2.jar",

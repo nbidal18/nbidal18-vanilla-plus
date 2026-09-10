@@ -5,6 +5,61 @@ build that was not published.
 
 ---
 
+## v1.0.87
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-10 | see below | `518dcdefb1f3` | `ab5282b3e6ce` | 320 | 165 |
+
+**Far terrain now catches up on what changed while you were away; the freeze on the first join
+after a server restart is gone; the pack is ready for a second, hardcore world beside this one,
+with the revive mod back for it.** Click **Play**. Nothing to clear. The server gets one updated
+mod and three it did not have; until it is deployed, clients on this version cannot join.
+
+### Far terrain that changed while you were away
+
+Found by the owner: a friend's build made while he was offline stayed missing from his far terrain
+until he walked close enough for real chunks to replace it. Live changes always arrived, but the
+pack's own record of what each client already holds - the thing that stops a rejoin re-streaming
+the whole map - had no idea a chunk had changed since. The server now keeps two small records in
+the world folder: when each chunk's blocks last changed, and when each player was last in each
+dimension. On the way in, every chunk you hold that changed since you were last there is sent
+again. A change far outside the live range of someone who is online is handled as it happens.
+
+### The first join no longer freezes the server
+
+The far-terrain generator loads its list of everything it has generated - a million and a half
+chunks for this overworld - the first time someone enters a dimension after a restart, on the
+server's main thread. Five seconds warm, close to thirty cold, and a frozen world for whoever
+joined. That file is now read in the background at server start, and the switch between
+dimensions writes its counterpart in the background too.
+
+### Ready for a second world
+
+The owner is adding a hardcore world beside this one, switched from the server's settings. Three
+things on the client keyed on the server address alone and would have drawn one world over the
+other: the far-terrain store, the pack's far-terrain record, and Xaero's maps and waypoints. The
+first already told worlds apart; the second now does; for the third, the server now sends Xaero's
+own "which world is this" packet, so each world gets its own map and waypoint set. Nothing changes
+for you on this world.
+
+### Hardcore Revive+ is back, and dormant here
+
+The pack's own version of it - possession off, Life Jam off, the Soul Charm a real item, the ghost
+leash - returns for the hardcore world. On this world it does nothing: it reads the world's hardcore
+flag at start and stays out of the way. When the hardcore world opens, the first death there makes
+a ghost and a Soul Charm brings them back, as it used to.
+
+### Tested before publishing
+
+Updater sync, client launch, and a throwaway dedicated server booted twice with the new jars: once
+as a normal world (the revive mod reports itself dormant) and once as hardcore (active). The
+far-terrain change log and the background preload are new server-side code and have not yet run on
+the live world. **What it needs from you:** after the server is deployed, have someone build
+something while you are offline, log in, and look at it from far away.
+
+---
+
 ## v1.0.86
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

@@ -38,7 +38,14 @@ if (-not (Test-Path -LiteralPath $ReleaseRoot)) { throw "No release folder at $R
 $mods = @(
     @{ Name = 'nbidal18-integrity'; Generator = 'port_integrity.py'; Builder = 'build_integrity.py' },
     @{ Name = 'nbidal18-invmov'; Generator = $null; Builder = 'build_invmov.py' },
-    # nbidal18-hardcorerevive left in v1.0.72: the world went back to normal survival (owner, 2026-09-05).
+    # Left in v1.0.72 when the world went back to normal survival; back in v1.0.87 for the second,
+    # hardcore world, gated (HardcoreGate + a `return 0` at the head of both tick functions) so it
+    # is dormant on the normal-survival world. Datapack in a jar plus three classes. **Runs on the
+    # server** - needs -AddMods.
+    @{ Name = 'nbidal18-hardcorerevive'; Generator = $null; Builder = 'patch_hcrplus.py' },
+    # Both Xaero artefacts run on the server too since v1.0.87 (1.1.0): each sends the map its own
+    # level-id packet so that two worlds behind one address keep separate maps and waypoints.
+    # Needs -AddMods.
     @{ Name = 'nbidal18-xaerominimap'; Generator = $null; Builder = 'build_xaerominimap.py' },
     @{ Name = 'nbidal18-xaeroworldmap'; Generator = $null; Builder = 'build_xaeroworldmap.py' },
     @{ Name = 'nbidal18-betterfishing'; Generator = $null; Builder = 'patch_betterfishing.py' },

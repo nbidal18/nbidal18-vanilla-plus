@@ -33,6 +33,10 @@ param(
     # Jars this release puts on the server for the first time. Deploying one is a decision,
     # so proving it boots is opt-in rather than inferred from the jar's environment.
     [string[]] $AddMods = @(),
+    # The throwaway world is normal survival, like the live one. -Hardcore makes it a hardcore
+    # world, which is what exercises Hardcore Revive+'s gate the other way (v1.0.87: the jar is on
+    # the server for both worlds and must be dormant on the normal one, active on the hardcore one).
+    [switch] $Hardcore,
     [switch] $Interactive,
     [switch] $KeepGameDir
 )
@@ -151,7 +155,7 @@ try {
         'enforce-whitelist=false',
         'max-players=1',
         'difficulty=hard',
-        'hardcore=true',
+        ('hardcore=' + $(if ($Hardcore) { 'true' } else { 'false' })),
         'view-distance=4',
         'simulation-distance=4',
         # Server Pause sleeps the server thread once nobody is connected, and nothing here ever has
@@ -213,6 +217,10 @@ try {
                 throw "The server never finished loading within $BootTimeoutSeconds seconds.$tail"
             }
             Write-Host 'booted    reached "Done"'
+            # SERVER_STARTED handlers log in the tick after "Done" (the far-terrain pacer, the
+            # revive gate's active/dormant line); killed in the same instant they never appear in
+            # the log this script keeps, and a check that reads them is a coin toss.
+            Start-Sleep -Seconds 3
         }
         finally {
             # Killed rather than stopped through the console: the Fabric launcher does not forward
