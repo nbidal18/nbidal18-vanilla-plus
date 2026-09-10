@@ -102,7 +102,10 @@ if (-not (Test-Path -LiteralPath $release)) { throw "No release folder at $relea
 
 $mirrorDefault = Join-Path (Split-Path -Parent $repo) '_server-payload-cache'
 if (-not $DriveRoot) { $DriveRoot = $mirrorDefault }
-$isMirror = [IO.Path]::GetFullPath($DriveRoot).TrimEnd([char]92) -eq [IO.Path]::GetFullPath($mirrorDefault).TrimEnd([char]92)
+# Two live servers since 2026-09-10: the Vanilla+ mirror and, beside it, the hardcore one. A plan
+# staged into either is deployable; any other tree is a rehearsal with no server behind it.
+$mirrors = @($mirrorDefault, ($mirrorDefault + '-hardcore')) | ForEach-Object { [IO.Path]::GetFullPath($_).TrimEnd([char]92) }
+$isMirror = $mirrors -contains [IO.Path]::GetFullPath($DriveRoot).TrimEnd([char]92)
 $syncScript = Join-Path $PSScriptRoot 'Sync-ServerMirror.ps1'
 
 Write-Host ("release   v{0}" -f $version)

@@ -124,6 +124,18 @@ try {
     finally { $zip.Dispose() }
     Write-Host ("seeded    {0} files from nbidal18-client.zip" -f $seeded)
 
+    # The ZIP's servers.dat already lists both servers, so on a fresh install the updater's own
+    # server-list seed would have nothing to do and this would never prove it works. Give the
+    # instance the one-server list every existing player has instead: the seed has to put the
+    # hardcore server back, and the check after the sync reads both addresses out of the file.
+    $serverList = Join-Path $minecraft 'servers.dat'
+    $hardcoreAddress = '195.60.166.224:27321'
+    if (Test-Path -LiteralPath $serverList -PathType Leaf) {
+        $stripped = & python (Join-Path $PSScriptRoot 'Edit-ServerList.py') $serverList $serverList remove $hardcoreAddress
+        if ($LASTEXITCODE -ne 0) { throw "Edit-ServerList.py failed: $stripped" }
+        Write-Host ("stripped  {0} from servers.dat, so the updater's seed has to add it" -f $hardcoreAddress)
+    }
+
     $env:INST_MC_DIR = $minecraft
     $env:NBIDAL18_PACK_URL = "http://127.0.0.1:$Port/pack.toml"
     $env:NBIDAL18_MANIFEST_URL = "http://127.0.0.1:$Port/sync-manifest.json"
@@ -295,6 +307,20 @@ try {
         Assert ($null -ne $packsRow -and $packsRow.StartsWith('[')) 'the resourcePacks row was not seeded'
         Write-Host 'seeded    options.txt carries the declared rows'
     }
+    # Both servers in the multiplayer list: the address strings are plain UTF-8 inside the NBT.
+    $serverList = Join-Path $minecraft 'servers.dat'
+    Assert (Test-Path -LiteralPath $serverList -PathType Leaf) 'servers.dat is missing after the sync'
+    $serverBytes = [Text.Encoding]::UTF8.GetString([IO.File]::ReadAllBytes($serverList))
+    foreach ($address in '194.54.88.14:27107', '195.60.166.224:27321') {
+        Assert ($serverBytes.Contains($address)) "servers.dat does not list $address after the sync"
+    }
+    $serverMarker = Join-Path $minecraft '.nbidal18-packwiz\applied-servers-hardcore-v1088'
+    Assert ((Test-Path -LiteralPath $serverMarker) -and (([IO.File]::ReadAllLines($serverMarker))[2] -eq 'changed')) 'the server-list seed did not report adding the hardcore server'
+    # The file the updater wrote has to be NBT the game can read, not just bytes that contain the
+    # addresses: Edit-ServerList.py parses every tag, refuses trailing bytes, and finds the entry.
+    $parsed = & python (Join-Path $PSScriptRoot 'Edit-ServerList.py') $serverList (Join-Path $testRoot 'servers-parsed.dat') remove '195.60.166.224:27321'
+    Assert ($LASTEXITCODE -eq 0 -and (($parsed -join "`n") -match 'removed\s+1 entries')) "the updater's servers.dat did not parse as one hardcore entry: $parsed"
+    Write-Host 'seeded    servers.dat lists both servers, the hardcore one added by the updater as valid NBT'
 
     # no intruders
     $managed = @{}

@@ -2,6 +2,10 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -919,7 +923,122 @@ public final class Nbidal18PackwizSync {
      */
     private void applyPlayerFileChanges() {
         applyPlayerFileSeeds();
+        applyServerListSeeds();
         removeRetiredLocalFiles();
+    }
+
+    /**
+     * A server the pack adds to the player's multiplayer list, once.
+     *
+     * <p>servers.dat ships in the client ZIP as a first-install default and is never published,
+     * because the updater would otherwise reset every player's own server list on each update.
+     * So an entry added later - the hardcore server of 2026-09-10 - reaches an existing instance
+     * only through this: the entry is appended if no entry with its address is there yet, the
+     * marker is written, and the list is the player's again. Nothing is ever removed or reordered.
+     */
+    private record ServerListSeed(String token, String name, String ip) {
+    }
+
+    private static final String SERVER_LIST = "servers.dat";
+    private static final List<ServerListSeed> SERVER_LIST_SEEDS = List.of(
+            new ServerListSeed("servers-hardcore-v1088", "nbidal18 Vanilla+ Hardcore", "195.60.166.224:27321"));
+
+    private void applyServerListSeeds() {
+        for (ServerListSeed seed : SERVER_LIST_SEEDS) {
+            try {
+                if (applyServerListSeed(seed)) {
+                    status("Added " + seed.name() + " to the multiplayer server list; every other entry was left alone.");
+                }
+            } catch (Exception error) {
+                warning("Could not add " + seed.name() + " to the multiplayer server list; it was left unchanged: "
+                        + messageOf(error));
+            }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private boolean applyServerListSeed(ServerListSeed seed) throws IOException {
+        Path marker = stateRoot.resolve("applied-" + seed.token());
+        if (Files.exists(marker)) {
+            return false;
+        }
+        Path target = minecraftRoot.resolve(SERVER_LIST).normalize();
+        if (!target.startsWith(minecraftRoot)) {
+            throw new IOException("The declared path escapes the instance: " + SERVER_LIST);
+        }
+        if (Files.isSymbolicLink(target)) {
+            throw new IOException(SERVER_LIST + " is a symbolic link");
+        }
+
+        Map<String, Object> root;
+        if (Files.isRegularFile(target, LinkOption.NOFOLLOW_LINKS)) {
+            if (Files.size(target) > 4L * 1024L * 1024L) {
+                throw new IOException(SERVER_LIST + " is unexpectedly large");
+            }
+            byte[] bytes = Files.readAllBytes(target);
+            if (bytes.length >= 2 && (bytes[0] & 0xFF) == 0x1F && (bytes[1] & 0xFF) == 0x8B) {
+                throw new IOException(SERVER_LIST + " is compressed, which the game never writes");
+            }
+            root = Nbt.read(bytes);
+        } else {
+            root = new LinkedHashMap<>();
+        }
+
+        Object listObject = root.get("servers");
+        Nbt.ListTag servers;
+        if (listObject == null) {
+            servers = new Nbt.ListTag((byte) Nbt.COMPOUND, new ArrayList<>());
+        } else if (listObject instanceof Nbt.ListTag list && (list.type() == Nbt.COMPOUND || list.items().isEmpty())) {
+            servers = new Nbt.ListTag((byte) Nbt.COMPOUND, new ArrayList<>(list.items()));
+        } else {
+            throw new IOException("servers is not a list of servers");
+        }
+
+        Map<String, Object> first = null;
+        for (Object item : servers.items()) {
+            if (!(item instanceof Map<?, ?> entry)) {
+                continue;
+            }
+            if (first == null) {
+                first = (Map<String, Object>) entry;
+            }
+            if (seed.ip().equalsIgnoreCase(String.valueOf(entry.get("ip")))) {
+                Files.createDirectories(stateRoot);
+                writeSeedMarker(marker, seed.token(), SERVER_LIST, false);
+                return false;
+            }
+        }
+
+        Map<String, Object> entry = new LinkedHashMap<>();
+        // The pack's own icon, which the first entry carries; a list with no entries gets none.
+        if (first != null && first.get("icon") instanceof String icon) {
+            entry.put("icon", icon);
+        }
+        entry.put("name", seed.name());
+        entry.put("ip", seed.ip());
+        entry.put("acceptTextures", (byte) 1);
+        entry.put("hidden", (byte) 0);
+        servers.items().add(entry);
+        root.put("servers", servers);
+
+        byte[] written = Nbt.write(root);
+        Path temporary = target.resolveSibling(
+                target.getFileName() + ".nbidal18-" + UUID.randomUUID() + ".tmp");
+        try {
+            Files.createDirectories(target.getParent());
+            Files.write(temporary, written);
+            try {
+                Files.move(temporary, target, StandardCopyOption.ATOMIC_MOVE,
+                        StandardCopyOption.REPLACE_EXISTING);
+            } catch (AtomicMoveNotSupportedException ignored) {
+                Files.move(temporary, target, StandardCopyOption.REPLACE_EXISTING);
+            }
+        } finally {
+            Files.deleteIfExists(temporary);
+        }
+        Files.createDirectories(stateRoot);
+        writeSeedMarker(marker, seed.token(), SERVER_LIST, true);
+        return true;
     }
 
     /**
@@ -1165,8 +1284,12 @@ public final class Nbidal18PackwizSync {
      * treats a marker without a third line as "unchanged".
      */
     private static void writeSeedMarker(Path marker, PlayerFileSeed seed, boolean changed) throws IOException {
-        Files.writeString(marker, seed.token() + System.lineSeparator()
-                + seed.relativePath() + System.lineSeparator()
+        writeSeedMarker(marker, seed.token(), seed.relativePath(), changed);
+    }
+
+    private static void writeSeedMarker(Path marker, String token, String relativePath, boolean changed) throws IOException {
+        Files.writeString(marker, token + System.lineSeparator()
+                + relativePath + System.lineSeparator()
                 + (changed ? "changed" : "unchanged") + System.lineSeparator(), StandardCharsets.UTF_8);
     }
 
@@ -1752,6 +1875,243 @@ public final class Nbidal18PackwizSync {
                 }
             }
             return false;
+        }
+    }
+
+    /**
+     * Uncompressed NBT, complete enough to read a servers.dat and write it back unchanged but for
+     * the entry added. Every tag type is carried, so a file the game later extends round-trips.
+     * Strings use {@code DataInput.readUTF}'s modified UTF-8, which is what the game writes.
+     * Compounds are {@link LinkedHashMap}s (order kept), lists are {@link ListTag}s, numbers are
+     * their boxed Java types, arrays are Java arrays.
+     */
+    static final class Nbt {
+        static final int BYTE = 1;
+        static final int SHORT = 2;
+        static final int INT = 3;
+        static final int LONG = 4;
+        static final int FLOAT = 5;
+        static final int DOUBLE = 6;
+        static final int BYTE_ARRAY = 7;
+        static final int STRING = 8;
+        static final int LIST = 9;
+        static final int COMPOUND = 10;
+        static final int INT_ARRAY = 11;
+        static final int LONG_ARRAY = 12;
+
+        record ListTag(byte type, List<Object> items) {
+        }
+
+        private Nbt() {
+        }
+
+        static Map<String, Object> read(byte[] bytes) throws IOException {
+            DataInputStream in = new DataInputStream(new ByteArrayInputStream(bytes));
+            int type = in.readByte();
+            if (type != COMPOUND) {
+                throw new IOException("root is not a compound");
+            }
+            in.readUTF();
+            Map<String, Object> root = readCompound(in);
+            if (in.available() != 0) {
+                throw new IOException("trailing bytes after the root compound");
+            }
+            return root;
+        }
+
+        static byte[] write(Map<String, Object> root) throws IOException {
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(bytes);
+            out.writeByte(COMPOUND);
+            out.writeUTF("");
+            writeCompound(out, root);
+            out.flush();
+            return bytes.toByteArray();
+        }
+
+        private static Map<String, Object> readCompound(DataInputStream in) throws IOException {
+            Map<String, Object> map = new LinkedHashMap<>();
+            while (true) {
+                int type = in.readByte();
+                if (type == 0) {
+                    return map;
+                }
+                String name = in.readUTF();
+                map.put(name, readPayload(in, type));
+            }
+        }
+
+        private static int count(DataInputStream in) throws IOException {
+            int n = in.readInt();
+            if (n < 0) {
+                throw new IOException("negative length");
+            }
+            return n;
+        }
+
+        private static Object readPayload(DataInputStream in, int type) throws IOException {
+            switch (type) {
+                case BYTE:
+                    return in.readByte();
+                case SHORT:
+                    return in.readShort();
+                case INT:
+                    return in.readInt();
+                case LONG:
+                    return in.readLong();
+                case FLOAT:
+                    return in.readFloat();
+                case DOUBLE:
+                    return in.readDouble();
+                case BYTE_ARRAY: {
+                    byte[] array = new byte[count(in)];
+                    in.readFully(array);
+                    return array;
+                }
+                case STRING:
+                    return in.readUTF();
+                case LIST: {
+                    byte elementType = in.readByte();
+                    int n = count(in);
+                    List<Object> items = new ArrayList<>(Math.min(n, 1024));
+                    for (int i = 0; i < n; i++) {
+                        items.add(readPayload(in, elementType));
+                    }
+                    return new ListTag(elementType, items);
+                }
+                case COMPOUND:
+                    return readCompound(in);
+                case INT_ARRAY: {
+                    int[] array = new int[count(in)];
+                    for (int i = 0; i < array.length; i++) {
+                        array[i] = in.readInt();
+                    }
+                    return array;
+                }
+                case LONG_ARRAY: {
+                    long[] array = new long[count(in)];
+                    for (int i = 0; i < array.length; i++) {
+                        array[i] = in.readLong();
+                    }
+                    return array;
+                }
+                default:
+                    throw new IOException("unknown tag type " + type);
+            }
+        }
+
+        private static int typeOf(Object value) throws IOException {
+            if (value instanceof Byte) {
+                return BYTE;
+            }
+            if (value instanceof Short) {
+                return SHORT;
+            }
+            if (value instanceof Integer) {
+                return INT;
+            }
+            if (value instanceof Long) {
+                return LONG;
+            }
+            if (value instanceof Float) {
+                return FLOAT;
+            }
+            if (value instanceof Double) {
+                return DOUBLE;
+            }
+            if (value instanceof byte[]) {
+                return BYTE_ARRAY;
+            }
+            if (value instanceof String) {
+                return STRING;
+            }
+            if (value instanceof ListTag) {
+                return LIST;
+            }
+            if (value instanceof Map) {
+                return COMPOUND;
+            }
+            if (value instanceof int[]) {
+                return INT_ARRAY;
+            }
+            if (value instanceof long[]) {
+                return LONG_ARRAY;
+            }
+            throw new IOException("cannot write a " + (value == null ? "null" : value.getClass().getSimpleName()));
+        }
+
+        @SuppressWarnings("unchecked")
+        private static void writeCompound(DataOutputStream out, Map<String, Object> map) throws IOException {
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                int type = typeOf(entry.getValue());
+                out.writeByte(type);
+                out.writeUTF(entry.getKey());
+                writePayload(out, type, entry.getValue());
+            }
+            out.writeByte(0);
+        }
+
+        @SuppressWarnings("unchecked")
+        private static void writePayload(DataOutputStream out, int type, Object value) throws IOException {
+            switch (type) {
+                case BYTE:
+                    out.writeByte((Byte) value);
+                    break;
+                case SHORT:
+                    out.writeShort((Short) value);
+                    break;
+                case INT:
+                    out.writeInt((Integer) value);
+                    break;
+                case LONG:
+                    out.writeLong((Long) value);
+                    break;
+                case FLOAT:
+                    out.writeFloat((Float) value);
+                    break;
+                case DOUBLE:
+                    out.writeDouble((Double) value);
+                    break;
+                case BYTE_ARRAY: {
+                    byte[] array = (byte[]) value;
+                    out.writeInt(array.length);
+                    out.write(array);
+                    break;
+                }
+                case STRING:
+                    out.writeUTF((String) value);
+                    break;
+                case LIST: {
+                    ListTag list = (ListTag) value;
+                    out.writeByte(list.type());
+                    out.writeInt(list.items().size());
+                    for (Object item : list.items()) {
+                        writePayload(out, list.type(), item);
+                    }
+                    break;
+                }
+                case COMPOUND:
+                    writeCompound(out, (Map<String, Object>) value);
+                    break;
+                case INT_ARRAY: {
+                    int[] array = (int[]) value;
+                    out.writeInt(array.length);
+                    for (int item : array) {
+                        out.writeInt(item);
+                    }
+                    break;
+                }
+                case LONG_ARRAY: {
+                    long[] array = (long[]) value;
+                    out.writeInt(array.length);
+                    for (long item : array) {
+                        out.writeLong(item);
+                    }
+                    break;
+                }
+                default:
+                    throw new IOException("unknown tag type " + type);
+            }
         }
     }
 }

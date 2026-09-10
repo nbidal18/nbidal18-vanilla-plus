@@ -5,6 +5,32 @@ build that was not published.
 
 ---
 
+## v1.0.88
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-10 | see below | `c6fa2e71f218` | `518dcdefb1f3` | 320 | 165 |
+
+**The hardcore server is in your multiplayer list.** Click **Play**. Nothing to clear. Nothing
+changes in the game itself; both servers get the version bump.
+
+### Two servers
+
+There are two servers now: `nbidal18 Vanilla+`, the survival world you know, and
+`nbidal18 Vanilla+ Hardcore`, a second machine with a fresh hardcore world where the first death
+makes you a ghost and a Soul Charm brings you back. The same pack joins either.
+
+The server list is yours - the pack has never touched it after the first install - so the new
+entry is added once, at the next launch, to whatever your list already holds. Nothing is removed
+or reordered. If you had added the hardcore server by hand already, nothing happens.
+
+### Tested before publishing
+
+Updater sync on a fresh instance given the old one-server list, which the updater brought to two;
+the shipped list for new installs carries both. No mod changed.
+
+---
+
 ## v1.0.87
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
