@@ -455,6 +455,11 @@
       "reason": "Player animation."
     },
     {
+      "match": "config/firstperson.json",
+      "class": "player",
+      "reason": "First Person Model (v1.0.90): whether the body is drawn in first person, the vanilla-hands mode, the offsets. The mod's F6 toggle writes this file, and a player who prefers vanilla first person keeps that choice; nothing in it affects fairness."
+    },
+    {
       "match": "config/presencefootsteps/updater.json",
       "class": "support",
       "reason": "Footstep sounds; writes its own updater state."

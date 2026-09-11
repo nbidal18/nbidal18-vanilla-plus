@@ -26,7 +26,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.json"
-hash = "324e9efe256119d6e73f46bf4a7bd98c267afc2588a2b9c3ead7173ad69dd0c0"
+hash = "79fbfadc0e14269e0e1d9889dffa66ba2bad8128ea89f9c3555321a80ee71eee"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -139,6 +139,10 @@ hash = "2b30d437183d307fdda8e3053a12f9be4434a90f383e5facd08af34fb05d35ba"
 [[files]]
 file = "config/ferritecore.mixin.properties"
 hash = "71d5e19e278cb843d92f90a99b8a9772780c62e5611b7c8cc92097cd18399b08"
+
+[[files]]
+file = "config/firstperson.json"
+hash = "6d9d8a3708ccf453fb710f4e10591cedd4d1767acde97c7da7bbc2cd2c4d4101"
 
 [[files]]
 file = "config/fzzy_config/keybinds.toml"
@@ -805,6 +809,10 @@ file = "mods/ferritecore-9.0.0-fabric.jar"
 hash = "213966c72ed967acc7392beb28a866fba301ff56b9976c2e7801c2db7de6bf22"
 
 [[files]]
+file = "mods/firstperson-fabric-2.7.2-mc26.2.jar"
+hash = "0bec2670484e134abff40df717e86009cd66331e0e57581f5c91a9ad52673843"
+
+[[files]]
 file = "mods/fzzy_config-0.7.6+26.2.jar"
 hash = "bbd4bbab6f381e123db5031ed051a9ad2d1a5ad4fb6ccf64d983ba416745e551"
 
@@ -953,8 +961,8 @@ file = "mods/nbidal18-incendium-1.0.0+26.2-fabric.jar"
 hash = "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.89+26.2-fabric.jar"
-hash = "5e9d996e552abc1e4e0244b9974c5874f3301b1dacb938d10ecb80cae6df515c"
+file = "mods/nbidal18-integrity-1.0.90+26.2-fabric.jar"
+hash = "c9b819e3b0bbfe92bff5b70b708565df1db8bd48211a2fb0c0556a397dddbc6e"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar"

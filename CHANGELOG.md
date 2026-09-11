@@ -5,6 +5,34 @@ build that was not published.
 
 ---
 
+## v1.0.90
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-11 | see below | `e84bfa19d1e2` | `19468b207a70` | 325 | 169 |
+
+**You can see your own body in first person.** Click **Play**. Nothing to clear. Client-side only;
+the servers get the usual version bump and nothing else.
+
+### First Person Model
+
+Look down and there are your legs, your armour, your backpack. The mod is by the author of Not
+Enough Animations and 3D Skin Layers, which the pack already runs, and is built to sit beside them.
+Punchy's first-person hands keep working; Punchy added support for this mod in spring 2026. One
+known rough edge from the mod's own tracker: animations may not line up while sitting in a boat.
+
+**F6** toggles it off and on, and the setting is yours - the pack publishes the file once and never
+touches it again. If you would rather have vanilla first person, press F6 once and forget it.
+
+### Tested before publishing
+
+Updater sync on a fresh instance; client launch with the mod loaded beside Punchy, Not Enough
+Animations and 3D Skin Layers, no mixin complaints; a throwaway dedicated server; a deployment dry
+run against each server. What the launch test cannot show is how it looks in play - a first look
+in the throwaway client, then yours.
+
+---
+
 ## v1.0.89
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

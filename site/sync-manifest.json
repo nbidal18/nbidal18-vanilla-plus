@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.89",
+    "packVersion":  "1.0.90",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -18,6 +18,7 @@
                                 "config/iris.properties",
                                 "config/VinURLConfig.json5",
                                 "config/nbidal18-vanillarefresh.json",
+                                "config/firstperson.json",
                                 "config/sodium-fingerprint.json",
                                 "config/sodium-options.json",
                                 "config/sounds/chat.json",
@@ -137,6 +138,7 @@
                          "config/iris.properties",
                          "config/VinURLConfig.json5",
                          "config/nbidal18-vanillarefresh.json",
+                         "config/firstperson.json",
                          "config/sodium-fingerprint.json",
                          "config/sodium-options.json",
                          "config/sounds/chat.json",
@@ -350,7 +352,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.json",
-                                    "sha256":  "324e9efe256119d6e73f46bf4a7bd98c267afc2588a2b9c3ead7173ad69dd0c0"
+                                    "sha256":  "79fbfadc0e14269e0e1d9889dffa66ba2bad8128ea89f9c3555321a80ee71eee"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -463,6 +465,10 @@
                                 {
                                     "path":  "config/ferritecore.mixin.properties",
                                     "sha256":  "fc4d7a195210fb6d32cdfc5a255b6d555ab0225da1a929b61d17dd6b5648c2ba"
+                                },
+                                {
+                                    "path":  "config/firstperson.json",
+                                    "sha256":  "6d9d8a3708ccf453fb710f4e10591cedd4d1767acde97c7da7bbc2cd2c4d4101"
                                 },
                                 {
                                     "path":  "config/fzzy_config/keybinds.toml",
@@ -872,7 +878,7 @@
                   },
                   {
                       "path":  "config/bcc-common.json",
-                      "sha256":  "324e9efe256119d6e73f46bf4a7bd98c267afc2588a2b9c3ead7173ad69dd0c0"
+                      "sha256":  "79fbfadc0e14269e0e1d9889dffa66ba2bad8128ea89f9c3555321a80ee71eee"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -985,6 +991,10 @@
                   {
                       "path":  "config/ferritecore.mixin.properties",
                       "sha256":  "71d5e19e278cb843d92f90a99b8a9772780c62e5611b7c8cc92097cd18399b08"
+                  },
+                  {
+                      "path":  "config/firstperson.json",
+                      "sha256":  "6d9d8a3708ccf453fb710f4e10591cedd4d1767acde97c7da7bbc2cd2c4d4101"
                   },
                   {
                       "path":  "config/fzzy_config/keybinds.toml",
@@ -1651,6 +1661,10 @@
                       "sha256":  "213966c72ed967acc7392beb28a866fba301ff56b9976c2e7801c2db7de6bf22"
                   },
                   {
+                      "path":  "mods/firstperson-fabric-2.7.2-mc26.2.jar",
+                      "sha256":  "0bec2670484e134abff40df717e86009cd66331e0e57581f5c91a9ad52673843"
+                  },
+                  {
                       "path":  "mods/fzzy_config-0.7.6+26.2.jar",
                       "sha256":  "bbd4bbab6f381e123db5031ed051a9ad2d1a5ad4fb6ccf64d983ba416745e551"
                   },
@@ -1799,8 +1813,8 @@
                       "sha256":  "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.89+26.2-fabric.jar",
-                      "sha256":  "5e9d996e552abc1e4e0244b9974c5874f3301b1dacb938d10ecb80cae6df515c"
+                      "path":  "mods/nbidal18-integrity-1.0.90+26.2-fabric.jar",
+                      "sha256":  "c9b819e3b0bbfe92bff5b70b708565df1db8bd48211a2fb0c0556a397dddbc6e"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar",
