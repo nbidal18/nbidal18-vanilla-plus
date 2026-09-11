@@ -26,7 +26,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.json"
-hash = "79fbfadc0e14269e0e1d9889dffa66ba2bad8128ea89f9c3555321a80ee71eee"
+hash = "ed52df10b5df1a353b5b55c544de26063bafa39f64dd5da2b23a5692c2543f65"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -327,18 +327,6 @@ hash = "1e7c61df09c105e1eeca8cf3dcbdfeb976700e9904bcb3983fc7791adb7fad2e"
 [[files]]
 file = "config/presencefootsteps/userconfig.json5"
 hash = "90fab4d4fe137ee65a86934eab457c4c679a87f6bd3188a320e8c0ade3ef5112"
-
-[[files]]
-file = "config/punchy/merged_animation_selection.json"
-hash = "77d9559a19f69d73f952177d2047760a9e55be219fee015658effaaa8783eb46"
-
-[[files]]
-file = "config/punchy/punchy_config.json"
-hash = "e876761ce016bf2ac33c8ebce77bdd5cc20540f39a1c4bad90a1af32163ea939"
-
-[[files]]
-file = "config/punchy/triggerable-keybindings.json"
-hash = "9148991f4ec6e759cf2b45ea60f02650959b8a3f6ed5b16522ed5ed63cfcf3ea"
 
 [[files]]
 file = "config/reliable_gliders.json"
@@ -961,8 +949,8 @@ file = "mods/nbidal18-incendium-1.0.0+26.2-fabric.jar"
 hash = "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.90+26.2-fabric.jar"
-hash = "c9b819e3b0bbfe92bff5b70b708565df1db8bd48211a2fb0c0556a397dddbc6e"
+file = "mods/nbidal18-integrity-1.0.91+26.2-fabric.jar"
+hash = "2b6f523b7c001311a128e00325d59a8d822c376a69b200f75bd3d3f606681d04"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar"
@@ -1029,8 +1017,8 @@ file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
 hash = "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
 
 [[files]]
-file = "mods/nbidal18-voxyworldgen-3.6.0+26.2-fabric.jar"
-hash = "8e046973c4f0b08e9fb3c4ebe5291007f684a09e85419e19a91ff39f759c78e0"
+file = "mods/nbidal18-voxyworldgen-3.6.1+26.2-fabric.jar"
+hash = "9f2918a747e2c4f8291c4189343d000d6d9a678e6c1ae5da1d7bdbaf9360ee3c"
 
 [[files]]
 file = "mods/nbidal18-xaerolib-1.0.0+26.2-fabric.jar"
@@ -1059,10 +1047,6 @@ hash = "c2ca2b5c397a0c198a32e7af68d2d0a011bc2c7baeae5cffd3996efd65c5069e"
 [[files]]
 file = "mods/pneumonocore-1.3.1+26.2+A.jar"
 hash = "8740f3698563f35ade639a3e98eda22537e259f339abb629803b358d30e55ccd"
-
-[[files]]
-file = "mods/punchy-2.7d-fabric-26.2.jar"
-hash = "ed63e4531048e66e5651b369805e764860fe91081b340409c7ae476df55df20f"
 
 [[files]]
 file = "mods/railoptimization-fabric-mc26.1.2-1.6.jar"

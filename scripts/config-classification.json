@@ -470,21 +470,6 @@
       "reason": "Footstep sounds; writes its own updater state."
     },
     {
-      "match": "config/punchy/merged_animation_selection.json",
-      "class": "support",
-      "reason": "Client attack animation choice."
-    },
-    {
-      "match": "config/punchy/punchy_config.json",
-      "class": "support",
-      "reason": "Client attack animation tuning."
-    },
-    {
-      "match": "config/punchy/triggerable-keybindings.json",
-      "class": "support",
-      "reason": "Client keybind wiring."
-    },
-    {
       "match": "config/reliable_gliders.json",
       "class": "gameplay",
       "reason": "How far and how fast the glider carries you - updraft strength and height are movement, and the server reads its own copy, so a client editing these would fly differently from what the server allows. equip_to_chestplate decides whether the glider takes an armour slot, which is the whole cost of carrying it."
@@ -789,9 +774,6 @@
     "config/notenoughanimations.json",
     "config/presencefootsteps/updater.json",
     "config/presencefootsteps/userconfig.json5",
-    "config/punchy/merged_animation_selection.json",
-    "config/punchy/punchy_config.json",
-    "config/punchy/triggerable-keybindings.json",
     "config/reliable_gliders.json",
     "config/servercore/config.yml",
     "config/skinlayers.json",

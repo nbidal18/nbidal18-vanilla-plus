@@ -5,6 +5,47 @@ build that was not published.
 
 ---
 
+## v1.0.91
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-12 | see below | `d464de0f33f2` | `e84bfa19d1e2` | 321 | 168 |
+
+**If your far terrain vanished after v1.0.89, that was a bug of ours, fixed here: turn Voxy back
+on once in its settings and it stays on. Also: Punchy is gone; First Person Model draws you all
+the time.** Click **Play**. Nothing to clear. Each server gets one updated mod and the version bump.
+
+### Far terrain switched itself off: our fault
+
+v1.0.89 added a guard that keeps Voxy from starting on a graphics driver that cannot run it. It
+judged that by the OpenGL version the driver reports, and NVIDIA reports exactly the version the
+game asks for, 3.3, while happily running everything newer. So on NVIDIA cards the guard refused
+Voxy, switched it off and saved the switch. If you had far terrain on before v1.0.89 and it is gone,
+that is why. The guard now tests the one thing that matters, whether Voxy's shaders compile, and
+leaves working cards alone. **Open Voxy's settings and turn it on again**; nothing we ship can know
+who had it on, so that step is yours. Sorry.
+
+### One first-person view, not two
+
+With both mods in, Punchy drew its own hands while you looked ahead and only let First Person
+Model show your body once you looked down past sixty degrees, so the view kept switching between
+two styles. That switch was Punchy's doing, read in its code: First Person Model itself never hands
+over to vanilla hands with the settings the pack ships. So Punchy is out, and First Person Model
+is what you see at every angle. Its own attack, eat and swim animations come from Not Enough
+Animations, which stays.
+
+If you had set Punchy's keys (F8 for its menu, I to inspect), those lines stay in your options
+file and do nothing.
+
+### Tested before publishing
+
+Updater sync on a fresh instance; client launch without Punchy; a throwaway dedicated server with
+the updated far-terrain jar; a deployment dry run against each server. The shader probe itself runs
+only where Voxy is switched on, which the throwaway client never is - the owner's own client is the
+proof.
+
+---
+
 ## v1.0.90
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
