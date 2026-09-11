@@ -5,6 +5,31 @@ build that was not published.
 
 ---
 
+## v1.0.93
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-12 | see below | `fb029a77f2ec` | `99ba3217ad88` | 321 | 168 |
+
+**The cow you carry is in front of you now, not around you.** Click **Play**. Nothing to clear.
+Each server gets one updated mod and the version bump.
+
+### Carrying, seen from the right side
+
+v1.0.92 made a carried mob visible again with First Person Model, and the first look was from
+inside it: Carry On holds a mob at chest height in front of the body, and First Person Model
+keeps the body's head where the camera is. While you carry something, the body is now drawn a
+step further back - a small step for a block, a bigger one the wider the mob - so what you hold
+sits in front of the camera. The camera itself does not move.
+
+### Tested before publishing
+
+Updater sync on a fresh instance; client launch; a throwaway dedicated server; a deployment dry
+run against each server. The distance was chosen from the two mods' numbers, not from a screen:
+if it still looks off, say so and it is one number to change.
+
+---
+
 ## v1.0.92
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
