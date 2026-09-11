@@ -5,6 +5,100 @@ build that was not published.
 
 ---
 
+## v1.0.89
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-11 | see below | `19468b207a70` | `c6fa2e71f218` | 323 | 168 |
+
+**Carrying a mob that had picked something up no longer crashes your game, and far terrain refuses
+to start on a graphics driver that cannot run it instead of crashing you on the next join. The
+content pass: graves are blank, the Soul Charm costs diamond and gold, a ghost cannot teleport to
+players, aircraft crashes can kill and their bombs crater, Better End's and Incendium's gear
+and shortcuts are gone, and backpacks have no abilities any more. Also: felling a jungle tree no
+longer sounds like a demolition.** Click **Play**. Nothing to clear. Everything applies on both
+servers alike; each server gets four updated or new mods and three config files, and until a server
+is deployed, clients on this version cannot join it.
+
+### The carried-mob crash
+
+If you picked up a mob that had itself picked something up - a horse that found a saddle, a zombie
+with a helmet - your game crashed within seconds of every join, for as long as you carried it.
+Almanac keeps a note of what a mob picked up, and asked the mob for its id while your client was
+still rebuilding it from its saved data to draw it in your hands, which this Minecraft version
+refuses. Almanac now leaves such a mob alone. A carried mob that never picked anything up was
+never affected, which is why most of you never saw it.
+
+### Far terrain on a graphics chip that cannot run it
+
+Voxy's far terrain needs OpenGL 4.6. On an older driver, turning it on used to look like it
+worked: nothing was drawn, and the next time you joined the server the game crashed, every time,
+until the setting was put back by hand. Now the pack refuses to start it on such a driver, leaves
+the switch off, and tells you in chat what your driver reports and what to do: update the graphics
+driver, or make Windows run Minecraft on the dedicated card. Laptops with two graphics chips are
+the usual case.
+
+### Blank graves
+
+A grave still marks where you died and still knows whose it is, but nothing is carved on it: no
+name, no date. The way the old pack did it.
+
+### The Soul Charm, and what a ghost can do
+
+The charm that brings a ghost back now takes **two diamond blocks and two gold blocks** in place of
+the copper and bone blocks, with the four redstone blocks and the totem unchanged. A raid farm made
+totems free, which made the charm free. Still an early item, no longer an idle one.
+
+A ghost appears at its own spawn point, stays within 100 blocks of it, cannot change dimension, and
+now cannot use the spectator menu to teleport to another player either. Spectator mode no longer
+offers teleport-to-spawn or night vision. On the survival server nobody is ever a ghost, so none
+of this is felt there.
+
+### The End and the Nether, trimmed to their worlds
+
+Better End and Incendium are in the pack for their worlds and their mobs, not their items. So:
+
+- **Better End's armour, tools, weapons and hammers cannot be made or found**, and the End Veil
+  enchantment with them. The Infusion Pedestal no longer makes enchanted books (Mending and the
+  rest come from villagers and loot, as in vanilla). The End Stone Smelter is gone with its
+  ore-to-extra-ingots alloying. And the End no longer offers a second way to an ender eye,
+  gunpowder, slime, leather, string, paper, sugar or ender pearls. The metals, the smithing
+  templates, the blocks, the dyes and the music discs stay.
+- **Incendium's artifacts do not drop** from chests, bosses or mobs, and its elytra upgrade is gone.
+  The mobs, the structures and the worldgen are unchanged.
+
+Anything you already own stays in your hands; you just cannot make or find another. This applies
+on both servers and in singleplayer.
+
+### Aircraft
+
+A crash can now kill; the setting that kept it one heart short of death is off. TNT dropped from a
+bomb bay now breaks blocks. Placed TNT always did.
+
+### Backpacks are storage and a look, nothing more
+
+Every backpack ability is off: no fall-damage immunity from the blaze pack, no second life from the
+creeper pack, no fire resistance, water breathing, regeneration, night vision, haste, speed, extra
+armour or luck from any of them. The feeding and magnet upgrades are off too, and mobs no longer
+spawn wearing backpacks. What stays: the storage, the tanks, the sleeping bag, the hose, and the
+crafting, furnace, jukebox and lantern upgrades. Pick a backpack for how it looks.
+
+### Jungle trees
+
+Felling a 2x2 jungle tree made a harsh burst that spruce never did. The vines, cocoa pods and glow
+lichen hanging on it were breaking themselves, one sound each, all at once, when the log under them
+vanished. They now come off first, quietly, drops included.
+
+### Tested before publishing
+
+Updater sync on a fresh instance; client launch with the new mixins and the rebuilt forks; a
+throwaway dedicated server with every new jar (every recipe and advancement loads, the counts drop
+by exactly what the two data mods remove, the revive mod reports itself active on a hardcore world);
+a deployment dry run against each server. Not exercised by any test here: the far-terrain refusal
+itself, since every machine here has OpenGL 4.6.
+
+---
+
 ## v1.0.88
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.88",
+    "packVersion":  "1.0.89",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -350,7 +350,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.json",
-                                    "sha256":  "4e35016a1b655fd729d2d536976b8ced7ee864dc50315c715384d01dfc098f03"
+                                    "sha256":  "324e9efe256119d6e73f46bf4a7bd98c267afc2588a2b9c3ead7173ad69dd0c0"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -872,7 +872,7 @@
                   },
                   {
                       "path":  "config/bcc-common.json",
-                      "sha256":  "4e35016a1b655fd729d2d536976b8ced7ee864dc50315c715384d01dfc098f03"
+                      "sha256":  "324e9efe256119d6e73f46bf4a7bd98c267afc2588a2b9c3ead7173ad69dd0c0"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1735,6 +1735,10 @@
                       "sha256":  "84b7cfd23caa5c4c978f1e0a2cd464a59b6b7d17d2cfaa6ce0e9c887c03e2e26"
                   },
                   {
+                      "path":  "mods/nbidal18-almanac-1.0.0+26.2-fabric.jar",
+                      "sha256":  "197a1a0552db36da35f291a2a6456fc7947942256b35df8f29fc13f4ea8ff4d2"
+                  },
+                  {
                       "path":  "mods/nbidal18-autohud-9.0-beta.3+26.2-fabric.jar",
                       "sha256":  "eb6973d3e60f81deebd3dabd60846a6ffceb3df86ddac2e1020df0947789e5fb"
                   },
@@ -1743,8 +1747,8 @@
                       "sha256":  "e491619f6a34bc5ea1c4ed40ef8e6c590667fc5ef0a9088390c356bb79da098d"
                   },
                   {
-                      "path":  "mods/nbidal18-betterend-1.0.0+26.2-fabric.jar",
-                      "sha256":  "9e959f3e25fde970684a2ca09a19fa73496cb429ebe61de124ce074fd42c02c4"
+                      "path":  "mods/nbidal18-betterend-2.0.0+26.2-fabric.jar",
+                      "sha256":  "1c21497b2c0ff483f688eeee0c6c7dca97dac47ad701e9a48783b2b3a64e03e0"
                   },
                   {
                       "path":  "mods/nbidal18-betterfishing-1.0.0+26.2-fabric.jar",
@@ -1767,8 +1771,12 @@
                       "sha256":  "3c1d0e9a5e01915c087717d3679443881b67bbfcae148b67d65f16832c37d35c"
                   },
                   {
+                      "path":  "mods/nbidal18-gravestones-1.0.0+26.2-fabric.jar",
+                      "sha256":  "f14153036ad9f690bcbd53f720b43fe6c156eb50ad38a550457a7462474993f3"
+                  },
+                  {
                       "path":  "mods/nbidal18-hardcorerevive-1.12.0+26.2-fabric.jar",
-                      "sha256":  "2cb8b1e719c14364b99cd99c67491fd3cd6542200b16f6b7419cd8bf0f43521c"
+                      "sha256":  "6f2ca1a03b91263bd27e207feea4e2211da6223a04ed693e442f1dd51b88374c"
                   },
                   {
                       "path":  "mods/nbidal18-immersiveaircraft-1.4.7+26.2-fabric.jar",
@@ -1787,8 +1795,12 @@
                       "sha256":  "819992b85104f1e39a8d9a6148349bf610f4182b42398c9ecfe1d6a23f849a6b"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.88+26.2-fabric.jar",
-                      "sha256":  "560ea43552761b931967a9d003b34123b2dd1aeda8a68f7aaae4773aa6a256a2"
+                      "path":  "mods/nbidal18-incendium-1.0.0+26.2-fabric.jar",
+                      "sha256":  "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
+                  },
+                  {
+                      "path":  "mods/nbidal18-integrity-1.0.89+26.2-fabric.jar",
+                      "sha256":  "5e9d996e552abc1e4e0244b9974c5874f3301b1dacb938d10ecb80cae6df515c"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar",
@@ -1847,16 +1859,16 @@
                       "sha256":  "785f792dc924001facba484739ab25317f19b708e7ff10190900401a543bf4db"
                   },
                   {
-                      "path":  "mods/nbidal18-treechop-0.19.3+26.2-nbidal18.1-fabric.jar",
-                      "sha256":  "e14e6a95269a74c5f3e930ea3371c49a8875b453a641b39882d5b7631dc87b19"
+                      "path":  "mods/nbidal18-treechop-0.19.3+26.2-nbidal18.2-fabric.jar",
+                      "sha256":  "cb71edf724fd4df18bc4373519f507a33a5c6809f213af49beaccca6984743d7"
                   },
                   {
                       "path":  "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar",
                       "sha256":  "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
                   },
                   {
-                      "path":  "mods/nbidal18-voxyworldgen-3.5.0+26.2-fabric.jar",
-                      "sha256":  "d94c6223350a75d2825b45872bb08e7e3c6a0e0cf134755aa256215d3e07030f"
+                      "path":  "mods/nbidal18-voxyworldgen-3.6.0+26.2-fabric.jar",
+                      "sha256":  "8e046973c4f0b08e9fb3c4ebe5291007f684a09e85419e19a91ff39f759c78e0"
                   },
                   {
                       "path":  "mods/nbidal18-xaerolib-1.0.0+26.2-fabric.jar",

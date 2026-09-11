@@ -57,6 +57,10 @@ if (-not $Session) {
 $repo = Split-Path -Parent $PSScriptRoot
 $packRoot = Split-Path -Parent $repo
 if (-not $MirrorRoot) { $MirrorRoot = Join-Path $packRoot '_server-payload-cache' }
+# Absolute from here on. WinSCP is opened in the temp folder (see LocalDirectory below), so a
+# relative mirror such as `..\_server-payload-cache-hardcore` - exactly how the hardcore deploy is
+# typed - resolved against that folder, and the pull died in WinSCP with nothing to show for it.
+$MirrorRoot = [IO.Path]::GetFullPath($MirrorRoot).TrimEnd([char]92)
 
 $winscp = @(
     "$env:LOCALAPPDATA\Programs\WinSCP\WinSCP.com",
@@ -151,7 +155,11 @@ if ($Push) {
     # failed line aborts the whole batch, so each parent is looked up on the server first, with a
     # listing of its own parent, and only a missing one gets a mkdir line ahead of the puts. The
     # roots the server always has (mods, config, world) are never touched.
+    # Each lookup is a WinSCP login of its own, so a folder already found absent is not listed
+    # for its children: everything under it is absent too and gets its mkdir straight away
+    # (v1.0.89, from a day when a six-deep datapack tree cost a login per leaf folder).
     $ensured = New-Object System.Collections.Generic.HashSet[string]
+    $absent = New-Object System.Collections.Generic.HashSet[string]
     foreach ($rel in $Files) {
         $parts = @($rel.Replace([IO.Path]::DirectorySeparatorChar, [char]47).Split([char]47))
         for ($depth = 2; $depth -lt $parts.Count; $depth++) {
@@ -159,9 +167,12 @@ if ($Push) {
             if (-not $ensured.Add($dir)) { continue }
             $parentOf = ($parts[0..($depth - 2)] -join '/')
             $leaf = $parts[$depth - 1]
-            $listing = & $PSCommandPath -List $parentOf -Session $Session -RemoteRoot $RemoteRoot 2>&1 | Out-String
-            $present = ($listing -split "`n") | Where-Object { $_ -match ('^d\S+\s+.*\s' + [regex]::Escape($leaf) + '\s*$') }
-            if ($present) { continue }
+            if (-not $absent.Contains($parentOf)) {
+                $listing = & $PSCommandPath -List $parentOf -Session $Session -RemoteRoot $RemoteRoot 2>&1 | Out-String
+                $present = ($listing -split "`n") | Where-Object { $_ -match ('^d\S+\s+.*\s' + [regex]::Escape($leaf) + '\s*$') }
+                if ($present) { continue }
+            }
+            [void]$absent.Add($dir)
             $lines.Add("mkdir `"$RemoteRoot$dir`"")
             Write-Host ("mkdir     {0} (absent on the server)" -f $dir)
         }

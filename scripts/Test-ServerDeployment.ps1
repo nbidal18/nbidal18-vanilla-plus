@@ -102,8 +102,14 @@ if (-not (Test-Path -LiteralPath $release)) { throw "No release folder at $relea
 
 $mirrorDefault = Join-Path (Split-Path -Parent $repo) '_server-payload-cache'
 if (-not $DriveRoot) { $DriveRoot = $mirrorDefault }
+# Absolute from here on. Every path under the mirror is built from this, and a relative root - the
+# hardcore deploy is typed as `..\_server-payload-cache-hardcore` - once made a Substring on
+# absolute file paths cut the wrong number of characters (v1.0.89, caught by a dry run).
+$DriveRoot = [IO.Path]::GetFullPath($DriveRoot).TrimEnd([char]92)
 # Two live servers since 2026-09-10: the Vanilla+ mirror and, beside it, the hardcore one. A plan
-# staged into either is deployable; any other tree is a rehearsal with no server behind it.
+# staged into either is deployable; any other tree is a rehearsal with no server behind it. The
+# two get the same files: the owner's rule since 2026-09-11 evening is that nothing but the world
+# and its hardcore flag differs between them (game rules are set per world, identically, by hand).
 $mirrors = @($mirrorDefault, ($mirrorDefault + '-hardcore')) | ForEach-Object { [IO.Path]::GetFullPath($_).TrimEnd([char]92) }
 $isMirror = $mirrors -contains [IO.Path]::GetFullPath($DriveRoot).TrimEnd([char]92)
 $syncScript = Join-Path $PSScriptRoot 'Sync-ServerMirror.ps1'

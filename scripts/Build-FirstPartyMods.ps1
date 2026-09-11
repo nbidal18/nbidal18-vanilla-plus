@@ -43,6 +43,17 @@ $mods = @(
     # is dormant on the normal-survival world. Datapack in a jar plus three classes. **Runs on the
     # server** - needs -AddMods.
     @{ Name = 'nbidal18-hardcorerevive'; Generator = $null; Builder = 'patch_hcrplus.py' },
+    # Blank graves (v1.0.89): one client mixin cancelling Gravestones' text rendering, because the
+    # mod has no setting for it - only the date's format. Client only.
+    @{ Name = 'nbidal18-gravestones'; Generator = $null; Builder = 'build_gravestones.py' },
+    # Almanac's picked-equipment tracker ignores a mob with no entity id (v1.0.89): 26.2 throws on
+    # getId before assignment, the tracker hashes the mob on load, and Carry On's preview of a
+    # carried mob is rebuilt from data with no id - yeetnado69's eight crashes. Client only.
+    @{ Name = 'nbidal18-almanac'; Generator = $null; Builder = 'build_almanac.py' },
+    # Incendium for its Nether, not its items (v1.0.89): every artifact loot table empty, the elytra
+    # upgrade gone. Data only, read out of the Incendium jar; both sides, -AddMods. Began the same
+    # evening as a hardcore-only world datapack; the owner then wanted both servers the same.
+    @{ Name = 'nbidal18-incendium'; Generator = $null; Builder = 'build_incendium.py' },
     # Both Xaero artefacts run on the server too since v1.0.87 (1.1.0): each sends the map its own
     # level-id packet so that two worlds behind one address keep separate maps and waypoints.
     # Needs -AddMods.
