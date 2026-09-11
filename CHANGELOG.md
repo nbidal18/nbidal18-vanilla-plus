@@ -5,6 +5,38 @@ build that was not published.
 
 ---
 
+## v1.0.92
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-12 | see below | `99ba3217ad88` | `d464de0f33f2` | 321 | 168 |
+
+**You can see what you carry again, and nobody can pick up your chair.** Click **Play**. Nothing to
+clear. Each server gets one updated mod and the version bump.
+
+### The invisible cow
+
+Carry On stops drawing whatever you carry the moment it notices First Person Model is installed,
+in every perspective, on the assumption that First Person Model will draw it instead. It does not,
+and Carry On's own tracker has had that report open since January. The pack now tells Carry On
+to draw as it always did, so a carried cow, chest or villager is in your hands again, and in
+everyone else's view of you.
+
+### The seat
+
+Vanilla Refresh's sit mechanic seats you on an invisible saddled pig. To Carry On that was a pig,
+and anyone could pick your seat up from under you. Vanilla Refresh's helper entities can no longer
+be picked up at all.
+
+### Tested before publishing
+
+Updater sync on a fresh instance; client launch; a throwaway dedicated server with the updated
+Carry On jar; a deployment dry run against each server. Neither fix can fire in those tests - one
+needs a carried mob in view, the other a summoned seat - so the proof is you: pick up a cow and see
+it, sit down and fail to pick up the chair.
+
+---
+
 ## v1.0.91
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

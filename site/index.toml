@@ -26,7 +26,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.json"
-hash = "ed52df10b5df1a353b5b55c544de26063bafa39f64dd5da2b23a5692c2543f65"
+hash = "251383e91804c8ba8b492af855523c7e38a401960a53ef83938490a3745e0568"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -913,8 +913,8 @@ file = "mods/nbidal18-cameraoverhaul-2.1.1-fabric+mc.26.1-plus.jar"
 hash = "101a59b5a662c920a8ea05c2396e82f546be87f2cc7d698822eccd4821ad8a85"
 
 [[files]]
-file = "mods/nbidal18-carryon-1.1.0+26.2-fabric.jar"
-hash = "b7114f4ee6880b02e85eb547545b5e976efe28d9445445628596cbc0e4abbe18"
+file = "mods/nbidal18-carryon-1.2.0+26.2-fabric.jar"
+hash = "f99deebe17a98d0f9af92df2f02e5b462bbb13698692dee33b1637d28083b323"
 
 [[files]]
 file = "mods/nbidal18-farmersdelight-1.0.0+26.2-fabric.jar"
@@ -949,8 +949,8 @@ file = "mods/nbidal18-incendium-1.0.0+26.2-fabric.jar"
 hash = "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.91+26.2-fabric.jar"
-hash = "2b6f523b7c001311a128e00325d59a8d822c376a69b200f75bd3d3f606681d04"
+file = "mods/nbidal18-integrity-1.0.92+26.2-fabric.jar"
+hash = "b4b93c6fa38d6d2d7294c10b5cc410fb233d75d2c73c8e2484ad8754b2b318ef"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar"
