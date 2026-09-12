@@ -5,6 +5,107 @@ build that was not published.
 
 ---
 
+## v1.0.94
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-12 | see below | `5f54c1f11d9d` | `fb029a77f2ec` | 321 | 168 |
+
+**One carried cow in your hands, far terrain that fills in its own gaps, backpacks that sort, and
+lava back where it belongs.** Click **Play**. Nothing to clear. Each server gets three updated mods
+and the version bump. This undoes v1.0.93's step-back.
+
+### The second cow
+
+With First Person Model, Carry On draws what you carry twice: once through its first-person hand
+path, which is the one you want, and once on the body that First Person Model renders, hung at
+chest height around the camera. That second one is the cow you saw from inside in v1.0.92 and saw
+moving away in v1.0.93. It is now left out exactly while First Person Model draws your body in
+first person; everyone else still sees you carrying, and so do you in third person. The body no
+longer steps back.
+
+### Far terrain no longer needs a rejoin
+
+If you turn Voxy on after joining - which everyone whose Voxy was switched off by the v1.0.89 guard
+has had to do at least once - the ground the server sent in the seconds before your client said
+"Voxy is off" was written off as delivered and stayed missing until you rejoined. That is the hole
+on the hardcore server last night: joined at 01:27 with Voxy off, turned it on at 01:30, and the
+spawn area only appeared after a rejoin.
+
+Your client now notices every chunk it could not store and asks for it again, nearest first, over
+the machinery that already existed for a dropped one. Turning Voxy off and on, or reloading it, is
+no longer a way to lose ground for the rest of a session. **Nothing for you to do**, and a rejoin is
+no longer the fix.
+
+### Builds you were not there to see
+
+The server kept a record of when each chunk last changed and when each player was last in each
+dimension, and re-sent what changed while you were away. That record claimed more than it knew: it
+counted you as up to date every ten seconds for as long as you were online, even when your Voxy was
+off, even while you were a ghost, and even for a change too far away for the server to send you at
+the time. Any of those could leave a friend's build looking the way it did before they made it,
+until you walked close enough for ordinary chunks to replace it.
+
+Now a change is only written off once the bytes carrying it actually leave, so anything you have not
+been sent survives your logging out and arrives on your next visit. A change that the server's own
+update path dropped - it has a queue with a limit, and it skips a chunk nobody is near when it gets
+to it - is re-sent whole a few seconds later instead of being lost.
+
+### Backpacks and their upgrades sort again
+
+Since v1.0.83 a sort has left backpacks alone, because a stack clicked onto a backpack goes *inside*
+it and a chest sort was feeding backpacks instead of sorting round them. That fix was far wider than
+it needed to be: it froze **every** Traveler's Backpack item, so upgrades, tanks, hoses and sleeping
+bags all sat still too, and a chest full of them looked like a sort that had given up.
+
+Only the backpack itself can swallow a stack, and only on the one sort path that moves things by
+clicking - which is the path used when the server does not have Mouse Wheelie installed. Ours do, so
+your sorts go as a single instruction the server applies in one go, where nothing can be swallowed at
+all. So backpacks and bundles now sort normally like everything else, and the old protection is kept
+only for the click path, where a backpack stays put and the rest sorts around it.
+
+### Lava in volcanoes and deep down, not on every hillside
+
+Random lava ponds and lava running down ordinary mountainsides were never the terrain mods. Terralith
+puts its lava in volcanoes and nowhere else, Tectonic's is deep tunnels at the bottom of the world,
+and Incendium only touches the nether. It was plain vanilla, in nearly every biome, and this pack's
+taller mountains simply gave it far more bare stone to appear on.
+
+Two vanilla placements are now changed. Lava springs, which vanilla attempts twenty times per chunk
+over a range covering the whole world, are capped so they only form below y=16. The surface lava
+lake, a one-in-two-hundred roll dropped straight onto the ground, no longer places at all.
+
+**What is untouched:** underground lava lakes, Tectonic's deep lava tunnels, every Terralith volcano,
+and the whole nether. Volcanoes are still volcanoes.
+
+**One thing to know.** World generation only applies to ground generated after you update. Terrain
+you have already explored keeps its lava exactly as it is; only new exploration comes out clean.
+
+### Also in the far-terrain mod
+
+- A ledger for a world whose Voxy store you deleted no longer claims you hold it. Deleting one
+  world's folder under `.voxy\saves\` used to mean nothing streamed until `/voxysync refresh`.
+- The sweep stops loading the outermost ring of chunks from disk only for the server to decline
+  sending them. A side effect: standing still in finished terrain no longer reads *sweep has more*
+  for ever, on half a window.
+- `/voxysync` renames one line: `voxy queue ... N refused` is now `N not stored, asked again`,
+  because that is what happens to them now.
+
+The far-terrain work came out of a full audit of that mod against its own documentation and both
+upstream jars, written up in `docs\archive\voxyworldgen-audit.md`: ten findings, eight fixed here,
+two recorded as known and harmless.
+
+### Tested before publishing
+
+Updater sync on a fresh instance; a real client to the title screen, which is also what proves the
+new sorting patch attached itself; two throwaway dedicated servers, one normal and one hardcore,
+both booting with the new jars, which is also what proves the two new world-generation files parse;
+a deployment dry run against each live server, every file hash-verified. The four things no test here
+can prove are yours to judge: the cow in first person, far terrain after switching Voxy on
+mid-session, a chest of backpacks and upgrades sorting, and a walk into fresh terrain.
+
+---
+
 ## v1.0.93
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
