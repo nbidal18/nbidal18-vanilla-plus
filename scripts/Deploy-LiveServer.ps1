@@ -95,6 +95,24 @@ if (-not $DriveRoot) { $DriveRoot = Join-Path (Split-Path -Parent $repo) '_serve
 $DriveRoot = [IO.Path]::GetFullPath($DriveRoot).TrimEnd([char]92)
 $syncScript = Join-Path $PSScriptRoot 'Sync-ServerMirror.ps1'
 
+# SERVER.txt holds one address - Vanilla+'s - and it is what the liveness ping below asks whether a
+# server is running. The mirror is what decides which server is actually being deployed, so any other
+# server deployed against that address pings the wrong machine, and can report 'confirmed down' about
+# a server that is not the one about to be written to.
+#
+# Found on 2026-09-12 deploying v1.0.96 to Vanilla+ Hardcore: the run printed 194.54.88.14:27107
+# while correctly sending the hardcore plan over the hardcore session into the hardcore mirror. Both
+# servers happened to be off, so nothing was written under a running one - but had hardcore been up
+# and Vanilla+ down, this would have written into a live server, which every rule here exists to
+# prevent. Rather than invent a mirror-to-address map, it refuses: a non-default mirror must be told
+# its own address.
+$defaultMirror = [IO.Path]::GetFullPath((Join-Path (Split-Path -Parent $repo) '_server-payload-cache')).TrimEnd([char]92)
+if ($DriveRoot -ne $defaultMirror -and -not $ServerAddress) {
+    throw ("This mirror is not the default one, so SERVER.txt's address is not its server. " +
+           "Mirror: $DriveRoot. SERVER.txt: $address. Pass -ServerAddress '<host>:<port>' for the " +
+           "server this mirror belongs to - otherwise the liveness check pings a different machine.")
+}
+
 Write-Host ("release   v{0}" -f $version)
 Write-Host ("server    {0}" -f $address)
 
