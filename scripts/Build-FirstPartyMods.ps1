@@ -179,6 +179,12 @@ $mods = @(
     # flip them until the updater repairs the file. One mixin at Xaero Lib's Config.get; the pin
     # list is generated from config-classification.json's propertyRules. Client only.
     @{ Name = 'nbidal18-xaerolib'; Generator = $null; Builder = 'build_xaerolib.py' },
+    # Auto HUD's hotbar group (hotbar, hearts, food, level, mount health revealed together),
+    # the mining trigger Auto HUD has no concept of, and the rule that the mount jump bar never
+    # costs the experience bar its slot. Built through Auto HUD's published API - no mixin.
+    # **Added to this list in v1.0.96**: it was hand-built until then and nothing here rebuilt
+    # it, so its jar could have gone stale silently while its source moved on. Client only.
+    @{ Name = 'nbidal18-autohud'; Generator = $null; Builder = 'build_autohud.py' },
     # HT's TreeChop, ported to 26.2 from the MIT continuation at polaron-games/treechop (1.21.11).
     # 191 upstream files that were never held to this build's -Xlint:all; they compile with the
     # warnings off (Lint below) rather than being rewritten. Errors still fail the build. Owner's

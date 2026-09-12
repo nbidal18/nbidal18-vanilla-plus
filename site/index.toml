@@ -26,7 +26,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.json"
-hash = "a686bbfae298e75cbc95c00deb87e35f8f5ce7c66609b975e67200c18a4dba6c"
+hash = "cecdbe024938946df18e3878247c486fef1c7803101d24ecde8fa5000279b252"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -890,15 +890,15 @@ hash = "197a1a0552db36da35f291a2a6456fc7947942256b35df8f29fc13f4ea8ff4d2"
 
 [[files]]
 file = "mods/nbidal18-autohud-9.0-beta.3+26.2-fabric.jar"
-hash = "eb6973d3e60f81deebd3dabd60846a6ffceb3df86ddac2e1020df0947789e5fb"
+hash = "6f068cdbe0d4d47cb2d2e5bc1bb12a5ef882a4be4d874f7a72e9a6d3951a28db"
 
 [[files]]
-file = "mods/nbidal18-autopilot-1.2.0+26.2-fabric.jar"
-hash = "e491619f6a34bc5ea1c4ed40ef8e6c590667fc5ef0a9088390c356bb79da098d"
+file = "mods/nbidal18-autopilot-1.3.0+26.2-fabric.jar"
+hash = "20964b7da5db58b5e9bd499e8e43c79d4715dd8bdf99581b6bca899a23adcc9e"
 
 [[files]]
-file = "mods/nbidal18-betterend-2.0.0+26.2-fabric.jar"
-hash = "1c21497b2c0ff483f688eeee0c6c7dca97dac47ad701e9a48783b2b3a64e03e0"
+file = "mods/nbidal18-betterend-3.0.0+26.2-fabric.jar"
+hash = "ea138812ee5e2a0fd6401446ff940b0a2869cf940f2420055efc7f1f13d1963d"
 
 [[files]]
 file = "mods/nbidal18-betterfishing-1.0.0+26.2-fabric.jar"
@@ -949,8 +949,8 @@ file = "mods/nbidal18-incendium-1.0.0+26.2-fabric.jar"
 hash = "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.95+26.2-fabric.jar"
-hash = "7138f903cd6e2e0a3926350fe5f385d51ca82a09885f44739229294a35774417"
+file = "mods/nbidal18-integrity-1.0.96+26.2-fabric.jar"
+hash = "73ca6e71f915819294c459a816c01ff9800aab12f4de4eefbb4222f645e3c954"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar"

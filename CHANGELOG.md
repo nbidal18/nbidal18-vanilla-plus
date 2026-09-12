@@ -5,6 +5,86 @@ build that was not published.
 
 ---
 
+## v1.0.96
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-12 | see below | `96fed2080960` | `9049cbd1f4d1` | 321 | 168 |
+
+**Three fixes: Better End's gear is gone from the game rather than merely unobtainable, the
+autopilot no longer stops when you open a screen, and your experience bar no longer disappears
+while you ride.** Click **Play**. Nothing to clear.
+
+### The gear that was still on the shelf
+
+Since v1.0.89 none of that gear can be made or found: its recipes are dropped and the loot tables
+that rolled it were stripped. That stopped anyone getting a piece. It did not make the pieces stop
+existing, so all 63 of them still sat in the creative inventory and still filled pages of the recipe
+viewer.
+
+An item cannot simply be deleted. A mod creates its items when it loads, and tearing one back out
+breaks the mod's own references to it. What can be done is to stop the item ever being offered, and
+both places you meet one come from the same source: the recipe viewer builds its list by reading
+what each creative tab contains. So the gear is now removed from every creative tab, which removes
+it from the recipe viewer along with it.
+
+**Nothing for you to do.** The armour sets, hammers, swords, tools and the two elytras are simply
+not listed any more.
+
+Better End's blocks all stay, including the End Stone Smelter, because the rule was that custom
+blocks are fine and only custom gear is not. It cannot be crafted, so it is visible and
+unobtainable; say the word if you want it hidden too. Anything you already hold is still yours and
+still works.
+
+Incendium needed no change. Its artifacts were never separate items, only vanilla items carrying
+custom data, so emptying its loot tables in v1.0.89 really did remove them.
+
+### The autopilot now keeps going through a screen
+
+Engage the autopilot, open a donkey's inventory or the map, and it stopped dead. It turns out it
+never worked in any screen at all; a donkey is simply where you would notice, because that is when
+you open one while travelling.
+
+The autopilot works by holding your forward key down, which is what lets the one feature drive
+walking, boats, horses and the aircraft throttle alike. But the mod that lets you move while a
+screen is open re-reads your real keyboard several times a second and writes what it finds onto
+every movement key. Your finger is not on W, so the held key was wiped a moment before the game
+worked out where you were going.
+
+It now sets your movement directly while a screen is open, after that other mod has had its say, so
+the autopilot carries on whatever you have open. Steering, jumping, sneaking and sprinting are all
+still yours; only forward is held.
+
+### Your experience bar stays while you ride
+
+The experience bar and a mount's jump bar are the same strip of screen, and only one of them can be
+there at a time. Because this pack hides the jump bar, the pack's HUD mod was told to hide that
+strip for as long as you were on a horse or donkey. The reasoning was that the jump bar owns the
+strip the whole time you are mounted, so nothing would be lost.
+
+That was wrong. Another mod in the pack already arranges this properly: it leaves the strip to your
+experience bar while you are simply riding, and only hands it to the jump bar when you actually hold
+the jump key. So the strip being hidden for the whole ride was throwing away an experience bar that
+was already yours.
+
+**Nothing for you to do.** Ride a donkey and your experience bar is where it always was.
+
+**One thing that has not changed, and is not a fault.** While you hold jump to charge, the strip is
+empty and your level number is hidden. Hiding the jump bar is the pack's choice, and the level
+number is hidden by that other mod, deliberately, because the number would otherwise sit on top of
+the charging bar. Let the jump key go and both come straight back.
+
+### Tested before publishing
+
+Updater sync on a fresh instance, twice; a real client to the title screen; a throwaway dedicated
+server booted with the new jars, which also reports the 63 hidden items; a deployment plan staged
+against each live server, every file hash-verified.
+
+Three things no test here can look at, so they are yours to confirm: the creative inventory, the
+autopilot through an open screen, and the experience bar on a donkey.
+
+---
+
 ## v1.0.95
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
