@@ -340,7 +340,31 @@ public final class Nbidal18PackwizSync {
                     SeedRow.of("resourcePacks",
                             "[\"vanilla\",\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/FreshAnimations_v1.10.5.zip\",\"file/FA+All_Extensions-v1.9.2.zip\",\"file/FA+Player-v1.1.zip\",\"file/Better Lanterns v1.3.2 - 26.2.zip\",\"file/§3Fresh §bFlower Pots.zip\",\"file/§3Fresh §bFlower Pots Rotated.zip\",\"file/Theone's Eating Animation Pack v1.0.zip\",\"file/Enchanted Covers v1.3.zip\",\"file/§5§lNo Enchant Glint §f§l26.2.zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-26.2.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-3D-1.3.zip\",\"continuity:default\",\"continuity:glass_pane_culling_fix\",\"cursors_extended:default\",\"punchy:punchy\",\"black_icons\"]"),
                     SeedRow.of("incompatibleResourcePacks",
-                            "[\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\"]"))));
+                            "[\"file/Overlay’s.zip\",\"file/Os' Colorful Grasses (Mix).zip\",\"file/No Potion Particles.zip\",\"file/nbidal18-Immersive-Interfaces-TravelersBackpack-1.0.zip\",\"file/nbidal18-Immersive-Interfaces-JEI-1.0.zip\"]"))),
+            // v1.0.95: Jade shows the block's name and the mod's name, and that is all it was ever
+            // asked to show. HT's TreeChop adds two more lines through Jade's plugin API - the chop
+            // counter and the tree's log count - by calling addConfig twice, both defaulting to on,
+            // and Jade writes those defaults into the player's own jade.json the first time it sees
+            // the plugin. The pack's master has no treechop block at all, so it never said otherwise.
+            //
+            // The master could not have fixed this either: config/jade/jade.json is support class
+            // AND on the rewrittenAtRuntime list, which puts it in the preserved set - delivered
+            // once, never overwritten - so an instance that already exists keeps whatever Jade
+            // wrote. That is why the owner still saw both lines after asking for them to go
+            // (2026-09-12, with a screenshot of a spruce log reading "6/23 chops" and
+            // "Spruce Log x79"). Editing the master would also have re-delivered the file over every
+            // player's theme, position and toggles, which is what the build's own guard refuses.
+            //
+            // So: two rows, nested two deep, the same shape as the Auto HUD seeds above. Every other
+            // Jade setting stays the player's. The plugin itself is left enabled on purpose - it is
+            // what renames the block to "Chopped Spruce Log", which is the block's name and wanted.
+            //
+            // On a fresh install the block does not exist yet, the seed finds no rows and warns, and
+            // no marker is written; Jade writes its defaults on that first launch and the next one
+            // applies the seed. A seed only ever sets rows that are already there.
+            new PlayerFileSeed("config/jade/jade.json", ':', "jade-treechop-lines-v1095", List.of(
+                    new SeedRow(List.of("plugin", "treechop"), "show_tree_block_counts", "false"),
+                    new SeedRow(List.of("plugin", "treechop"), "show_num_chops_remaining", "false"))));
 
         /**
      * Empty on purpose, and it must stay that way until a mod is actually retired from THIS

@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.94",
+    "packVersion":  "1.0.95",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -346,7 +346,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.json",
-                                    "sha256":  "549a8a860bd1b0e2f4331bc9977c96af9192f52c326cc0ecb84f87103abede3e"
+                                    "sha256":  "a686bbfae298e75cbc95c00deb87e35f8f5ce7c66609b975e67200c18a4dba6c"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -860,7 +860,7 @@
                   },
                   {
                       "path":  "config/bcc-common.json",
-                      "sha256":  "549a8a860bd1b0e2f4331bc9977c96af9192f52c326cc0ecb84f87103abede3e"
+                      "sha256":  "a686bbfae298e75cbc95c00deb87e35f8f5ce7c66609b975e67200c18a4dba6c"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1747,8 +1747,8 @@
                       "sha256":  "101a59b5a662c920a8ea05c2396e82f546be87f2cc7d698822eccd4821ad8a85"
                   },
                   {
-                      "path":  "mods/nbidal18-carryon-1.2.2+26.2-fabric.jar",
-                      "sha256":  "3943e5af7c21a6b404d5cc2b03e25af6786cba2a08dc9d5541e19f8661eb0c9d"
+                      "path":  "mods/nbidal18-carryon-1.2.3+26.2-fabric.jar",
+                      "sha256":  "7553248f15b38859561e1d5e354fb882f22173ee9176e0b1748ecf66008dc6a5"
                   },
                   {
                       "path":  "mods/nbidal18-farmersdelight-1.0.0+26.2-fabric.jar",
@@ -1783,8 +1783,8 @@
                       "sha256":  "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.94+26.2-fabric.jar",
-                      "sha256":  "ae5b1218aa52d7b330af39ac0e6c0861c033217856c18f9ea021e5857b3ca311"
+                      "path":  "mods/nbidal18-integrity-1.0.95+26.2-fabric.jar",
+                      "sha256":  "7138f903cd6e2e0a3926350fe5f385d51ca82a09885f44739229294a35774417"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar",
@@ -2024,7 +2024,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "b1b812eb13ab8e49af9dd6c0c23b3fda850d14fab6794fcb2e607c4678158c42"
+                      "sha256":  "ffeb932749fa5f46762124a61b698d685a1a19eb2311f0aa777b0950758d4a8c"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",

@@ -5,6 +5,68 @@ build that was not published.
 
 ---
 
+## v1.0.95
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-12 | see below | `9049cbd1f4d1` | `5f54c1f11d9d` | 321 | 168 |
+
+**Two fixes: Jade shows the block's name and the mod's name and nothing else, and carrying
+something in first person shows one of it instead of two.** Click **Play**. Nothing to clear.
+
+### The two extra lines on a tree
+
+Looking at a partly chopped log, Jade was showing four lines: the block, a chop counter, the number
+of logs in the tree, and the mod. Only the first and last were ever wanted.
+
+The two extra ones are HT's TreeChop's. It adds them through Jade's plugin system, both switched on
+by default, and Jade writes those defaults into your own Jade config the first time it sees them.
+The pack's copy of that config never mentioned them, so it never said otherwise.
+
+Correcting the pack's copy would not have reached anyone. Jade's config is one of the files the pack
+delivers once and then leaves alone for ever, because Jade rewrites it every time you change a
+setting, and replacing it would wipe your theme, your overlay position and every toggle you have
+set. So instead this release writes those two settings into your own file and touches nothing else
+in it.
+
+**Nothing for you to do.** Both lines are gone the next time you look at a tree. TreeChop's naming
+stays, so a chopped log still reads as a chopped log.
+
+If you have just installed the pack for the first time, the two lines can appear once, until the
+second launch. The setting cannot be written before Jade has created it.
+
+### Carrying a furnace no longer shows you two furnaces
+
+Pick up a block or a mob and there are two models of it: a small one in your hands, drawn for first
+person so it does not fill the screen, and a full-size one held against the body, which is what
+everyone else sees and what you see in third person. In first person you were getting both, the big
+one hanging around the camera.
+
+This is the fourth attempt at it and the first one aimed at the right thing. The previous release
+tried to hide the full-size model by asking, at drawing time, whether First Person Model was busy
+drawing you. That question is answered too late: the carried model is queued up earlier in the
+frame than the moment that flag is set, so the answer was always no and both models went through.
+
+Instead of asking about the moment, this release asks about the body being drawn - is this the one
+the camera is looking out of - which is the same question First Person Model asks itself, and it can
+be answered whenever it is asked. Your own body's full-size carried model is now never queued in
+first person. Third person is unchanged, and so is every other player you can see carrying
+something.
+
+**Nothing for you to do.** Pick something up and look down.
+
+### Tested before publishing
+
+Updater sync on a fresh instance, twice, which is the test that exercises the Jade change; a real
+client to the title screen; a throwaway dedicated server booted with the new Carry On jar named; a
+deployment dry run against each live server, every file hash-verified.
+
+Neither fix can be proved by a launch test: one needs a carried block in view in a chosen
+perspective, the other a partly chopped tree. Both were reported from play and are confirmed the
+same way.
+
+---
+
 ## v1.0.94
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
