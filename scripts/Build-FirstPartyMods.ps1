@@ -128,10 +128,16 @@ $mods = @(
     # A passenger who logs out of an aircraft comes back in mid-air: vanilla saves a ride only for
     # its sole passenger. Remembers the ridden entity by UUID (never the entity - two copies would
     # rebuild the plane twice, cargo included), puts the player back aboard or on the first solid
-    # block or water below, and counts a moving or airborne vehicle as activity so the idle kick
-    # stops causing the logout. Port of the 1.21.1 pack's nbidal18-safe-rejoin. **Runs on the
+    # block or water below. Port of the 1.21.1 pack's nbidal18-safe-rejoin. Until 1.1.0 (v1.0.98) it
+    # also counted a moving or airborne vehicle as activity; that went, see nbidal18-afk below. **Runs on the
     # server** - that is where it does anything - so it needs -AddMods to deploy.
     @{ Name = 'nbidal18-saferejoin'; Generator = $null; Builder = 'build_saferejoin.py' },
+    # The idle kick back at five minutes (v1.0.98), counting only what a player actually does: keys,
+    # mouse look, clicks, chat. Being moved - by the autopilot, a vehicle, water - no longer resets
+    # the timer, which is how the owner starved flying on autopilot with nobody at the keyboard.
+    # /afk holds the kick off until the player next does something. First-party content, no target.
+    # **Runs on the server** - needs -AddMods.
+    @{ Name = 'nbidal18-afk'; Generator = $null; Builder = 'build_afk.py' },
     # The End stays sealed until the owner opens it from the console (/theend open), so the server
     # goes in together as an event. Refuses the End portal's destination before vanilla builds the
     # platform, and any other teleport of a player into the End. Named for its target, vanilla's

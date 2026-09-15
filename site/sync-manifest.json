@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.97",
+    "packVersion":  "1.0.98",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -348,7 +348,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.json",
-                                    "sha256":  "f06422cd00b6c38b9c226a233f1f9466fef696034a35e262b83deaefa3d389fe"
+                                    "sha256":  "2ba9d971468a6c3ad51f751c5b36f4ab1f7c0fe62d8dade55550f51a37cd7e37"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -862,7 +862,7 @@
                   },
                   {
                       "path":  "config/bcc-common.json",
-                      "sha256":  "f06422cd00b6c38b9c226a233f1f9466fef696034a35e262b83deaefa3d389fe"
+                      "sha256":  "2ba9d971468a6c3ad51f751c5b36f4ab1f7c0fe62d8dade55550f51a37cd7e37"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1369,6 +1369,10 @@
                       "sha256":  "5647c86d1969da775e34ffc5096dd31193b63509de56dfcc83f3c66212812459"
                   },
                   {
+                      "path":  "mods/BorderlessFullscreen-v2.4.1-mc26.2.jar",
+                      "sha256":  "3406f8c209030af6eec1529ce4ed6b111823950af95baf1390eb4949632a356f"
+                  },
+                  {
                       "path":  "mods/BridgingMod-2.7.0+26.2.fabric-release.jar",
                       "sha256":  "7f1ba21ebdaaa8a8bb9976dbc794fa716f3fbfef6a43eafb5abcf97a6df3900c"
                   },
@@ -1721,6 +1725,10 @@
                       "sha256":  "84b7cfd23caa5c4c978f1e0a2cd464a59b6b7d17d2cfaa6ce0e9c887c03e2e26"
                   },
                   {
+                      "path":  "mods/nbidal18-afk-1.0.0+26.2-fabric.jar",
+                      "sha256":  "9cffc04496aac4038755ec6a1b43a0e46d3c1201d185413bf25780589f51a670"
+                  },
+                  {
                       "path":  "mods/nbidal18-almanac-1.0.0+26.2-fabric.jar",
                       "sha256":  "197a1a0552db36da35f291a2a6456fc7947942256b35df8f29fc13f4ea8ff4d2"
                   },
@@ -1785,8 +1793,8 @@
                       "sha256":  "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.97+26.2-fabric.jar",
-                      "sha256":  "a62407916af6472e4c6f35b50a0ed1583dba9c1387a8ba8366abdcee65004bc6"
+                      "path":  "mods/nbidal18-integrity-1.0.98+26.2-fabric.jar",
+                      "sha256":  "71dea78193fc20684d399789e0acc0fa6c7426e43bbabd8f5faa735661cc4929"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar",
@@ -1813,8 +1821,8 @@
                       "sha256":  "a77c43e48cddb88030720bbe57dc10d220edbfa023398af3ee1126e1d269c876"
                   },
                   {
-                      "path":  "mods/nbidal18-saferejoin-1.0.0+26.2-fabric.jar",
-                      "sha256":  "7d7410a91a3b9a1299f3d61b9234c0e2aaeec083d94f9d31288f5da264ccc4d0"
+                      "path":  "mods/nbidal18-saferejoin-1.1.0+26.2-fabric.jar",
+                      "sha256":  "54900b92b0e5e68991cace05c913db6ca592af0728309f9db5ce10633ff9c598"
                   },
                   {
                       "path":  "mods/nbidal18-skinoverrides-1.0.0+26.2-fabric.jar",

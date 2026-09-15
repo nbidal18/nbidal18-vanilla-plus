@@ -5,6 +5,58 @@ build that was not published.
 
 ---
 
+## v1.0.98
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-15 | see below | `3e1c37f0e47f` | `8d342cfbeab6` | 326 | 170 |
+
+**The idle kick is back, and it only counts you, not your autopilot. And fullscreen that does not minimize.**
+Click **Play**. Nothing to clear.
+
+### Why
+
+On the hardcore server, someone left the autopilot flying and walked away, and starved to death in the air.
+Nothing noticed they were gone: the game counts being moved as being active, so a player carried along by an
+autopilot, a vehicle or anything else looked busy forever.
+
+### What happens now
+
+If you do nothing for **5 minutes**, you are disconnected. Doing something means pressing a key, moving the
+mouse, clicking, or chatting. Being moved does not count: holding forward with the autopilot on, flying,
+riding and drifting in water all read as nobody there.
+
+If you are kicked while flying, you come back aboard your aircraft when you rejoin, or on the ground or water
+below it if it has gone. Nobody falls.
+
+### Going AFK on purpose
+
+Type **/afk** before you step away. You will not be kicked while you are away. It ends the moment you press a
+key, click or move the mouse, and the normal 5 minutes start again from there.
+
+### Borderless Fullscreen
+
+Fullscreen no longer minimizes the game when you alt-tab, and other windows can sit on top of it. Press
+**Ctrl + F11** (or Ctrl plus whatever your fullscreen key is) to open its settings: switch between borderless and
+exclusive fullscreen without restarting, stop the game minimizing when you tab out, or stop it starting in
+fullscreen. Your choices are yours and stay.
+
+On Windows 10/11, if other windows will not show over the game, turn off "Fullscreen Optimizations" for Java.
+
+### The servers
+
+Released to the game first; both servers take the new idle rules next. Until a server has them, joining that
+server asks you to close and reopen the game - it is the server that is behind, not you.
+
+### Tested before publishing
+
+A real client to the title screen (169 mods); updater sync on a fresh instance, twice, nothing rewritten on the
+second pass; a throwaway dedicated server with the new idle mod (96 mods, 2901 recipes, 3245 advancements), built
+so that a broken hook into the game stops the server starting rather than the first login; a deployment plan
+staged against each live server. Not tested by any script: the kick and /afk with a real player on the server.
+
+---
+
 ## v1.0.97
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
