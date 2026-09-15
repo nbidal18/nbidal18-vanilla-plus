@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.96",
+    "packVersion":  "1.0.97",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -28,6 +28,7 @@
                                 "config/xaero/world-map/profiles/default.cfg",
                                 "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",
                                 "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt",
+                                "shaderpacks/nbidal18-ComplementaryUnbound_r5.9.3.zip.txt",
                                 "config/MouseTweaks.cfg",
                                 "config/almanac-nbtFix.json5",
                                 "config/asyncparticles/asyncparticles-mixin.properties",
@@ -145,6 +146,7 @@
                          "config/xaero/world-map/profiles/default.cfg",
                          "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",
                          "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt",
+                         "shaderpacks/nbidal18-ComplementaryUnbound_r5.9.3.zip.txt",
                          "config/MouseTweaks.cfg",
                          "config/almanac-nbtFix.json5",
                          "config/asyncparticles/asyncparticles-mixin.properties",
@@ -346,7 +348,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.json",
-                                    "sha256":  "cecdbe024938946df18e3878247c486fef1c7803101d24ecde8fa5000279b252"
+                                    "sha256":  "f06422cd00b6c38b9c226a233f1f9466fef696034a35e262b83deaefa3d389fe"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -860,7 +862,7 @@
                   },
                   {
                       "path":  "config/bcc-common.json",
-                      "sha256":  "cecdbe024938946df18e3878247c486fef1c7803101d24ecde8fa5000279b252"
+                      "sha256":  "f06422cd00b6c38b9c226a233f1f9466fef696034a35e262b83deaefa3d389fe"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1783,8 +1785,8 @@
                       "sha256":  "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.96+26.2-fabric.jar",
-                      "sha256":  "73ca6e71f915819294c459a816c01ff9800aab12f4de4eefbb4222f645e3c954"
+                      "path":  "mods/nbidal18-integrity-1.0.97+26.2-fabric.jar",
+                      "sha256":  "a62407916af6472e4c6f35b50a0ed1583dba9c1387a8ba8366abdcee65004bc6"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar",
@@ -2024,7 +2026,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "ffeb932749fa5f46762124a61b698d685a1a19eb2311f0aa777b0950758d4a8c"
+                      "sha256":  "224e53abae246698ea14d419454812dcab42ae01c2e94bf1a68c6e98428a04ca"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",
@@ -2079,6 +2081,10 @@
                       "sha256":  "b61a9399581112d14111a3667e7c72f9ce179ec24743a334b9bbce53c4cc4aaf"
                   },
                   {
+                      "path":  "resourcepacks/nbidal18-Cactus-Zombies-1.0.zip",
+                      "sha256":  "a9174c80564a9e2a5f62b885413d4da5fa9aa464d933104a66d2a8250eafa264"
+                  },
+                  {
                       "path":  "resourcepacks/nbidal18-Immersive-Interfaces-26.2.zip",
                       "sha256":  "cf2b8ed6f99bc6ca7b4f0dc45b160088df0628be0c6dea5fd9b278fe43e74b69"
                   },
@@ -2101,6 +2107,14 @@
                   {
                       "path":  "resourcepacks/§5§lNo Enchant Glint §f§l26.2.zip",
                       "sha256":  "46f2630fe76ec7dbc95c8ca54b09ad1a88812bf6e38fcbf5034b8c67320ffe23"
+                  },
+                  {
+                      "path":  "shaderpacks/nbidal18-ComplementaryUnbound_r5.9.3.zip",
+                      "sha256":  "c6d740d8aafa4872628d9883f218f27c81d9427e299626c83a233e364543f80c"
+                  },
+                  {
+                      "path":  "shaderpacks/nbidal18-ComplementaryUnbound_r5.9.3.zip.txt",
+                      "sha256":  "00c106473dc7b634fe522ad43d8e380276f9807c10c8714724d76589ccd15df8"
                   },
                   {
                       "path":  "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip",

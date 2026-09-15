@@ -87,7 +87,22 @@ public final class Nbidal18PackwizSync {
      * ({@code key_key.fieldguide.open}), so a dotted path could not be split back into segments
      * unambiguously.
      */
-    private record SeedRow(List<String> parents, String key, String value) {
+    private record SeedRow(List<String> parents, String key, String value, boolean addToList) {
+
+        SeedRow(List<String> parents, String key, String value) {
+            this(parents, key, value, false);
+        }
+
+        /**
+         * One element added to a JSON list held by a key in a flat file - options.txt's
+         * resourcePacks above all - leaving every element already there, and their order, as the
+         * player has them. Nothing is written when the element is already listed, or when the key is
+         * not there to add to. Restating the whole list instead would switch back on every pack a
+         * player had switched off.
+         */
+        static SeedRow addToList(String key, String element) {
+            return new SeedRow(List.of(), key, element, true);
+        }
 
         /** A key in a flat file, or at the top level of a nested one. */
         static SeedRow of(String key, String value) {
@@ -364,7 +379,33 @@ public final class Nbidal18PackwizSync {
             // applies the seed. A seed only ever sets rows that are already there.
             new PlayerFileSeed("config/jade/jade.json", ':', "jade-treechop-lines-v1095", List.of(
                     new SeedRow(List.of("plugin", "treechop"), "show_tree_block_counts", "false"),
-                    new SeedRow(List.of("plugin", "treechop"), "show_num_chops_remaining", "false"))));
+                    new SeedRow(List.of("plugin", "treechop"), "show_num_chops_remaining", "false"))),
+            // First Person Model body offsets, pushed to everyone as the owner plays them. Owner,
+            // 2026-09-12: "for first person model, u need to push to everyone the default config as how
+            // i have it on my instance". His file differs from the pack master in exactly these three
+            // keys, 15 against 0; every other key already matched. config/firstperson.json is player
+            // class - the F6 toggle writes it, and a player who prefers vanilla first person keeps that
+            // choice - so the master cannot carry the new values without re-delivering the whole file
+            // over every player. Three rows are seeded instead, once per instance, and a player who then
+            // changes an offset keeps the change. The master stays at 0 on purpose.
+            new PlayerFileSeed("config/firstperson.json", ':', "firstperson-offsets-v1097", List.of(
+                    SeedRow.of("xOffset", "15"),
+                    SeedRow.of("sneakXOffset", "15"),
+                    SeedRow.of("sitXOffset", "15"))),
+            // v1.0.97: Cactus Zombies, switched on for everyone once. Owner, 2026-09-13: "make zombies
+            // render as cactuses. with arms, and a scary look to them" - a joke on a friend who grew up
+            // thinking zombies were green because they were cactuses. It goes after the last file pack
+            // because Fresh Animations and its extensions pack both ship their own zombie.png, and the
+            // later pack in the list wins.
+            //
+            // Added to the player's own list, not written as a new one. Every earlier resourcepacks
+            // seed restated the whole list, which is only right when nobody has changed it since - the
+            // owner had switched nbidal18 3D and the three Immersive Interfaces packs off, and a
+            // restated list would have switched all four back on for him and anyone else who had.
+            // Owner, 2026-09-15: "Add only Cactus". It needs no incompatibleResourcePacks entry: the
+            // pack declares 26.2's format. Anyone who switches it off afterwards keeps that choice.
+            new PlayerFileSeed("options.txt", ':', "resourcepacks-cactus-v1097", List.of(
+                    SeedRow.addToList("resourcePacks", "\"file/nbidal18-Cactus-Zombies-1.0.zip\""))));
 
         /**
      * Empty on purpose, and it must stay that way until a mod is actually retired from THIS
@@ -1341,6 +1382,29 @@ public final class Nbidal18PackwizSync {
             }
         }
 
+        if (row.addToList()) {
+            if (structured || !row.parents().isEmpty()) {
+                throw new IOException("Adding to " + describe(row) + " in " + seed.relativePath()
+                        + " is only supported for a bare key in a flat file");
+            }
+            if (matches.isEmpty()) {
+                return false;
+            }
+            int last = matches.get(matches.size() - 1);
+            String line = lines.get(last);
+            int separator = separatorIndex(line);
+            String current = line.substring(separator + 1).strip();
+            String updated = addToJsonList(current, row.value());
+            if (updated == null) {
+                throw new IOException(describe(row) + " in " + seed.relativePath() + " is not a list");
+            }
+            if (updated.equals(current)) {
+                return false;
+            }
+            lines.set(last, line.substring(0, separator + 1) + updated);
+            return true;
+        }
+
         if (row.value() == null) {
             if (structured) {
                 throw new IOException("Removing " + describe(row) + " from " + seed.relativePath()
@@ -1558,6 +1622,49 @@ public final class Nbidal18PackwizSync {
             end--;
         }
         return head + spacing + value + rest.substring(end) + trailingComment;
+    }
+
+    /**
+     * {@code list} with {@code element} added after its last {@code "file/..."} entry - a pack later
+     * in resourcePacks draws over the ones before it, and the built-in packs listed after the files
+     * stay where they are - or at the end when there is no such entry. Returned unchanged when the
+     * element is already there, and null when {@code list} is not a JSON list.
+     */
+    private static String addToJsonList(String list, String element) {
+        if (list.length() < 2 || list.charAt(0) != '[' || list.charAt(list.length() - 1) != ']') {
+            return null;
+        }
+        List<String> elements = new ArrayList<>();
+        int end = list.length() - 1;
+        int index = 1;
+        while (index < end) {
+            char character = list.charAt(index);
+            if (character == ',' || Character.isWhitespace(character)) {
+                index++;
+                continue;
+            }
+            int start = index;
+            if (character == '"') {
+                index = endOfString(list, index) + 1;
+            } else {
+                while (index < end && list.charAt(index) != ',') {
+                    index++;
+                }
+            }
+            elements.add(list.substring(start, Math.min(index, end)).strip());
+        }
+        if (elements.contains(element)) {
+            return list;
+        }
+        int insertAt = elements.size();
+        for (int position = elements.size() - 1; position >= 0; position--) {
+            if (elements.get(position).startsWith("\"file/")) {
+                insertAt = position + 1;
+                break;
+            }
+        }
+        elements.add(insertAt, element);
+        return "[" + String.join(",", elements) + "]";
     }
 
     /** Where a trailing {@code //} or {@code #} comment starts, outside strings, or -1. */

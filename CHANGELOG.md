@@ -5,6 +5,57 @@ build that was not published.
 
 ---
 
+## v1.0.97
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-15 | see below | `8d342cfbeab6` | `96fed2080960` | 324 | 168 |
+
+**A new shader, cactus zombies, and first person set up the same for everyone.** Click **Play**. Nothing to
+clear.
+
+### Complementary Unbound
+
+A new shader in the list, next to Eclipse and E-LITE. It is the version that works with Voxy's far terrain.
+Pick it in Video Settings, Shader Packs. Nothing about the shader you have selected now changes.
+
+Two changes from the original, the same two the pack's other shaders have:
+
+- **Ores do not glow.** Not a setting that is off - it is gone, so nobody sees ores through the dark.
+- **Mobs do not flash red when hit.** This one is a setting: Other, Mob Hurt Flash. Turn it on if you like it,
+  and it stays on. A creeper still flashes white before it explodes either way.
+
+### Zombies are cactuses
+
+Some of us grew up believing zombies are green because they are cactuses. This release makes that true. Every
+zombie is now a ribbed, spiny cactus with arms, an angry face and red eyes that glow in the dark. Baby zombies are
+small cactuses. Every so often one turns up in bloom.
+
+It is a resource pack, added to your packs once and switched on. Every other pack stays exactly as you had it,
+on or off. If it is not your kind of joke, turn off Cactus Zombies in Options, Resource Packs, and it stays off.
+
+### First person, set up the same for everyone
+
+First Person Model now draws your body at the same sideways offset for everyone, the setting the pack is played
+with. It is applied to your settings once. If you prefer it different, change it in First Person Model's options
+and your choice stays. Nothing else in its settings was touched.
+
+### The servers
+
+Released to the game first; both servers take the matching version bump next, and nothing else changes on
+either. Until a server has it, joining that server asks you to close and reopen the game - it is the server that
+is behind, not you. Death on the hardcore server works exactly as before.
+
+### Tested before publishing
+
+A real client to the title screen (167 mods); updater sync on a fresh instance, twice, with Cactus Zombies landing
+after Fresh Animations in the pack list and nothing rewritten on the second pass; the "add one pack" step checked
+against a real player's list with packs switched off, which it left off; a throwaway dedicated server (95 mods,
+2901 recipes, 3245 advancements); a deployment plan staged against each live server. Not tested by any script: the
+new shader in game - pick it and look at an ore and a mob you hit.
+
+---
+
 ## v1.0.96
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
