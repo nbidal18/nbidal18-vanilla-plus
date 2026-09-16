@@ -42,7 +42,7 @@
     "//useScripts": "Use custom Pickup Scripts. Having this set to false, will not allow you to run scripts, but will increase your performance",
     "useScripts": false,
     "//stackableEntities": "Allows entities to be stacked on top of each other",
-    "stackableEntities": true,
+    "stackableEntities": false,
     "//entitySizeMattersStacking": "Whether entities' size matters when stacking or not. This means that larger entities cannot be stacked on smaller ones",
     "entitySizeMattersStacking": true,
     "//placementStateExceptions": "Usually all the block state information is retained when placing a block that was picked up. But some information is changed to a modified property, like rotation or orientation. In this list, add additional properties that should NOT be saved and instead be updated when placed. Format: modid:block[propertyname]. Note: You don't need to add an entry for every subtype of a same block. For example, we only add an entry for one type of slab, but the change is applied to all slabs.",

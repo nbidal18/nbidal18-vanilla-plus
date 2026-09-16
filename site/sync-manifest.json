@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.98",
+    "packVersion":  "1.0.99",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -348,7 +348,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.json",
-                                    "sha256":  "2ba9d971468a6c3ad51f751c5b36f4ab1f7c0fe62d8dade55550f51a37cd7e37"
+                                    "sha256":  "1f55ce6d16911db46dc892e50000b347985ed6992988a64912908c7be73d6691"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -392,7 +392,7 @@
                                 },
                                 {
                                     "path":  "config/carryon-common.json",
-                                    "sha256":  "30f6138e2e21ebc7ca31884b5555cad05871c10c6e6391a538f57ff0e8058755"
+                                    "sha256":  "15c3aa761860d4b66ece25ea9f593c1109f1160b34693cad4491c5e300ca1a3c"
                                 },
                                 {
                                     "path":  "config/chatanimation.json",
@@ -862,7 +862,7 @@
                   },
                   {
                       "path":  "config/bcc-common.json",
-                      "sha256":  "2ba9d971468a6c3ad51f751c5b36f4ab1f7c0fe62d8dade55550f51a37cd7e37"
+                      "sha256":  "1f55ce6d16911db46dc892e50000b347985ed6992988a64912908c7be73d6691"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -906,7 +906,7 @@
                   },
                   {
                       "path":  "config/carryon-common.json",
-                      "sha256":  "30f6138e2e21ebc7ca31884b5555cad05871c10c6e6391a538f57ff0e8058755"
+                      "sha256":  "15c3aa761860d4b66ece25ea9f593c1109f1160b34693cad4491c5e300ca1a3c"
                   },
                   {
                       "path":  "config/chatanimation.json",
@@ -1793,8 +1793,8 @@
                       "sha256":  "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.98+26.2-fabric.jar",
-                      "sha256":  "71dea78193fc20684d399789e0acc0fa6c7426e43bbabd8f5faa735661cc4929"
+                      "path":  "mods/nbidal18-integrity-1.0.99+26.2-fabric.jar",
+                      "sha256":  "7b5d6d10d6c2c4b5d6449b83aee46e32209b8eac94c8c1f1303b674cee943d45"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar",

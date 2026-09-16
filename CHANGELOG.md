@@ -5,6 +5,33 @@ build that was not published.
 
 ---
 
+## v1.0.99
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-16 | see below | `ad9be5cc862a` | `3e1c37f0e47f` | 326 | 170 |
+
+**Mobs can no longer be stacked on top of each other.** Click **Play**. Nothing to clear.
+
+### What changed
+
+Carry On let you set a carried mob on top of another one, and keep going, up to ten high. That is gone: a
+carried mob can only be put down, never placed onto another mob.
+
+Everything else about Carry On is the same - what you can pick up, how much it slows you down, and putting
+mobs down normally.
+
+Mob towers already standing in the world are left alone. They come apart as you take the riders off.
+
+### Tested before publishing
+
+A real client to the title screen (169 mods); updater sync on a fresh instance, twice, 0 intruders and nothing
+rewritten on the second pass; the setting is hash-checked at login, so the client was also checked to write the
+file back byte-identical to the published copy; a deployment plan staged against each live server, since each
+server enforces its own copy of this setting.
+
+---
+
 ## v1.0.98
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
