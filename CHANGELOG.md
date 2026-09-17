@@ -5,6 +5,46 @@ build that was not published.
 
 ---
 
+## v1.0.101
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-17 | see below | `2627776b9595` | `7a54a44cd0a7` | 327 | 171 |
+
+**Copper golems stop opening empty chests; lanterns look like Complementary's; the shader's flicker is
+gone.** Click **Play**. Nothing to clear.
+
+### What changed
+
+**Copper golems** no longer open a chest they have nothing to take from. A golem that walks over to an
+empty chest now just turns around and moves on, with no lid and no sound. A golem putting an item away
+still opens the chest, empty or not - otherwise it could not deliver anything.
+
+**Lanterns and soul lanterns** under the Eclipse shader are drawn the way Complementary draws them: only
+the flame glows instead of the whole block, the iron cage stays dark and catches light like metal, the
+glow is warmer, and a lantern lights itself properly wherever it hangs. There is a Lantern Glow slider if
+you want it brighter or dimmer, and the whole thing has an on/off switch.
+
+**The flicker is fixed.** Coated Textures, added in v1.0.100, could make the surface right in front of
+you flicker between two shades - most likely far from spawn, where it decided which block a face belongs
+to by a margin narrower than the numbers could hold. It now measures from the middle of the block
+instead of its edge.
+
+New shader options live under **Video Settings - Shader Packs - Edit - Materials - IntegratedPBR
+(nbidal18)**.
+
+### Tested before publishing
+
+Updater sync on a fresh instance, twice: 327 files installed, 108 player files preserved, 0 intruders,
+nothing rewritten on the second pass. A real client to the title screen, 170 mods. A throwaway dedicated
+server booted with the copper golem mod loaded - 97 mods, 2901 recipes, 3245 advancements, and the mod's
+own start-up line present, which is what shows its hook reached the golem AI. The shader was confirmed in
+a real world by the owner before it was built into the release, and the built copy is byte-identical to
+the one he looked at. Not proven by any test: a golem standing in front of an empty chest, which needs a
+golem, a copper chest and someone watching.
+
+---
+
 ## v1.0.100
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

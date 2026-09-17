@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.100",
+    "packVersion":  "1.0.101",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -348,7 +348,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.json",
-                                    "sha256":  "ac172c393385bcbf94258341fed8f5ae61f0ee8f159ca3c02d6d9ad9a39fea61"
+                                    "sha256":  "f6f7a298f84e017545065e33235c0c1e316ddccacef8a5881e8f0a6937811abf"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -862,7 +862,7 @@
                   },
                   {
                       "path":  "config/bcc-common.json",
-                      "sha256":  "ac172c393385bcbf94258341fed8f5ae61f0ee8f159ca3c02d6d9ad9a39fea61"
+                      "sha256":  "f6f7a298f84e017545065e33235c0c1e316ddccacef8a5881e8f0a6937811abf"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1761,6 +1761,10 @@
                       "sha256":  "7553248f15b38859561e1d5e354fb882f22173ee9176e0b1748ecf66008dc6a5"
                   },
                   {
+                      "path":  "mods/nbidal18-coppergolem-1.0.0+26.2-fabric.jar",
+                      "sha256":  "5fc10606c0c8b5cb2b422b3e52717cd1b326036a67000637d90585179cb9ad26"
+                  },
+                  {
                       "path":  "mods/nbidal18-farmersdelight-1.0.0+26.2-fabric.jar",
                       "sha256":  "3c1d0e9a5e01915c087717d3679443881b67bbfcae148b67d65f16832c37d35c"
                   },
@@ -1793,8 +1797,8 @@
                       "sha256":  "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.100+26.2-fabric.jar",
-                      "sha256":  "5d0c24276959d2015990cb1aa2bfa0a1e8a4f34d5f6563a251a62c7177bcd125"
+                      "path":  "mods/nbidal18-integrity-1.0.101+26.2-fabric.jar",
+                      "sha256":  "1c694a02b0cf9d90d2da845d7da1766da34ebd6024f1383744bdec2fa3a0f857"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar",
@@ -2126,7 +2130,7 @@
                   },
                   {
                       "path":  "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip",
-                      "sha256":  "5e244cbc6003dc5dad53b6e634187c450e29421b22100c524db7e580cd83709d"
+                      "sha256":  "ecac5465e4567bba21e1f6687b969aeaf8df90f1192c78af1645e7bbc2812ff1"
                   },
                   {
                       "path":  "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",

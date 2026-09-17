@@ -149,6 +149,12 @@ $mods = @(
     # setting in 26.2 and its visual-only flag drops the fire too, so two wraps on bolts carrying the
     # command's tag. First-party content, no target. **Runs on the server** - needs -AddMods.
     @{ Name = 'nbidal18-strike'; Generator = $null; Builder = 'build_strike.py' },
+    # A copper golem no longer opens a chest it has nothing to take from. Vanilla already works the
+    # case out - its ContainerInteractionState separates PICKUP_NO_ITEM, and the condition behind it
+    # is literally !container.isEmpty() - so the mixin only drops that state's reached-target action,
+    # which is the whole open-lid performance. Depositing into an empty chest still opens it.
+    # **Runs on the server** - needs -AddMods.
+    @{ Name = 'nbidal18-coppergolem'; Generator = $null; Builder = 'build_coppergolem.py' },
     # 26.2 bakes every inventory icon once into a cache texture (GuiItemAtlas) through the ordinary
     # item pipeline, which under Iris is the shader pipeline; Iris has no hook for that cache, so an
     # icon baked while a pipeline is being torn down or built comes out blank or as a grey blob and
