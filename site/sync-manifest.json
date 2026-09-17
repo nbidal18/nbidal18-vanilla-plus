@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.99",
+    "packVersion":  "1.0.100",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -348,7 +348,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.json",
-                                    "sha256":  "1f55ce6d16911db46dc892e50000b347985ed6992988a64912908c7be73d6691"
+                                    "sha256":  "ac172c393385bcbf94258341fed8f5ae61f0ee8f159ca3c02d6d9ad9a39fea61"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -862,7 +862,7 @@
                   },
                   {
                       "path":  "config/bcc-common.json",
-                      "sha256":  "1f55ce6d16911db46dc892e50000b347985ed6992988a64912908c7be73d6691"
+                      "sha256":  "ac172c393385bcbf94258341fed8f5ae61f0ee8f159ca3c02d6d9ad9a39fea61"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1793,8 +1793,8 @@
                       "sha256":  "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.99+26.2-fabric.jar",
-                      "sha256":  "7b5d6d10d6c2c4b5d6449b83aee46e32209b8eac94c8c1f1303b674cee943d45"
+                      "path":  "mods/nbidal18-integrity-1.0.100+26.2-fabric.jar",
+                      "sha256":  "5d0c24276959d2015990cb1aa2bfa0a1e8a4f34d5f6563a251a62c7177bcd125"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar",
@@ -2126,7 +2126,7 @@
                   },
                   {
                       "path":  "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip",
-                      "sha256":  "180ba7d2ed4f3d1935be1c2ac3f69bdcc42e7ac0b6f919b4b53d48ac1752c18d"
+                      "sha256":  "5e244cbc6003dc5dad53b6e634187c450e29421b22100c524db7e580cd83709d"
                   },
                   {
                       "path":  "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",

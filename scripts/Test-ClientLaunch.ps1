@@ -4,6 +4,8 @@
 
       scripts\Test-ClientLaunch.ps1
       scripts\Test-ClientLaunch.ps1 -KeepGameDir     leave the directory for inspection
+      scripts\Test-ClientLaunch.ps1 -Hold -ReplaceShader <zip> -World <saves> -QuickPlay <level>
+                                                     start inside a world with that shader on
 
     Ported from the 1.21.1 pack, which wrote it after v4.2.3 and v4.2.4 both shipped a client that
     could not start. This line has not had that failure - but it has had three of a different kind,
@@ -46,6 +48,14 @@ param(
     # Copy these files over the staged config folder, by name. Same idea as -ReplacePack, for the
     # settings a rendering question turns on.
     [string[]] $ReplaceConfig = @(),
+    # Stage this shader zip and switch Iris on with it selected, so the run starts with the shader
+    # already applied. Added 2026-09-17 for the IntegratedPBR port: shaderpacks is exact-match, so a
+    # candidate shader in the real instance is moved out by the updater and, worse, refuses the
+    # server login until it is - which is not a thing to ask the owner to work around by hand.
+    #
+    # A shader only compiles once a world is loaded, so pair this with -World and -QuickPlay, or
+    # -Hold and open a world yourself. Without a world on screen the run proves nothing about it.
+    [string] $ReplaceShader,
     # A saves folder to restore into the throwaway instance, so a run can start inside a world.
     # Container GUIs, held items and anything else that only exists in game cannot be reached from
     # the title screen, and creating a world by hand every run made that a person's job.
@@ -150,6 +160,16 @@ $fatalPatterns = @(
         Note = 'a pack ships a folder name Minecraft rejects outright (v1.0.7)' }
 )
 
+# Only with -ReplaceShader, because nothing else in this pack turns Iris on. A shader that fails to
+# compile falls back to vanilla rendering and keeps playing, so the screen alone does not tell you -
+# the world just looks unshaded, which is exactly what a person is least likely to notice when they
+# are looking for a subtle change in how textures catch light.
+if ($ReplaceShader) {
+    $fatalPatterns += @{ Name = 'shader failed to compile'
+        Pattern = 'ShaderCompileException|[Ff]ailed to compile|shader compilation failed|[Ff]ailed to initialize shader'
+        Note = 'Iris could not build the selected pack and fell back to vanilla rendering' }
+}
+
 # Lines that must be present. An absent line is the hardest failure to notice: nbidal18-invmov
 # shipped doing nothing while everything that could report success did.
 #
@@ -202,6 +222,35 @@ try {
         if (-not (Test-Path -LiteralPath $candidate -PathType Leaf)) { throw "-ReplaceConfig: no file at $candidate" }
         Copy-Item -LiteralPath $candidate -Destination (Join-Path (Join-Path $testRoot 'config') (Split-Path $candidate -Leaf)) -Force
         Write-Host ("config    {0}" -f (Split-Path $candidate -Leaf))
+    }
+
+    # Iris keeps the selected pack and the on/off switch in config\iris.properties, so staging the
+    # zip is only half of it: without these two keys the client boots with shaders off and the run
+    # shows the pack's normal look. The file is rewritten key by key, keeping everything else Iris
+    # stores there (colour space, shadow distance).
+    if ($ReplaceShader) {
+        if (-not (Test-Path -LiteralPath $ReplaceShader -PathType Leaf)) { throw "-ReplaceShader: no file at $ReplaceShader" }
+        $shaderName = Split-Path $ReplaceShader -Leaf
+        $shaderDir = Join-Path $testRoot 'shaderpacks'
+        if (-not (Test-Path -LiteralPath $shaderDir)) { New-Item -ItemType Directory -Path $shaderDir | Out-Null }
+        $dest = Join-Path $shaderDir $shaderName
+        $verb = if (Test-Path -LiteralPath $dest) { 'replaced' } else { 'added   ' }
+        Copy-Item -LiteralPath $ReplaceShader -Destination $dest -Force
+        Write-Host ("{0}  {1}" -f $verb, $shaderName)
+
+        $irisPath = Join-Path (Join-Path $testRoot 'config') 'iris.properties'
+        $irisRows = if (Test-Path -LiteralPath $irisPath) {
+            @([IO.File]::ReadAllText($irisPath) -split "`r?`n" | Where-Object { $_ -ne '' })
+        }
+        else { @() }
+        $irisRows = @($irisRows | Where-Object { $_ -notmatch '^(enableShaders|shaderPack)=' })
+        $irisRows += @('enableShaders=true', "shaderPack=$shaderName")
+        [IO.File]::WriteAllText($irisPath, (($irisRows -join "`n") + "`n"), (New-Object Text.UTF8Encoding($false)))
+        Write-Host ("shader    iris.properties selects {0} with shaders on" -f $shaderName)
+        if (-not $World) {
+            Write-Warning ('A shader compiles when a world loads. With no -World this run reaches ' +
+                'the title screen with the shader selected and never compiles it.')
+        }
     }
 
     if ($World) {

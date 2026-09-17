@@ -26,7 +26,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.json"
-hash = "1f55ce6d16911db46dc892e50000b347985ed6992988a64912908c7be73d6691"
+hash = "ac172c393385bcbf94258341fed8f5ae61f0ee8f159ca3c02d6d9ad9a39fea61"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -957,8 +957,8 @@ file = "mods/nbidal18-incendium-1.0.0+26.2-fabric.jar"
 hash = "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.99+26.2-fabric.jar"
-hash = "7b5d6d10d6c2c4b5d6449b83aee46e32209b8eac94c8c1f1303b674cee943d45"
+file = "mods/nbidal18-integrity-1.0.100+26.2-fabric.jar"
+hash = "5d0c24276959d2015990cb1aa2bfa0a1e8a4f34d5f6563a251a62c7177bcd125"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar"
@@ -1290,7 +1290,7 @@ hash = "00c106473dc7b634fe522ad43d8e380276f9807c10c8714724d76589ccd15df8"
 
 [[files]]
 file = "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip"
-hash = "180ba7d2ed4f3d1935be1c2ac3f69bdcc42e7ac0b6f919b4b53d48ac1752c18d"
+hash = "5e244cbc6003dc5dad53b6e634187c450e29421b22100c524db7e580cd83709d"
 
 [[files]]
 file = "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt"

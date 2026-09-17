@@ -5,6 +5,43 @@ build that was not published.
 
 ---
 
+## v1.0.100
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-17 | see below | `7a54a44cd0a7` | `ad9be5cc862a` | 326 | 170 |
+
+**The Eclipse shader now makes vanilla textures catch light, and gives gear its material.** Click **Play**.
+Nothing to clear. Your shader settings are kept - the pack keeps the same file name.
+
+### What changed
+
+Turn on shaders and blocks are no longer flat colour: a normal is worked out from each texture itself, so
+stone, brick and wood take light and shadow, and a faint grain keeps a large flat wall from reading as one
+colour. It works on terrain, on mobs and on the item in your hand.
+
+Gear, tools and armour now have a material. Iron, gold and copper reflect as metal, with the tint of the
+metal; diamond and the gems reflect sharply; wood and stone stay dull. This is on the item you are holding
+and on the armour you are wearing.
+
+All of it is off a switch: **Video Settings - Shader Packs - Edit - Materials - IntegratedPBR (nbidal18)**.
+Generated Normals, Coated Textures and Item Materials each toggle on their own, with a strength slider each.
+
+Placed blocks are not affected - a gold block or a diamond block looks exactly as it did.
+
+One old setting was removed from the shader's World screen: an ore-glow option that had not done anything
+since the ore glow was taken out, and that the game complained about on every launch.
+
+### Tested before publishing
+
+The look was confirmed in a real client, in a real world, before building; updater sync on a fresh instance,
+twice, 326 files installed, 108 player files preserved, 0 intruders, nothing rewritten on the second pass; a
+real client to the title screen with the shader selected, no compile fault and no complaint about any of the
+new ids; a throwaway dedicated server booted with this release's files - 96 mods, 2901 recipes, 3245
+advancements. Client-only content, but the manifest digest moves, so both servers take the new policy.
+
+---
+
 ## v1.0.99
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
