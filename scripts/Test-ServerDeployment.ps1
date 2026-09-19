@@ -56,6 +56,14 @@ param(
     # and hash-verified like everything else that reaches the server.
     #   -SetProperty 'player-idle-timeout=15'
     [string[]] $SetProperty = @(),
+    # Key edits in a properties-style file under config\ on THIS server, as path:key=value. For
+    # values that belong to one machine and so have no release master - the case it was written for,
+    # v1.0.102, is the hardcore server's voice chat port, which it had kept from Vanilla+ when it was
+    # cloned (27108) instead of its own (27322):
+    #   -SetConfigProperty 'voicechat/voicechat-server.properties:port=27322'
+    # Same rules as -SetProperty: the key must already exist, the live copy is backed up, and the
+    # edited file goes through the plan and is hash-verified on the server like everything else.
+    [string[]] $SetConfigProperty = @(),
     # Files to delete from the server outside mods\ and config\, relative to the server root - the
     # world's Voxy generation record is what this was written for:
     #   -RemoveServerFiles 'world/voxy_gen_minecraft_dimension _ minecraft_overworld.bin'
@@ -285,6 +293,55 @@ foreach ($name in $Config) {
     $configFiles += [pscustomobject]@{ Name = $name; Live = $live; Source = $source }
 }
 
+# -SetConfigProperty: this machine's own copy, edited key by key. The edited text is written to a
+# scratch file that becomes the "source" of an ordinary config entry, so staging, the plan, the push
+# and the hash check are the ones every other config already goes through. `[^\r\n]*` rather than
+# `.*`, because `.` matches the carriage return and would strip it from a CRLF file's edited line.
+$configEditBackups = @()
+if ($SetConfigProperty.Count) {
+    $editScratch = Join-Path ([IO.Path]::GetTempPath()) ('nbidal18-config-edit-' + [Guid]::NewGuid())
+    $byFile = [ordered]@{}
+    foreach ($spec in $SetConfigProperty) {
+        if ($spec -notmatch '^([^:=]+):([A-Za-z][A-Za-z0-9_.\-]*)=(.*)$') {
+            throw "Not a config edit: '$spec'. Expected path/under/config:key=value."
+        }
+        $rel = $Matches[1].Replace([char]47, [IO.Path]::DirectorySeparatorChar)
+        if ($rel -match '\.\.') { throw "-SetConfigProperty path may not contain '..': $rel" }
+        if (-not $byFile.Contains($rel)) { $byFile[$rel] = [ordered]@{} }
+        $byFile[$rel][$Matches[2]] = $Matches[3]
+    }
+    foreach ($rel in $byFile.Keys) {
+        if (@($configFiles | Where-Object { $_.Name -eq $rel }).Count) {
+            throw "$rel is named by both -Config and -SetConfigProperty; pick one"
+        }
+        $live = Join-Path $configDir $rel
+        if (-not (Test-Path -LiteralPath $live -PathType Leaf)) {
+            throw "-SetConfigProperty names config\$rel, which is not on this server (pulled into $configDir)"
+        }
+        $before = [IO.File]::ReadAllText($live)
+        $after = $before
+        foreach ($key in $byFile[$rel].Keys) {
+            $pattern = '(?m)^' + [regex]::Escape($key) + '=[^\r\n]*'
+            $now = [regex]::Match($after, $pattern)
+            if (-not $now.Success) {
+                throw "config\$rel has no key '$key'. Refusing to create one - check the spelling against the live file."
+            }
+            $line = $key + '=' + $byFile[$rel][$key]
+            Write-Host ("  setting  config\{0}: {1}  ->  {2}" -f $rel, $now.Value, $line)
+            $after = [regex]::Replace($after, $pattern, { $line })
+        }
+        if ($after -ceq $before) {
+            Write-Host ("  setting  config\{0} already says that - nothing to send" -f $rel)
+            continue
+        }
+        $source = Join-Path $editScratch $rel
+        [IO.Directory]::CreateDirectory((Split-Path -Parent $source)) | Out-Null
+        [IO.File]::WriteAllText($source, $after, (New-Object Text.UTF8Encoding($false)))
+        $configFiles += [pscustomobject]@{ Name = $rel; Live = $live; Source = $source }
+        $configEditBackups += $live
+    }
+}
+
 $levelDataEdits = [ordered]@{}
 if ($SetLevelData.Count) {
     $editor = Join-Path $PSScriptRoot 'Edit-LevelData.py'
@@ -371,7 +428,8 @@ $stamp = (Get-Date -Format 'yyyy-MM-dd') + "-v$version"
 $backup = Join-Path (Join-Path $DriveRoot '.nbidal18-deploy-backups') $stamp
 New-Item -ItemType Directory -Force -Path $backup | Out-Null
 $toBackUp = @($policyLive, $propsPath) + ($existingHelpers | ForEach-Object { $_.FullName }) +
-    ($staleShared | ForEach-Object { $_.Live }) + ($removedMods | ForEach-Object { $_.Live })
+    ($staleShared | ForEach-Object { $_.Live }) + ($removedMods | ForEach-Object { $_.Live }) +
+    @($configEditBackups)
 foreach ($p in $toBackUp) {
     $dest = Join-Path $backup (Split-Path $p -Leaf)
     [IO.File]::WriteAllBytes($dest, [IO.File]::ReadAllBytes($p))

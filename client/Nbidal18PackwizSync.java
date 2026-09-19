@@ -405,7 +405,14 @@ public final class Nbidal18PackwizSync {
             // Owner, 2026-09-15: "Add only Cactus". It needs no incompatibleResourcePacks entry: the
             // pack declares 26.2's format. Anyone who switches it off afterwards keeps that choice.
             new PlayerFileSeed("options.txt", ':', "resourcepacks-cactus-v1097", List.of(
-                    SeedRow.addToList("resourcePacks", "\"file/nbidal18-Cactus-Zombies-1.0.zip\""))));
+                    SeedRow.addToList("resourcePacks", "\"file/nbidal18-Cactus-Zombies-1.0.zip\""))),
+            // v1.0.102: Not Enough Animations' own bow draw, the 1.21.1 pack's look, for everyone once.
+            // Offered with the Fresh Animations fix (nbidal18-emf), which hands the arms back to NEA
+            // while a bow is drawn; owner, 2026-09-19: "Yes". The file is preserved once delivered, so
+            // a master change would re-deliver it whole over every player's; this sets the one key.
+            // Anyone who sets it back to VANILLA afterwards keeps that. The master stays VANILLA.
+            new PlayerFileSeed("config/notenoughanimations.json", ':', "nea-bow-custom-v1102", List.of(
+                    SeedRow.of("bowAnimation", "\"CUSTOM_V1\""))));
 
         /**
      * Empty on purpose, and it must stay that way until a mod is actually retired from THIS

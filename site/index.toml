@@ -26,7 +26,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.json"
-hash = "f6f7a298f84e017545065e33235c0c1e316ddccacef8a5881e8f0a6937811abf"
+hash = "54391ee50a8fc1e820335c9cab4b59d84d29312953b45e797f28795bd95ef247"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -897,6 +897,10 @@ file = "mods/nbidal18-almanac-1.0.0+26.2-fabric.jar"
 hash = "197a1a0552db36da35f291a2a6456fc7947942256b35df8f29fc13f4ea8ff4d2"
 
 [[files]]
+file = "mods/nbidal18-anvil-1.0.0+26.2-fabric.jar"
+hash = "8d4395fe368edd17467111c0cbd344db6a22c7abf9b261683ecde6b11970020a"
+
+[[files]]
 file = "mods/nbidal18-autohud-9.0-beta.3+26.2-fabric.jar"
 hash = "6f068cdbe0d4d47cb2d2e5bc1bb12a5ef882a4be4d874f7a72e9a6d3951a28db"
 
@@ -927,6 +931,10 @@ hash = "7553248f15b38859561e1d5e354fb882f22173ee9176e0b1748ecf66008dc6a5"
 [[files]]
 file = "mods/nbidal18-coppergolem-1.0.0+26.2-fabric.jar"
 hash = "5fc10606c0c8b5cb2b422b3e52717cd1b326036a67000637d90585179cb9ad26"
+
+[[files]]
+file = "mods/nbidal18-emf-1.0.0+26.2-fabric.jar"
+hash = "4efcecb5815f3c7cbdcff9a452632a959219d9cb33aa917000c8eb3046115de4"
 
 [[files]]
 file = "mods/nbidal18-farmersdelight-1.0.0+26.2-fabric.jar"
@@ -961,8 +969,8 @@ file = "mods/nbidal18-incendium-1.0.0+26.2-fabric.jar"
 hash = "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.101+26.2-fabric.jar"
-hash = "1c694a02b0cf9d90d2da845d7da1766da34ebd6024f1383744bdec2fa3a0f857"
+file = "mods/nbidal18-integrity-1.0.102+26.2-fabric.jar"
+hash = "a277c52c0553bd285f2f4bdfd39907998acf5da41df168aaf5d55084b67921b1"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar"
@@ -1029,6 +1037,10 @@ file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
 hash = "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
 
 [[files]]
+file = "mods/nbidal18-voxy-1.0.0+26.2-fabric.jar"
+hash = "887a3409d399d4284855434e5086b0f536114e82471ba8a4f414c46e194ccd8e"
+
+[[files]]
 file = "mods/nbidal18-voxyworldgen-3.7.0+26.2-fabric.jar"
 hash = "17d88d9ae32cc0d8a7a524dfacfc593c4d658de227f7d7c9f871198bb74a8300"
 
@@ -1041,8 +1053,8 @@ file = "mods/nbidal18-xaerominimap-1.1.0+26.2-fabric.jar"
 hash = "7323649a970c3311a01ae0c0dad8bb5de1afdcf07a033c4ee02d42eeebcab27e"
 
 [[files]]
-file = "mods/nbidal18-xaeroworldmap-1.1.0+26.2-fabric.jar"
-hash = "4024316a307348e28c73400bd68a4d8ef1a3e8f0d294d9f9cc5a7cedcae280c3"
+file = "mods/nbidal18-xaeroworldmap-1.2.0+26.2-fabric.jar"
+hash = "a8e2c535db212ace013aa5c055a88801762403448726d17bee04692ac18f68a5"
 
 [[files]]
 file = "mods/notenoughanimations-fabric-1.12.4-mc26.2.jar"
@@ -1202,7 +1214,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "224e53abae246698ea14d419454812dcab42ae01c2e94bf1a68c6e98428a04ca"
+hash = "05573e67a9bc2494d2cd7786090bf1f4349a80f8691456b1054935794ff36c05"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -1294,7 +1306,7 @@ hash = "00c106473dc7b634fe522ad43d8e380276f9807c10c8714724d76589ccd15df8"
 
 [[files]]
 file = "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip"
-hash = "ecac5465e4567bba21e1f6687b969aeaf8df90f1192c78af1645e7bbc2812ff1"
+hash = "c6cba268fdc0fc9d66cefa34f7a33ab6f4819e8b672c47d0be92397dfb6e42d1"
 
 [[files]]
 file = "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt"

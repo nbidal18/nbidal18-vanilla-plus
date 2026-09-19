@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.101",
+    "packVersion":  "1.0.102",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -348,7 +348,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.json",
-                                    "sha256":  "f6f7a298f84e017545065e33235c0c1e316ddccacef8a5881e8f0a6937811abf"
+                                    "sha256":  "54391ee50a8fc1e820335c9cab4b59d84d29312953b45e797f28795bd95ef247"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -862,7 +862,7 @@
                   },
                   {
                       "path":  "config/bcc-common.json",
-                      "sha256":  "f6f7a298f84e017545065e33235c0c1e316ddccacef8a5881e8f0a6937811abf"
+                      "sha256":  "54391ee50a8fc1e820335c9cab4b59d84d29312953b45e797f28795bd95ef247"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1733,6 +1733,10 @@
                       "sha256":  "197a1a0552db36da35f291a2a6456fc7947942256b35df8f29fc13f4ea8ff4d2"
                   },
                   {
+                      "path":  "mods/nbidal18-anvil-1.0.0+26.2-fabric.jar",
+                      "sha256":  "8d4395fe368edd17467111c0cbd344db6a22c7abf9b261683ecde6b11970020a"
+                  },
+                  {
                       "path":  "mods/nbidal18-autohud-9.0-beta.3+26.2-fabric.jar",
                       "sha256":  "6f068cdbe0d4d47cb2d2e5bc1bb12a5ef882a4be4d874f7a72e9a6d3951a28db"
                   },
@@ -1763,6 +1767,10 @@
                   {
                       "path":  "mods/nbidal18-coppergolem-1.0.0+26.2-fabric.jar",
                       "sha256":  "5fc10606c0c8b5cb2b422b3e52717cd1b326036a67000637d90585179cb9ad26"
+                  },
+                  {
+                      "path":  "mods/nbidal18-emf-1.0.0+26.2-fabric.jar",
+                      "sha256":  "4efcecb5815f3c7cbdcff9a452632a959219d9cb33aa917000c8eb3046115de4"
                   },
                   {
                       "path":  "mods/nbidal18-farmersdelight-1.0.0+26.2-fabric.jar",
@@ -1797,8 +1805,8 @@
                       "sha256":  "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.101+26.2-fabric.jar",
-                      "sha256":  "1c694a02b0cf9d90d2da845d7da1766da34ebd6024f1383744bdec2fa3a0f857"
+                      "path":  "mods/nbidal18-integrity-1.0.102+26.2-fabric.jar",
+                      "sha256":  "a277c52c0553bd285f2f4bdfd39907998acf5da41df168aaf5d55084b67921b1"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar",
@@ -1865,6 +1873,10 @@
                       "sha256":  "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
                   },
                   {
+                      "path":  "mods/nbidal18-voxy-1.0.0+26.2-fabric.jar",
+                      "sha256":  "887a3409d399d4284855434e5086b0f536114e82471ba8a4f414c46e194ccd8e"
+                  },
+                  {
                       "path":  "mods/nbidal18-voxyworldgen-3.7.0+26.2-fabric.jar",
                       "sha256":  "17d88d9ae32cc0d8a7a524dfacfc593c4d658de227f7d7c9f871198bb74a8300"
                   },
@@ -1877,8 +1889,8 @@
                       "sha256":  "7323649a970c3311a01ae0c0dad8bb5de1afdcf07a033c4ee02d42eeebcab27e"
                   },
                   {
-                      "path":  "mods/nbidal18-xaeroworldmap-1.1.0+26.2-fabric.jar",
-                      "sha256":  "4024316a307348e28c73400bd68a4d8ef1a3e8f0d294d9f9cc5a7cedcae280c3"
+                      "path":  "mods/nbidal18-xaeroworldmap-1.2.0+26.2-fabric.jar",
+                      "sha256":  "a8e2c535db212ace013aa5c055a88801762403448726d17bee04692ac18f68a5"
                   },
                   {
                       "path":  "mods/notenoughanimations-fabric-1.12.4-mc26.2.jar",
@@ -2038,7 +2050,7 @@
                   },
                   {
                       "path":  "nbidal18-packwiz-updater.next.jar",
-                      "sha256":  "224e53abae246698ea14d419454812dcab42ae01c2e94bf1a68c6e98428a04ca"
+                      "sha256":  "05573e67a9bc2494d2cd7786090bf1f4349a80f8691456b1054935794ff36c05"
                   },
                   {
                       "path":  "packwiz-installer-bootstrap.next.jar",
@@ -2130,7 +2142,7 @@
                   },
                   {
                       "path":  "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip",
-                      "sha256":  "ecac5465e4567bba21e1f6687b969aeaf8df90f1192c78af1645e7bbc2812ff1"
+                      "sha256":  "c6cba268fdc0fc9d66cefa34f7a33ab6f4819e8b672c47d0be92397dfb6e42d1"
                   },
                   {
                       "path":  "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt",

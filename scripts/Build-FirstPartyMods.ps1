@@ -155,6 +155,12 @@ $mods = @(
     # which is the whole open-lid performance. Depositing into an empty chest still opens it.
     # **Runs on the server** - needs -AddMods.
     @{ Name = 'nbidal18-coppergolem'; Generator = $null; Builder = 'build_coppergolem.py' },
+    # Anvils without the prior-work penalty and without Too Expensive (v1.0.102 hotfix). The menu
+    # mixin answers 0 for every REPAIR_COST read and writes 0 instead of the doubled penalty, and moves
+    # the 40-level threshold out of reach - keeping vanilla's refusal to enchant a whole stack at once,
+    # which prices at that same 40. The client mixin moves the label's own copy of the threshold.
+    # **Both sides** - needs -AddMods.
+    @{ Name = 'nbidal18-anvil'; Generator = $null; Builder = 'build_anvil.py' },
     # 26.2 bakes every inventory icon once into a cache texture (GuiItemAtlas) through the ordinary
     # item pipeline, which under Iris is the shader pipeline; Iris has no hook for that cache, so an
     # icon baked while a pipeline is being torn down or built comes out blank or as a grey blob and
@@ -162,6 +168,16 @@ $mods = @(
     # cache whenever Iris's pipeline or the block atlas changes, and for a few seconds after, so
     # every icon is re-baked once the pipeline has settled. Client only.
     @{ Name = 'nbidal18-iris'; Generator = $null; Builder = 'build_iris.py' },
+    # Voxy's internal errors go to the log instead of chat (v1.0.102). Its Logger.error writes the
+    # log line and then posts the same text to chat through showInHUD; the mixin drops that post inside
+    # error() only, so the log keeps everything and deliberate chat notices still arrive. Client only.
+    @{ Name = 'nbidal18-voxy'; Generator = $null; Builder = 'build_voxy.py' },
+    # Fresh Animations stands aside whenever the game has its own pose for the player's arms: any item
+    # in use (bow, crossbow draw, spyglass, shield, trident, food, potions), a loaded crossbow held, or
+    # a boat ride (v1.0.102). FA+Player replaces the arm rotations outright and never reads vanilla's
+    # or Not Enough Animations' pose; the 1.21.1 pack fixed the bow the same way. No mixins - EMF's own
+    # pause and vanilla-model conditions, as nbidal18-carryon and -reliablegliders use. Client only.
+    @{ Name = 'nbidal18-emf'; Generator = $null; Builder = 'build_emf.py' },
 
     # nbidal18-travelersbackpack is deliberately NOT built. Its source stays under `custom mods\`
     # because the work is sound and will be picked up again, but a uniform tint is not what

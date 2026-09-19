@@ -5,6 +5,50 @@ build that was not published.
 
 ---
 
+## v1.0.102
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-19 | see below | `4d8609694a80` | `2627776b9595` | 330 | 174 |
+
+**Hotfix: anvils stop getting more expensive, destroyed vehicles are gone for good, and your arms follow
+the bow again.** Click **Play**. Nothing to clear.
+
+### What changed
+
+**Anvils.** Using an anvil no longer makes the next use more expensive, the extra cost your tools had
+already built up is gone, and nothing is ever "Too Expensive" any more - a big repair just costs the levels
+it costs. The one thing an anvil still refuses is enchanting a whole stack of items at once.
+
+**Aircraft and machines no longer drop as an item when destroyed** - crashed, blown up, or broken by hand.
+Once one is gone, it is gone. Whatever was in its cargo still drops.
+
+**Your arms now follow what you are doing.** Fresh Animations was drawing its own idle arm motion over the
+pose for drawing a bow, aiming a crossbow, looking through a spyglass, holding up a shield, winding a
+trident, eating, drinking and rowing a boat. It now steps aside for all of those. The bow draw is Not Enough
+Animations' own, as it was in the old pack; if you had changed that setting, it has been set once and you
+can change it back.
+
+**Deleting a waypoint on the world map takes one click**, not two.
+
+**Voxy's internal messages** no longer appear in chat. They are still written to the log.
+
+**Voice chat on the hardcore server** now uses its own port, 27322. It had been set to the other
+server's, which is why the voice icon there was crossed out.
+
+Also: copper lanterns under the Eclipse shader get the same look as the other lanterns.
+
+### Tested before publishing
+
+Updater sync on a fresh instance, twice: 330 files installed, 108 player files preserved, the new bow
+setting written once and correctly, 0 intruders, nothing rewritten on the second pass. A real client to the
+title screen with 173 mods and every new piece reporting at start-up. A throwaway dedicated server with the
+new server mods loaded - 98 mods, 2901 recipes, 3245 advancements. Not proven by any test: a repair at an
+anvil, a destroyed plane, a bow draw, a waypoint deletion and voice on the hardcore server - each needs
+someone in the game.
+
+---
+
 ## v1.0.101
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
