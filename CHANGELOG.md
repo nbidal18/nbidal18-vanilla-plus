@@ -5,6 +5,41 @@ build that was not published.
 
 ---
 
+## v1.0.103
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-19 | see below | `f521611d80a1` | `4d8609694a80` | 333 | 177 |
+
+**Coordinates are gone from the game.** Click **Play**. Nothing to clear.
+
+### What changed
+
+Every place in the game that could show your coordinates was searched for and closed, ahead of a hardcore
+design where knowing your position would spoil it.
+
+- **Holding a compass** shows your height (Y) and the way you face - no longer X and Z.
+- **Holding a recovery compass** no longer shows where you died.
+- **Dying with a backpack** no longer tells you in chat where it was dropped. The backpack still drops where
+  you died.
+- **The world map** no longer has "Hop to coordinates" or "Export as PNG" - both could be used to work out
+  where you are.
+- **Waypoints** can no longer be shared in chat, from any menu.
+- **Jade** can no longer show the coordinates of the block you look at.
+- **The dynamic lights debug view** no longer labels the world with coordinates.
+- **The F3 screen** never shows coordinates on the servers: the setting that hides them is now switched on
+  at every start and cannot be switched off.
+
+### Tested before publishing
+
+Updater sync on a fresh instance, twice: 333 files installed, 108 player files preserved, 0 intruders,
+nothing rewritten on the second pass. A real client to the title screen with 176 mods and every new piece
+reporting at start-up. A throwaway dedicated server with the new server mods: 100 mods, 2901 recipes, 3245
+advancements, and its fresh world's hidden-coordinates setting switched on as it started. Not proven by any
+test: what a compass shows in your hand, and a death with a backpack - each needs someone in the game.
+
+---
+
 ## v1.0.102
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

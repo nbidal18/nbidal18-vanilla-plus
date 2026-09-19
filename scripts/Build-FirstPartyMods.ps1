@@ -178,11 +178,28 @@ $mods = @(
     # or Not Enough Animations' pose; the 1.21.1 pack fixed the bow the same way. No mixins - EMF's own
     # pause and vanilla-model conditions, as nbidal18-carryon and -reliablegliders use. Client only.
     @{ Name = 'nbidal18-emf'; Generator = $null; Builder = 'build_emf.py' },
+    # LambDynamicLights' cell debug view labels light cells with their absolute coordinates, and any
+    # player can switch it on in the mod's settings (v1.0.103, coordinates stripped from the game).
+    # One mixin stops that renderer; the light-level and bounding-box views draw no position. Client.
+    @{ Name = 'nbidal18-lambdynlights'; Generator = $null; Builder = 'build_lambdynlights.py' },
+    # reduced_debug_info is set at every server start and put back if anyone turns it off (v1.0.103).
+    # Every F3 source in the pack - vanilla, BetterF3, Sodium, Sodium Extra, each mod's entries - hides
+    # absolute positions only under this rule, which had been set by hand. **Runs on the server** -
+    # needs -AddMods.
+    @{ Name = 'nbidal18-reduceddebug'; Generator = $null; Builder = 'build_reduceddebug.py' },
+    # Vanilla Refresh's settings bridge, until v1.0.102 a hand-built jar with no builder. Its shipped jar
+    # is now the fixed input in base\ and is copied byte for byte; the builder adds datapack overrides
+    # that win because Fabric sorts mod data by dependency and this jar depends on Vanilla Refresh
+    # exactly. v1.1.0 (v1.0.103): the compass readout shows Y and facing only. Data added, no javac.
+    # **Runs on the server too** - needs -AddMods.
+    @{ Name = 'nbidal18-vanillarefresh'; Generator = $null; Builder = 'build_vanillarefresh.py' },
 
-    # nbidal18-travelersbackpack is deliberately NOT built. Its source stays under `custom mods\`
-    # because the work is sound and will be picked up again, but a uniform tint is not what
-    # Recolourful does - it recolours a panel region by region - so shipping it looked unfinished
-    # next to the vanilla containers rather than matching them. Re-add this line to revive it.
+    # Traveler's Backpack never sends the death message that carries the backpack's - the player's -
+    # coordinates (v1.0.103): one mixin on its PacketDistributor.sendToPlayer drops that one packet.
+    # The artefact's earlier panel-tint work is still NOT built: it is parked in parked-panel-tint\,
+    # because a uniform tint is not what Recolourful does - it recolours a panel region by region - so
+    # shipping it looked unfinished next to the vanilla containers. **Both sides** - needs -AddMods.
+    @{ Name = 'nbidal18-travelersbackpack'; Generator = $null; Builder = 'build_travelersbackpack.py' },
     # Data only - no src\, so no javac. Its builder reads the vanilla loot table out of the game jar
     # and edits it, which is why it needs no classpath either.
     @{ Name = 'nbidal18-tectonic'; Generator = $null; Builder = 'build_tectonic.py' },

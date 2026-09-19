@@ -287,47 +287,47 @@
     {
       "match": "config/jade/hide-blocks.json",
       "class": "support",
-      "reason": "Tooltip HUD. Entity health is separately enforced by the server's jade/server-plugin-overrides.json."
+      "reason": "Tooltip HUD. Jade's Coordinates and Relative Coordinates lines are forced off for every player by the server's jade/server-plugin-overrides.json (v1.0.103), which overrides whatever a client sets here. Until v1.0.103 that file was empty, and this note claimed it enforced entity health - it never did."
     },
     {
       "match": "config/jade/hide-entities.json",
       "class": "support",
-      "reason": "Tooltip HUD. Entity health is separately enforced by the server's jade/server-plugin-overrides.json."
+      "reason": "Tooltip HUD. Jade's Coordinates and Relative Coordinates lines are forced off for every player by the server's jade/server-plugin-overrides.json (v1.0.103), which overrides whatever a client sets here. Until v1.0.103 that file was empty, and this note claimed it enforced entity health - it never did."
     },
     {
       "match": "config/jade/hide-mob-effects.json",
       "class": "support",
-      "reason": "Tooltip HUD. Entity health is separately enforced by the server's jade/server-plugin-overrides.json."
+      "reason": "Tooltip HUD. Jade's Coordinates and Relative Coordinates lines are forced off for every player by the server's jade/server-plugin-overrides.json (v1.0.103), which overrides whatever a client sets here. Until v1.0.103 that file was empty, and this note claimed it enforced entity health - it never did."
     },
     {
       "match": "config/jade/jade.json",
       "class": "support",
-      "reason": "Tooltip HUD. Entity health is separately enforced by the server's jade/server-plugin-overrides.json."
+      "reason": "Tooltip HUD. Jade's Coordinates and Relative Coordinates lines are forced off for every player by the server's jade/server-plugin-overrides.json (v1.0.103), which overrides whatever a client sets here. Until v1.0.103 that file was empty, and this note claimed it enforced entity health - it never did."
     },
     {
       "match": "config/jade/profiles/1/jade.json",
       "class": "support",
-      "reason": "Tooltip HUD. Entity health is separately enforced by the server's jade/server-plugin-overrides.json."
+      "reason": "Tooltip HUD. Jade's Coordinates and Relative Coordinates lines are forced off for every player by the server's jade/server-plugin-overrides.json (v1.0.103), which overrides whatever a client sets here. Until v1.0.103 that file was empty, and this note claimed it enforced entity health - it never did."
     },
     {
       "match": "config/jade/profiles/2/jade.json",
       "class": "support",
-      "reason": "Tooltip HUD. Entity health is separately enforced by the server's jade/server-plugin-overrides.json."
+      "reason": "Tooltip HUD. Jade's Coordinates and Relative Coordinates lines are forced off for every player by the server's jade/server-plugin-overrides.json (v1.0.103), which overrides whatever a client sets here. Until v1.0.103 that file was empty, and this note claimed it enforced entity health - it never did."
     },
     {
       "match": "config/jade/profiles/3/jade.json",
       "class": "support",
-      "reason": "Tooltip HUD. Entity health is separately enforced by the server's jade/server-plugin-overrides.json."
+      "reason": "Tooltip HUD. Jade's Coordinates and Relative Coordinates lines are forced off for every player by the server's jade/server-plugin-overrides.json (v1.0.103), which overrides whatever a client sets here. Until v1.0.103 that file was empty, and this note claimed it enforced entity health - it never did."
     },
     {
       "match": "config/jade/server-plugin-overrides.json",
       "class": "support",
-      "reason": "Tooltip HUD. Entity health is separately enforced by the server's jade/server-plugin-overrides.json."
+      "reason": "Tooltip HUD. Jade's Coordinates and Relative Coordinates lines are forced off for every player by the server's jade/server-plugin-overrides.json (v1.0.103), which overrides whatever a client sets here. Until v1.0.103 that file was empty, and this note claimed it enforced entity health - it never did."
     },
     {
       "match": "config/jade/sort-order.json",
       "class": "support",
-      "reason": "Tooltip HUD. Entity health is separately enforced by the server's jade/server-plugin-overrides.json."
+      "reason": "Tooltip HUD. Jade's Coordinates and Relative Coordinates lines are forced off for every player by the server's jade/server-plugin-overrides.json (v1.0.103), which overrides whatever a client sets here. Until v1.0.103 that file was empty, and this note claimed it enforced entity health - it never did."
     },
     {
       "match": "config/jei-server.properties",

@@ -26,7 +26,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.json"
-hash = "54391ee50a8fc1e820335c9cab4b59d84d29312953b45e797f28795bd95ef247"
+hash = "6aa3647df621f91d5f35575396d445ccd5507ed3be6dd8eb2fba32b13c3f6d1d"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -222,7 +222,7 @@ hash = "5cc035e1310343a74468c379deb0977332f19ebac9f48c24214dda39f60828ee"
 
 [[files]]
 file = "config/jade/server-plugin-overrides.json"
-hash = "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+hash = "e00e95c01962ff5f1cf403ec419c137a300460a93c15b3712c49fdba1b2a9242"
 
 [[files]]
 file = "config/jade/sort-order.json"
@@ -969,8 +969,8 @@ file = "mods/nbidal18-incendium-1.0.0+26.2-fabric.jar"
 hash = "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.102+26.2-fabric.jar"
-hash = "a277c52c0553bd285f2f4bdfd39907998acf5da41df168aaf5d55084b67921b1"
+file = "mods/nbidal18-integrity-1.0.103+26.2-fabric.jar"
+hash = "11c147db27f32fa1b1dc3a2923f7a696a4b292fbecd6e90ca2a1e11a931fcec2"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar"
@@ -985,12 +985,20 @@ file = "mods/nbidal18-jukebox-2.0.4+26.2-fabric.jar"
 hash = "74f800f257d43ed7905b8ec48f8bb575010ef9254f4a7b87c4f47453679f1967"
 
 [[files]]
+file = "mods/nbidal18-lambdynlights-1.0.0+26.2-fabric.jar"
+hash = "58e51525b24495c5e22554d6633578ffd795aed09dc2a170d48a2873c67ebfdf"
+
+[[files]]
 file = "mods/nbidal18-mousewheelie-1.0.3+26.2-fabric.jar"
 hash = "1741e3f9bc3be2a4712a91cad543a8a30dfccc4a2369cf0bd7ccfe8d29627d94"
 
 [[files]]
 file = "mods/nbidal18-realisticdeathvisuals-1.0.2+26.2-fabric.jar"
 hash = "d2db12699fd76389473394c85ff418ca1ebfdb315a7eae77f01cedd16924aaa8"
+
+[[files]]
+file = "mods/nbidal18-reduceddebug-1.0.0+26.2-fabric.jar"
+hash = "60813901db0014aa3969079c54489ec71eeed79d11e78ae2c99470d0665be4ec"
 
 [[files]]
 file = "mods/nbidal18-reliablegliders-1.1.0+26.2-fabric.jar"
@@ -1029,12 +1037,16 @@ file = "mods/nbidal18-theend-1.0.0+26.2-fabric.jar"
 hash = "785f792dc924001facba484739ab25317f19b708e7ff10190900401a543bf4db"
 
 [[files]]
+file = "mods/nbidal18-travelersbackpack-1.0.0+26.2-fabric.jar"
+hash = "120b15d3d93469b2f25ef35aeb92a039a08e99770c85ec86ccce0315659453c4"
+
+[[files]]
 file = "mods/nbidal18-treechop-0.19.3+26.2-nbidal18.2-fabric.jar"
 hash = "cb71edf724fd4df18bc4373519f507a33a5c6809f213af49beaccca6984743d7"
 
 [[files]]
-file = "mods/nbidal18-vanillarefresh-1.4.31+26.2-fabric.jar"
-hash = "581ce639280a77b783f379005b146cfa656757045762774a86391e679f797a17"
+file = "mods/nbidal18-vanillarefresh-1.1.0+26.2-fabric.jar"
+hash = "8f153d9b04cbf88c8169efc884db0d2998c093b8e4af60e49cbf078ccfac841c"
 
 [[files]]
 file = "mods/nbidal18-voxy-1.0.0+26.2-fabric.jar"
@@ -1049,12 +1061,12 @@ file = "mods/nbidal18-xaerolib-1.0.0+26.2-fabric.jar"
 hash = "eba60fd0603c901683a9341d6c20bd2cc19158354ee4c888761ed1169224dc76"
 
 [[files]]
-file = "mods/nbidal18-xaerominimap-1.1.0+26.2-fabric.jar"
-hash = "7323649a970c3311a01ae0c0dad8bb5de1afdcf07a033c4ee02d42eeebcab27e"
+file = "mods/nbidal18-xaerominimap-1.2.0+26.2-fabric.jar"
+hash = "6412f5cc7618b008c1016015dfedd4384b15f9e3ed39a3f41f0328efbc2ee948"
 
 [[files]]
-file = "mods/nbidal18-xaeroworldmap-1.2.0+26.2-fabric.jar"
-hash = "a8e2c535db212ace013aa5c055a88801762403448726d17bee04692ac18f68a5"
+file = "mods/nbidal18-xaeroworldmap-1.3.0+26.2-fabric.jar"
+hash = "e98ed4dab2ce9ff6cd76a642dcb96e2432d3b1b36e4e1c7725cef5cc83e3036e"
 
 [[files]]
 file = "mods/notenoughanimations-fabric-1.12.4-mc26.2.jar"
