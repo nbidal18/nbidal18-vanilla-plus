@@ -5,6 +5,42 @@ build that was not published.
 
 ---
 
+## v1.0.104
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-19 | see below | `3270717ab471` | `f521611d80a1` | 336 | 177 |
+
+**Your backpack goes into your grave, and there are two Eclipse shaders.** Click **Play**. Nothing to clear.
+
+### What changed
+
+- **Dying with a backpack on** puts it in your grave with everything else, instead of on the ground beside
+  it. Collecting the grave puts it back on your back - or in your inventory if you are already wearing
+  another one.
+- **Two Eclipse shaders** in the shader list:
+  - **Eclipse Unstable** is plain Eclipse again, without the Complementary additions. If you had it
+    selected, it stays selected, with your settings.
+  - **Eclipse Complementary Unstable** is the one with Complementary's depth on textures, shiny metal gear
+    and lanterns. It starts on the pack's settings. Two fixes in it: armour and mobs now have as much depth
+    as in Complementary (they came out flatter), and fire, campfires, furnaces, jack o'lanterns and plain
+    candles now light the world in the same warm orange as torches, following the Torch Color setting.
+- **AVPBR Retextured**, a new resource pack, switched on at the bottom of your list. It retextures many
+  blocks and gives shaders like plain Eclipse real depth and shine to read. Every pack you already had
+  still draws on top of it, and you can turn it off or move it in the Resource Packs screen.
+
+### Tested before publishing
+
+Updater sync on a fresh instance, twice: 336 files installed, 109 player files preserved, 0 intruders,
+nothing rewritten on the second pass. The new "add at the bottom" step run on a real pack list: AVPBR lands
+just above vanilla, everything else unchanged, a second run changes nothing. A throwaway dedicated server
+with the new backpack mod: 100 mods, and the grave hook registered at start. A real client to the title
+screen with Eclipse Complementary Unstable on and AVPBR loaded. Not proven by any test: a death with a
+backpack on, and each shader drawn inside a world - an automated run that should have entered a world did
+not get past the title screen.
+
+---
+
 ## v1.0.103
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

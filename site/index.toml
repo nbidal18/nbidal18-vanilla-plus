@@ -26,7 +26,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.json"
-hash = "6aa3647df621f91d5f35575396d445ccd5507ed3be6dd8eb2fba32b13c3f6d1d"
+hash = "400ec7119c2cbb5451bc9ac8532a7136e34b043772bec8e19fe491651f0ef926"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -969,8 +969,8 @@ file = "mods/nbidal18-incendium-1.0.0+26.2-fabric.jar"
 hash = "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.103+26.2-fabric.jar"
-hash = "11c147db27f32fa1b1dc3a2923f7a696a4b292fbecd6e90ca2a1e11a931fcec2"
+file = "mods/nbidal18-integrity-1.0.104+26.2-fabric.jar"
+hash = "5d434ad2bb0b0406377c54cf57f29b02e29985a7161a35319279808b2f0fe48c"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar"
@@ -1037,8 +1037,8 @@ file = "mods/nbidal18-theend-1.0.0+26.2-fabric.jar"
 hash = "785f792dc924001facba484739ab25317f19b708e7ff10190900401a543bf4db"
 
 [[files]]
-file = "mods/nbidal18-travelersbackpack-1.0.0+26.2-fabric.jar"
-hash = "120b15d3d93469b2f25ef35aeb92a039a08e99770c85ec86ccce0315659453c4"
+file = "mods/nbidal18-travelersbackpack-1.1.0+26.2-fabric.jar"
+hash = "8dde54127213d8a7f405e2745ec113e3ce601be680a57e31680c8d4cb62e23c1"
 
 [[files]]
 file = "mods/nbidal18-treechop-0.19.3+26.2-nbidal18.2-fabric.jar"
@@ -1226,7 +1226,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "05573e67a9bc2494d2cd7786090bf1f4349a80f8691456b1054935794ff36c05"
+hash = "befb45c0bde3e002bb0e0016a44abade2975f081c868473a4d32f6079139a290"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -1239,6 +1239,10 @@ hash = "c9f646908d340d84773948a9a7d98bc1dae250d35e1016dc6e2b8459760b5598"
 [[files]]
 file = "prism/mmc-pack.json"
 hash = "48f695f86304c1b76a23905b266c7eb50c5273c47c041b2c128e0001390ab441"
+
+[[files]]
+file = "resourcepacks/AVPBR Retextured R6.zip"
+hash = "306fcbc2fb9f2b37dfb73b093832763a2bb21753f666792570726207b112b0bd"
 
 [[files]]
 file = "resourcepacks/Better Lanterns v1.3.2 - 26.2.zip"
@@ -1317,8 +1321,16 @@ file = "shaderpacks/nbidal18-ComplementaryUnbound_r5.9.3.zip.txt"
 hash = "00c106473dc7b634fe522ad43d8e380276f9807c10c8714724d76589ccd15df8"
 
 [[files]]
+file = "shaderpacks/nbidal18-Eclipse-Complementary-Unstable.zip"
+hash = "daa9ed099d8b1a11656198ad37ddc348a3a120f48b5f69a07c090804fec474b0"
+
+[[files]]
+file = "shaderpacks/nbidal18-Eclipse-Complementary-Unstable.zip.txt"
+hash = "11b85cadb6a2cb96eddf92748b9a3fc41295ba4d96dfcb8f32b30fc24447901a"
+
+[[files]]
 file = "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip"
-hash = "c6cba268fdc0fc9d66cefa34f7a33ab6f4819e8b672c47d0be92397dfb6e42d1"
+hash = "180ba7d2ed4f3d1935be1c2ac3f69bdcc42e7ac0b6f919b4b53d48ac1752c18d"
 
 [[files]]
 file = "shaderpacks/nbidal18-Eclipse-Shader-Unstable.zip.txt"

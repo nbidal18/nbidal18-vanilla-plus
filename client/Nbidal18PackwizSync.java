@@ -87,10 +87,11 @@ public final class Nbidal18PackwizSync {
      * ({@code key_key.fieldguide.open}), so a dotted path could not be split back into segments
      * unambiguously.
      */
-    private record SeedRow(List<String> parents, String key, String value, boolean addToList) {
+    private record SeedRow(List<String> parents, String key, String value, boolean addToList,
+                           boolean atBottom) {
 
         SeedRow(List<String> parents, String key, String value) {
-            this(parents, key, value, false);
+            this(parents, key, value, false, false);
         }
 
         /**
@@ -98,10 +99,18 @@ public final class Nbidal18PackwizSync {
          * resourcePacks above all - leaving every element already there, and their order, as the
          * player has them. Nothing is written when the element is already listed, or when the key is
          * not there to add to. Restating the whole list instead would switch back on every pack a
-         * player had switched off.
+         * player had switched off. It goes above the last file pack, so it draws over all of them.
          */
         static SeedRow addToList(String key, String element) {
-            return new SeedRow(List.of(), key, element, true);
+            return new SeedRow(List.of(), key, element, true, false);
+        }
+
+        /**
+         * The same, but below the first file pack, so every pack already listed draws over it - for
+         * a pack that should fill in what the others leave rather than replace what they draw.
+         */
+        static SeedRow addToListBottom(String key, String element) {
+            return new SeedRow(List.of(), key, element, true, true);
         }
 
         /** A key in a flat file, or at the top level of a nested one. */
@@ -412,7 +421,18 @@ public final class Nbidal18PackwizSync {
             // a master change would re-deliver it whole over every player's; this sets the one key.
             // Anyone who sets it back to VANILLA afterwards keeps that. The master stays VANILLA.
             new PlayerFileSeed("config/notenoughanimations.json", ':', "nea-bow-custom-v1102", List.of(
-                    SeedRow.of("bowAnimation", "\"CUSTOM_V1\""))));
+                    SeedRow.of("bowAnimation", "\"CUSTOM_V1\""))),
+            // v1.0.104: AVPBR Retextured, switched on for everyone once. Owner, 2026-09-19: "put back a
+            // normal eclipse-unstable and this resouirce pack" - a labPBR pack, the normal and specular
+            // maps plain Eclipse's material settings read and which this pack never had. At the BOTTOM,
+            // just above vanilla: it also retextures, and shares 398 files with nbidal18-3D, dozens of
+            // Fresh Animations' mob and armour textures and the lanterns, grasses and cactus zombie, so
+            // above them it would draw over every look chosen here. Below them it fills in the rest. Shipped as
+            // Modrinth serves it: it declares formats 15 to 1000, which covers 26.2's 88, so it needs no
+            // incompatibleResourcePacks entry. Anyone who switches it
+            // off or moves it keeps that choice.
+            new PlayerFileSeed("options.txt", ':', "resourcepacks-avpbr-v1104", List.of(
+                    SeedRow.addToListBottom("resourcePacks", "\"file/AVPBR Retextured R6.zip\""))));
 
         /**
      * Empty on purpose, and it must stay that way until a mod is actually retired from THIS
@@ -1401,7 +1421,7 @@ public final class Nbidal18PackwizSync {
             String line = lines.get(last);
             int separator = separatorIndex(line);
             String current = line.substring(separator + 1).strip();
-            String updated = addToJsonList(current, row.value());
+            String updated = addToJsonList(current, row.value(), row.atBottom());
             if (updated == null) {
                 throw new IOException(describe(row) + " in " + seed.relativePath() + " is not a list");
             }
@@ -1634,10 +1654,12 @@ public final class Nbidal18PackwizSync {
     /**
      * {@code list} with {@code element} added after its last {@code "file/..."} entry - a pack later
      * in resourcePacks draws over the ones before it, and the built-in packs listed after the files
-     * stay where they are - or at the end when there is no such entry. Returned unchanged when the
-     * element is already there, and null when {@code list} is not a JSON list.
+     * stay where they are - or at the end when there is no such entry. With {@code atBottom} it goes
+     * before the first {@code "file/..."} entry instead, under every file pack and above
+     * {@code "vanilla"}. Returned unchanged when the element is already there, and null when
+     * {@code list} is not a JSON list.
      */
-    private static String addToJsonList(String list, String element) {
+    private static String addToJsonList(String list, String element, boolean atBottom) {
         if (list.length() < 2 || list.charAt(0) != '[' || list.charAt(list.length() - 1) != ']') {
             return null;
         }
@@ -1664,10 +1686,19 @@ public final class Nbidal18PackwizSync {
             return list;
         }
         int insertAt = elements.size();
-        for (int position = elements.size() - 1; position >= 0; position--) {
-            if (elements.get(position).startsWith("\"file/")) {
-                insertAt = position + 1;
-                break;
+        if (atBottom) {
+            for (int position = 0; position < elements.size(); position++) {
+                if (elements.get(position).startsWith("\"file/")) {
+                    insertAt = position;
+                    break;
+                }
+            }
+        } else {
+            for (int position = elements.size() - 1; position >= 0; position--) {
+                if (elements.get(position).startsWith("\"file/")) {
+                    insertAt = position + 1;
+                    break;
+                }
             }
         }
         elements.add(insertAt, element);

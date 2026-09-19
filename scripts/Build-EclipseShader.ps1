@@ -1,18 +1,21 @@
 <#
     Rebuilds the pack's Eclipse shader with nbidal18 IntegratedPBR.
 
-      scripts\Build-EclipseShader.ps1                     patch the release's own copy in place
+      scripts\Build-EclipseShader.ps1                     build the Complementary variant beside the plain fork
       scripts\Build-EclipseShader.ps1 -Out <path\to.zip>  write the result somewhere else, for testing
 
     Owner, 2026-09-17: "if u are able to port the complimentary one, do it custom". Complementary's
     generated normals and coated textures, on terrain, entities and the held item, because Eclipse's
     own materials come from a labPBR resource pack and this pack ships none.
 
-    **The input is the pack's own fork**, not upstream Eclipse: the untouched zip it was forked from
-    is not on this machine any more, so the fork carries the earlier ore-glow and hurt-flash changes
-    and this adds to it. The builder refuses to run on a zip without those two markers, and refuses
-    to run twice. The output keeps the same file name, because Iris keys a player's shader settings
-    to it.
+    **Two shaders ship from v1.0.104.** The plain fork, nbidal18-Eclipse-Shader-Unstable.zip - Eclipse
+    with only the ore-glow and hurt-flash changes - is this script's input and is never modified. The
+    output is a second pack beside it, nbidal18-Eclipse-Complementary-Unstable.zip. Owner, 2026-09-19:
+    "keep this eclipse shader u are working on patching it with complimentary stuff, but rename it to
+    eclipse-complimentary-unstable, then put back a normal eclipse-unstable". The builder refuses a
+    zip without the fork's two markers, and refuses one that already has IntegratedPBR, so it cannot
+    patch its own output. Iris keys a player's shader settings to the zip's file name, so each has
+    its own settings file.
 
     The work is in build_eclipse_ipbr.py beside its GLSL, in the release's source folder.
 #>
