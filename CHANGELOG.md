@@ -5,6 +5,37 @@ build that was not published.
 
 ---
 
+## v1.0.105
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-21 | see below | `07f1708ce272` | `3270717ab471` | 338 | 177 |
+
+**Two new shaders in the list, and the custom Eclipse Complementary is gone.** Click **Play**. Nothing
+to clear.
+
+### What changed
+
+- **Rethinking Voxels** and **Photon** are new choices in the shader list. Both get the pack's usual
+  treatment: ores never glow through stone, and the red flash over a hurt mob is off unless you switch
+  **Mob Hurt Flash** on. A creeper about to explode still flashes white either way.
+- **Eclipse Complementary Unstable is removed.** If you had it selected, shaders switch off until you
+  pick another one. Plain **Eclipse Unstable**, Complementary, E-LITE and AVPBR are untouched.
+- Choosing between the two new ones: **Photon** is the newer release and works with Voxy's far
+  terrain. **Rethinking Voxels** is older and has no Voxy support, so distant terrain is unshaded
+  under it if you turn Voxy on.
+
+### Tested before publishing
+
+Updater sync on a fresh instance, twice: 338 files installed, 110 player files preserved, 0 intruders,
+nothing rewritten on the second pass. Both shaders are rebuilt from the authors' own files, checked by
+hash against Modrinth, and rebuilding gives the identical file each time. Every route by which an ore
+could glow was read one at a time and is closed. Rethinking Voxels was loaded in a world: it built its
+pipeline and ran with no shader errors. **Not done:** the same in-world run for Photon - the test
+client was still open on the other shader when this was published.
+
+---
+
 ## v1.0.104
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
