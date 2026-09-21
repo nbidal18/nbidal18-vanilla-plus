@@ -33,6 +33,14 @@
 param(
     [int] $BootTimeoutSeconds = 300,
     [string] $InstanceName = 'nbidal18-vanilla-plus-client',
+    # Stage from this folder instead of the release's "3. modpack\client". Added 2026-09-21 for the
+    # v2.0.0 rebuild, which builds a pack up one mod at a time inside a Prism instance that is not a
+    # release and has no client source of its own. Everything else about the run is unchanged, so a
+    # mod is proved by the same check the pack already trusts rather than by a second one.
+    #
+    #   .\Test-ClientLaunch.ps1 -InstanceName nbidal18-rebuild `
+    #       -ClientSource "$env:APPDATA\PrismLauncher\instances\nbidal18-rebuild\minecraft"
+    [string] $ClientSource,
     [switch] $KeepGameDir,
     # Leave the client running at the title screen instead of killing it, and keep the game
     # directory. For looking at something that only exists on screen - a GUI, a model, a shader -
@@ -42,6 +50,15 @@ param(
     # resourcepacks exact-match, so a candidate pack dropped into the real instance is deleted
     # before the game starts; this directory has no updater and no integrity helper.
     [switch] $Hold,
+    # Let the client take the foreground as it normally would. Off by default since 2026-09-21: a
+    # test run that steals focus has alt-tabbed the owner out of hardcore Minecraft and out of
+    # Rocket League, and no run needs the screen to decide pass or fail - that is read from the log.
+    # Pass this when you deliberately want the client in front of you.
+    [switch] $Focus,
+    # How long to keep pushing the client's window back after the title screen is reached. Minecraft
+    # raises its window once resource packs finish loading, which is after the log line this test
+    # waits on, so suppression has to outlive the check itself.
+    [int] $FocusGraceSeconds = 25,
     # Copy these files over the staged resourcepacks folder, by name, after staging. A candidate
     # fork of a pack the release already ships replaces the shipped one.
     [string[]] $ReplacePack = @(),
@@ -90,7 +107,7 @@ function Resolve-MavenPath([string] $prismRoot, [string] $coord) {
 $repo = Split-Path -Parent $PSScriptRoot
 $version = (Get-Content -LiteralPath (Join-Path $repo 'PACK-VERSION.txt') -Raw).Trim()
 $release = Join-Path (Split-Path -Parent $repo) "v.$version"
-$clientSource = Join-Path $release '3. modpack\client'
+$clientSource = if ($ClientSource) { $ClientSource } else { Join-Path $release '3. modpack\client' }
 $mcVersion = (Get-Content -LiteralPath (Join-Path $repo 'MINECRAFT.txt') -Raw).Trim()
 $prismRoot = Join-Path $env:APPDATA 'PrismLauncher'
 $instanceRoot = Join-Path $prismRoot "instances\$InstanceName"
@@ -182,11 +199,66 @@ $requiredLines = @(
     # Matches both module names, so losing either one fails here rather than shipping a bridge that
     # loads and does half its job. v1.0.10's did exactly that with the JEI half.
     @{ Name = 'InvMove bridge registered'
-        Pattern = 'Registered the JEI search and allow-movement modules with InvMove' }
+        Pattern = 'Registered the JEI search and allow-movement modules with InvMove'
+        RequiresMod = 'nbidal18-invmov-*.jar' }
 )
 
 $mixinFailure = '(?m)(org\.spongepowered\.asm\.mixin\..*throwables\.|Mixin apply failed|' +
 'MixinApplyError|MixinTransformerError|Critical injection failure|Mixin transformation of .* failed)'
+
+# Keeping the test client out of the foreground. A pass/fail run is read from the log, never from
+# the screen, so the window has no business being in front of whatever the owner is doing - and a
+# hardcore death caused by a build step is a real cost, not a papercut.
+#
+# ShowWindow(SW_SHOWMINNOACTIVE) rather than SW_MINIMIZE: the latter activates the next window in
+# the z-order, which on a single-monitor desktop is often the one we just came from and sometimes
+# is not. Restoring the recorded window explicitly is what makes it land back where it started.
+# The game keeps running while minimized - Minecraft throttles its frame rate but the start-up
+# sequence, which is all this test reads, runs on other threads regardless.
+if (-not ('Nbidal18Focus' -as [type])) {
+    Add-Type -Namespace '' -Name 'Nbidal18Focus' -MemberDefinition @'
+    [DllImport("user32.dll")] public static extern IntPtr GetForegroundWindow();
+    [DllImport("user32.dll")] public static extern bool SetForegroundWindow(IntPtr hWnd);
+    [DllImport("user32.dll")] public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+    [DllImport("user32.dll")] public static extern bool IsWindowVisible(IntPtr hWnd);
+    [DllImport("user32.dll")] public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint pid);
+    [DllImport("user32.dll")] public static extern bool EnumWindows(EnumWindowsProc cb, IntPtr p);
+    [DllImport("user32.dll")] public static extern bool AttachThreadInput(uint a, uint b, bool attach);
+    [DllImport("kernel32.dll")] public static extern uint GetCurrentThreadId();
+    public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr p);
+
+    // Windows refuses SetForegroundWindow from a process that does not already own the foreground,
+    // which is exactly our situation - so the plain call can silently do nothing. Attaching our
+    // input queue to the thread that owns the foreground window lifts that restriction for the
+    // duration of the call. Without this the client's window was minimized but focus did not always
+    // come back to where it started.
+    static void ForceForeground(IntPtr hWnd) {
+        IntPtr current = GetForegroundWindow();
+        if (current == hWnd) { return; }
+        uint dummy;
+        uint fgThread = GetWindowThreadProcessId(current, out dummy);
+        uint ours = GetCurrentThreadId();
+        bool attached = fgThread != 0 && fgThread != ours && AttachThreadInput(ours, fgThread, true);
+        try { SetForegroundWindow(hWnd); }
+        finally { if (attached) { AttachThreadInput(ours, fgThread, false); } }
+    }
+
+    // Minimize every visible top-level window owned by `processId`, then put `restore` back in
+    // front. Returns quietly if the game has not created its window yet.
+    public static void KeepBehind(int processId, IntPtr restore) {
+        bool touched = false;
+        EnumWindows(delegate(IntPtr hWnd, IntPtr p) {
+            uint owner; GetWindowThreadProcessId(hWnd, out owner);
+            if (owner == (uint)processId && IsWindowVisible(hWnd)) {
+                ShowWindow(hWnd, 7 /* SW_SHOWMINNOACTIVE */);
+                touched = true;
+            }
+            return true;
+        }, IntPtr.Zero);
+        if (touched && restore != IntPtr.Zero) { ForceForeground(restore); }
+    }
+'@
+}
 
 # Short path on purpose: the deepest datapack file passes MAX_PATH from a longer root.
 $testRoot = Join-Path ([IO.Path]::GetTempPath()) 'nbidal18-vp-launch'
@@ -286,17 +358,41 @@ try {
 
     # WorkingDirectory matters as much as --gameDir: several mods write relative to the process
     # working directory, and launching from the checkout once scattered files through the repo.
-    # Minimized for a pass/fail run, on screen for -Hold: the whole point of Hold is to look at it.
+    # The Java console only; the game's own window is GLFW's and is handled below.
     $client = Start-Process -FilePath $javaPath -ArgumentList $arguments -PassThru `
-        -WorkingDirectory $testRoot -WindowStyle $(if ($Hold) { 'Normal' } else { 'Minimized' }) `
+        -WorkingDirectory $testRoot -WindowStyle $(if ($Hold -and $Focus) { 'Normal' } else { 'Minimized' }) `
         -RedirectStandardOutput (Join-Path $testRoot 'stdout.txt') `
         -RedirectStandardError (Join-Path $testRoot 'stderr.txt')
+
+    # -WindowStyle above only governs the Java console. The game's own window is created by GLFW a
+    # few seconds later and takes the foreground on its own, which is why a "minimized" test run
+    # still alt-tabbed the owner out of whatever he was playing (reported 2026-09-21: "wouldn't want
+    # to die cuz I got alt tabbed", and it hits Rocket League too). Nothing passed to Start-Process
+    # can prevent that, so the window is pushed back as it appears - every second for the whole boot,
+    # because GLFW shows it late and Minecraft raises it again when the render thread starts.
+    # Suppressed during start-up for EVERY run, -Hold included. The first version exempted -Hold on
+    # the reasoning that looking at the client is its whole purpose - which got it backwards: -Hold
+    # is precisely the run that stays on screen for minutes, so it is the one most likely to be
+    # going while the owner is in a game. Suppression stops the moment the title screen is reached,
+    # so a -Hold client can be raised from the taskbar and will then stay raised; nothing fights the
+    # window once it is yours. -Focus opts back in for a run you want to land in front of you.
+    $userWindow = if ($Focus) { [IntPtr]::Zero } else { [Nbidal18Focus]::GetForegroundWindow() }
+    $client.Refresh()
 
     $logPath = Join-Path $testRoot 'logs\latest.log'
     try {
         $deadline = (Get-Date).AddSeconds($BootTimeoutSeconds)
         $reachedMenu = $false
         while ((Get-Date) -lt $deadline -and -not $client.HasExited) {
+            # The window is chased at 100 ms and the log is read once a second. At the original one
+            # second the client sat in front for up to a full second before being pushed back, which
+            # is plenty to yank someone out of a game - the owner saw exactly that on 2026-09-21.
+            # Reading the log at 100 ms instead would mean re-reading a file that grows to megabytes,
+            # so the two run at different rates.
+            for ($tick = 0; $tick -lt 10 -and -not $client.HasExited; $tick++) {
+                if ($userWindow -ne [IntPtr]::Zero) { [Nbidal18Focus]::KeepBehind($client.Id, $userWindow) }
+                Start-Sleep -Milliseconds 100
+            }
             if (Test-Path -LiteralPath $logPath -PathType Leaf) {
                 # Logged once the client is fully initialised, just before the title screen draws.
                 if ((Read-SharedText $logPath) -match 'Sound engine started') { $reachedMenu = $true; break }
@@ -304,7 +400,20 @@ try {
             # No early exit on a mixin line: Mixin logs recoverable throwables during startup, and
             # aborting on the first one failed healthy clients. A fatal one kills the process, which
             # HasExited above already catches.
-            Start-Sleep -Milliseconds 1000
+        }
+
+        # "Sound engine started" is logged BEFORE the window settles: Minecraft finishes loading
+        # resource packs and raises its window after it, so stopping here left a last grab
+        # unopposed - the other half of what the owner saw. Keep chasing for a grace period, then
+        # stop for good so that a -Hold client raised from the taskbar stays raised and nothing
+        # fights the window once it is deliberately his.
+        if ($userWindow -ne [IntPtr]::Zero -and -not $client.HasExited) {
+            $settle = (Get-Date).AddSeconds($FocusGraceSeconds)
+            while ((Get-Date) -lt $settle -and -not $client.HasExited) {
+                [Nbidal18Focus]::KeepBehind($client.Id, $userWindow)
+                Start-Sleep -Milliseconds 100
+            }
+            Write-Host ("focus     held for {0}s after start-up; the client is yours to raise now" -f $FocusGraceSeconds)
         }
 
         $log = if (Test-Path -LiteralPath $logPath -PathType Leaf) { Read-SharedText $logPath } else { '' }
@@ -354,6 +463,18 @@ try {
             }
         }
         foreach ($check in $requiredLines) {
+            # A required line is only required when the mod that prints it was actually staged.
+            # Without this the check is not "the bridge works" but "the bridge is installed", and it
+            # fails any run that legitimately does not ship it - which is every step of the v2.0.0
+            # rebuild, where the pack is built up one mod at a time from nothing.
+            if ($check.ContainsKey('RequiresMod')) {
+                $present = @(Get-ChildItem -LiteralPath (Join-Path $testRoot 'mods') -File `
+                        -Filter $check.RequiresMod -ErrorAction SilentlyContinue).Count
+                if (-not $present) {
+                    Write-Host ("skipped   {0} - {1} is not staged" -f $check.Name, $check.RequiresMod)
+                    continue
+                }
+            }
             if ($log -notmatch $check.Pattern) {
                 $failures.Add(("expected log line never appeared: {0} (/{1}/)" -f $check.Name, $check.Pattern))
             }

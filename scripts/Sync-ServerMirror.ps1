@@ -60,6 +60,10 @@ if (-not $MirrorRoot) { $MirrorRoot = Join-Path $packRoot '_server-payload-cache
 # Absolute from here on. WinSCP is opened in the temp folder (see LocalDirectory below), so a
 # relative mirror such as `..\_server-payload-cache-hardcore` - exactly how the hardcore deploy is
 # typed - resolved against that folder, and the pull died in WinSCP with nothing to show for it.
+#
+# Against $PWD by hand: [IO.Path]::GetFullPath uses .NET's current directory, which PowerShell does
+# not update on Set-Location, so a relative root resolved against the process's start directory.
+if (-not [IO.Path]::IsPathRooted($MirrorRoot)) { $MirrorRoot = Join-Path $PWD.ProviderPath $MirrorRoot }
 $MirrorRoot = [IO.Path]::GetFullPath($MirrorRoot).TrimEnd([char]92)
 
 $winscp = @(

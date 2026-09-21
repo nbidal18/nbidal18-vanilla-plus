@@ -5,6 +5,33 @@ build that was not published.
 
 ---
 
+## v1.0.106
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-21 | see below | `f1ff8ed26ee4` | `07f1708ce272` | 338 | 177 |
+
+**The Hardcore server has moved to a new address.** Click **Play** and your server list updates
+itself. Nothing to clear, and nothing to re-add by hand.
+
+### What changed
+
+- **Vanilla+ Hardcore is now `38.103.248.98:27037`**, on a machine in Paris. It was
+  `195.60.166.224:27321`.
+- **Your multiplayer list is updated in place.** The existing Hardcore entry has its address
+  rewritten and keeps its name, its icon and its position in your list. You do not get a second
+  entry, and the dead one is not left behind. If you had renamed it or moved it up the list, that is
+  yours and is untouched.
+- **Voice chat on Hardcore moves with it**, to UDP `27038`. Nothing to configure - the mod is told
+  the port by the server.
+- **Vanilla+ is not affected.** Its address, `194.54.88.14:27107`, has not changed.
+
+**Nothing else changed.** No mod was added, removed or updated in this release; all 97 shared server
+jars are byte-identical to v1.0.105. The only other differences are the ones every release carries:
+the version stamp, the integrity helper and the compatibility-checker version string.
+
+---
+
 ## v1.0.105
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

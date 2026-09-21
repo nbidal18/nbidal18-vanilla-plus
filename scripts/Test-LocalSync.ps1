@@ -33,11 +33,24 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+# The two servers, in one place. The hardcore machine was rehosted on 2026-09-21 and changed both
+# address and port; the updater's seed moves an existing entry rather than appending a second one,
+# and this test drives that path by rolling its instance back to the previous address first.
+$vanillaAddress = '194.54.88.14:27107'
+$hardcoreCurrentAddress = '38.103.248.98:27037'
+$hardcorePreviousAddress = '195.60.166.224:27321'
+$hardcoreSeedMarker = 'applied-servers-hardcore-moved-v1106'
+
 $repo = Split-Path -Parent $PSScriptRoot
 $version = (Get-Content -LiteralPath (Join-Path $repo 'PACK-VERSION.txt') -Raw).Trim()
 $release = Join-Path (Split-Path -Parent $repo) "v.$version"
 $site = Join-Path $repo 'site'
-$packwiz = Join-Path $release '5. modpack source\auto-updater tools\packwiz.exe'
+# `packwiz serve` below opens a listening socket, and packwiz has no flag to bind loopback only, so
+# Windows Firewall prompts the first time it sees each path. This script is where that prompt
+# actually came from - see Resolve-PackwizTool.ps1 for the full account and why the binary is run
+# from one stable location instead of from the release folder.
+. (Join-Path $PSScriptRoot 'Resolve-PackwizTool.ps1')
+$packwiz = Resolve-PackwizTool -Release $release
 $javaPath = Join-Path $env:APPDATA 'PrismLauncher\java\java-runtime-epsilon\bin\java.exe'
 
 foreach ($required in @($site, $packwiz, $javaPath, (Join-Path $site 'pack.toml'))) {
@@ -124,16 +137,19 @@ try {
     finally { $zip.Dispose() }
     Write-Host ("seeded    {0} files from nbidal18-client.zip" -f $seeded)
 
-    # The ZIP's servers.dat already lists both servers, so on a fresh install the updater's own
-    # server-list seed would have nothing to do and this would never prove it works. Give the
-    # instance the one-server list every existing player has instead: the seed has to put the
-    # hardcore server back, and the check after the sync reads both addresses out of the file.
+    # The ZIP's servers.dat already carries the CURRENT hardcore address, so on a fresh install the
+    # server-list seed has nothing to do and this would never prove it works. Give the instance the
+    # list an existing player actually has - the hardcore server at its OLD address - so the seed has
+    # to perform the v1.0.106 move, which is the path that can go wrong. Appending instead of
+    # rewriting would leave two hardcore entries, and the assertions after the sync catch exactly
+    # that: the new address present, the old one gone, and one hardcore entry rather than two.
     $serverList = Join-Path $minecraft 'servers.dat'
-    $hardcoreAddress = '195.60.166.224:27321'
     if (Test-Path -LiteralPath $serverList -PathType Leaf) {
-        $stripped = & python (Join-Path $PSScriptRoot 'Edit-ServerList.py') $serverList $serverList remove $hardcoreAddress
-        if ($LASTEXITCODE -ne 0) { throw "Edit-ServerList.py failed: $stripped" }
-        Write-Host ("stripped  {0} from servers.dat, so the updater's seed has to add it" -f $hardcoreAddress)
+        $rolled = & python (Join-Path $PSScriptRoot 'Edit-ServerList.py') $serverList $serverList remove $hardcoreCurrentAddress
+        if ($LASTEXITCODE -ne 0) { throw "Edit-ServerList.py failed: $rolled" }
+        $rolled = & python (Join-Path $PSScriptRoot 'Edit-ServerList.py') $serverList $serverList add 'nbidal18 Vanilla+ Hardcore' $hardcorePreviousAddress
+        if ($LASTEXITCODE -ne 0) { throw "Edit-ServerList.py failed: $rolled" }
+        Write-Host ("rolled    servers.dat back to {0}, so the updater's seed has to move it" -f $hardcorePreviousAddress)
     }
 
     $env:INST_MC_DIR = $minecraft
@@ -317,16 +333,21 @@ try {
     $serverList = Join-Path $minecraft 'servers.dat'
     Assert (Test-Path -LiteralPath $serverList -PathType Leaf) 'servers.dat is missing after the sync'
     $serverBytes = [Text.Encoding]::UTF8.GetString([IO.File]::ReadAllBytes($serverList))
-    foreach ($address in '194.54.88.14:27107', '195.60.166.224:27321') {
+    foreach ($address in $vanillaAddress, $hardcoreCurrentAddress) {
         Assert ($serverBytes.Contains($address)) "servers.dat does not list $address after the sync"
     }
-    $serverMarker = Join-Path $minecraft '.nbidal18-packwiz\applied-servers-hardcore-v1088'
-    Assert ((Test-Path -LiteralPath $serverMarker) -and (([IO.File]::ReadAllLines($serverMarker))[2] -eq 'changed')) 'the server-list seed did not report adding the hardcore server'
+    # The move's whole point: the dead address is gone rather than sitting beside the new one.
+    Assert (-not $serverBytes.Contains($hardcorePreviousAddress)) `
+        "servers.dat still lists the previous hardcore address $hardcorePreviousAddress after the sync"
+    $serverMarker = Join-Path $minecraft ".nbidal18-packwiz\$hardcoreSeedMarker"
+    Assert ((Test-Path -LiteralPath $serverMarker) -and (([IO.File]::ReadAllLines($serverMarker))[2] -eq 'changed')) 'the server-list seed did not report moving the hardcore server'
     # The file the updater wrote has to be NBT the game can read, not just bytes that contain the
     # addresses: Edit-ServerList.py parses every tag, refuses trailing bytes, and finds the entry.
-    $parsed = & python (Join-Path $PSScriptRoot 'Edit-ServerList.py') $serverList (Join-Path $testRoot 'servers-parsed.dat') remove '195.60.166.224:27321'
-    Assert ($LASTEXITCODE -eq 0 -and (($parsed -join "`n") -match 'removed\s+1 entries')) "the updater's servers.dat did not parse as one hardcore entry: $parsed"
-    Write-Host 'seeded    servers.dat lists both servers, the hardcore one added by the updater as valid NBT'
+    # Removing the new address must take exactly one entry - two would mean the seed appended a
+    # duplicate instead of rewriting the one that was there.
+    $parsed = & python (Join-Path $PSScriptRoot 'Edit-ServerList.py') $serverList (Join-Path $testRoot 'servers-parsed.dat') remove $hardcoreCurrentAddress
+    Assert ($LASTEXITCODE -eq 0 -and (($parsed -join "`n") -match 'removed\s+1 entries')) "the updater's servers.dat did not parse as exactly one hardcore entry: $parsed"
+    Write-Host 'seeded    servers.dat lists both servers, the hardcore one moved by the updater as valid NBT'
 
     # no intruders
     $managed = @{}

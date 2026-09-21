@@ -1,6 +1,10 @@
 hash-format = "sha256"
 
 [[files]]
+file = "SHA256SUMS.txt"
+hash = "d608ef3b225c7c17022793ac789d47f1808c4e6833854268e5de6facd73fd5a0"
+
+[[files]]
 file = "config/MouseTweaks.cfg"
 hash = "4069ce1a439d8c37453c1b1e9f2037e0942674c7e48723a39b37eab245792ad4"
 
@@ -26,7 +30,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.json"
-hash = "51fe9775da5d545697ae2b99617624653cbe946695ac3b17ff0f343d4dcce85c"
+hash = "37437453258fd54bec59d96b48f83bfc1771a615f44d25d56cc75b32df9b4e64"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -969,8 +973,8 @@ file = "mods/nbidal18-incendium-1.0.0+26.2-fabric.jar"
 hash = "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.105+26.2-fabric.jar"
-hash = "5f38c58892934241f7e576583e09a332be38f900319582f17f60b2d5cbea94c3"
+file = "mods/nbidal18-integrity-1.0.106+26.2-fabric.jar"
+hash = "f2fb62d04ad52d2ed9a1ad9bc42d6d54e48da2ada16e9871724b5196281878c8"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar"
@@ -1226,7 +1230,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "befb45c0bde3e002bb0e0016a44abade2975f081c868473a4d32f6079139a290"
+hash = "426741dd602091878a97e6e2d9e87c0a15b897c27e2f7c6c3e0fb9282ad74f0b"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
@@ -1351,3 +1355,7 @@ hash = "eb756f80d1a460c5cad6eceae89a4dff6d5b0b1a4b0493f4dcb1433cfd5d5dc3"
 [[files]]
 file = "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt"
 hash = "21694795b410bef9b5b34c10af835d33d19cdbef05cb264996057e9aa665f6fb"
+
+[[files]]
+file = "sync-manifest.json"
+hash = "f1ff8ed26ee499970dc3938a1e023c0f05def9ad8afa989faee4acaade028c14"

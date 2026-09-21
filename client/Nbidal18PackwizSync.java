@@ -1028,12 +1028,26 @@ public final class Nbidal18PackwizSync {
      * only through this: the entry is appended if no entry with its address is there yet, the
      * marker is written, and the list is the player's again. Nothing is ever removed or reordered.
      */
-    private record ServerListSeed(String token, String name, String ip) {
+    private record ServerListSeed(String token, String name, String ip, String movedFrom) {
+        static ServerListSeed added(String token, String name, String ip) {
+            return new ServerListSeed(token, name, ip, null);
+        }
+
+        static ServerListSeed moved(String token, String name, String ip, String movedFrom) {
+            return new ServerListSeed(token, name, ip, movedFrom);
+        }
     }
 
     private static final String SERVER_LIST = "servers.dat";
     private static final List<ServerListSeed> SERVER_LIST_SEEDS = List.of(
-            new ServerListSeed("servers-hardcore-v1088", "nbidal18 Vanilla+ Hardcore", "195.60.166.224:27321"));
+            // v1.0.88 added the hardcore server. v1.0.106 moved it: the owner rehosted that machine
+            // and it changed both address and port. A second `added` seed would have appended a new
+            // entry and left the dead one in the list for ever - a seed only ever ran once and never
+            // looked at what was already there. `moved` rewrites the ip of the entry that still
+            // carries the old address, in place, keeping its name, icon and position, and falls back
+            // to appending for anyone who never had it.
+            ServerListSeed.moved("servers-hardcore-moved-v1106", "nbidal18 Vanilla+ Hardcore",
+                    "38.103.248.98:27037", "195.60.166.224:27321"));
 
     private void applyServerListSeeds() {
         for (ServerListSeed seed : SERVER_LIST_SEEDS) {
@@ -1087,6 +1101,7 @@ public final class Nbidal18PackwizSync {
         }
 
         Map<String, Object> first = null;
+        Map<String, Object> moveTarget = null;
         for (Object item : servers.items()) {
             if (!(item instanceof Map<?, ?> entry)) {
                 continue;
@@ -1095,10 +1110,29 @@ public final class Nbidal18PackwizSync {
                 first = (Map<String, Object>) entry;
             }
             if (seed.ip().equalsIgnoreCase(String.valueOf(entry.get("ip")))) {
+                // Already on the new address - a fresh install, or this seed has run before under
+                // another token. Mark and leave the list alone.
                 Files.createDirectories(stateRoot);
                 writeSeedMarker(marker, seed.token(), SERVER_LIST, false);
                 return false;
             }
+            if (seed.movedFrom() != null && moveTarget == null
+                    && seed.movedFrom().equalsIgnoreCase(String.valueOf(entry.get("ip")))) {
+                moveTarget = (Map<String, Object>) entry;
+            }
+        }
+
+        // A move rewrites the one field that changed. The player may have renamed the entry or
+        // dragged it up the list, and both are theirs to keep - only `ip` is ours.
+        if (moveTarget != null) {
+            moveTarget.put("ip", seed.ip());
+            root.put("servers", servers);
+            writeServerList(target, root);
+            Files.createDirectories(stateRoot);
+            writeSeedMarker(marker, seed.token(), SERVER_LIST, true);
+            status(seed.name() + " has moved to " + seed.ip()
+                    + "; its entry in the multiplayer list was updated and nothing else was touched.");
+            return false;
         }
 
         Map<String, Object> entry = new LinkedHashMap<>();
@@ -1113,6 +1147,14 @@ public final class Nbidal18PackwizSync {
         servers.items().add(entry);
         root.put("servers", servers);
 
+        writeServerList(target, root);
+        Files.createDirectories(stateRoot);
+        writeSeedMarker(marker, seed.token(), SERVER_LIST, true);
+        return true;
+    }
+
+    /** Writes servers.dat through a temporary file, so an interrupted run cannot leave a torn list. */
+    private void writeServerList(Path target, Map<String, Object> root) throws IOException {
         byte[] written = Nbt.write(root);
         Path temporary = target.resolveSibling(
                 target.getFileName() + ".nbidal18-" + UUID.randomUUID() + ".tmp");
@@ -1128,9 +1170,6 @@ public final class Nbidal18PackwizSync {
         } finally {
             Files.deleteIfExists(temporary);
         }
-        Files.createDirectories(stateRoot);
-        writeSeedMarker(marker, seed.token(), SERVER_LIST, true);
-        return true;
     }
 
     /**

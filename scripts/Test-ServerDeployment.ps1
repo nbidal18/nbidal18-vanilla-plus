@@ -113,6 +113,13 @@ if (-not $DriveRoot) { $DriveRoot = $mirrorDefault }
 # Absolute from here on. Every path under the mirror is built from this, and a relative root - the
 # hardcore deploy is typed as `..\_server-payload-cache-hardcore` - once made a Substring on
 # absolute file paths cut the wrong number of characters (v1.0.89, caught by a dry run).
+#
+# Resolved against $PWD by hand, because [IO.Path]::GetFullPath uses .NET's own current directory
+# and PowerShell does NOT update that on Set-Location. Typing the documented relative root from the
+# repo therefore resolved it against whatever directory the process started in, and the mirror check
+# below then quietly downgraded a real deploy to a REHEARSAL (2026-09-21, the v1.0.106 hardcore
+# staging - the rehearsal marker is what caught it, which is the argument for having it).
+if (-not [IO.Path]::IsPathRooted($DriveRoot)) { $DriveRoot = Join-Path $PWD.ProviderPath $DriveRoot }
 $DriveRoot = [IO.Path]::GetFullPath($DriveRoot).TrimEnd([char]92)
 # Two live servers since 2026-09-10: the Vanilla+ mirror and, beside it, the hardcore one. A plan
 # staged into either is deployable; any other tree is a rehearsal with no server behind it. The

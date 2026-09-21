@@ -160,8 +160,9 @@ minecraft = "$mc"
 # packwiz refresh reads an existing index before rewriting it, so seed an empty one.
 [IO.File]::WriteAllText((Join-Path $site 'index.toml'), "hash-format = `"sha256`"`n", (New-Object Text.UTF8Encoding($false)))
 
-$packwiz = Join-Path $release '5. modpack source\auto-updater tools\packwiz.exe'
-if (-not (Test-Path -LiteralPath $packwiz)) { throw "packwiz.exe not found at $packwiz" }
+# Pinned per release, run from one stable path - Resolve-PackwizTool.ps1 explains why at length.
+. (Join-Path $PSScriptRoot 'Resolve-PackwizTool.ps1')
+$packwiz = Resolve-PackwizTool -Release $release
 Push-Location $site
 try {
     & $packwiz refresh 2>&1 | Where-Object { $_ -notmatch '^\s*$' } | Select-Object -Last 3 | ForEach-Object { Write-Host "packwiz   $_" }

@@ -92,6 +92,9 @@ $serverHost, $serverPort = $address -split ':', 2
 $serverPort = [int] $serverPort
 
 if (-not $DriveRoot) { $DriveRoot = Join-Path (Split-Path -Parent $repo) '_server-payload-cache' }
+# Against $PWD by hand: [IO.Path]::GetFullPath uses .NET's current directory, which PowerShell does
+# not update on Set-Location, so the documented relative root resolved against the wrong folder.
+if (-not [IO.Path]::IsPathRooted($DriveRoot)) { $DriveRoot = Join-Path $PWD.ProviderPath $DriveRoot }
 $DriveRoot = [IO.Path]::GetFullPath($DriveRoot).TrimEnd([char]92)
 $syncScript = Join-Path $PSScriptRoot 'Sync-ServerMirror.ps1'
 
