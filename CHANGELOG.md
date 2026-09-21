@@ -9,7 +9,7 @@ build that was not published.
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
 | --- | --- | --- | --- | --- | --- |
-| 2026-09-21 | see below | `f1ff8ed26ee4` | `07f1708ce272` | 338 | 177 |
+| 2026-09-21 | `423b80a` | `f1ff8ed26ee4` | `07f1708ce272` | 338 | 177 |
 
 **The Hardcore server has moved to a new address.** Click **Play** and your server list updates
 itself. Nothing to clear, and nothing to re-add by hand.
