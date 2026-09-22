@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.107",
+    "packVersion":  "1.0.108",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -352,7 +352,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.json",
-                                    "sha256":  "d152d68e07af5f8cfbee26e2b50f3cd4ed00c781101685168d69b4e0105ba18f"
+                                    "sha256":  "72309fad8b1038650e337199d20b9490d03c90c112ae33737b3a2ec279490236"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -862,7 +862,7 @@
                   },
                   {
                       "path":  "config/bcc-common.json",
-                      "sha256":  "d152d68e07af5f8cfbee26e2b50f3cd4ed00c781101685168d69b4e0105ba18f"
+                      "sha256":  "72309fad8b1038650e337199d20b9490d03c90c112ae33737b3a2ec279490236"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1737,8 +1737,8 @@
                       "sha256":  "20964b7da5db58b5e9bd499e8e43c79d4715dd8bdf99581b6bca899a23adcc9e"
                   },
                   {
-                      "path":  "mods/nbidal18-betterend-3.0.0+26.2-fabric.jar",
-                      "sha256":  "ea138812ee5e2a0fd6401446ff940b0a2869cf940f2420055efc7f1f13d1963d"
+                      "path":  "mods/nbidal18-betterend-4.0.0+26.2-fabric.jar",
+                      "sha256":  "f34f1f5769416f4fa438d54e357c2081a9bd30412ae663ecbc6f02bc551fafb9"
                   },
                   {
                       "path":  "mods/nbidal18-betterfishing-1.0.0+26.2-fabric.jar",
@@ -1797,8 +1797,8 @@
                       "sha256":  "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.107+26.2-fabric.jar",
-                      "sha256":  "1ed5419513aedda9db6f5363dcf6a1306fdc2e1e2799c944177f94fc04d9648a"
+                      "path":  "mods/nbidal18-integrity-1.0.108+26.2-fabric.jar",
+                      "sha256":  "bdcefbfea1e165c55f544cc29458ec4dd9bc850dc839388095cc435263d40e6a"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar",

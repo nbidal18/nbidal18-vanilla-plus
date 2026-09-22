@@ -5,6 +5,43 @@ build that was not published.
 
 ---
 
+## v1.0.108
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-22 | `pending` | `68949cd0ae14` | `8b4a2eccd7a5` | 336 | 176 |
+
+**The wrecked ships in the End are rarer now, and their chests finally hold something.** Click
+**Play** and you are done.
+
+### What changed
+
+- **The crashed ships now carry supplies, in Lootr chests.** Those broken End City ships lying on the
+  outer islands are a Better End decoration, and their chests have always been empty - not looted,
+  never filled. They were placed without a loot table at all, which is also why Lootr never took them
+  over: Lootr adopts a container because it *has* a loot table. They have one now.
+  **It is deliberately not treasure.** Iron, copper, coal, sticks, string and flint; chorus fruit,
+  bread, ender pearls and cooked cod; and a one-in-three chance of obsidian, a fishing rod, flint and
+  steel, an iron pickaxe or a golden carrot. No diamonds, no enchanted gear, no elytra - **End Cities
+  stay the reason to go looking.** A wreck is what you want to find when you are stranded, not when
+  you are shopping. Sticks and string are in there on purpose: there is no wood on most End islands,
+  so without them you cannot make a tool at all, and together they are a fishing rod - which with
+  Better End's ponds is the only renewable food down there.
+  As with every Lootr container, what you take is yours; nobody else's wreck is emptied by it.
+- **Wrecks are about eleven times rarer.** They sat at roughly one per 360 blocks while an End City
+  sits at one per 2,900, because the wreck is a decoration rather than a structure and so was never
+  caught by the spacing this pack applies to structures. Now it is roughly one per 1,000 blocks -
+  still the easier of the two to stumble across, which is the point of a lifeline.
+
+**This applies to newly generated parts of the End.** Anything already explored keeps the wrecks it
+has, empty chests included.
+
+**Everything else is unchanged.** All 95 shared server jars are byte-identical to v1.0.107; the only
+other differences are the ones every release carries - the version stamp, the integrity helper and the
+compatibility-checker version string.
+
+---
+
 ## v1.0.107
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
