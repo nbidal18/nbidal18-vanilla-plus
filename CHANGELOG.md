@@ -5,6 +5,41 @@ build that was not published.
 
 ---
 
+## v1.0.107
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-22 | `pending` | `8b4a2eccd7a5` | `f1ff8ed26ee4` | 336 | 176 |
+
+**Broken End villages are fixed, the End is lighter on your connection, and one mod is gone.** Click
+**Play** and you are done. Nothing to clear, nothing to re-add.
+
+### What changed
+
+- **End villages no longer generate in empty void.** `/locate structure betterend:end_village` used to
+  send you thousands of blocks out to open sky between two islands, with nothing there. In the End,
+  biomes exist in empty space just as they do on an island, so a structure whose only rule is "which
+  biome" cannot tell ground from nothing - and End villages had no other rule. They do now. The same
+  fix covers Structory Towers' End tower, which had the identical hole.
+  **It does not make villages more common** - that was deliberate. They stay as rare as they were; the
+  difference is that a candidate landing in void no longer uses up its slot, so the rarity you feel is
+  the rarity that was configured rather than that multiplied by however often the die landed on
+  nothing. Existing worlds keep whatever is already generated; this applies to newly generated chunks.
+- **Less traffic to your game on a weak connection.** Two server settings changed:
+  `network-compression-threshold` from 256 to 64, so the constant stream of small packets - entity
+  positions, rotations, velocities - is now compressed as well, and
+  `entity-broadcast-range-percentage` from 100 to 80, so the server stops describing entities far away
+  from you. Both are server-side; there is nothing to configure and nothing to install.
+- **Boids is removed.** It made fish swim in shoals and jump out of water, and it wrote a movement and
+  facing update for every salmon, cod and tropical fish every tick. Fish now behave as they do in
+  vanilla.
+
+**Everything else is unchanged.** All 95 shared server jars are byte-identical to v1.0.106; the only
+other differences are the ones every release carries - the version stamp, the integrity helper and the
+compatibility-checker version string.
+
+---
+
 ## v1.0.106
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

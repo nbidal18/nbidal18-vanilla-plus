@@ -37,6 +37,19 @@ param(
     # log or a world-folder file to diagnose something should not mean hand-typed WinSCP.
     [Parameter(ParameterSetName = 'Get')]   [string] $Get,
     [Parameter(ParameterSetName = 'Get')]   [string] $To,
+    # Rename a remote path. Added 2026-09-22 for resetting the End: moving a 2 GB dimension folder
+    # aside is the only backup of it that is affordable, and it is instant and reversible where a
+    # delete is neither. Named Move rather than folded into Push because it is not a copy and must
+    # never be inferred - it is only ever used on a stopped server, by Reset-EndDimension.ps1.
+    [Parameter(ParameterSetName = 'Move')]  [string] $Move,
+    [Parameter(ParameterSetName = 'Move')]  [string] $MoveTo,
+    # Upload one named local file to one named remote path, the mirror image of -Get. Separate from
+    # -Push on purpose: -Push takes mirror-relative paths and the world is deliberately not in the
+    # mirror, so pushing a world file would mean inventing a mirror entry for something the mirror
+    # exists to stay out of. Used by Reset-EndDimension.ps1 for wover-generator.nbt, on a stopped
+    # server, with the original kept locally first.
+    [Parameter(ParameterSetName = 'Put')]   [string] $Put,
+    [Parameter(ParameterSetName = 'Put')]   [string] $PutTo,
     [Parameter(ParameterSetName = 'Push')]  [string[]] $Files,
     # Deleting is named separately from copying and is never inferred. A superseded helper has to
     # go - two jars claiming one mod id and the loader picks one - but nothing here should ever
@@ -141,6 +154,25 @@ if ($List) {
     if (-not $remote.StartsWith('/')) { $remote = $RemoteRoot + $remote }
     $lines.Add("ls `"$remote`"")
     Write-Host ("list      {0}" -f $remote)
+}
+
+if ($Move) {
+    if (-not $MoveTo) { throw 'Pass -MoveTo with -Move. A move with no destination is not a default.' }
+    $from = $Move.Replace([IO.Path]::DirectorySeparatorChar, [char]47)
+    if (-not $from.StartsWith('/')) { $from = $RemoteRoot + $from }
+    $dest = $MoveTo.Replace([IO.Path]::DirectorySeparatorChar, [char]47)
+    if (-not $dest.StartsWith('/')) { $dest = $RemoteRoot + $dest }
+    $lines.Add("mv `"$from`" `"$dest`"")
+    Write-Host ("move      {0} -> {1}" -f $from, $dest)
+}
+
+if ($Put) {
+    if (-not $PutTo) { throw 'Pass -PutTo with -Put. An upload destination is never inferred.' }
+    if (-not (Test-Path -LiteralPath $Put -PathType Leaf)) { throw "No such local file: $Put" }
+    $dest = $PutTo.Replace([IO.Path]::DirectorySeparatorChar, [char]47)
+    if (-not $dest.StartsWith('/')) { $dest = $RemoteRoot + $dest }
+    $lines.Add("put `"$Put`" `"$dest`"")
+    Write-Host ("put       {0} -> {1}" -f $Put, $dest)
 }
 
 if ($Get) {

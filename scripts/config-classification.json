@@ -130,11 +130,6 @@
       "reason": "Camera control."
     },
     {
-      "match": "config/boids.json5",
-      "class": "gameplay",
-      "reason": "Flocking behaviour of vanilla mobs."
-    },
-    {
       "match": "config/c2me.toml",
       "class": "support",
       "reason": "Chunk pipeline threading; performance."
@@ -712,7 +707,6 @@
     "config/betterdays-common.toml",
     "config/betterf3.json",
     "config/betterthirdperson.json5",
-    "config/boids.json5",
     "config/c2me.toml",
     "config/cameraoverhaul.toml",
     "config/carryon-client.json",
@@ -917,7 +911,7 @@
       "reason": "Rethinking Voxels' settings (v1.0.105). Published holding only a comment - the pack runs the shader on its defaults - so that it is an official file: shaderpacks is exact-match, and a settings file Iris wrote on its own would be moved out as an extra on the next launch. Glowing ores need no rule here, they are removed from the shader itself; the Mob Hurt Flash toggle is the player's."
     },
     {
-      "match": "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt",
+      "match": "shaderpacks/nbidal18-\u00a7lE-LITE shaders 5.1.1.zip.txt",
       "class": "player",
       "reason": "Shader settings. Published once so the pack ships its tuning, then owned by the player - a property rule cannot pin a key here, because these are not properties files."
     },

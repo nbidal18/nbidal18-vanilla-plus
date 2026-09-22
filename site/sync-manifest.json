@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.106",
+    "packVersion":  "1.0.107",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -352,7 +352,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.json",
-                                    "sha256":  "37437453258fd54bec59d96b48f83bfc1771a615f44d25d56cc75b32df9b4e64"
+                                    "sha256":  "d152d68e07af5f8cfbee26e2b50f3cd4ed00c781101685168d69b4e0105ba18f"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -377,10 +377,6 @@
                                 {
                                     "path":  "config/betterthirdperson.json5",
                                     "sha256":  "a08f97002e75fbe4e2933cbb6137c8bcb33d1cd36e947e54829b8fa8ab3caa7c"
-                                },
-                                {
-                                    "path":  "config/boids.json5",
-                                    "sha256":  "2ffbf8223c35fecaaf7ab2f2e4ef32f7332e846e9697ff067da1a5032b4093e8"
                                 },
                                 {
                                     "path":  "config/c2me.toml",
@@ -866,7 +862,7 @@
                   },
                   {
                       "path":  "config/bcc-common.json",
-                      "sha256":  "37437453258fd54bec59d96b48f83bfc1771a615f44d25d56cc75b32df9b4e64"
+                      "sha256":  "d152d68e07af5f8cfbee26e2b50f3cd4ed00c781101685168d69b4e0105ba18f"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -891,10 +887,6 @@
                   {
                       "path":  "config/betterthirdperson.json5",
                       "sha256":  "a08f97002e75fbe4e2933cbb6137c8bcb33d1cd36e947e54829b8fa8ab3caa7c"
-                  },
-                  {
-                      "path":  "config/boids.json5",
-                      "sha256":  "2ffbf8223c35fecaaf7ab2f2e4ef32f7332e846e9697ff067da1a5032b4093e8"
                   },
                   {
                       "path":  "config/c2me.toml",
@@ -1549,10 +1541,6 @@
                       "sha256":  "c18bde4951116b7d59a9222b1aaf07f91af9e982a06af7cef5831ff61a659f50"
                   },
                   {
-                      "path":  "mods/boids-2.0.0+26.2.jar",
-                      "sha256":  "33e348ad749ed2b0749968a87144341895fff04b532c66f67ba980937af7cd13"
-                  },
-                  {
                       "path":  "mods/c2me-fabric-mc26.2-0.4.1-beta.1.0.jar",
                       "sha256":  "aaa2d1c54126de073df5413e8ffe329d0cd5d67c3c4fe1647032c294d0e46fb0"
                   },
@@ -1809,8 +1797,8 @@
                       "sha256":  "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.106+26.2-fabric.jar",
-                      "sha256":  "f2fb62d04ad52d2ed9a1ad9bc42d6d54e48da2ada16e9871724b5196281878c8"
+                      "path":  "mods/nbidal18-integrity-1.0.107+26.2-fabric.jar",
+                      "sha256":  "1ed5419513aedda9db6f5363dcf6a1306fdc2e1e2799c944177f94fc04d9648a"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar",
@@ -1873,8 +1861,8 @@
                       "sha256":  "7f090c95dd116f632aba7676946b693e7a03fb419903e0cb9a4743650ddf8a08"
                   },
                   {
-                      "path":  "mods/nbidal18-theend-1.0.0+26.2-fabric.jar",
-                      "sha256":  "785f792dc924001facba484739ab25317f19b708e7ff10190900401a543bf4db"
+                      "path":  "mods/nbidal18-theend-1.1.0+26.2-fabric.jar",
+                      "sha256":  "2359be5448da44bd5d5c6eb3d5f900188ec46708c897110fb37cb6f89e61c6e8"
                   },
                   {
                       "path":  "mods/nbidal18-travelersbackpack-1.1.0+26.2-fabric.jar",

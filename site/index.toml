@@ -1,10 +1,6 @@
 hash-format = "sha256"
 
 [[files]]
-file = "SHA256SUMS.txt"
-hash = "d608ef3b225c7c17022793ac789d47f1808c4e6833854268e5de6facd73fd5a0"
-
-[[files]]
 file = "config/MouseTweaks.cfg"
 hash = "4069ce1a439d8c37453c1b1e9f2037e0942674c7e48723a39b37eab245792ad4"
 
@@ -30,7 +26,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.json"
-hash = "37437453258fd54bec59d96b48f83bfc1771a615f44d25d56cc75b32df9b4e64"
+hash = "d152d68e07af5f8cfbee26e2b50f3cd4ed00c781101685168d69b4e0105ba18f"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -55,10 +51,6 @@ hash = "4168bac2dc287241056469b9cf32f118bc7804ae2325b256d9b734812e9e5ee7"
 [[files]]
 file = "config/betterthirdperson.json5"
 hash = "a08f97002e75fbe4e2933cbb6137c8bcb33d1cd36e947e54829b8fa8ab3caa7c"
-
-[[files]]
-file = "config/boids.json5"
-hash = "2ffbf8223c35fecaaf7ab2f2e4ef32f7332e846e9697ff067da1a5032b4093e8"
 
 [[files]]
 file = "config/c2me.toml"
@@ -713,10 +705,6 @@ file = "mods/betterstats-5.5.6+fn-26.2.jar"
 hash = "c18bde4951116b7d59a9222b1aaf07f91af9e982a06af7cef5831ff61a659f50"
 
 [[files]]
-file = "mods/boids-2.0.0+26.2.jar"
-hash = "33e348ad749ed2b0749968a87144341895fff04b532c66f67ba980937af7cd13"
-
-[[files]]
 file = "mods/c2me-fabric-mc26.2-0.4.1-beta.1.0.jar"
 hash = "aaa2d1c54126de073df5413e8ffe329d0cd5d67c3c4fe1647032c294d0e46fb0"
 
@@ -973,8 +961,8 @@ file = "mods/nbidal18-incendium-1.0.0+26.2-fabric.jar"
 hash = "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.106+26.2-fabric.jar"
-hash = "f2fb62d04ad52d2ed9a1ad9bc42d6d54e48da2ada16e9871724b5196281878c8"
+file = "mods/nbidal18-integrity-1.0.107+26.2-fabric.jar"
+hash = "1ed5419513aedda9db6f5363dcf6a1306fdc2e1e2799c944177f94fc04d9648a"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar"
@@ -1037,8 +1025,8 @@ file = "mods/nbidal18-tectonic-1.1.0+26.2-fabric.jar"
 hash = "7f090c95dd116f632aba7676946b693e7a03fb419903e0cb9a4743650ddf8a08"
 
 [[files]]
-file = "mods/nbidal18-theend-1.0.0+26.2-fabric.jar"
-hash = "785f792dc924001facba484739ab25317f19b708e7ff10190900401a543bf4db"
+file = "mods/nbidal18-theend-1.1.0+26.2-fabric.jar"
+hash = "2359be5448da44bd5d5c6eb3d5f900188ec46708c897110fb37cb6f89e61c6e8"
 
 [[files]]
 file = "mods/nbidal18-travelersbackpack-1.1.0+26.2-fabric.jar"
@@ -1355,7 +1343,3 @@ hash = "eb756f80d1a460c5cad6eceae89a4dff6d5b0b1a4b0493f4dcb1433cfd5d5dc3"
 [[files]]
 file = "shaderpacks/nbidal18-§lE-LITE shaders 5.1.1.zip.txt"
 hash = "21694795b410bef9b5b34c10af835d33d19cdbef05cb264996057e9aa665f6fb"
-
-[[files]]
-file = "sync-manifest.json"
-hash = "f1ff8ed26ee499970dc3938a1e023c0f05def9ad8afa989faee4acaade028c14"
