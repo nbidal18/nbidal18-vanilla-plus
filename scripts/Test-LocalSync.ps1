@@ -171,18 +171,27 @@ try {
     }
 
     # The retired-directory sweep deletes whole trees on a player's machine, so it is checked here
-    # rather than trusted. Two must go - Voxy's LOD cache and Xaero's map images, both stale the
-    # moment worldgen changes - and one must survive: the minimap folder holds the waypoints, which
-    # are the single Xaero feature this pack kept.
+    # rather than trusted.
+    #
+    # **Rewritten for v1.0.109, when the sweep stopped being wholesale.** It used to take `.voxy` and
+    # `xaero/world-map` entire, and this checked exactly that. Only the End was regenerated on
+    # 2026-09-22, so only the End's caches are stale - and the owner's Voxy store is 40 GB, with one
+    # player on a connection poor enough that re-streaming it was the reason the far-terrain work
+    # exists. So the sweep now names the End's Xaero folder per server, Voxy is handled inside the
+    # game by nbidal18-voxyworldgen's declared ledger resets, and this asserts the new shape:
+    # the End's images go, the overworld's and the Nether's stay, Voxy is left alone entirely, and
+    # the waypoints - the single Xaero feature this pack kept - survive as they always had to.
     $sep = [IO.Path]::DirectorySeparatorChar
-    $doomedVoxy = Join-Path $minecraft (@('.voxy', 'saves', '194.54.88.14_27107') -join $sep)
-    $doomedMap = Join-Path $minecraft (@('xaero', 'world-map', 'Multiplayer_test', 'tiles') -join $sep)
+    $keptVoxy = Join-Path $minecraft (@('.voxy', 'saves', '194.54.88.14_27107') -join $sep)
+    $doomedMap = Join-Path $minecraft (@('xaero', 'world-map', 'Multiplayer_194.54.88.14', 'DIM1') -join $sep)
+    $keptOverworldMap = Join-Path $minecraft (@('xaero', 'world-map', 'Multiplayer_194.54.88.14', 'null') -join $sep)
     $keptWaypoints = Join-Path $minecraft (@('xaero', 'minimap', 'Multiplayer_test') -join $sep)
-    foreach ($dir in @($doomedVoxy, $doomedMap, $keptWaypoints)) {
+    foreach ($dir in @($keptVoxy, $doomedMap, $keptOverworldMap, $keptWaypoints)) {
         New-Item -ItemType Directory -Path $dir -Force | Out-Null
     }
-    [IO.File]::WriteAllText((Join-Path $doomedVoxy 'lod.bin'), 'cache')
+    [IO.File]::WriteAllText((Join-Path $keptVoxy 'lod.bin'), 'cache')
     [IO.File]::WriteAllText((Join-Path $doomedMap 'region.zip'), 'cache')
+    [IO.File]::WriteAllText((Join-Path $keptOverworldMap 'region.zip'), 'cache')
     $waypointFile = Join-Path $keptWaypoints 'waypoints.txt'
     [IO.File]::WriteAllText($waypointFile, "waypoint:Keep me:K:1:2:3")
 
@@ -211,10 +220,12 @@ try {
 
     $firstSync = Invoke-Sync 'sync 1'
 
-    Assert (-not (Test-Path -LiteralPath (Join-Path $minecraft '.voxy'))) `
-        "the retired-directory sweep left Voxy's LOD cache behind"
-    Assert (-not (Test-Path -LiteralPath (Join-Path $minecraft (@('xaero', 'world-map') -join $sep)))) `
-        "the retired-directory sweep left Xaero's map cache behind"
+    Assert (-not (Test-Path -LiteralPath $doomedMap)) `
+        "the retired-directory sweep left Xaero's End map images behind"
+    Assert (Test-Path -LiteralPath (Join-Path $keptOverworldMap 'region.zip')) `
+        "the sweep took Xaero's overworld map images too - only the End was regenerated"
+    Assert (Test-Path -LiteralPath (Join-Path $keptVoxy 'lod.bin')) `
+        'the sweep deleted the Voxy store - 40 GB for every player, and the End alone is stale; that is the game-side ledger reset''s job now'
     Assert (Test-Path -LiteralPath $waypointFile) `
         'the retired-directory sweep deleted the Xaero waypoints, which it must never touch'
 
@@ -230,13 +241,12 @@ try {
         Write-Host 'published immersive_aircraft.json replaced, now on the vanilla movement keys'
     }
 
-    $swept = @($firstSync | Where-Object { $_ -match "Clearing Voxy's far-terrain cache" })
+    $swept = @($firstSync | Where-Object { $_ -match 'Clearing ' })
     Assert ($swept.Count -gt 0) `
         'the sweep removed the caches without announcing it - the updater would look frozen'
     if ($swept.Count) { Write-Host ("retired   {0}" -f ($swept[0] -replace '^\[nbidal18 packwiz\] ', '')) }
-    if ((Test-Path -LiteralPath $waypointFile) -and
-        -not (Test-Path -LiteralPath (Join-Path $minecraft '.voxy'))) {
-        Write-Host 'retired   Voxy and Xaero map caches removed, waypoints preserved'
+    if ((Test-Path -LiteralPath $waypointFile) -and (Test-Path -LiteralPath (Join-Path $keptVoxy 'lod.bin'))) {
+        Write-Host 'retired   the End map images only; Voxy and the waypoints untouched'
     }
 
     $manifest = [IO.File]::ReadAllText((Join-Path $site 'sync-manifest.json'), [Text.Encoding]::UTF8) | ConvertFrom-Json

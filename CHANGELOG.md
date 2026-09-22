@@ -5,6 +5,33 @@ build that was not published.
 
 ---
 
+## v1.0.109
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-22 | `pending` | `0b4499956eba` | `68949cd0ae14` | 336 | 176 |
+
+**The End was regenerated, and your game was still remembering the old one.** Click **Play** and you
+are done.
+
+### What changed
+
+- **Far terrain in the End comes back.** The server keeps a record of which distant chunks it has
+  already sent you, and your game keeps a matching one. Both still described the End that was
+  replaced, so neither side ever asked for the new one - distant islands would simply have stayed
+  missing or stayed wrong. Both records are cleared for the End, and only for the End.
+- **Xaero's map of the End is cleared**, because every tile of it was drawn from terrain that no
+  longer exists. **Your overworld and Nether maps are untouched**, and so are your waypoints.
+- **Your Voxy far-terrain store is not deleted.** Only the End's claim is dropped, so only the End
+  streams again. The previous way of doing this would have thrown away everything, which on a large
+  store is tens of gigabytes to download again for a problem that only affects one dimension.
+
+**Nothing else changed.** All 95 shared server jars are byte-identical to v1.0.108; the only other
+differences are the ones every release carries - the version stamp, the integrity helper and the
+compatibility-checker version string.
+
+---
+
 ## v1.0.108
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

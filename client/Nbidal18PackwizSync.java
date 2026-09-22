@@ -460,8 +460,8 @@ public final class Nbidal18PackwizSync {
      * the cache.
      */
     private static final List<String> RETIRED_LOCAL_DIRECTORIES = List.of(
-            ".voxy",
-            "xaero/world-map");
+            "xaero/world-map/Multiplayer_194.54.88.14/DIM1",
+            "xaero/world-map/Multiplayer_38.103.248.98/DIM1");
 
     /**
      * Bumped whenever an entry is added above, because the marker below records that the sweep has
@@ -521,7 +521,31 @@ public final class Nbidal18PackwizSync {
      * removed in the same deploy, and a client ledger that might claim chunks its Voxy store no
      * longer holds goes with the store.
      */
-    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1063";
+    private static final String RETIRED_LOCAL_FILES_TOKEN = "retired-files-v1109";
+
+    /*
+     * v1.0.109 replaces the list above rather than adding to it, and that is deliberate.
+     *
+     * It used to hold `.voxy` and `xaero/world-map` whole. Both have already run on every instance
+     * that exists - the v1.0.63 marker says so - and bumping the token with them still listed would
+     * delete them again. Xaero's images are 195 MB, but the owner's Voxy store is 40 GB, and one of
+     * this pack's players is on a connection poor enough that re-streaming it was the reason the far
+     * terrain work happened at all. A sweep that costs him 40 GB to fix a stale End is the wrong
+     * trade by a wide margin.
+     *
+     * Only the End was regenerated (2026-09-22, twice: the void fix in v1.0.107, then the
+     * crashed-ship changes in v1.0.108), so only the End's caches are stale. Xaero stores per
+     * dimension - `DIM1` is the End - so both servers' End map images can go while the overworld
+     * and Nether images, and every other server's, stay.
+     *
+     * Voxy is NOT here, and cannot be: its store is keyed by a hash of the biome seed and the
+     * dimension, so from out here there is no telling which of five folders is the End. That half is
+     * handled inside the game instead, by nbidal18-voxyworldgen 3.8.0's declared ledger resets,
+     * which know the mapping and cost only the End's re-stream. See ClientLedger.LEDGER_RESETS.
+     *
+     * A fresh install has none of these folders and the sweep does nothing, which is why dropping
+     * the two historical entries loses nothing.
+     */
 
     private final Path minecraftRoot;
     private final Path stateRoot;
@@ -1298,6 +1322,9 @@ public final class Nbidal18PackwizSync {
      * mid-launch. Anything unlisted falls back to the path, which is still better than nothing.
      */
     private static String describeCache(String relative) {
+        if (relative.startsWith("xaero/world-map/") && relative.endsWith("/DIM1")) {
+            return "Xaero's map images for the End";
+        }
         return switch (relative) {
             case ".voxy" -> "Voxy's far-terrain cache";
             case "xaero/world-map" -> "Xaero's map images";
