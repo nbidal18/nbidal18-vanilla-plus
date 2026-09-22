@@ -9,7 +9,7 @@ build that was not published.
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
 | --- | --- | --- | --- | --- | --- |
-| 2026-09-22 | `pending` | `0b4499956eba` | `68949cd0ae14` | 336 | 176 |
+| 2026-09-22 | `e4106dc` | `0b4499956eba` | `68949cd0ae14` | 336 | 176 |
 
 **The End was regenerated, and your game was still remembering the old one.** Click **Play** and you
 are done.
