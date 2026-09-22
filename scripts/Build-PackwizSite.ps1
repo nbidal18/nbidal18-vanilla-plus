@@ -28,7 +28,8 @@ $line = Join-Path (Split-Path -Parent $repo) ''      # ...\vanilla_plus\
 $version = (Get-Content -LiteralPath (Join-Path $repo 'PACK-VERSION.txt') -Raw).Trim()
 if ($version -notmatch '^\d+\.\d+\.\d+$') { throw "PACK-VERSION.txt is not a version: '$version'" }
 
-$release = Join-Path $line "v.$version"
+$prefix = & (Join-Path $PSScriptRoot 'ReleaseLine.ps1')
+$release = Join-Path $line "$prefix$version"
 if (-not (Test-Path -LiteralPath $release)) {
     throw "PACK-VERSION.txt says $version but there is no release folder at $release"
 }

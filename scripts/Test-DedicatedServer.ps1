@@ -57,7 +57,8 @@ function Read-SharedText([string] $path) {
 
 $repo = Split-Path -Parent $PSScriptRoot
 $version = (Get-Content -LiteralPath (Join-Path $repo 'PACK-VERSION.txt') -Raw).Trim()
-$release = Join-Path (Split-Path -Parent $repo) "v.$version"
+$prefix = & (Join-Path $PSScriptRoot 'ReleaseLine.ps1')
+$release = Join-Path (Split-Path -Parent $repo) "$prefix$version"
 $javaPath = Join-Path $env:APPDATA 'PrismLauncher\java\java-runtime-epsilon\bin\java.exe'
 
 foreach ($required in @($DriveRoot, $release, $javaPath, (Join-Path $DriveRoot 'server.jar'))) {

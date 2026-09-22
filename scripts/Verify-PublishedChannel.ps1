@@ -137,7 +137,8 @@ else {
         $problems.Add("the served manifest says packVersion $($manifest.packVersion), PACK-VERSION.txt says $version")
     }
     $digest = Get-Sha $manifestBytes
-    $policy = Join-Path (Split-Path -Parent $repo) ("v.$version\4. server\nbidal18-integrity.properties")
+    $prefix = & (Join-Path $PSScriptRoot 'ReleaseLine.ps1')
+    $policy = Join-Path (Split-Path -Parent $repo) ("$prefix$version\4. server\nbidal18-integrity.properties")
     if (Test-Path -LiteralPath $policy) {
         $expected = (Select-String -LiteralPath $policy -Pattern '^expected-manifest-sha256=(.+)$').Matches[0].Groups[1].Value
         if ($expected -ne $digest) {

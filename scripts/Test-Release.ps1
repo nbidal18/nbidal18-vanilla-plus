@@ -51,7 +51,8 @@ $ErrorActionPreference = 'Stop'
 $repo = Split-Path -Parent $PSScriptRoot
 $packRoot = Split-Path -Parent $repo
 $version = (Get-Content -LiteralPath (Join-Path $repo 'PACK-VERSION.txt') -Raw).Trim()
-if (-not $ReleaseRoot) { $ReleaseRoot = Join-Path $packRoot "v.$version" }
+$prefix = & (Join-Path $PSScriptRoot 'ReleaseLine.ps1')
+if (-not $ReleaseRoot) { $ReleaseRoot = Join-Path $packRoot "$prefix$version" }
 if (-not (Test-Path -LiteralPath $ReleaseRoot)) { throw "No release folder at $ReleaseRoot" }
 
 # Taken from the folder being tested, not from PACK-VERSION.txt. They are the same for a normal run,

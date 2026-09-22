@@ -66,7 +66,8 @@ $ErrorActionPreference = 'Stop'
 
 $repo = Split-Path -Parent $PSScriptRoot
 $version = (Get-Content -LiteralPath (Join-Path $repo 'PACK-VERSION.txt') -Raw).Trim()
-$release = Join-Path (Split-Path -Parent $repo) "v.$version"
+$prefix = & (Join-Path $PSScriptRoot 'ReleaseLine.ps1')
+$release = Join-Path (Split-Path -Parent $repo) "$prefix$version"
 # The SERVER's mod set, from the mirror - not the client's. Staging all 173 client jars loaded 295
 # mods and crashed the tick loop within seconds: Xaero's Minimap registers `xaerominimap:main`
 # twice when its client jar is present server-side ("Packet type ... is already registered"). Every

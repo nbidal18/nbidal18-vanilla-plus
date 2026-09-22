@@ -44,8 +44,9 @@ if (-not $Version) {
 }
 if ($Version -notmatch '^\d+\.\d+\.\d+$') { throw "Not a version: $Version" }
 
-$from = Join-Path $packRoot "v.$current"
-$to = Join-Path $packRoot "v.$Version"
+$prefix = & (Join-Path $PSScriptRoot 'ReleaseLine.ps1')
+$from = Join-Path $packRoot "$prefix$current"
+$to = Join-Path $packRoot "$prefix$Version"
 if (-not (Test-Path -LiteralPath $from)) { throw "No release folder for the current version: $from" }
 if (Test-Path -LiteralPath $to) { throw "$to already exists - a published version is never rebuilt" }
 

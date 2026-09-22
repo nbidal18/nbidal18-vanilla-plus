@@ -25,7 +25,8 @@ $ErrorActionPreference = 'Stop'
 
 $repo = Split-Path -Parent $PSScriptRoot
 $version = (Get-Content -LiteralPath (Join-Path $repo 'PACK-VERSION.txt') -Raw).Trim()
-$release = Join-Path (Split-Path -Parent $repo) "v.$version"
+$prefix = & (Join-Path $PSScriptRoot 'ReleaseLine.ps1')
+$release = Join-Path (Split-Path -Parent $repo) "$prefix$version"
 $modRoot = Join-Path $release '5. modpack source\custom mods\nbidal18-voxyworldgen'
 $javaBin = Join-Path $env:APPDATA 'PrismLauncher\java\java-runtime-epsilon\bin'
 $javac = Join-Path $javaBin 'javac.exe'

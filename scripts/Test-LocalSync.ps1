@@ -43,7 +43,8 @@ $hardcoreSeedMarker = 'applied-servers-hardcore-moved-v1106'
 
 $repo = Split-Path -Parent $PSScriptRoot
 $version = (Get-Content -LiteralPath (Join-Path $repo 'PACK-VERSION.txt') -Raw).Trim()
-$release = Join-Path (Split-Path -Parent $repo) "v.$version"
+$prefix = & (Join-Path $PSScriptRoot 'ReleaseLine.ps1')
+$release = Join-Path (Split-Path -Parent $repo) "$prefix$version"
 $site = Join-Path $repo 'site'
 # `packwiz serve` below opens a listening socket, and packwiz has no flag to bind loopback only, so
 # Windows Firewall prompts the first time it sees each path. This script is where that prompt

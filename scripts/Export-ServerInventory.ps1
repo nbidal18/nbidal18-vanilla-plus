@@ -35,7 +35,8 @@ Set-StrictMode -Version Latest
 
 $repo = Split-Path -Parent $PSScriptRoot
 $version = (Get-Content -LiteralPath (Join-Path $repo 'PACK-VERSION.txt') -Raw).Trim()
-$release = Join-Path (Split-Path -Parent $repo) "v.$version"
+$prefix = & (Join-Path $PSScriptRoot 'ReleaseLine.ps1')
+$release = Join-Path (Split-Path -Parent $repo) "$prefix$version"
 $clientMods = Join-Path $release '3. modpack\client\mods'
 $out = Join-Path $release '4. server\SERVER-INVENTORY.md'
 

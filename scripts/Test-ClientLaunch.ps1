@@ -106,7 +106,8 @@ function Resolve-MavenPath([string] $prismRoot, [string] $coord) {
 
 $repo = Split-Path -Parent $PSScriptRoot
 $version = (Get-Content -LiteralPath (Join-Path $repo 'PACK-VERSION.txt') -Raw).Trim()
-$release = Join-Path (Split-Path -Parent $repo) "v.$version"
+$prefix = & (Join-Path $PSScriptRoot 'ReleaseLine.ps1')
+$release = Join-Path (Split-Path -Parent $repo) "$prefix$version"
 $clientSource = if ($ClientSource) { $ClientSource } else { Join-Path $release '3. modpack\client' }
 $mcVersion = (Get-Content -LiteralPath (Join-Path $repo 'MINECRAFT.txt') -Raw).Trim()
 $prismRoot = Join-Path $env:APPDATA 'PrismLauncher'

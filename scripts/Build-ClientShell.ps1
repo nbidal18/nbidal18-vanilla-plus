@@ -20,7 +20,8 @@ $version = (Get-Content -LiteralPath (Join-Path $repo 'PACK-VERSION.txt') -Raw).
 $loader = (Get-Content -LiteralPath (Join-Path $repo 'LOADER.txt') -Raw).Trim()
 $mc = (Get-Content -LiteralPath (Join-Path $repo 'MINECRAFT.txt') -Raw).Trim()
 $url = (Get-Content -LiteralPath (Join-Path $repo 'UPDATE-URL.txt') -Raw).Trim()
-$release = Join-Path $line "v.$version"
+$prefix = & (Join-Path $PSScriptRoot 'ReleaseLine.ps1')
+$release = Join-Path $line "$prefix$version"
 $tools = Join-Path $release '5. modpack source\auto-updater tools'
 $site = Join-Path $repo 'site'
 if (-not (Test-Path -LiteralPath $site)) { throw "Run Build-PackwizSite.ps1 first - no site/ at $site" }

@@ -126,7 +126,8 @@ Write-Host ("release   {0} files, {1:N1} MB, all {2} required artefacts present"
 # it. "1. setup" is where a player - or the owner, six months from now - goes looking. Refreshed
 # from the build every time so the two cannot drift.
 $version = (Get-Content -LiteralPath (Join-Path $repo 'PACK-VERSION.txt') -Raw).Trim()
-$setup = Join-Path (Split-Path -Parent $repo) "v.$version\1. setup"
+$prefix = & (Join-Path $PSScriptRoot 'ReleaseLine.ps1')
+$setup = Join-Path (Split-Path -Parent $repo) "$prefix$version\1. setup"
 New-Item -ItemType Directory -Path $setup -Force | Out-Null
 Copy-Item -LiteralPath (Join-Path $site 'nbidal18-client.zip') -Destination $setup -Force
 
