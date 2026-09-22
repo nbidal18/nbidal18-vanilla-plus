@@ -9,7 +9,7 @@ build that was not published.
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
 | --- | --- | --- | --- | --- | --- |
-| 2026-09-22 | `pending` | `68949cd0ae14` | `8b4a2eccd7a5` | 336 | 176 |
+| 2026-09-22 | `e4d2487` | `68949cd0ae14` | `8b4a2eccd7a5` | 336 | 176 |
 
 **The wrecked ships in the End are rarer now, and their chests finally hold something.** Click
 **Play** and you are done.
