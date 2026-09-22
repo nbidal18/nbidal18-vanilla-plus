@@ -9,7 +9,7 @@ build that was not published.
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
 | --- | --- | --- | --- | --- | --- |
-| 2026-09-22 | `pending` | `8b4a2eccd7a5` | `f1ff8ed26ee4` | 336 | 176 |
+| 2026-09-22 | `4f95ffb` | `8b4a2eccd7a5` | `f1ff8ed26ee4` | 336 | 176 |
 
 **Broken End villages are fixed, the End is lighter on your connection, and one mod is gone.** Click
 **Play** and you are done. Nothing to clear, nothing to re-add.
