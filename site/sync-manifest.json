@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "packVersion":  "1.0.109",
+    "packVersion":  "1.0.110",
     "exactRoots":  [
                        "mods",
                        "config",
@@ -16,6 +16,7 @@
                                 "config/fzzy_config/keybinds.toml",
                                 "config/immersive_aircraft.json",
                                 "config/iris.properties",
+                                "config/litematica.json",
                                 "config/VinURLConfig.json5",
                                 "config/nbidal18-vanillarefresh.json",
                                 "config/firstperson.json",
@@ -136,6 +137,7 @@
                          "config/fzzy_config/keybinds.toml",
                          "config/immersive_aircraft.json",
                          "config/iris.properties",
+                         "config/litematica.json",
                          "config/VinURLConfig.json5",
                          "config/nbidal18-vanillarefresh.json",
                          "config/firstperson.json",
@@ -352,7 +354,7 @@
                                 },
                                 {
                                     "path":  "config/bcc-common.json",
-                                    "sha256":  "ff9c660b33206e48668306f708ecb4a373dcb87d5245f5b357afcb113d16c97d"
+                                    "sha256":  "0cd751513c43f9241a03ec541798a6e82812df7f0fee4041741b048a383577b6"
                                 },
                                 {
                                     "path":  "config/better_fishing.properties",
@@ -605,6 +607,10 @@
                                 {
                                     "path":  "config/letmedespawn.json",
                                     "sha256":  "3ca4af27f8cbc1d0274667e806a2cae3e4e08495bd6b0728a32d033f9375f55e"
+                                },
+                                {
+                                    "path":  "config/litematica.json",
+                                    "sha256":  "988d62413ac306d7a12b6e618c86466568bf1cbdd131b3290c9e6cf3a03ea4f2"
                                 },
                                 {
                                     "path":  "config/lithium.properties",
@@ -862,7 +868,7 @@
                   },
                   {
                       "path":  "config/bcc-common.json",
-                      "sha256":  "ff9c660b33206e48668306f708ecb4a373dcb87d5245f5b357afcb113d16c97d"
+                      "sha256":  "0cd751513c43f9241a03ec541798a6e82812df7f0fee4041741b048a383577b6"
                   },
                   {
                       "path":  "config/better_fishing.properties",
@@ -1115,6 +1121,10 @@
                   {
                       "path":  "config/letmedespawn.json",
                       "sha256":  "3ca4af27f8cbc1d0274667e806a2cae3e4e08495bd6b0728a32d033f9375f55e"
+                  },
+                  {
+                      "path":  "config/litematica.json",
+                      "sha256":  "988d62413ac306d7a12b6e618c86466568bf1cbdd131b3290c9e6cf3a03ea4f2"
                   },
                   {
                       "path":  "config/lithium.properties",
@@ -1681,6 +1691,10 @@
                       "sha256":  "c024a21ac6e78dc1a43a17cf11450dde430c8a90b743b621519d1276647b0584"
                   },
                   {
+                      "path":  "mods/litematica-fabric-26.2-0.28.8.jar",
+                      "sha256":  "6de0774f78aee1698154dc7e7fa3c3afb19201e3d9474ddaf073fa4f4309a064"
+                  },
+                  {
                       "path":  "mods/lithium-fabric-0.25.3+mc26.2.jar",
                       "sha256":  "fdde92e238e8075f89ad7f701f2a3d5854af88ba9a67657184a4407b104ac563"
                   },
@@ -1691,6 +1705,10 @@
                   {
                       "path":  "mods/lootr-fabric-26.2-1.24.39.121.jar",
                       "sha256":  "3bff544567fd88571df89332876168b6d35b32f668c7e9b0c2591c2bbd8a54e3"
+                  },
+                  {
+                      "path":  "mods/malilib-fabric-26.2-0.29.6.jar",
+                      "sha256":  "db49040123d8dfe725a95407b4e777383e7162656045bff38ff72fc570080600"
                   },
                   {
                       "path":  "mods/midnightlib-fabric-1.9.3+26.2.jar",
@@ -1797,8 +1815,8 @@
                       "sha256":  "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
                   },
                   {
-                      "path":  "mods/nbidal18-integrity-1.0.109+26.2-fabric.jar",
-                      "sha256":  "b958fa02807487b8f2b47b5239103bba4239f3016b34f0d3120457e3300e1dad"
+                      "path":  "mods/nbidal18-integrity-1.0.110+26.2-fabric.jar",
+                      "sha256":  "17202f4061616d08d3459c8b869039aeec532d153c74759fafe8fe531676df0d"
                   },
                   {
                       "path":  "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar",

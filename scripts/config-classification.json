@@ -395,6 +395,11 @@
       "reason": "Which mobs despawn, and when."
     },
     {
+      "match": "config/litematica.json",
+      "class": "player",
+      "reason": "Litematica hotkeys (v1.0.110): published holding only the M-to-N remap, because M opens the Xaero world map here (owner, 2026-09-26: Litematica on N in both packs). Player class: Litematica rewrites the whole file with every setting once a player changes one, and those choices are theirs."
+    },
+    {
       "match": "config/lithium.properties",
       "class": "support",
       "reason": "Server optimisation toggles."
