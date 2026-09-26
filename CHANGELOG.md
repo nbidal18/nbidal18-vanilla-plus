@@ -9,7 +9,7 @@ build that was not published.
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
 | --- | --- | --- | --- | --- | --- |
-| 2026-09-26 | (next commit records it) | `a35a4be839b8` | `0b4499956eba` | 339 | 178 |
+| 2026-09-26 | `44ef92e` | `a35a4be839b8` | `0b4499956eba` | 339 | 178 |
 
 **Litematica.** Click **Play** and you are done.
 
