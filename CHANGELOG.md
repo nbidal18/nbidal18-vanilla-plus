@@ -5,6 +5,34 @@ build that was not published.
 
 ---
 
+## v1.0.111
+
+| Date | Commit | Manifest digest | Replaces | Files | Mods |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-27 | (next commit records it) | `538a48fb9a2e` | `a35a4be839b8` | 342 | 181 |
+
+**Jukebox, mobs at the screen edges, a chest slot, refilling, phantoms.** Click **Play** and you are
+done.
+
+### What changed
+
+- **A jukebox plays again when you come back.** Walking away until its chunk unloaded, or
+  disconnecting, left it sending particles with no music until the disc was taken out and put back.
+  Now you hear it again as soon as you are back in range (from the start of the disc).
+- **Mobs no longer disappear at the corners of the screen.** Camera Overhaul tilts the picture when
+  you strafe or turn, and the game kept deciding what to draw from the untilted view - worst on wide
+  screens. The check now tilts with the picture.
+- **Donkeys, mules and llamas have a chest slot** beside the saddle (above the carpet on a llama).
+  Take the chest out and whatever was in it drops at the animal's feet; put one in, or shift-click one
+  in, and it carries it. Works while riding.
+- **Refilling is now Stack Refill's**, done by the server: place or use the last item in your hand and
+  the same item comes up from your inventory's main 27 slots. Mouse Wheelie's own refill is switched
+  off once so the two never both act; its scrolling and sorting are unchanged, and you can switch its
+  refill back on in its settings if you prefer it.
+- **Phantoms need three nights without sleep again.** Better Days' long days had used up vanilla's
+  limit by the next nightfall even after sleeping; the limit now counts Better Days days.
+- Integrity helper 1.0.111. Every other first-party jar rebuilt byte-identical.
+
 ## v1.0.110
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |

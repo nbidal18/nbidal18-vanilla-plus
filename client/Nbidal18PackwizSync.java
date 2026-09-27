@@ -432,7 +432,14 @@ public final class Nbidal18PackwizSync {
             // incompatibleResourcePacks entry. Anyone who switches it
             // off or moves it keeps that choice.
             new PlayerFileSeed("options.txt", ':', "resourcepacks-avpbr-v1104", List.of(
-                    SeedRow.addToListBottom("resourcePacks", "\"file/AVPBR Retextured R6.zip\""))));
+                    SeedRow.addToListBottom("resourcePacks", "\"file/AVPBR Retextured R6.zip\""))),
+            // v1.0.111: refilling moves to Stack Refill, which the server does, as on Vanilla++ (owner,
+            // 2026-09-27: "could use this"). Mouse Wheelie's own refill is switched off once, so the
+            // two never both reach for the next stack; its scrolling and sorting stay. Mouse Wheelie
+            // rewrites the file with every setting, so the master is not edited for one key - a seed
+            // in its "refill" section, the one of the file's two "enable" keys that is meant.
+            new PlayerFileSeed("config/mousewheelie.hjson", ':', "mousewheelie-refill-off-v10111", List.of(
+                    SeedRow.in("refill", "enable", "false"))));
 
         /**
      * Empty on purpose, and it must stay that way until a mod is actually retired from THIS

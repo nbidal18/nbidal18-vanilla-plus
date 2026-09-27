@@ -26,7 +26,7 @@ hash = "7ed0a97e729cf0e9cb638d37ace4282d5668103c58d33fb721916739419ba5f3"
 
 [[files]]
 file = "config/bcc-common.json"
-hash = "0cd751513c43f9241a03ec541798a6e82812df7f0fee4041741b048a383577b6"
+hash = "7efc14c49dafed222bfbe06e421b80fc12f06470d6f681f9c079451c9ce3fcce"
 
 [[files]]
 file = "config/better_fishing.properties"
@@ -913,6 +913,10 @@ file = "mods/nbidal18-autopilot-1.3.0+26.2-fabric.jar"
 hash = "20964b7da5db58b5e9bd499e8e43c79d4715dd8bdf99581b6bca899a23adcc9e"
 
 [[files]]
+file = "mods/nbidal18-betterdays-1.0.0+26.2-fabric.jar"
+hash = "275792eb830686f8e3fa405812d04573ed324225ea5583a28fa43698397a6b8c"
+
+[[files]]
 file = "mods/nbidal18-betterend-4.0.0+26.2-fabric.jar"
 hash = "f34f1f5769416f4fa438d54e357c2081a9bd30412ae663ecbc6f02bc551fafb9"
 
@@ -925,12 +929,16 @@ file = "mods/nbidal18-betterthirdperson-1.9.0+26.2-fabric.jar"
 hash = "83e0c7fdf7ea8c8ea32018504efa57d5107880fbe3085c94201f8bea83faaba2"
 
 [[files]]
-file = "mods/nbidal18-cameraoverhaul-2.1.1-fabric+mc.26.1-plus.jar"
-hash = "101a59b5a662c920a8ea05c2396e82f546be87f2cc7d698822eccd4821ad8a85"
+file = "mods/nbidal18-cameraoverhaul-2.1.1-fabric+mc.26.1-plus-nbidal18.2.jar"
+hash = "084a78ab4d8de0d045606097f1366ba972e42a1b05904814dcbda87a028cbccf"
 
 [[files]]
 file = "mods/nbidal18-carryon-1.2.3+26.2-fabric.jar"
 hash = "7553248f15b38859561e1d5e354fb882f22173ee9176e0b1748ecf66008dc6a5"
+
+[[files]]
+file = "mods/nbidal18-chestedhorse-1.0.0+26.2-fabric.jar"
+hash = "d608094263ece2edef4c2a300a421b430919f24a4ce15d6cfc5b8db79b5af751"
 
 [[files]]
 file = "mods/nbidal18-coppergolem-1.0.0+26.2-fabric.jar"
@@ -973,8 +981,8 @@ file = "mods/nbidal18-incendium-1.0.0+26.2-fabric.jar"
 hash = "ee2ef2e17f9bbd0a02d1e41cfb1da4dc39e3c3ed45e6b857a5a0c8823608eb3f"
 
 [[files]]
-file = "mods/nbidal18-integrity-1.0.110+26.2-fabric.jar"
-hash = "17202f4061616d08d3459c8b869039aeec532d153c74759fafe8fe531676df0d"
+file = "mods/nbidal18-integrity-1.0.111+26.2-fabric.jar"
+hash = "3205eee2d7317306cdfdc5de680677808698e40b445b1a1bb2dc7088c27b6ce9"
 
 [[files]]
 file = "mods/nbidal18-invmov-1.0.2+26.2-fabric.jar"
@@ -985,8 +993,8 @@ file = "mods/nbidal18-iris-1.0.0+26.2-fabric.jar"
 hash = "1abaa2254d53852f50f4e1bc50d26f3df5a8266c0da1eb5388be0bbd7d109c81"
 
 [[files]]
-file = "mods/nbidal18-jukebox-2.0.4+26.2-fabric.jar"
-hash = "74f800f257d43ed7905b8ec48f8bb575010ef9254f4a7b87c4f47453679f1967"
+file = "mods/nbidal18-jukebox-2.0.5+26.2-fabric.jar"
+hash = "5be173c4b20c2f2b3fdac83e38f4f1016173fe8d65467eaae948a03a1b14220b"
 
 [[files]]
 file = "mods/nbidal18-lambdynlights-1.0.0+26.2-fabric.jar"
@@ -1157,6 +1165,10 @@ file = "mods/spyglass-zoom-2.4.0.jar"
 hash = "46ca2b3c6a5fc7a8b78430df1d7762c697c5f8a9acd124ec55ea08403bee81d0"
 
 [[files]]
+file = "mods/stackrefill-26.2.0-5.0.jar"
+hash = "b59a7a2c9b6d0fe833c7595703dea1bfed9179629eada50a5e19dd293ee89cac"
+
+[[files]]
 file = "mods/status-effect-bars-1.0.12.jar"
 hash = "8cb64d13fb73ae1dff415734b980bca0f858311ffa010c8a21522113a9dddee5"
 
@@ -1230,7 +1242,7 @@ hash = "9224213b15caa8b884b8fc62c3426a8ce9d2091305a2692627cecb58196f56fa"
 
 [[files]]
 file = "nbidal18-packwiz-updater.next.jar"
-hash = "8d78fb1c0b2b356d9364da94ce54f0ccc7a1e181aead3a9dfcb1d34c096e2063"
+hash = "eb90e9cd41703e78195b9a6cdd35e8538a2bf3e507100ece7bfb5d0b399da64b"
 
 [[files]]
 file = "packwiz-installer-bootstrap.next.jar"
