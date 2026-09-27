@@ -9,7 +9,7 @@ build that was not published.
 
 | Date | Commit | Manifest digest | Replaces | Files | Mods |
 | --- | --- | --- | --- | --- | --- |
-| 2026-09-27 | (next commit records it) | `538a48fb9a2e` | `a35a4be839b8` | 342 | 181 |
+| 2026-09-27 | `43c3b2a` | `538a48fb9a2e` | `a35a4be839b8` | 342 | 181 |
 
 **Jukebox, mobs at the screen edges, a chest slot, refilling, phantoms.** Click **Play** and you are
 done.
